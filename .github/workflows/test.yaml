@@ -41,7 +41,7 @@ jobs:
 
     - name: Run tests
       run: |
-        poetry shell
+        source .venv/bin/activate
         python tests/run_validation_tests.py schema
 
     # - name: Upload test results
