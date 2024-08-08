@@ -37,11 +37,11 @@ jobs:
 
     - name: Install dependencies
       if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-      run: poetry install --no-interaction --no-root
+      run: poetry install --no-interaction
 
     - name: Run tests
       run: |
-        source .venv/bin/activate
+        poetry shell
         python tests/run_validation_tests.py schema
 
     # - name: Upload test results
