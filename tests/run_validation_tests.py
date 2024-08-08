@@ -7,8 +7,8 @@ import sys
 
 def run_validation(schema_path, data_path, root=None):
     cmd = [
-        sys.executable,
-        "validate_json_schema.py",
+        # sys.executable,
+        "validate_jsondoc",
         schema_path,
         data_path,
     ]

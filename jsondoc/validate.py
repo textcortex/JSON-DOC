@@ -1,11 +1,12 @@
-import json
 import argparse
+import json
 import os
 import sys
-from jsonschema import validate, ValidationError
-from jsonschema import Draft202012Validator
+
+from jsonschema import Draft202012Validator, ValidationError, validate
 from referencing import Registry, Resource
-from referencing.jsonschema import DRAFT202012
+
+# from referencing.jsonschema import DRAFT202012
 
 
 def load_json_file(file_path):

@@ -4,9 +4,10 @@ version = "0.1.0"
 description = ""
 authors = ["Onur Solmaz <onur@textcortex.com>"]
 readme = "README.md"
-packages = [
-    { include = "jsondoc" },
-]
+packages = [{ include = "jsondoc" }]
+
+[tool.poetry.scripts]
+validate_jsondoc = "jsondoc.validate:main"
 
 [tool.poetry.dependencies]
 python = "^3.11"
