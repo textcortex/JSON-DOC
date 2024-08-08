@@ -1,0 +1,45 @@
+{
+  "object": "block",
+  "id": "f6ccb48d-72b2-4194-b8f4-807647a52089",
+  "parent": {
+    "type": "page_id",
+    "page_id": "8d7dbc6b-5c55-4589-826c-1352450db04e"
+  },
+  "created_time": "2024-08-01T15:27:00.000Z",
+  "last_edited_time": "2024-08-01T15:27:00.000Z",
+  "created_by": {
+    "object": "user",
+    "id": "b9eb2a95-ab37-462d-b6ff-ff84080051f0"
+  },
+  "last_edited_by": {
+    "object": "user",
+    "id": "b9eb2a95-ab37-462d-b6ff-ff84080051f0"
+  },
+  "has_children": false,
+  "archived": false,
+  "in_trash": false,
+  "type": "paragraph",
+  "paragraph": {
+    "rich_text": [
+      {
+        "type": "text",
+        "text": {
+          "content": "I break the list here",
+          "link": null
+        },
+        "annotations": {
+          "bold": false,
+          "italic": false,
+          "strikethrough": false,
+          "underline": false,
+          "code": false,
+          "color": "default"
+        },
+        "plain_text": "I break the list here",
+        "href": null
+      }
+    ],
+    "color": "default",
+    "invalid_key": 123
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "type": "text",
+  "text": {
+    "content": "Some words ",
+    "link": {
+      "url": "https://example.com"
+    }
+  },
+  "annotations": {
+    "bold": false,
+    "italic": false,
+    "strikethrough": false,
+    "underline": false,
+    "code": false,
+    "color": "default"
+  },
+  "plain_text": "Some words ",
+  "href": null
+}

@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": ["a", "b"]
+    }
+  },
+  "required": ["type"],
+  "allOf": [
+    {
+      "if": {
+        "properties": { "type": { "const": "a" } }
+      },
+      "then": {
+        "properties": {
+          "type": { "const": "a" },
+          "field_a": { "type": "string" }
+        },
+        "required": ["field_a"],
+        "additionalProperties": false
+      }
+    },
+    {
+      "if": {
+        "properties": { "type": { "const": "b" } }
+      },
+      "then": {
+        "properties": {
+          "type": { "const": "b" },
+          "field_b": { "type": "string" }
+        },
+        "required": ["field_b"],
+        "additionalProperties": false
+      }
+    }
+  ],
+  "unevaluatedProperties": false
+}
