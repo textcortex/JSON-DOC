@@ -51,7 +51,7 @@ These are not "official" blocks, but exist under the `rich_text` key in some blo
 - [x] `type: code`
 - [x] `type: equation`
   - Block-level equations.
-- [ ] `type: quote`
+- [x] `type: quote`
 - [ ] ~~`type: callout`~~
   - Won't implement for now
 
@@ -63,10 +63,8 @@ These are not "official" blocks, but exist under the `rich_text` key in some blo
 
 ## Table blocks
 
-- [ ] `type: table`
-- [ ] `type: table_row`
-- [ ] `type: column`
-- [ ] `type: column_list`
+- [x] `type: table`
+- [x] `type: table_row`
 
 ## Non-text blocks
 
@@ -81,17 +79,18 @@ These are not "official" blocks, but exist under the `rich_text` key in some blo
   - Won't implement for now
 
 
-## Page/Container blocks
+## Page/Container type blocks
 
+- [ ] `type: column`
+- [ ] `type: column_list`
 - [ ] `type: table_of_contents`
 - [ ] `type: child_page`
+- [x] `type: divider`
   - Might implement, might not be necessary for the current document conversion use case
 - [ ] `type: synced_block`
   - Might implement, ditto
 - [ ] ~~`type: toggle`~~
   - Won't implement
-- [ ] ~~`type: divider`~~
-  - Won't implement, not that relevant for LLM
 
 ## Link-related blocks
 

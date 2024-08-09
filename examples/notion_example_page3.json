@@ -169,7 +169,7 @@
                 "page_id": "8d7dbc6b-5c55-4589-826c-1352450db04e"
             },
             "created_time": "2024-05-28T20:27:00.000Z",
-            "last_edited_time": "2024-05-28T20:29:00.000Z",
+            "last_edited_time": "2024-08-09T10:29:00.000Z",
             "created_by": {
                 "object": "user",
                 "id": "b9eb2a95-ab37-462d-b6ff-ff84080051f0"
@@ -184,8 +184,8 @@
             "type": "table",
             "table": {
                 "table_width": 2,
-                "has_column_header": false,
-                "has_row_header": false
+                "has_column_header": true,
+                "has_row_header": true
             },
             "children": [
                 {
@@ -196,7 +196,7 @@
                         "block_id": "01c48f37-f565-4966-a801-b9269e6a18ae"
                     },
                     "created_time": "2024-05-28T20:27:00.000Z",
-                    "last_edited_time": "2024-05-28T20:27:00.000Z",
+                    "last_edited_time": "2024-08-09T10:28:00.000Z",
                     "created_by": {
                         "object": "user",
                         "id": "b9eb2a95-ab37-462d-b6ff-ff84080051f0"
@@ -260,7 +260,7 @@
                         "block_id": "01c48f37-f565-4966-a801-b9269e6a18ae"
                     },
                     "created_time": "2024-05-28T20:27:00.000Z",
-                    "last_edited_time": "2024-05-28T20:28:00.000Z",
+                    "last_edited_time": "2024-08-09T10:28:00.000Z",
                     "created_by": {
                         "object": "user",
                         "id": "b9eb2a95-ab37-462d-b6ff-ff84080051f0"
@@ -2475,8 +2475,8 @@
                 ],
                 "type": "file",
                 "file": {
-                    "url": "https://prod-files-secure.s3.us-west-2.amazonaws.com/d6000e68-0a06-463d-8914-d6dfe33f31b9/3141b657-2f3a-425a-9b44-d61df64d63e0/TextCortex_%282024-08-07_13_08_56%29_Create_a_drawing_of_a_scenic_v.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45HZZMZUHI%2F20240809%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20240809T101014Z&X-Amz-Expires=3600&X-Amz-Signature=acf5e62f13936f5fe5d1c1b0f19fd889b74e7d2a334b130b325ba5a0016bdf4c&X-Amz-SignedHeaders=host&x-id=GetObject",
-                    "expiry_time": "2024-08-09T11:10:14.743Z"
+                    "url": "https://prod-files-secure.s3.us-west-2.amazonaws.com/d6000e68-0a06-463d-8914-d6dfe33f31b9/3141b657-2f3a-425a-9b44-d61df64d63e0/TextCortex_%282024-08-07_13_08_56%29_Create_a_drawing_of_a_scenic_v.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45HZZMZUHI%2F20240809%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20240809T110548Z&X-Amz-Expires=3600&X-Amz-Signature=714bbacdfb47bf0ffc088e4b6f6dc3abcbf3914aa37002ea63f17222a358f540&X-Amz-SignedHeaders=host&x-id=GetObject",
+                    "expiry_time": "2024-08-09T12:05:48.794Z"
                 }
             }
         },
@@ -2600,6 +2600,144 @@
                         "href": null
                     }
                 ],
+                "color": "default"
+            }
+        },
+        {
+            "object": "block",
+            "id": "f3308f29-797c-47f1-989c-ec823cfbda03",
+            "parent": {
+                "type": "page_id",
+                "page_id": "8d7dbc6b-5c55-4589-826c-1352450db04e"
+            },
+            "created_time": "2024-08-09T11:00:00.000Z",
+            "last_edited_time": "2024-08-09T11:05:00.000Z",
+            "created_by": {
+                "object": "user",
+                "id": "b9eb2a95-ab37-462d-b6ff-ff84080051f0"
+            },
+            "last_edited_by": {
+                "object": "user",
+                "id": "b9eb2a95-ab37-462d-b6ff-ff84080051f0"
+            },
+            "has_children": false,
+            "archived": false,
+            "in_trash": false,
+            "type": "heading_2",
+            "heading_2": {
+                "rich_text": [
+                    {
+                        "type": "text",
+                        "text": {
+                            "content": "Divider",
+                            "link": null
+                        },
+                        "annotations": {
+                            "bold": false,
+                            "italic": false,
+                            "strikethrough": false,
+                            "underline": false,
+                            "code": false,
+                            "color": "default"
+                        },
+                        "plain_text": "Divider",
+                        "href": null
+                    }
+                ],
+                "is_toggleable": false,
+                "color": "default"
+            }
+        },
+        {
+            "object": "block",
+            "id": "f48c507b-46eb-4b92-a714-3cba4982fec2",
+            "parent": {
+                "type": "page_id",
+                "page_id": "8d7dbc6b-5c55-4589-826c-1352450db04e"
+            },
+            "created_time": "2024-08-09T11:05:00.000Z",
+            "last_edited_time": "2024-08-09T11:05:00.000Z",
+            "created_by": {
+                "object": "user",
+                "id": "b9eb2a95-ab37-462d-b6ff-ff84080051f0"
+            },
+            "last_edited_by": {
+                "object": "user",
+                "id": "b9eb2a95-ab37-462d-b6ff-ff84080051f0"
+            },
+            "has_children": false,
+            "archived": false,
+            "in_trash": false,
+            "type": "paragraph",
+            "paragraph": {
+                "rich_text": [
+                    {
+                        "type": "text",
+                        "text": {
+                            "content": "Here is a divider:",
+                            "link": null
+                        },
+                        "annotations": {
+                            "bold": false,
+                            "italic": false,
+                            "strikethrough": false,
+                            "underline": false,
+                            "code": false,
+                            "color": "default"
+                        },
+                        "plain_text": "Here is a divider:",
+                        "href": null
+                    }
+                ],
+                "color": "default"
+            }
+        },
+        {
+            "object": "block",
+            "id": "df320310-a087-4039-b3ef-28d0460f8664",
+            "parent": {
+                "type": "page_id",
+                "page_id": "8d7dbc6b-5c55-4589-826c-1352450db04e"
+            },
+            "created_time": "2024-08-09T11:05:00.000Z",
+            "last_edited_time": "2024-08-09T11:05:00.000Z",
+            "created_by": {
+                "object": "user",
+                "id": "b9eb2a95-ab37-462d-b6ff-ff84080051f0"
+            },
+            "last_edited_by": {
+                "object": "user",
+                "id": "b9eb2a95-ab37-462d-b6ff-ff84080051f0"
+            },
+            "has_children": false,
+            "archived": false,
+            "in_trash": false,
+            "type": "divider",
+            "divider": {}
+        },
+        {
+            "object": "block",
+            "id": "3378e979-29d3-4d53-b2dd-a4e2df80fef3",
+            "parent": {
+                "type": "page_id",
+                "page_id": "8d7dbc6b-5c55-4589-826c-1352450db04e"
+            },
+            "created_time": "2024-08-09T11:05:00.000Z",
+            "last_edited_time": "2024-08-09T11:05:00.000Z",
+            "created_by": {
+                "object": "user",
+                "id": "b9eb2a95-ab37-462d-b6ff-ff84080051f0"
+            },
+            "last_edited_by": {
+                "object": "user",
+                "id": "b9eb2a95-ab37-462d-b6ff-ff84080051f0"
+            },
+            "has_children": false,
+            "archived": false,
+            "in_trash": false,
+            "type": "paragraph",
+            "paragraph": {
+                "rich_text": [],
                 "color": "default"
             }
         }
