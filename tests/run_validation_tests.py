@@ -1,8 +1,8 @@
-# Usage: python run_validation_tests.py schema/
-
 import os
 import subprocess
 import sys
+
+# Usage: python run_validation_tests.py schema/
 
 
 def run_validation(schema_path, data_path, root=None):
@@ -20,7 +20,7 @@ def run_validation(schema_path, data_path, root=None):
         capture_output=True,
         text=True,
     )
-    return result.returncode == 0
+    return result.returncode == 0, result.stdout
 
 
 def process_directory(source_dir):
@@ -39,7 +39,7 @@ def process_directory(source_dir):
                     data_path = os.path.join(root, file)
                     expected_success = file.endswith("_success.json")
 
-                    result = run_validation(
+                    result, output = run_validation(
                         schema_path,
                         data_path,
                         root=source_dir,
@@ -50,6 +50,7 @@ def process_directory(source_dir):
                     else:
                         print(f"FAIL: {data_path}")
                         failed_tests.append(data_path)
+                        print(output)  # Print the output only if the test fails
 
     return failed_tests
 

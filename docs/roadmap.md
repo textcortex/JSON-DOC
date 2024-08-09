@@ -23,7 +23,9 @@ title: "JSON-DOC"
 - [ ] Frontend for JSON-DOC
   - [ ] JavaScript renderer for JSON-DOC to render it in the browser.
 
-# Blocks
+## JSON-DOC Schema
+
+We will implement a JSONSchema for a Notion page and each block type.
 
 See https://developers.notion.com/reference/block for the authoritative Notion specification.
 
@@ -34,7 +36,9 @@ See https://developers.notion.com/reference/block for the authoritative Notion s
 These are not "official" blocks, but exist under the `rich_text` key in some blocks.
 
 - [x] `type: text`
-- [ ] `type: equation` -> Needed, will be rendered using KaTeX on the client side
+- [x] `type: equation`
+  - Inline equations.
+  - Will be rendered using KaTeX on the client side.
 - [ ] `type: mention` ???
 
 ### Other text blocks
@@ -45,6 +49,7 @@ These are not "official" blocks, but exist under the `rich_text` key in some blo
 - [x] `type: heading_3`
 - [x] `type: code`
 - [ ] `type: equation`
+  - Block-level equations.
 - [ ] `type: quote`
 - [ ] ~~`type: callout`~~
   - Won't implement for now
