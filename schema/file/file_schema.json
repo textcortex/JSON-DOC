@@ -8,19 +8,72 @@
   "type": "object",
   "properties": {
     "type": {
-      "const": "external"
-    },
-    "external": {
-      "type": "object",
-      "properties": {
-        "url": {
-          "type": "string"
-        }
-      },
-      "required": ["url"],
-      "additionalProperties": false
+      "type": "string",
+      "enum": ["external", "file"]
     }
   },
-  "required": ["type", "external"],
+  "required": ["type"],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "type": {
+            "const": "external"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "type": {
+            "const": "external"
+          },
+          "external": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string"
+              }
+            },
+            "required": ["url"],
+            "unevaluatedProperties": false
+          }
+        },
+        "required": ["external"],
+        "unevaluatedProperties": false
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "type": {
+            "const": "file"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "type": {
+            "const": "file"
+          },
+          "file": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string"
+              },
+              "expiry_time": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": ["url"],
+            "unevaluatedProperties": false
+          }
+        },
+        "required": ["file"],
+        "unevaluatedProperties": false
+      }
+    }
+  ],
   "unevaluatedProperties": false
 }
