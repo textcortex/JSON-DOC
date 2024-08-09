@@ -2251,6 +2251,99 @@
             "equation": {
                 "expression": "\\int_0^1\\sin(x)\\,dx"
             }
+        },
+        {
+            "object": "block",
+            "id": "665dc9ee-ea74-46cf-9001-d07d4020b060",
+            "parent": {
+                "type": "page_id",
+                "page_id": "8d7dbc6b-5c55-4589-826c-1352450db04e"
+            },
+            "created_time": "2024-08-09T08:08:00.000Z",
+            "last_edited_time": "2024-08-09T08:08:00.000Z",
+            "created_by": {
+                "object": "user",
+                "id": "b9eb2a95-ab37-462d-b6ff-ff84080051f0"
+            },
+            "last_edited_by": {
+                "object": "user",
+                "id": "b9eb2a95-ab37-462d-b6ff-ff84080051f0"
+            },
+            "has_children": false,
+            "archived": false,
+            "in_trash": false,
+            "type": "heading_2",
+            "heading_2": {
+                "rich_text": [
+                    {
+                        "type": "text",
+                        "text": {
+                            "content": "Image blocks",
+                            "link": null
+                        },
+                        "annotations": {
+                            "bold": false,
+                            "italic": false,
+                            "strikethrough": false,
+                            "underline": false,
+                            "code": false,
+                            "color": "default"
+                        },
+                        "plain_text": "Image blocks",
+                        "href": null
+                    }
+                ],
+                "is_toggleable": false,
+                "color": "default"
+            }
+        },
+        {
+            "object": "block",
+            "id": "98c78199-ef1c-497a-8e44-e1f3b511c3a9",
+            "parent": {
+                "type": "page_id",
+                "page_id": "8d7dbc6b-5c55-4589-826c-1352450db04e"
+            },
+            "created_time": "2024-08-09T08:08:00.000Z",
+            "last_edited_time": "2024-08-09T08:11:00.000Z",
+            "created_by": {
+                "object": "user",
+                "id": "b9eb2a95-ab37-462d-b6ff-ff84080051f0"
+            },
+            "last_edited_by": {
+                "object": "user",
+                "id": "b9eb2a95-ab37-462d-b6ff-ff84080051f0"
+            },
+            "has_children": false,
+            "archived": false,
+            "in_trash": false,
+            "type": "image",
+            "image": {
+                "caption": [
+                    {
+                        "type": "text",
+                        "text": {
+                            "content": "This is a caption for the image",
+                            "link": null
+                        },
+                        "annotations": {
+                            "bold": false,
+                            "italic": false,
+                            "strikethrough": false,
+                            "underline": false,
+                            "code": false,
+                            "color": "default"
+                        },
+                        "plain_text": "This is a caption for the image",
+                        "href": null
+                    }
+                ],
+                "type": "file",
+                "file": {
+                    "url": "https://prod-files-secure.s3.us-west-2.amazonaws.com/d6000e68-0a06-463d-8914-d6dfe33f31b9/3141b657-2f3a-425a-9b44-d61df64d63e0/TextCortex_%282024-08-07_13_08_56%29_Create_a_drawing_of_a_scenic_v.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45HZZMZUHI%2F20240809%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20240809T081135Z&X-Amz-Expires=3600&X-Amz-Signature=530cba1b0231465a2452bfc4eb3ecc34e6eb94a589e736bc487745829816d445&X-Amz-SignedHeaders=host&x-id=GetObject",
+                    "expiry_time": "2024-08-09T09:11:35.358Z"
+                }
+            }
         }
     ]
 }

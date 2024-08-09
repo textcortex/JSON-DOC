@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Image Block",
+  "type": "object",
+  "allOf": [{ "$ref": "/block/common/common_schema.json" }],
+  "properties": {
+    "type": {
+      "const": "image"
+    },
+    "image": { "$ref": "/file/file_schema.json" }
+  },
+  "required": ["type", "image"],
+  "unevaluatedProperties": false
+}
