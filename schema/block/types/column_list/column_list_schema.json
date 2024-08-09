@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Column list block",
+  "type": "object",
+  "allOf": [{ "$ref": "/block/common/common_schema.json" }],
+  "properties": {
+    "type": {
+      "const": "column_list"
+    },
+    "column_list": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "children": {
+      "type": "array",
+      "items": {
+        // Column list can only have column blocks as children
+        "$ref": "/block/types/column/column_schema.json"
+      }
+    }
+  },
+  "required": ["type", "column_list"],
+  "unevaluatedProperties": false
+}

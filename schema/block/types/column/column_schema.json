@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Column block",
+  "type": "object",
+  "allOf": [{ "$ref": "/block/common/common_schema.json" }],
+  "properties": {
+    "type": {
+      "const": "column"
+    },
+    "column": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "children": {
+      "type": "array",
+      "items": {
+        "$ref": "/block/block_schema.json"
+      }
+    }
+  },
+  "required": ["type", "column", "children"],
+  "unevaluatedProperties": false
+}

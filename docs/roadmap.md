@@ -81,8 +81,8 @@ These are not "official" blocks, but exist under the `rich_text` key in some blo
 
 ## Page/Container type blocks
 
-- [ ] `type: column`
-- [ ] `type: column_list`
+- [x] `type: column`
+- [x] `type: column_list`
 - [ ] `type: table_of_contents`
 - [ ] `type: child_page`
 - [x] `type: divider`
