@@ -18,9 +18,14 @@
         },
         "block_id": {
           "type": "string"
+        },
+        "page_id": {
+          "type": "string"
         }
+        // TODO: Make block_id and page_id mutually exclusive
       },
-      "required": ["type"]
+      "required": ["type"],
+      "additionalProperties": false
     },
     "type": {
       "type": "string"
@@ -76,7 +81,8 @@
           "type": "string"
         }
       },
-      "required": ["object", "id"]
+      "required": ["object", "id"],
+      "additionalProperties": false
     },
     "last_edited_time": {
       "type": "string",
@@ -93,7 +99,8 @@
           "type": "string"
         }
       },
-      "required": ["object", "id"]
+      "required": ["object", "id"],
+      "additionalProperties": false
     },
     "archived": {
       "type": "boolean"
@@ -122,5 +129,5 @@
   //     "description": "An object containing type-specific block information"
   //   }
   // "additionalProperties": false
-//   "unevaluatedProperties": false
+  //   "unevaluatedProperties": false
 }

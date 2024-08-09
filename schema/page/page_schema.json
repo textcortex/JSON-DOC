@@ -16,11 +16,13 @@
         "type": {
           "type": "string"
         },
-        "block_id": {
+        // Only pages can contain other pages
+        "page_id": {
           "type": "string"
         }
       },
-      "required": ["type"]
+      "required": ["type"],
+      "additionalProperties": false
     },
     "created_time": {
       "type": "string",
@@ -37,7 +39,8 @@
           "type": "string"
         }
       },
-      "required": ["object", "id"]
+      "required": ["object", "id"],
+      "additionalProperties": false
     },
     "last_edited_time": {
       "type": "string",
@@ -54,7 +57,8 @@
           "type": "string"
         }
       },
-      "required": ["object", "id"]
+      "required": ["object", "id"],
+      "additionalProperties": false
     },
     "icon": {
       "type": "object",
@@ -66,7 +70,10 @@
         "emoji": {
           "type": "string"
         }
-      }
+      },
+      // Update this to an if-then-else schema when we add file support
+      "required": ["type", "emoji"],
+      "additionalProperties": false
     },
     "archived": {
       "type": "boolean"
@@ -95,7 +102,8 @@
             }
           }
         }
-      }
+      },
+      "additionalProperties": false
     },
     "children": {
       "type": "array",

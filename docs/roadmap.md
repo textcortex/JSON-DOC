@@ -33,7 +33,6 @@ We will implement a JSONSchema for a Notion page and each block type.
 
 See https://developers.notion.com/reference/block for the authoritative Notion specification.
 
-
 ## Blocks
 
 ### Rich text (See https://developers.notion.com/reference/rich-text)
