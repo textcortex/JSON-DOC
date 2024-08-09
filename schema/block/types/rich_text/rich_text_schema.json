@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": ["text", "equation"]
+    }
+  },
+  "required": ["type"],
+  "allOf": [
+    {
+      "if": {
+        "properties": { "type": { "const": "text" } }
+      },
+      "then": {
+        "properties": {},
+        "allOf": [
+          {
+            "$ref": "/block/types/rich_text/text/text_schema.json"
+          }
+        ],
+        "unevaluatedProperties": false
+      }
+    },
+    {
+      "if": {
+        "properties": { "type": { "const": "equation" } }
+      },
+      "then": {
+        "properties": {},
+        "allOf": [
+          {
+            "$ref": "/block/types/rich_text/equation/equation_schema.json"
+          }
+        ],
+        "unevaluatedProperties": false
+      }
+    }
+  ],
+  "unevaluatedProperties": false
+}

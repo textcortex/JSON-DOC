@@ -51,7 +51,7 @@ def fetch_page_contents(block_id):
     page_content = fetch_page(block_id)
     contents = {
         "id": block_id,
-        "type": "page",
+        "object": "page",
         "properties": page_content.get("properties") if page_content else {},
         "children": [],
     }

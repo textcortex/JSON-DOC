@@ -23,13 +23,18 @@ title: "JSON-DOC"
 - [ ] Frontend for JSON-DOC
   - [ ] JavaScript renderer for JSON-DOC to render it in the browser.
 
-## JSON-DOC Schema
+# JSON-DOC Schema
 
 We will implement a JSONSchema for a Notion page and each block type.
 
+## Page
+
+- [x] Page block
+
 See https://developers.notion.com/reference/block for the authoritative Notion specification.
 
-## Text-type blocks
+
+## Blocks
 
 ### Rich text (See https://developers.notion.com/reference/rich-text)
 
@@ -42,7 +47,7 @@ These are not "official" blocks, but exist under the `rich_text` key in some blo
 - [ ] ~~`type: mention`~~
   - Won't implement for now
 
-### Other text blocks
+### Other text-type blocks
 
 - [x] `type: paragraph`
 - [x] `type: heading_1`
@@ -55,18 +60,18 @@ These are not "official" blocks, but exist under the `rich_text` key in some blo
 - [ ] ~~`type: callout`~~
   - Won't implement for now
 
-## List item blocks
+### List item blocks
 
 - [x] `type: bulleted_list_item`
 - [x] `type: numbered_list_item`
 - [x] `type: to_do`
 
-## Table blocks
+### Table blocks
 
 - [x] `type: table`
 - [x] `type: table_row`
 
-## Non-text blocks
+### Non-text blocks
 
 - [x] `type: image`
 - [ ] ~~`type: file`~~
@@ -79,7 +84,7 @@ These are not "official" blocks, but exist under the `rich_text` key in some blo
   - Won't implement for now
 
 
-## Page/Container type blocks
+### Page/Container type blocks
 
 - [x] `type: column`
 - [x] `type: column_list`
@@ -92,7 +97,7 @@ These are not "official" blocks, but exist under the `rich_text` key in some blo
 - [ ] ~~`type: toggle`~~
   - Won't implement
 
-## Link-related blocks
+### Link-related blocks
 
 - [ ] ~~`type: link_preview`~~
   - Won't implement
@@ -101,7 +106,7 @@ These are not "official" blocks, but exist under the `rich_text` key in some blo
 - [ ] ~~`type: bookmark`~~
   - Won't implement
 
-## Notion-specific blocks
+### Notion-specific blocks
 
 - [ ] `type: child_database`
 - [ ] ~~`type: breadcrumb`~~
@@ -109,6 +114,6 @@ These are not "official" blocks, but exist under the `rich_text` key in some blo
 - [ ] ~~`type: unsupported`~~
   - Meta block, not needed
 
-## Deprecated blocks
+### Deprecated blocks
 
 - ~~`type: template`~~

@@ -1,0 +1,119 @@
+// Contains keys that are common in all blocks
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "object": {
+      "type": "string",
+      "const": "page"
+    },
+    "id": {
+      "type": "string"
+    },
+    "parent": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "block_id": {
+          "type": "string"
+        }
+      },
+      "required": ["type"]
+    },
+    "created_time": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "created_by": {
+      "type": "object",
+      "properties": {
+        "object": {
+          "type": "string",
+          "const": "user"
+        },
+        "id": {
+          "type": "string"
+        }
+      },
+      "required": ["object", "id"]
+    },
+    "last_edited_time": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "last_edited_by": {
+      "type": "object",
+      "properties": {
+        "object": {
+          "type": "string",
+          "const": "user"
+        },
+        "id": {
+          "type": "string"
+        }
+      },
+      "required": ["object", "id"]
+    },
+    "icon": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["emoji"]
+        },
+        "emoji": {
+          "type": "string"
+        }
+      }
+    },
+    "archived": {
+      "type": "boolean"
+    },
+    "in_trash": {
+      "type": "boolean"
+    },
+    "properties": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string",
+              "const": "title"
+            },
+            "title": {
+              "type": "array",
+              "items": {
+                "$ref": "/block/types/rich_text/text/text_schema.json"
+              }
+            }
+          }
+        }
+      }
+    },
+    "children": {
+      "type": "array",
+      "items": {
+        "$ref": "/block/block_schema.json"
+      }
+    }
+  },
+  "required": [
+    "object",
+    "id",
+    "created_time",
+    "properties",
+    "children"
+    // "created_by", // These are optional since we can be out of Notion context
+    // "last_edited_time",
+    // "last_edited_by",
+    // "archived"
+  ],
+  "additionalProperties": false
+}

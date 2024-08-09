@@ -13,13 +13,13 @@
         "caption": {
           "type": "array",
           "items": {
-            "$ref": "/block/types/rich_text/text/text_schema.json"
+            "$ref": "/block/types/rich_text/rich_text_schema.json"
           }
         },
         "rich_text": {
           "type": "array",
           "items": {
-            "$ref": "/block/types/rich_text/text/text_schema.json"
+            "$ref": "/block/types/rich_text/rich_text_schema.json"
           }
         },
         "language": {
