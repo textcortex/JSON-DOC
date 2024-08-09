@@ -68,3 +68,6 @@ if __name__ == "__main__":
         print(test)
 
     print(f"\nTotal failed tests: {len(failed_tests)}")
+
+    if failed_tests:
+        sys.exit(1)
