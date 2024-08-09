@@ -15,7 +15,7 @@
       "type": "object",
       "allOf": [
         {
-          "$ref": "/file/file_schema.json"
+          "$ref": "/file_base/file_base_schema.json"
         }
       ],
       "properties": {
@@ -25,7 +25,8 @@
             "$ref": "/block/types/rich_text/text/text_schema.json"
           }
         }
-      }
+      },
+      "unevaluatedProperties": false
     }
   },
   "required": ["type", "image"],
