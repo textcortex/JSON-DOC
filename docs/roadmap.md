@@ -39,7 +39,8 @@ These are not "official" blocks, but exist under the `rich_text` key in some blo
 - [x] `type: equation`
   - Inline equations.
   - Will be rendered using KaTeX on the client side.
-- [ ] `type: mention` ???
+- [ ] ~~`type: mention`~~
+  - Won't implement for now
 
 ### Other text blocks
 
@@ -48,7 +49,7 @@ These are not "official" blocks, but exist under the `rich_text` key in some blo
 - [x] `type: heading_2`
 - [x] `type: heading_3`
 - [x] `type: code`
-- [ ] `type: equation`
+- [x] `type: equation`
   - Block-level equations.
 - [ ] `type: quote`
 - [ ] ~~`type: callout`~~
@@ -70,13 +71,14 @@ These are not "official" blocks, but exist under the `rich_text` key in some blo
 ## Non-text blocks
 
 - [x] `type: image`
-- [ ] `type: file`
+- [ ] ~~`type: file`~~
+  - Won't implement for now
 - [ ] ~~`type: pdf`~~
-  - Won't implement
+  - Won't implement for now
 - [ ] ~~`type: embed`~~
-  - Won't implement
+  - Won't implement for now
 - [ ] ~~`type: video`~~
-  - Won't implement
+  - Won't implement for now
 
 
 ## Page/Container blocks

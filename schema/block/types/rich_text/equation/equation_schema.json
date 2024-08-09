@@ -14,7 +14,8 @@
           "type": "string"
         }
       },
-      "required": ["expression"]
+      "required": ["expression"],
+      "additionalProperties": false
     },
     "annotations": {
       "type": "object",

@@ -1,0 +1,17 @@
+{
+  "type": "equation",
+  "equation": {
+    "expression": "\\int_0^1\\sin(x)\\,dx",
+    "invalid_key": 123
+  },
+  "annotations": {
+    "bold": false,
+    "italic": false,
+    "strikethrough": false,
+    "underline": false,
+    "code": false,
+    "color": "default"
+  },
+  "plain_text": "\\int_0^1\\sin(x)\\,dx",
+  "href": null
+}
