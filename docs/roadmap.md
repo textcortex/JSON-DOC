@@ -56,23 +56,21 @@ These are not "official" blocks, but exist under the `rich_text` key in some blo
 
 ## List item blocks
 
-- [ ] `type: bulleted_list_item`
-- [ ] `type: numbered_list_item`
-- [ ] `type: to_do`
+- [x] `type: bulleted_list_item`
+- [x] `type: numbered_list_item`
+- [x] `type: to_do`
 
 ## Table blocks
 
 - [ ] `type: table`
-- [ ] `type: table_of_contents`
 - [ ] `type: table_row`
 - [ ] `type: column`
 - [ ] `type: column_list`
 
 ## Non-text blocks
 
-- [ ] `type: image`
-- [ ] ~~`type: file`~~
-  - Won't implement
+- [x] `type: image`
+- [ ] `type: file`
 - [ ] ~~`type: pdf`~~
   - Won't implement
 - [ ] ~~`type: embed`~~
@@ -80,10 +78,10 @@ These are not "official" blocks, but exist under the `rich_text` key in some blo
 - [ ] ~~`type: video`~~
   - Won't implement
 
-## Page-related blocks
 
 ## Page/Container blocks
 
+- [ ] `type: table_of_contents`
 - [ ] `type: child_page`
   - Might implement, might not be necessary for the current document conversion use case
 - [ ] `type: synced_block`

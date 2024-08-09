@@ -1,13 +1,14 @@
+// Analogous to type:paragraph
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Heading 2 block",
+  "title": "Bulleted list item block",
   "type": "object",
   "allOf": [{ "$ref": "/block/common/common_schema.json" }],
   "properties": {
     "type": {
-      "const": "heading_2"
+      "const": "bulleted_list_item"
     },
-    "heading_2": {
+    "bulleted_list_item": {
       "type": "object",
       "properties": {
         "rich_text": {
@@ -19,9 +20,6 @@
         "color": {
           "$ref": "/shared_definitions.json#/$defs/color"
         },
-        "is_toggleable": {
-          "type": "boolean"
-        },
         "children": {
           "type": "array",
           "items": {
@@ -29,9 +27,10 @@
           }
         }
       },
-      "required": ["rich_text"]
+      "required": ["rich_text"],
+      "additionalProperties": false
     }
   },
-  "required": ["type", "heading_2"],
+  "required": ["type", "bulleted_list_item"],
   "unevaluatedProperties": false
 }

@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Paragraph Block",
+  "title": "Paragraph block",
   "type": "object",
   "allOf": [{ "$ref": "/block/common/common_schema.json" }],
   "properties": {

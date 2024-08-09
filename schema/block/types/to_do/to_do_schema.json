@@ -1,13 +1,14 @@
+// Analogous to type:paragraph
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Heading 2 block",
+  "title": "TODO block",
   "type": "object",
   "allOf": [{ "$ref": "/block/common/common_schema.json" }],
   "properties": {
     "type": {
-      "const": "heading_2"
+      "const": "to_do"
     },
-    "heading_2": {
+    "to_do": {
       "type": "object",
       "properties": {
         "rich_text": {
@@ -16,11 +17,11 @@
             "$ref": "/block/types/rich_text/text/text_schema.json"
           }
         },
+        "checked": {
+          "type": "boolean"
+        },
         "color": {
           "$ref": "/shared_definitions.json#/$defs/color"
-        },
-        "is_toggleable": {
-          "type": "boolean"
         },
         "children": {
           "type": "array",
@@ -29,9 +30,10 @@
           }
         }
       },
-      "required": ["rich_text"]
+      "required": ["rich_text", "checked"],
+      "additionalProperties": false
     }
   },
-  "required": ["type", "heading_2"],
+  "required": ["type", "to_do"],
   "unevaluatedProperties": false
 }
