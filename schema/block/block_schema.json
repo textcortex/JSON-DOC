@@ -1,0 +1,247 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [
+        "paragraph",
+        "to_do",
+        "bulleted_list_item",
+        "numbered_list_item",
+        "code",
+        "column",
+        "column_list",
+        "divider",
+        "equation",
+        "heading_1",
+        "heading_2",
+        "heading_3",
+        "image",
+        "quote",
+        "equation",
+        "table",
+        "table_row"
+      ]
+    }
+  },
+  "required": ["type"],
+  "allOf": [
+    {
+      "if": {
+        "properties": { "type": { "const": "paragraph" } }
+      },
+      "then": {
+        "properties": {
+          "type": { "const": "paragraph" }
+        },
+        "allOf": [{ "$ref": "/block/types/paragraph/paragraph_schema.json" }],
+        "unevaluatedProperties": false
+      }
+    },
+    {
+      "if": {
+        "properties": { "type": { "const": "to_do" } }
+      },
+      "then": {
+        "properties": {
+          "type": { "const": "to_do" }
+        },
+        "allOf": [{ "$ref": "/block/types/to_do/to_do_schema.json" }],
+        "unevaluatedProperties": false
+      }
+    },
+    {
+      "if": {
+        "properties": { "type": { "const": "bulleted_list_item" } }
+      },
+      "then": {
+        "properties": {
+          "type": { "const": "bulleted_list_item" }
+        },
+        "allOf": [
+          {
+            "$ref": "/block/types/bulleted_list_item/bulleted_list_item_schema.json"
+          }
+        ],
+        "unevaluatedProperties": false
+      }
+    },
+    {
+      "if": {
+        "properties": { "type": { "const": "numbered_list_item" } }
+      },
+      "then": {
+        "properties": {
+          "type": { "const": "numbered_list_item" }
+        },
+        "allOf": [
+          {
+            "$ref": "/block/types/numbered_list_item/numbered_list_item_schema.json"
+          }
+        ],
+        "unevaluatedProperties": false
+      }
+    },
+    {
+      "if": {
+        "properties": { "type": { "const": "code" } }
+      },
+      "then": {
+        "properties": {
+          "type": { "const": "code" }
+        },
+        "allOf": [{ "$ref": "/block/types/code/code_schema.json" }],
+        "unevaluatedProperties": false
+      }
+    },
+    {
+      "if": {
+        "properties": { "type": { "const": "column" } }
+      },
+      "then": {
+        "properties": {
+          "type": { "const": "column" }
+        },
+        "allOf": [{ "$ref": "/block/types/column/column_schema.json" }],
+        "unevaluatedProperties": false
+      }
+    },
+    {
+      "if": {
+        "properties": { "type": { "const": "column_list" } }
+      },
+      "then": {
+        "properties": {
+          "type": { "const": "column_list" }
+        },
+        "allOf": [
+          { "$ref": "/block/types/column_list/column_list_schema.json" }
+        ],
+        "unevaluatedProperties": false
+      }
+    },
+    {
+      "if": {
+        "properties": { "type": { "const": "divider" } }
+      },
+      "then": {
+        "properties": {
+          "type": { "const": "divider" }
+        },
+        "allOf": [{ "$ref": "/block/types/divider/divider_schema.json" }],
+        "unevaluatedProperties": false
+      }
+    },
+    {
+      "if": {
+        "properties": { "type": { "const": "equation" } }
+      },
+      "then": {
+        "properties": {
+          "type": { "const": "equation" }
+        },
+        "allOf": [{ "$ref": "/block/types/equation/equation_schema.json" }],
+        "unevaluatedProperties": false
+      }
+    },
+    {
+      "if": {
+        "properties": { "type": { "const": "heading_1" } }
+      },
+      "then": {
+        "properties": {
+          "type": { "const": "heading_1" }
+        },
+        "allOf": [{ "$ref": "/block/types/heading_1/heading_1_schema.json" }],
+        "unevaluatedProperties": false
+      }
+    },
+    {
+      "if": {
+        "properties": { "type": { "const": "heading_2" } }
+      },
+      "then": {
+        "properties": {
+          "type": { "const": "heading_2" }
+        },
+        "allOf": [{ "$ref": "/block/types/heading_2/heading_2_schema.json" }],
+        "unevaluatedProperties": false
+      }
+    },
+    {
+      "if": {
+        "properties": { "type": { "const": "heading_3" } }
+      },
+      "then": {
+        "properties": {
+          "type": { "const": "heading_3" }
+        },
+        "allOf": [{ "$ref": "/block/types/heading_3/heading_3_schema.json" }],
+        "unevaluatedProperties": false
+      }
+    },
+    {
+      "if": {
+        "properties": { "type": { "const": "image" } }
+      },
+      "then": {
+        "properties": {
+          "type": { "const": "image" }
+        },
+        "allOf": [{ "$ref": "/block/types/image/image_schema.json" }],
+        "unevaluatedProperties": false
+      }
+    },
+    {
+      "if": {
+        "properties": { "type": { "const": "quote" } }
+      },
+      "then": {
+        "properties": {
+          "type": { "const": "quote" }
+        },
+        "allOf": [{ "$ref": "/block/types/quote/quote_schema.json" }],
+        "unevaluatedProperties": false
+      }
+    },
+    {
+      "if": {
+        "properties": { "type": { "const": "equation" } }
+      },
+      "then": {
+        "properties": {
+          "type": { "const": "equation" }
+        },
+        "allOf": [{ "$ref": "/block/types/equation/equation_schema.json" }],
+        "unevaluatedProperties": false
+      }
+    },
+    {
+      "if": {
+        "properties": { "type": { "const": "table" } }
+      },
+      "then": {
+        "properties": {
+          "type": { "const": "table" }
+        },
+        "allOf": [{ "$ref": "/block/types/table/table_schema.json" }],
+        "unevaluatedProperties": false
+      }
+    },
+    {
+      "if": {
+        "properties": { "type": { "const": "table_row" } }
+      },
+      "then": {
+        "properties": {
+          "type": { "const": "table_row" }
+        },
+        "allOf": [{ "$ref": "/block/types/table_row/table_row_schema.json" }],
+        "unevaluatedProperties": false
+      }
+    }
+    // Add more conditions here for other block types
+  ]
+  // "unevaluatedProperties": false
+}

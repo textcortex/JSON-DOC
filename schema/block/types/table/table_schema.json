@@ -1,0 +1,38 @@
+// See https://developers.notion.com/reference/block#table
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Table block",
+  "type": "object",
+  "allOf": [{ "$ref": "/block/common/common_schema.json" }],
+  "properties": {
+    "type": {
+      "const": "table"
+    },
+    "table": {
+      "type": "object",
+      "properties": {
+        "table_width": {
+          // Add constraint?
+          "type": "number"
+        },
+        "has_column_header": {
+          "type": "boolean"
+        },
+        "has_row_header": {
+          "type": "boolean"
+        }
+      },
+      "required": ["has_column_header", "has_row_header"],
+      "additionalProperties": false
+    },
+    "children": {
+      "type": "array",
+      "items": {
+        // Table can only have table_row blocks as children
+        "$ref": "/block/types/table_row/table_row_schema.json"
+      }
+    }
+  },
+  "required": ["type", "table", "children"],
+  "unevaluatedProperties": false
+}

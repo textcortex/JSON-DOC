@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Heading 1 block",
+  "type": "object",
+  "allOf": [{ "$ref": "/block/common/common_schema.json" }],
+  "properties": {
+    "type": {
+      "const": "heading_1"
+    },
+    "heading_1": {
+      "type": "object",
+      "properties": {
+        "rich_text": {
+          "type": "array",
+          "items": {
+            "$ref": "/block/types/rich_text/rich_text_schema.json"
+          }
+        },
+        "color": {
+          "$ref": "/shared_definitions.json#/$defs/color"
+        },
+        "is_toggleable": {
+          "type": "boolean"
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "/block/block_schema.json"
+          }
+        }
+      },
+      "required": ["rich_text"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["type", "heading_1"],
+  "unevaluatedProperties": false
+}

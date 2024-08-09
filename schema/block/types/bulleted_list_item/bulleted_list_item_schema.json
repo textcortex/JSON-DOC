@@ -1,0 +1,36 @@
+// Analogous to type:paragraph
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Bulleted list item block",
+  "type": "object",
+  "allOf": [{ "$ref": "/block/common/common_schema.json" }],
+  "properties": {
+    "type": {
+      "const": "bulleted_list_item"
+    },
+    "bulleted_list_item": {
+      "type": "object",
+      "properties": {
+        "rich_text": {
+          "type": "array",
+          "items": {
+            "$ref": "/block/types/rich_text/rich_text_schema.json"
+          }
+        },
+        "color": {
+          "$ref": "/shared_definitions.json#/$defs/color"
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "/block/block_schema.json"
+          }
+        }
+      },
+      "required": ["rich_text"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["type", "bulleted_list_item"],
+  "unevaluatedProperties": false
+}

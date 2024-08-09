@@ -1,0 +1,39 @@
+// Analogous to type:paragraph
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TODO block",
+  "type": "object",
+  "allOf": [{ "$ref": "/block/common/common_schema.json" }],
+  "properties": {
+    "type": {
+      "const": "to_do"
+    },
+    "to_do": {
+      "type": "object",
+      "properties": {
+        "rich_text": {
+          "type": "array",
+          "items": {
+            "$ref": "/block/types/rich_text/rich_text_schema.json"
+          }
+        },
+        "checked": {
+          "type": "boolean"
+        },
+        "color": {
+          "$ref": "/shared_definitions.json#/$defs/color"
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "/block/block_schema.json"
+          }
+        }
+      },
+      "required": ["rich_text", "checked"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["type", "to_do"],
+  "unevaluatedProperties": false
+}

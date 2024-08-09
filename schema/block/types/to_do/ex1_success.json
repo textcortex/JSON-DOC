@@ -1,0 +1,45 @@
+{
+  "object": "block",
+  "id": "b694c88f-688f-4a45-b64b-61d65b29e8b0",
+  "parent": {
+    "type": "page_id",
+    "page_id": "8d7dbc6b-5c55-4589-826c-1352450db04e"
+  },
+  "created_time": "2024-08-09T09:36:00.000Z",
+  "last_edited_time": "2024-08-09T09:36:00.000Z",
+  "created_by": {
+    "object": "user",
+    "id": "b9eb2a95-ab37-462d-b6ff-ff84080051f0"
+  },
+  "last_edited_by": {
+    "object": "user",
+    "id": "b9eb2a95-ab37-462d-b6ff-ff84080051f0"
+  },
+  "has_children": false,
+  "archived": false,
+  "in_trash": false,
+  "type": "to_do",
+  "to_do": {
+    "rich_text": [
+      {
+        "type": "text",
+        "text": {
+          "content": "Here is a checked todo item",
+          "link": null
+        },
+        "annotations": {
+          "bold": false,
+          "italic": false,
+          "strikethrough": false,
+          "underline": false,
+          "code": false,
+          "color": "default"
+        },
+        "plain_text": "Here is a checked todo item",
+        "href": null
+      }
+    ],
+    "checked": true,
+    "color": "default"
+  }
+}

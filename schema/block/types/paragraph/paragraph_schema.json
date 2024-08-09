@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Paragraph block",
+  "type": "object",
+  "allOf": [{ "$ref": "/block/common/common_schema.json" }],
+  "properties": {
+    "type": {
+      "const": "paragraph"
+    },
+    "paragraph": {
+      "type": "object",
+      "properties": {
+        "rich_text": {
+          "type": "array",
+          "items": {
+            "$ref": "/block/types/rich_text/rich_text_schema.json"
+          }
+        },
+        "color": {
+          "$ref": "/shared_definitions.json#/$defs/color"
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "/block/block_schema.json"
+          }
+        }
+      },
+      "required": ["rich_text"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["type", "paragraph"],
+  "unevaluatedProperties": false
+}

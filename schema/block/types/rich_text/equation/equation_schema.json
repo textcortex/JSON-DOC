@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Inline equation",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "equation"
+    },
+    "equation": {
+      "type": "object",
+      "properties": {
+        "expression": {
+          "type": "string"
+        }
+      },
+      "required": ["expression"],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "type": "object",
+      "properties": {
+        "bold": {
+          "type": "boolean"
+        },
+        "italic": {
+          "type": "boolean"
+        },
+        "strikethrough": {
+          "type": "boolean"
+        },
+        "underline": {
+          "type": "boolean"
+        },
+        "code": {
+          "type": "boolean"
+        },
+        "color": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "bold",
+        "italic",
+        "strikethrough",
+        "underline",
+        "code",
+        "color"
+      ]
+    },
+    "plain_text": {
+      "type": "string"
+    },
+    "href": {
+      "type": ["string", "null"]
+    }
+  },
+  "required": ["type", "equation", "annotations", "plain_text", "href"],
+  "unevaluatedProperties": false
+}

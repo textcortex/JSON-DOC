@@ -1,0 +1,7 @@
+{
+  "type": "file",
+  "file": {
+    "url": "https://prod-files-secure.s3.us-west-2.amazonaws.com/d6000e68-0a06-463d-8914-d6dfe33f31b9/3141b657-2f3a-425a-9b44-d61df64d63e0/TextCortex_%282024-08-07_13_08_56%29_Create_a_drawing_of_a_scenic_v.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45HZZMZUHI%2F20240809%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20240809T081135Z&X-Amz-Expires=3600&X-Amz-Signature=530cba1b0231465a2452bfc4eb3ecc34e6eb94a589e736bc487745829816d445&X-Amz-SignedHeaders=host&x-id=GetObject",
+    "expiry_time": "2024-08-09T09:11:35.358Z"
+  }
+}

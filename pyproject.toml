@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "jsondoc"
+version = "0.1.0"
+description = ""
+authors = ["Onur Solmaz <onur@textcortex.com>"]
+readme = "README.md"
+packages = [{ include = "jsondoc" }]
+
+[tool.poetry.scripts]
+validate_jsondoc = "jsondoc.validate:main"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+requests = "^2.32.2"
+python-dotenv = "^1.0.1"
+anthropic = "^0.26.1"
+ipdb = "^0.13.13"
+pillow = "^10.3.0"
+pydantic = "^2.7.2"
+thefuzz = "^0.22.1"
+jsonschema = "^4.23.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
