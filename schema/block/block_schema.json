@@ -21,7 +21,8 @@
         "quote",
         "equation",
         "table",
-        "table_row"
+        "table_row",
+        "toggle"
       ]
     }
   },
@@ -238,6 +239,18 @@
           "type": { "const": "table_row" }
         },
         "allOf": [{ "$ref": "/block/types/table_row/table_row_schema.json" }],
+        "unevaluatedProperties": false
+      }
+    },
+    {
+      "if": {
+        "properties": { "type": { "const": "toggle" } }
+      },
+      "then": {
+        "properties": {
+          "type": { "const": "toggle" }
+        },
+        "allOf": [{ "$ref": "/block/types/toggle/toggle_schema.json" }],
         "unevaluatedProperties": false
       }
     }

@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Toggle block",
+  "type": "object",
+  "allOf": [{ "$ref": "/block/common/common_schema.json" }],
+  "properties": {
+    "type": {
+      "const": "toggle"
+    },
+    "toggle": {
+      "type": "object",
+      "properties": {
+        "rich_text": {
+          "type": "array",
+          "items": {
+            "$ref": "/block/types/rich_text/rich_text_schema.json"
+          }
+        },
+        "color": {
+          "$ref": "/shared_definitions.json#/$defs/color"
+        }
+      },
+      "required": ["rich_text"],
+      "unevaluatedProperties": false
+    },
+    "children": {
+      "type": "array",
+      "items": {
+        "$ref": "/block/block_schema.json"
+      }
+    },
+    "unevaluatedProperties": false
+  },
+  "required": ["type", "toggle"],
+  "unevaluatedProperties": false
+}
