@@ -116,3 +116,10 @@ These are not "official" blocks, but exist under the `rich_text` key in some blo
 ### Deprecated blocks
 
 - ~~`type: template`~~
+
+
+## Miscellaneous tasks
+
+- [ ] Make non-essential fields optional with default values to make JSON files smaller. Start with rich text fields.
+- [ ] Reserve jsondoc PyPI package name.
+- [ ] Buy a JSON-DOC domain. json-doc.org and json-doc.com are available.

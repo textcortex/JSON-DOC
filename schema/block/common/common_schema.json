@@ -110,6 +110,11 @@
     },
     "has_children": {
       "type": "boolean"
+    },
+    // notion-diverge
+    "metadata": {
+      "type": "object",
+      "properties": {}
     }
   },
   "required": [
