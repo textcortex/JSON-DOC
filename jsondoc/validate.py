@@ -1,22 +1,13 @@
 import argparse
-import json
 import os
 import sys
 
 from jsonschema import Draft202012Validator, ValidationError, validate
 from referencing import Registry, Resource
 
+from jsondoc.utils import load_json_file
+
 # from referencing.jsonschema import DRAFT202012
-
-
-def load_json_file(file_path):
-    with open(file_path) as schema_file:
-        content = schema_file.read()
-        # Remove the lines that begin with //. Account for spaces before the //
-        content = "\n".join(
-            [line for line in content.split("\n") if not line.lstrip().startswith("//")]
-        )
-        return json.loads(content)
 
 
 def resolve_schema(uri: str):

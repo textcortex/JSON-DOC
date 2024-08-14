@@ -2,7 +2,7 @@ import os
 import shutil
 
 
-def copy_directory_without_comments(source_dir: str, destination_dir: str):
+def create_models(source_dir: str, destination_dir: str):
     # Create the destination directory if it doesn't exist
     if not os.path.exists(destination_dir):
         os.makedirs(destination_dir)
