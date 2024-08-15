@@ -15,3 +15,13 @@ ARBITRARY_JSON_SCHEMA_OBJECT = {
 ```
 
 These are then annotated as `Dict[str, Any]` in the corresponding Pydantic model fields.
+
+## TODO For the next week
+
+`Dict[str, Any]` is not right. We should be able to refer to the actual Pydantic model that is generated.
+
+- Compile all the generated types and models into a single file and deduplicate them.
+- Set `title` fields to the class names that we want.
+- Replace `$ref`s with a placeholder `Literal` value (`type:string, const:...`) that we will later replace with the actual type.
+- After the file is generated, replace the placeholder `Literal` values with the actual class names.
+- If Python complains that some of the annotations types are not defined, we might need to rearrange the order of the classes in the file, or escape them with `"..."` strings.
