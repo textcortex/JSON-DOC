@@ -1,8 +1,7 @@
 import os
-import shutil
 
 
-def create_models(source_dir: str, destination_dir: str):
+def copy_directory_without_comments(source_dir: str, destination_dir: str):
     # Create the destination directory if it doesn't exist
     if not os.path.exists(destination_dir):
         os.makedirs(destination_dir)
@@ -30,21 +29,3 @@ def create_models(source_dir: str, destination_dir: str):
                 for line in src:
                     if not line.lstrip().startswith("//"):
                         dst.write(line)
-
-
-# def main():
-#     source_directory = input("Enter the source directory path: ")
-#     destination_directory = input("Enter the destination directory path: ")
-
-#     if not os.path.exists(source_directory):
-#         print("Source directory does not exist.")
-#         return
-
-#     copy_directory_without_comments(source_directory, destination_directory)
-#     print(
-#         f"Directory copied from {source_directory} to {destination_directory} with comments removed."
-#     )
-
-
-# if __name__ == "__main__":
-#     main()

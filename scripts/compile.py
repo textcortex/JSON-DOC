@@ -7,7 +7,7 @@ from urllib.parse import urljoin
 
 from datamodel_code_generator import DataModelType, InputFileType, generate
 
-from jsondoc.utils import load_json_file
+from jsondoc.utils import load_json_file, replace_refs_with_arbitrary_object
 
 # from scripts.utils import copy_directory_without_comments
 
@@ -66,6 +66,7 @@ def convert_json_schema_to_model(
             return obj
 
     resolved_schema = resolve_refs(json_schema)
+    resolved_schema = replace_refs_with_arbitrary_object(resolved_schema)
 
     # Create directories if they don't exist
     if output:
