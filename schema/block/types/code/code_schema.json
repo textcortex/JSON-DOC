@@ -99,16 +99,16 @@
             "yaml",
             "java/c/c++/c#"
           ]
-        },
-        "children": {
-          "type": "array",
-          "items": {
-            "$ref": "/block/block_schema.json"
-          }
         }
       },
       "required": ["rich_text"],
       "additionalProperties": false
+    },
+    "children": {
+      "type": "array",
+      "items": {
+        "$ref": "/block/block_schema.json"
+      }
     }
   },
   "required": ["type", "code"],

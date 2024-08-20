@@ -20,16 +20,16 @@
         },
         "color": {
           "$ref": "/shared_definitions/shared_definitions_schema.json#/$defs/color"
-        },
-        "children": {
-          "type": "array",
-          "items": {
-            "$ref": "/block/block_schema.json"
-          }
         }
       },
       "required": ["rich_text"],
       "additionalProperties": false
+    },
+    "children": {
+      "type": "array",
+      "items": {
+        "$ref": "/block/block_schema.json"
+      }
     }
   },
   "required": ["type", "numbered_list_item"],

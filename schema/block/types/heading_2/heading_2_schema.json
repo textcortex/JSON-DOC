@@ -22,15 +22,15 @@
         },
         "is_toggleable": {
           "type": "boolean"
-        },
-        "children": {
-          "type": "array",
-          "items": {
-            "$ref": "/block/block_schema.json"
-          }
         }
       },
       "required": ["rich_text"]
+    },
+    "children": {
+      "type": "array",
+      "items": {
+        "$ref": "/block/block_schema.json"
+      }
     }
   },
   "required": ["type", "heading_2"],
