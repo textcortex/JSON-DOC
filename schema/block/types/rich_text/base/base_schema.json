@@ -1,0 +1,8 @@
+// This exists so that datamodel-code-generator creates a class we can inherit for
+// other rich text types.
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RichTextBase",
+  "type": "object",
+  "properties": {}
+}

@@ -17,11 +17,24 @@ if not os.path.exists("build"):
 
 SCHEMA_DIR = "schema"
 # BS_DIR = "build/schema"
-AUTOGEN_MODELS_DIR = "jsondoc/models/autogen/"
+AUTOGEN_MODELS_DIR = "jsondoc/models/"
 
 # Remove build/schema if it exists
 if os.path.exists(AUTOGEN_MODELS_DIR):
     shutil.rmtree(AUTOGEN_MODELS_DIR)
+
+
+def create_init_files(root_dir):
+    """
+    Create an empty __init__.py file in the specified directory and all its subdirectories.
+
+    :param root_dir: The root directory to start from.
+    """
+    for dirpath, dirnames, filenames in os.walk(root_dir):
+        init_file = os.path.join(dirpath, "__init__.py")
+        if not os.path.exists(init_file):
+            with open(init_file, "w") as f:
+                pass  # Create an empty file
 
 
 def convert_json_schema_to_model(
@@ -38,7 +51,7 @@ def convert_json_schema_to_model(
     def resolve_refs(obj):
         if isinstance(obj, dict):
             if "$ref" in obj:
-                ref = obj["$ref"]
+                ref: str = obj["$ref"]
 
                 if ref.startswith("/"):
                     ref = ref[1:]
@@ -50,12 +63,36 @@ def convert_json_schema_to_model(
                     fragment = tokens[1]
 
                 ref_path = os.path.normpath(os.path.join(source_dir, ref))
-                ret = load_json_file(ref_path)
+                ref_obj = load_json_file(ref_path)
+
                 if fragment:
                     # Get the fragment from the file
                     for part in fragment.split("/"):
                         if part:
-                            ret = ret[part]
+                            ref_obj = ref_obj[part]
+
+                title = ref_obj.get("title")
+                if title is None:
+                    print(ref_path)
+                    return ref_obj
+                    # raise ValueError(f"Title not found in {ref_path}")
+                if "customTypePath" in ref_obj:
+                    customTypePath = ref_obj["customTypePath"]
+                else:
+                    ref_tokens = ref.split("/")
+                    ref_tokens = ["jsondoc", "models"] + ref_tokens[:-1] + [title]
+                    customTypePath = ".".join(ref_tokens)
+
+                ret = {
+                    "type": "object",
+                    "title": title,
+                    # "customBasePath": "ASDF",
+                    "customTypePath": customTypePath,
+                    "properties": {"dummy": {"type": "string"}},
+                    # "const": "Replace_" + title,
+                }
+
+                print(ret)
 
                 return ret
 
@@ -65,8 +102,10 @@ def convert_json_schema_to_model(
         else:
             return obj
 
-    resolved_schema = resolve_refs(json_schema)
-    resolved_schema = replace_refs_with_arbitrary_object(resolved_schema)
+    for _ in range(4):
+        resolved_schema = resolve_refs(json_schema)
+
+    # resolved_schema = replace_refs_with_arbitrary_object(resolved_schema)
 
     # Create directories if they don't exist
     if output:
@@ -109,7 +148,15 @@ def create_models(source_dir: str, destination_dir: str):
                 destination_dir, os.path.relpath(source_file, source_dir)
             )
             # Replace the _schema.json at the end of the filename with .py
-            dest_file = dest_file.replace("_schema.json", ".py")
+            # dest_file = dest_file.replace("_schema.json", ".py")
+
+            # Get the directory of the destination file
+            dest_dir_ = os.path.dirname(dest_file)
+            # if dest_dir_.endswith("/"):
+            #     dest_dir_ = dest_dir_[:-1]
+
+            dest_file = dest_dir_ + "/__init__.py"
+
             print(f"Processing: {source_file}")
 
             # Convert the JSON schema to a model
@@ -119,6 +166,8 @@ def create_models(source_dir: str, destination_dir: str):
             # except Exception as e:
             #     print(f"Failed to convert {source_file} to model: {e}")
             #     continue
+
+    # create_init_files(destination_dir)
 
 
 create_models(SCHEMA_DIR, AUTOGEN_MODELS_DIR)

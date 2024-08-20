@@ -1,10 +1,11 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Image block",
+  "title": "ImageBlock",
+  "customBasePath": "jsondoc.models.block.base.BlockBase",
   "type": "object",
   "allOf": [
     {
-      "$ref": "/block/common/common_schema.json"
+      "$ref": "/block/base/base_schema.json"
     }
   ],
   "properties": {

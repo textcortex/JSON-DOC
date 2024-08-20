@@ -1,6 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Inline equation",
+  "title": "RichTextEquation",
+  "customBasePath": "jsondoc.models.block.types.rich_text.base.RichTextBase",
   "type": "object",
   "properties": {
     "type": {

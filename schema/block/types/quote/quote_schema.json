@@ -1,8 +1,9 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Quote block",
+  "title": "QuoteBlock",
+  "customBasePath": "jsondoc.models.block.base.BlockBase",
   "type": "object",
-  "allOf": [{ "$ref": "/block/common/common_schema.json" }],
+  "allOf": [{ "$ref": "/block/base/base_schema.json" }],
   "properties": {
     "type": {
       "const": "quote"
@@ -17,7 +18,7 @@
           }
         },
         "color": {
-          "$ref": "/shared_definitions.json#/$defs/color"
+          "$ref": "/shared_definitions/shared_definitions_schema.json#/$defs/color"
         },
         "children": {
           "type": "array",

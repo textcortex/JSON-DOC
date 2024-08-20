@@ -1,8 +1,9 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Heading 2 block",
+  "title": "Heading2Block",
+  "customBasePath": "jsondoc.models.block.base.BlockBase",
   "type": "object",
-  "allOf": [{ "$ref": "/block/common/common_schema.json" }],
+  "allOf": [{ "$ref": "/block/base/base_schema.json" }],
   "properties": {
     "type": {
       "const": "heading_2"
@@ -17,7 +18,7 @@
           }
         },
         "color": {
-          "$ref": "/shared_definitions.json#/$defs/color"
+          "$ref": "/shared_definitions/shared_definitions_schema.json#/$defs/color"
         },
         "is_toggleable": {
           "type": "boolean"

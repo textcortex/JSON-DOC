@@ -1,6 +1,6 @@
 import json
 
-ARBITRARY_OBJECT = {
+ARBITRARY_JSON_SCHEMA_OBJECT = {
     "type": "object",
     "properties": {},
     "additionalProperties": True,
@@ -10,7 +10,7 @@ ARBITRARY_OBJECT = {
 def replace_refs_with_arbitrary_object(data):
     if isinstance(data, dict):
         if "$ref" in data:
-            return ARBITRARY_OBJECT
+            return ARBITRARY_JSON_SCHEMA_OBJECT
         return {k: replace_refs_with_arbitrary_object(v) for k, v in data.items()}
     elif isinstance(data, list):
         return [replace_refs_with_arbitrary_object(item) for item in data]
@@ -18,7 +18,7 @@ def replace_refs_with_arbitrary_object(data):
         return data
 
 
-def load_json_file(file_path, deserialize=True):
+def load_json_file(file_path, deserialize=True) -> dict | str:
     with open(file_path) as schema_file:
         content = schema_file.read()
         # Remove the lines that begin with //. Account for spaces before the //

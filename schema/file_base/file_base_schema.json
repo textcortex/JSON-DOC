@@ -6,7 +6,7 @@
 // such as `caption` for images and files.
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "File object",
+  // "title": "File object",
   "type": "object",
   "properties": {
     "type": {
