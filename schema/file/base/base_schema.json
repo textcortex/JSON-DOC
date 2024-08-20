@@ -1,0 +1,8 @@
+// This exists so that datamodel-code-generator creates a class we can inherit for
+// other file object types.
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "FileBase",
+  "type": "object",
+  "properties": {}
+}

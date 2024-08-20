@@ -88,12 +88,10 @@ def convert_json_schema_to_model(
                     "title": title,
                     # "customBasePath": "ASDF",
                     "customTypePath": customTypePath,
-                    "properties": {"dummy": {"type": "string"}},
+                    "properties": {},
+                    # "properties": {"dummy": {"type": "string"}},
                     # "const": "Replace_" + title,
                 }
-
-                print(ret)
-
                 return ret
 
             return {k: resolve_refs(v) for k, v in obj.items()}

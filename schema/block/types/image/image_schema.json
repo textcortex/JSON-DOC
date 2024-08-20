@@ -14,9 +14,10 @@
     },
     "image": {
       "type": "object",
+      "customBasePath": "jsondoc.models.file.base.FileBase",
       "allOf": [
         {
-          "$ref": "/file_base/file_base_schema.json"
+          "$ref": "/file/file_schema.json"
         }
       ],
       "properties": {

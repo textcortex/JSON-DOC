@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "FileSchema",
+  "customBasePath": "jsondoc.models.file.base.FileBase",
+  "type": "object",
+  "properties": {
+    "type": {
+      "const": "file"
+    },
+    "file": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        },
+        "expiry_time": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["url"],
+      "unevaluatedProperties": false
+    }
+  },
+  "required": ["file"]
+  // "unevaluatedProperties": false
+}

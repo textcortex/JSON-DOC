@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RichTextText",
+  "customBasePath": "jsondoc.models.file.base.RichTextBase",
+  "type": "object",
+  "properties": {
+    "type": {
+      "const": "external"
+    },
+    "external": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        }
+      },
+      "required": ["url"],
+      "unevaluatedProperties": false
+    }
+  },
+  "required": ["external"]
+  // "unevaluatedProperties": false
+}

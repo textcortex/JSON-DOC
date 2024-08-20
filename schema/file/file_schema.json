@@ -7,6 +7,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   // "title": "File object",
+  "customTypePath": "jsondoc.models.file.base.FileBase",
   "type": "object",
   "properties": {
     "type": {
@@ -25,23 +26,7 @@
         }
       },
       "then": {
-        "properties": {
-          "type": {
-            "const": "external"
-          },
-          "external": {
-            "type": "object",
-            "properties": {
-              "url": {
-                "type": "string"
-              }
-            },
-            "required": ["url"],
-            "unevaluatedProperties": false
-          }
-        },
-        "required": ["external"]
-        // "unevaluatedProperties": false
+        "$ref": "/file/external/external_schema.json"
       }
     },
     {
@@ -53,27 +38,7 @@
         }
       },
       "then": {
-        "properties": {
-          "type": {
-            "const": "file"
-          },
-          "file": {
-            "type": "object",
-            "properties": {
-              "url": {
-                "type": "string"
-              },
-              "expiry_time": {
-                "type": "string",
-                "format": "date-time"
-              }
-            },
-            "required": ["url"],
-            "unevaluatedProperties": false
-          }
-        },
-        "required": ["file"]
-        // "unevaluatedProperties": false
+        "$ref": "/file/file/file_schema.json"
       }
     }
   ]
