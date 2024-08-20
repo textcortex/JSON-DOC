@@ -165,7 +165,7 @@ def create_models(source_dir: str, destination_dir: str):
             #     print(f"Failed to convert {source_file} to model: {e}")
             #     continue
 
-    # create_init_files(destination_dir)
+    create_init_files(destination_dir)
 
 
 create_models(SCHEMA_DIR, AUTOGEN_MODELS_DIR)
