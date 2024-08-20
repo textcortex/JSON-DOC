@@ -10,8 +10,13 @@ def test_load_page():
     assert page is not None
 
     # Serialize it again
-    serialized = page.model_dump_json(exclude_none=True)
-    import ipdb; ipdb.set_trace()
+    serialized = page.model_dump_json(
+        serialize_as_any=True, # This argument is needed to output nested models
+        exclude_none=True,
+    )
+    import ipdb
+
+    ipdb.set_trace()
 
 
 if __name__ == "__main__":

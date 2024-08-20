@@ -1,3 +1,4 @@
+from copy import deepcopy
 import json
 from typing import Any, Dict, Union
 
@@ -47,50 +48,53 @@ BLOCK_TYPES = {
     BlockType.toggle: ToggleBlock,
 }
 
-COUNTER = 0
+
 @validate_call
 def load_block(obj: Union[str, Dict[str, Any]]) -> BlockBase:
-    global COUNTER
-    COUNTER += 1
-    print(f"Counter: {COUNTER}")
+    obj = deepcopy(obj)
 
     if isinstance(obj, str):
         obj = json.loads(obj)
 
-    children = obj.pop("children", None)
-    if children is not None:
-        obj["children"] = []
+    mutable_obj = dict(obj)
 
+    children = obj.pop("children", None)
+
+    # Extract and validate block type
     current_type = obj["type"]
     try:
         current_type = BlockType(current_type)
     except ValueError:
         raise ValueError(f"Unsupported block type: {current_type}")
 
+    # Find the corresponding block class
     block_instantiator = BLOCK_TYPES.get(current_type)
     if block_instantiator is None:
         raise ValueError(f"Unsupported block type: {current_type}")
 
-    block = block_instantiator(**obj)
+    # Create a mutable copy of the object properties
     if children is not None:
-        if not hasattr(block, "children"):
-            raise ValueError(f"Block {current_type} does not support children")
+        # Process children recursively
+        processed_children = [load_block(child) for child in children]
+        # Add processed children to the mutable object
+        mutable_obj["children"] = processed_children
 
-        block.children = [load_block(child) for child in children]
-
+    # Create the block with all properties, including processed children
+    block = block_instantiator(**mutable_obj)
     return block
 
 
 @validate_call
 def load_page(obj: Union[str, Dict[str, Any]]) -> Page:
+    obj = deepcopy(obj)
+
     if isinstance(obj, str):
         obj = json.loads(obj)
 
-    children = obj.pop("children", [])
-    obj["children"] = []
-    page = Page(**obj)
+    mutable_obj = dict(obj)
 
-    # for child in children:
-    page.children = [load_block(child) for child in children]
+    children = mutable_obj.pop("children", [])
+    mutable_obj["children"] = [load_block(child) for child in children]
 
+    page = Page(**mutable_obj)
     return page
