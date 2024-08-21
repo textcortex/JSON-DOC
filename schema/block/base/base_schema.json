@@ -1,6 +1,7 @@
 // Contains keys that are common in all blocks
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BlockBase",
   "type": "object",
   "properties": {
     "object": {
@@ -110,6 +111,11 @@
     },
     "has_children": {
       "type": "boolean"
+    },
+    // notion-diverge
+    "metadata": {
+      "type": "object",
+      "properties": {}
     }
   },
   "required": [

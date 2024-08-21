@@ -1,8 +1,9 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Code block",
+  "title": "CodeBlock",
+  "customBasePath": "jsondoc.models.block.base.BlockBase",
   "type": "object",
-  "allOf": [{ "$ref": "/block/common/common_schema.json" }],
+  "allOf": [{ "$ref": "/block/base/base_schema.json" }],
   "properties": {
     "type": {
       "const": "code"
@@ -98,16 +99,16 @@
             "yaml",
             "java/c/c++/c#"
           ]
-        },
-        "children": {
-          "type": "array",
-          "items": {
-            "$ref": "/block/block_schema.json"
-          }
         }
       },
       "required": ["rich_text"],
       "additionalProperties": false
+    },
+    "children": {
+      "type": "array",
+      "items": {
+        "$ref": "/block/block_schema.json"
+      }
     }
   },
   "required": ["type", "code"],

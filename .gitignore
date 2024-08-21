@@ -3,3 +3,4 @@
 *.pdf
 *.png
 __pycache__
+build/

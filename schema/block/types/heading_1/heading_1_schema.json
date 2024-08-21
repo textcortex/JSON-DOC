@@ -1,8 +1,9 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Heading 1 block",
+  "title": "Heading1Block",
+  "customBasePath": "jsondoc.models.block.base.BlockBase",
   "type": "object",
-  "allOf": [{ "$ref": "/block/common/common_schema.json" }],
+  "allOf": [{ "$ref": "/block/base/base_schema.json" }],
   "properties": {
     "type": {
       "const": "heading_1"
@@ -17,20 +18,20 @@
           }
         },
         "color": {
-          "$ref": "/shared_definitions.json#/$defs/color"
+          "$ref": "/shared_definitions/shared_definitions_schema.json#/$defs/color"
         },
         "is_toggleable": {
           "type": "boolean"
-        },
-        "children": {
-          "type": "array",
-          "items": {
-            "$ref": "/block/block_schema.json"
-          }
         }
       },
       "required": ["rich_text"],
       "additionalProperties": false
+    },
+    "children": {
+      "type": "array",
+      "items": {
+        "$ref": "/block/block_schema.json"
+      }
     }
   },
   "required": ["type", "heading_1"],

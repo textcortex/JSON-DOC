@@ -1,8 +1,9 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Toggle block",
+  "title": "ToggleBlock",
+  "customBasePath": "jsondoc.models.block.base.BlockBase",
   "type": "object",
-  "allOf": [{ "$ref": "/block/common/common_schema.json" }],
+  "allOf": [{ "$ref": "/block/base/base_schema.json" }],
   "properties": {
     "type": {
       "const": "toggle"
@@ -17,7 +18,7 @@
           }
         },
         "color": {
-          "$ref": "/shared_definitions.json#/$defs/color"
+          "$ref": "/shared_definitions/shared_definitions_schema.json#/$defs/color"
         }
       },
       "required": ["rich_text"],
@@ -28,8 +29,7 @@
       "items": {
         "$ref": "/block/block_schema.json"
       }
-    },
-    "unevaluatedProperties": false
+    }
   },
   "required": ["type", "toggle"],
   "unevaluatedProperties": false

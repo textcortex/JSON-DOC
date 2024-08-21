@@ -3,6 +3,7 @@
   "$defs": {
     "color": {
       "type": "string",
+      "customTypePath": "jsondoc.models.shared_definitions.Color",
       "enum": [
         "blue",
         "blue_background",

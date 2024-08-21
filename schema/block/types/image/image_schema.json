@@ -1,10 +1,11 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Image block",
+  "title": "ImageBlock",
+  "customBasePath": "jsondoc.models.block.base.BlockBase",
   "type": "object",
   "allOf": [
     {
-      "$ref": "/block/common/common_schema.json"
+      "$ref": "/block/base/base_schema.json"
     }
   ],
   "properties": {
@@ -13,9 +14,11 @@
     },
     "image": {
       "type": "object",
+      "customBasePath": "jsondoc.models.file.base.FileBase",
+      "customTypePath": "jsondoc.models.file.base.FileBase",
       "allOf": [
         {
-          "$ref": "/file_base/file_base_schema.json"
+          "$ref": "/file/file_schema.json"
         }
       ],
       "properties": {

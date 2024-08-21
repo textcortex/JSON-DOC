@@ -1,8 +1,9 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Column list block",
+  "title": "ColumnListBlock",
+  "customBasePath": "jsondoc.models.block.base.BlockBase",
   "type": "object",
-  "allOf": [{ "$ref": "/block/common/common_schema.json" }],
+  "allOf": [{ "$ref": "/block/base/base_schema.json" }],
   "properties": {
     "type": {
       "const": "column_list"
@@ -18,8 +19,7 @@
         // Column list can only have column blocks as children
         "$ref": "/block/types/column/column_schema.json"
       }
-    },
-    "unevaluatedProperties": false
+    }
   },
   "required": ["type", "column_list"],
   "unevaluatedProperties": false

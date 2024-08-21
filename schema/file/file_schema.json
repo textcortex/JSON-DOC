@@ -1,0 +1,46 @@
+// https://developers.notion.com/reference/file-object
+// File objects can have type: external, or file (for files uploaded to Notion).
+// We reserve `file` for objects stored in the local filesystem.
+// This is a base object and we don't enforce `unevaluatedProperties` at the top level.
+// The keys from the base file object get merged elsewhere with block-specific keys,
+// such as `caption` for images and files.
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  // "title": "File object",
+  "customTypePath": "jsondoc.models.file.base.FileBase",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": ["external", "file"]
+    }
+  },
+  "required": ["type"],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "type": {
+            "const": "external"
+          }
+        }
+      },
+      "then": {
+        "$ref": "/file/external/external_schema.json"
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "type": {
+            "const": "file"
+          }
+        }
+      },
+      "then": {
+        "$ref": "/file/file/file_schema.json"
+      }
+    }
+  ]
+  // "unevaluatedProperties": false
+}

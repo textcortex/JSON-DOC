@@ -1,9 +1,10 @@
 // Analogous to type:paragraph
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "TODO block",
+  "title": "ToDoBlock",
+  "customBasePath": "jsondoc.models.block.base.BlockBase",
   "type": "object",
-  "allOf": [{ "$ref": "/block/common/common_schema.json" }],
+  "allOf": [{ "$ref": "/block/base/base_schema.json" }],
   "properties": {
     "type": {
       "const": "to_do"
@@ -21,17 +22,17 @@
           "type": "boolean"
         },
         "color": {
-          "$ref": "/shared_definitions.json#/$defs/color"
-        },
-        "children": {
-          "type": "array",
-          "items": {
-            "$ref": "/block/block_schema.json"
-          }
+          "$ref": "/shared_definitions/shared_definitions_schema.json#/$defs/color"
         }
       },
       "required": ["rich_text", "checked"],
       "additionalProperties": false
+    },
+    "children": {
+      "type": "array",
+      "items": {
+        "$ref": "/block/block_schema.json"
+      }
     }
   },
   "required": ["type", "to_do"],
