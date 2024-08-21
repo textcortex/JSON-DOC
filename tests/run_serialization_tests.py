@@ -14,7 +14,7 @@ def test_load_page():
     # Serialize it again
     serialized = page.model_dump_json(
         serialize_as_any=True,  # This argument is needed to output nested models
-        # exclude_none=True,
+        exclude_none=True,
     )
 
     # TBD: Compare the serialized content with the original content
