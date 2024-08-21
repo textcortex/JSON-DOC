@@ -1,7 +1,36 @@
+import difflib
+import json
 from jsondoc.serialize import load_page
 from jsondoc.utils import load_json_file
 
 PAGE_PATH = "schema/page/ex2_success.json"
+
+
+def diff_strings(string1, string2):
+    lines1 = string1.splitlines(keepends=True)
+    lines2 = string2.splitlines(keepends=True)
+
+    diff = difflib.unified_diff(lines1, lines2, lineterm="")
+    return "".join(diff)
+
+
+def remove_null_fields(string):
+    """
+    This is just to make the test pass, because they get removed when
+    we serialize the model with exclude_none=True
+    """
+    lines = string.splitlines()
+    to_remove = [
+        '"link": null',
+        '"href": null',
+    ]
+    # Remove lines that contain the fields
+    lines = [line for line in lines if all(field not in line for field in to_remove)]
+    return "\n".join(lines)
+
+
+def remove_commas_from_end_of_lines(string):
+    return "\n".join([line.rstrip(",") for line in string.splitlines()])
 
 
 def test_load_page():
@@ -17,7 +46,22 @@ def test_load_page():
         exclude_none=True,
     )
 
-    # TBD: Compare the serialized content with the original content
+    canonical_content = json.dumps(content, indent=2, sort_keys=True)
+    canonical_serialized = json.dumps(json.loads(serialized), indent=2, sort_keys=True)
+
+    canonical_content = remove_null_fields(canonical_content)
+
+    # Remove commas from the end of lines
+    canonical_content = remove_commas_from_end_of_lines(canonical_content)
+    canonical_serialized = remove_commas_from_end_of_lines(canonical_serialized)
+
+    # Indented versions
+    # canonical_content = json.dumps
+    diff = diff_strings(canonical_content, canonical_serialized)
+
+    assert len(diff) == 0, (
+        "The serialized content is different from the original content:\n" + diff
+    )
 
 
 if __name__ == "__main__":

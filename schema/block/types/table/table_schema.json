@@ -14,7 +14,7 @@
       "properties": {
         "table_width": {
           // Add constraint?
-          "type": "number"
+          "type": "integer"
         },
         "has_column_header": {
           "type": "boolean"

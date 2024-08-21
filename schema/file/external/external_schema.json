@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "RichTextText",
-  "customBasePath": "jsondoc.models.file.base.RichTextBase",
+  "title": "FileExternal",
+  "customBasePath": "jsondoc.models.file.base.FileBase",
   "type": "object",
   "properties": {
     "type": {

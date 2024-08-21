@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "FileSchema",
+  "title": "FileFile",
   "customBasePath": "jsondoc.models.file.base.FileBase",
   "type": "object",
   "properties": {

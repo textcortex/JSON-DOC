@@ -4,15 +4,15 @@
 
 from __future__ import annotations
 
-from jsondoc.models.block.base import BlockBase
-from jsondoc.models.file.base import FileBase
+from typing import List, Optional
+
+from jsondoc.models.block.types.rich_text.base import RichTextBase
+from jsondoc.models.file.external import FileExternal
 from pydantic import ConfigDict
-from typing_extensions import Literal
 
 
-class ImageBlock(BlockBase):
+class ExternalImage(FileExternal):
     model_config = ConfigDict(
         arbitrary_types_allowed=True,
     )
-    type: Literal['image']
-    image: FileBase
+    caption: Optional[List[RichTextBase]] = None

@@ -15,6 +15,7 @@
     "image": {
       "type": "object",
       "customBasePath": "jsondoc.models.file.base.FileBase",
+      "customTypePath": "jsondoc.models.file.base.FileBase",
       "allOf": [
         {
           "$ref": "/file/file_schema.json"

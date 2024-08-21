@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ExternalImage",
+  "type": "object",
+  "customBasePath": "jsondoc.models.file.external.FileExternal",
+  "allOf": [
+    {
+      "$ref": "/file/external/external_schema.json"
+    }
+  ],
+  "properties": {
+    "caption": {
+      "type": "array",
+      "items": {
+        "$ref": "/block/types/rich_text/rich_text_schema.json"
+      }
+    }
+  },
+  "unevaluatedProperties": false
+}
