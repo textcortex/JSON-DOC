@@ -30,3 +30,34 @@ def load_json_file(file_path, deserialize=True) -> dict | str:
             return json.loads(content)
         else:
             return content
+
+
+def get_nested_value(obj: dict | object, coordinates: str) -> any:
+    keys = coordinates.strip(".").split(".")
+    current = obj
+    for key in keys:
+        if isinstance(current, dict):
+            current = current.get(key)
+        elif hasattr(current, key):
+            current = getattr(current, key)
+        else:
+            raise ValueError(f"Cannot get '{key}' from object: {current}")
+    return current
+
+
+def set_nested_value(obj: dict | object, coordinates: str, value: any) -> None:
+    keys = coordinates.strip(".").split(".")
+    current = obj
+    for key in keys[:-1]:
+        if isinstance(current, dict):
+            if key not in current:
+                current[key] = {}
+            current = current[key]
+        elif hasattr(current, key):
+            current = getattr(current, key)
+        else:
+            raise ValueError(f"Cannot set '{key}' on object: {current}")
+    if isinstance(current, dict):
+        current[keys[-1]] = value
+    else:
+        setattr(current, keys[-1], value)

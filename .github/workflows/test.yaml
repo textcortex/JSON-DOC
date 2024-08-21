@@ -43,6 +43,7 @@ jobs:
       run: |
         source .venv/bin/activate
         python tests/run_validation_tests.py schema
+        python tests/run_serialization_tests.py
 
     # - name: Upload test results
     #   uses: actions/upload-artifact@v2

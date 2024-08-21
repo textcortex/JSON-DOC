@@ -28,6 +28,7 @@ from jsondoc.models.block.types.table_row import TableRowBlock
 from jsondoc.models.block.types.to_do import ToDoBlock
 from jsondoc.models.block.types.toggle import ToggleBlock
 from jsondoc.models.page import Page
+from jsondoc.utils import get_nested_value, set_nested_value
 
 # Resolve block types
 
@@ -55,6 +56,16 @@ BLOCK_TYPES = {
 RICH_TEXT_TYPES = {
     RichTextType.text: RichTextText,
     RichTextType.equation: RichTextEquation,
+}
+
+OTHER_RICH_TEXT_FIELDS = {
+    BlockType.code: [".code.caption"],
+    BlockType.image: [".image.caption"],
+}
+
+# Cell fields are nested lists of rich texts
+NESTED_RICH_TEXT_FIELDS = {
+    BlockType.table_row: [".table_row.cells"],
 }
 
 
@@ -129,6 +140,33 @@ def load_block(obj: Union[str, Dict[str, Any]]) -> BlockBase:
         rich_text = [load_rich_text(rich_text) for rich_text in obj_field["rich_text"]]
         # Replace rich text field
         obj_field["rich_text"] = rich_text
+
+    # Process caption field
+    if current_type in OTHER_RICH_TEXT_FIELDS:
+        rt_fields = OTHER_RICH_TEXT_FIELDS[current_type]
+        for rt_field in rt_fields:
+            val_ = get_nested_value(mutable_obj, rt_field)
+
+            if not isinstance(val_, list):
+                raise ValueError(f"Field {rt_field} must be a list: {val_}")
+
+            new_val = [load_rich_text(rich_text) for rich_text in val_]
+            set_nested_value(mutable_obj, rt_field, new_val)
+
+    # Process cell field
+    if current_type in NESTED_RICH_TEXT_FIELDS:
+        rt_fields = NESTED_RICH_TEXT_FIELDS[current_type]
+        for rt_field in rt_fields:
+            val_ = get_nested_value(mutable_obj, rt_field)
+
+            if not isinstance(val_, list):
+                raise ValueError(f"Field {rt_field} must be a list: {val_}")
+
+            new_val = []
+            for row in val_:
+                new_row = [load_rich_text(rich_text) for rich_text in row]
+                new_val.append(new_row)
+            set_nested_value(mutable_obj, rt_field, new_val)
 
     # Create the block with all properties, including processed children
     block = block_instantiator(**mutable_obj)

@@ -29,8 +29,7 @@
       "items": {
         "$ref": "/block/block_schema.json"
       }
-    },
-    "unevaluatedProperties": false
+    }
   },
   "required": ["type", "toggle"],
   "unevaluatedProperties": false

@@ -19,8 +19,7 @@
         // Column list can only have column blocks as children
         "$ref": "/block/types/column/column_schema.json"
       }
-    },
-    "unevaluatedProperties": false
+    }
   },
   "required": ["type", "column_list"],
   "unevaluatedProperties": false
