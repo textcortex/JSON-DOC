@@ -3,7 +3,7 @@ import json
 from jsondoc.serialize import load_page
 from jsondoc.utils import load_json_file
 
-PAGE_PATH = "schema/page/ex2_success.json"
+PAGE_PATH = "schema/page/ex1_success.json"
 
 
 def diff_strings(string1, string2):
