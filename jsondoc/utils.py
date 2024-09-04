@@ -1,4 +1,6 @@
 import json
+import time
+from contextlib import contextmanager
 
 ARBITRARY_JSON_SCHEMA_OBJECT = {
     "type": "object",
@@ -61,3 +63,15 @@ def set_nested_value(obj: dict | object, coordinates: str, value: any) -> None:
         current[keys[-1]] = value
     else:
         setattr(current, keys[-1], value)
+
+
+@contextmanager
+def timer(name, unit="s"):
+    start_time = time.time()
+    yield
+    end_time = time.time()
+    elapsed = end_time - start_time
+    if unit == "ms":
+        print(f"{name} took {elapsed * 1000:.4f} milliseconds")
+    else:
+        print(f"{name} took {end_time - start_time:.4f} seconds")

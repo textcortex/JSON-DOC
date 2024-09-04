@@ -53,7 +53,7 @@ def validate_json(schema_path, data_path, root=None):
         start = time.time()
         validator.validate(data)
         end = time.time()
-        elapsed_ms =  (end - start) * 1000
+        elapsed_ms = (end - start) * 1000
         print(f"{data_path} is valid (took {elapsed_ms:.3f}ms)")
         sys.exit(0)
     except ValidationError as e:

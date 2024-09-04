@@ -1,7 +1,8 @@
 import difflib
 import json
+import time
 from jsondoc.serialize import load_page
-from jsondoc.utils import load_json_file
+from jsondoc.utils import load_json_file, timer
 
 PAGE_PATH = "schema/page/ex1_success.json"
 
@@ -37,7 +38,9 @@ def test_load_page():
     content = load_json_file(PAGE_PATH)
 
     # This should not raise any errors
-    page = load_page(content)
+    with timer("load_page", unit="ms"):
+        page = load_page(content)
+
     assert page is not None
 
     # Serialize it again
