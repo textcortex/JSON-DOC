@@ -112,6 +112,12 @@ class HtmlToJsonDocConverter(object):
         return self.process_tag(soup, convert_as_inline=False, children_only=True)
 
     def process_tag(self, node, convert_as_inline, children_only=False):
+        """
+        Convert a BeautifulSoup node to JSON-DOC. Recurses through the children
+        nodes and converts them to JSON-DOC corresponding current block type
+        can have children or not.
+        children_only: To be called while inputting
+        """
         text = ""
 
         # markdown headings or cells can't include
@@ -122,7 +128,8 @@ class HtmlToJsonDocConverter(object):
 
         if not children_only and (isHeading or isCell):
             convert_children_as_inline = True
-
+        if node.name == "span":
+            import ipdb; ipdb.set_trace()
         # Remove whitespace-only textnodes in purely nested nodes
         def is_nested_node(el):
             return el and el.name in [
@@ -182,8 +189,8 @@ class HtmlToJsonDocConverter(object):
             text = whitespace_re.sub(" ", text)
 
         # escape special characters if we're not inside a preformatted or code element
-        if not el.find_parent(["pre", "code", "kbd", "samp"]):
-            text = self.escape(text)
+        # if not el.find_parent(["pre", "code", "kbd", "samp"]):
+        #     text = self.escape(text)
 
         # remove trailing whitespaces if any of the following condition is true:
         # - current text node is the last node in li
@@ -221,17 +228,17 @@ class HtmlToJsonDocConverter(object):
         else:
             return True
 
-    def escape(self, text):
-        if not text:
-            return ""
-        if self.options["escape_misc"]:
-            text = re.sub(r"([\\&<`[>~#=+|-])", r"\\\1", text)
-            text = re.sub(r"([0-9])([.)])", r"\1\\\2", text)
-        if self.options["escape_asterisks"]:
-            text = text.replace("*", r"\*")
-        if self.options["escape_underscores"]:
-            text = text.replace("_", r"\_")
-        return text
+    # def escape(self, text):
+    #     if not text:
+    #         return ""
+    #     if self.options["escape_misc"]:
+    #         text = re.sub(r"([\\&<`[>~#=+|-])", r"\\\1", text)
+    #         text = re.sub(r"([0-9])([.)])", r"\1\\\2", text)
+    #     if self.options["escape_asterisks"]:
+    #         text = text.replace("*", r"\*")
+    #     if self.options["escape_underscores"]:
+    #         text = text.replace("_", r"\_")
+    #     return text
 
     def indent(self, text, level):
         return line_beginning_re.sub("\t" * level, text) if text else ""

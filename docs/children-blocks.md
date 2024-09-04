@@ -1,5 +1,7 @@
 
-Blocks that can have children
+# Children blocks
+
+See `jsondoc.validate.rules` for more details.
 
 ## Block types with no restrictions on children types
 
