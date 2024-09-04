@@ -25,13 +25,14 @@
         }
       },
       "required": ["rich_text"]
-    },
-    "children": {
-      "type": "array",
-      "items": {
-        "$ref": "/block/block_schema.json"
-      }
     }
+    // Headings can't have children
+    // "children": {
+    //   "type": "array",
+    //   "items": {
+    //     "$ref": "/block/block_schema.json"
+    //   }
+    // }
   },
   "required": ["type", "heading_3"],
   "unevaluatedProperties": false

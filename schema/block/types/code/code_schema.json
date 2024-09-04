@@ -103,13 +103,14 @@
       },
       "required": ["rich_text"],
       "additionalProperties": false
-    },
-    "children": {
-      "type": "array",
-      "items": {
-        "$ref": "/block/block_schema.json"
-      }
     }
+    // Code block can't have children
+    // "children": {
+    //   "type": "array",
+    //   "items": {
+    //     "$ref": "/block/block_schema.json"
+    //   }
+    // }
   },
   "required": ["type", "code"],
   "unevaluatedProperties": false
