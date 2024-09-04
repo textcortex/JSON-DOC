@@ -25,6 +25,47 @@
         "red_background",
         "yellow_background"
       ]
+    },
+    "annotations": {
+      "type": "object",
+      "customTypePath": "jsondoc.models.shared_definitions.Annotations",
+      "properties": {
+        "bold": {
+          "type": "boolean",
+          "default": false
+        },
+        "italic": {
+          "type": "boolean",
+          "default": false
+        },
+        "strikethrough": {
+          "type": "boolean",
+          "default": false
+        },
+        "underline": {
+          "type": "boolean",
+          "default": false
+        },
+        "code": {
+          "type": "boolean",
+          "default": false
+        },
+        "color": {
+          "type": "string",
+          "default": "default"
+          // TODO: Fix resolution of this reference
+          // "$ref": "/shared_definitions/shared_definitions_schema.json#/$defs/color"
+        }
+      }
+      // notion-diverge
+      // "required": [
+      //   "bold",
+      //   "italic",
+      //   "strikethrough",
+      //   "underline",
+      //   "code",
+      //   "color"
+      // ]
     }
   }
 }

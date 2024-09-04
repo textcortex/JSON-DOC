@@ -1,12 +1,17 @@
 import json
 import time
 from contextlib import contextmanager
+import uuid
 
 ARBITRARY_JSON_SCHEMA_OBJECT = {
     "type": "object",
     "properties": {},
     "additionalProperties": True,
 }
+
+
+def generate_id() -> str:
+    return uuid.uuid4().hex
 
 
 def replace_refs_with_arbitrary_object(data):

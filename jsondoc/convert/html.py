@@ -3,6 +3,26 @@ from textwrap import fill
 import re
 import six
 
+from jsondoc.convert.utils import create_paragraph_block
+from jsondoc.models.block.types.bulleted_list_item import BulletedListItemBlock
+from jsondoc.models.block.types.code import CodeBlock
+from jsondoc.models.block.types.column import ColumnBlock
+from jsondoc.models.block.types.column_list import ColumnListBlock
+from jsondoc.models.block.types.divider import DividerBlock
+from jsondoc.models.block.types.equation import EquationBlock
+from jsondoc.models.block.types.heading_1 import Heading1Block
+from jsondoc.models.block.types.heading_2 import Heading2Block
+from jsondoc.models.block.types.heading_3 import Heading3Block
+from jsondoc.models.block.types.image import ImageBlock
+from jsondoc.models.block.types.numbered_list_item import NumberedListItemBlock
+from jsondoc.models.block.types.paragraph import Paragraph, ParagraphBlock
+from jsondoc.models.block.types.quote import QuoteBlock
+from jsondoc.models.block.types.rich_text.text import RichTextText
+from jsondoc.models.block.types.table import TableBlock
+from jsondoc.models.block.types.table_row import TableRowBlock
+from jsondoc.models.block.types.to_do import ToDoBlock
+from jsondoc.models.block.types.toggle import ToggleBlock
+
 
 convert_heading_re = re.compile(r"convert_h(\d+)")
 line_beginning_re = re.compile(r"^", re.MULTILINE)
@@ -116,20 +136,23 @@ class HtmlToJsonDocConverter(object):
         Convert a BeautifulSoup node to JSON-DOC. Recurses through the children
         nodes and converts them to JSON-DOC corresponding current block type
         can have children or not.
-        children_only: To be called while inputting
+        children_only: Is true only at the top level entry point.
         """
         text = ""
 
         # markdown headings or cells can't include
         # block elements (elements w/newlines)
-        isHeading = html_heading_re.match(node.name) is not None
-        isCell = node.name in ["td", "th"]
+        is_heading = html_heading_re.match(node.name) is not None
+        is_cell = node.name in ["td", "th"]
         convert_children_as_inline = convert_as_inline
 
-        if not children_only and (isHeading or isCell):
+        if not children_only and (is_heading or is_cell):
             convert_children_as_inline = True
         if node.name == "span":
-            import ipdb; ipdb.set_trace()
+            import ipdb
+
+            ipdb.set_trace()
+
         # Remove whitespace-only textnodes in purely nested nodes
         def is_nested_node(el):
             return el and el.name in [
@@ -382,14 +405,21 @@ class HtmlToJsonDocConverter(object):
     def convert_p(self, el, text, convert_as_inline):
         if convert_as_inline:
             return text
-        if self.options["wrap"]:
-            text = fill(
-                text,
-                width=self.options["wrap_width"],
-                break_long_words=False,
-                break_on_hyphens=False,
-            )
-        return "%s\n\n" % text if text else ""
+
+        # if self.options["wrap"]:
+        #     text = fill(
+        #         text,
+        #         width=self.options["wrap_width"],
+        #         break_long_words=False,
+        #         break_on_hyphens=False,
+        #     )
+        # return "%s\n\n" % text if text else ""
+        # return ParagraphBlock(
+        #     paragraph=Paragraph(
+        #         rich_text=[RichTextText(text=text)],
+        #     )
+        # )
+        return create_paragraph_block(text=text)
 
     def convert_pre(self, el, text, convert_as_inline):
         if not text:

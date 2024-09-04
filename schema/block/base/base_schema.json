@@ -123,10 +123,11 @@
     "id",
     "type",
     "created_time",
+    // notion-diverge
     // "created_by", // These are optional since we can be out of Notion context
     // "last_edited_time",
     // "last_edited_by",
-    "archived",
+    // "archived",
     "has_children"
   ]
   // This was meant to refer to the object that contains type-specific block
