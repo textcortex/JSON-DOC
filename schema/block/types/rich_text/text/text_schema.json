@@ -6,7 +6,8 @@
   "properties": {
     "type": {
       "type": "string",
-      "const": "text"
+      "const": "text",
+      "default": "text"
     },
     "text": {
       "type": "object",

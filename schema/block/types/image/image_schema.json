@@ -10,7 +10,9 @@
   ],
   "properties": {
     "type": {
-      "const": "image"
+      "type": "string",
+      "const": "image",
+      "default": "image"
     },
     "image": {
       "type": "object",

@@ -6,7 +6,9 @@
   "allOf": [{ "$ref": "/block/base/base_schema.json" }],
   "properties": {
     "type": {
-      "const": "divider"
+      "type": "string",
+      "const": "divider",
+      "default": "divider"
     },
     "divider": {
       "type": "object",

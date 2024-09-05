@@ -7,7 +7,9 @@
   "allOf": [{ "$ref": "/block/base/base_schema.json" }],
   "properties": {
     "type": {
-      "const": "to_do"
+      "type": "string",
+      "const": "to_do",
+      "default": "to_do"
     },
     "to_do": {
       "type": "object",

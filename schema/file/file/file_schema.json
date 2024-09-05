@@ -5,7 +5,9 @@
   "type": "object",
   "properties": {
     "type": {
-      "const": "file"
+      "type": "string",
+      "const": "file",
+      "default": "file"
     },
     "file": {
       "type": "object",

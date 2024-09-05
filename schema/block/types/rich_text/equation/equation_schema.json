@@ -6,7 +6,8 @@
   "properties": {
     "type": {
       "type": "string",
-      "const": "equation"
+      "const": "equation",
+      "default": "equation"
     },
     "equation": {
       "type": "object",

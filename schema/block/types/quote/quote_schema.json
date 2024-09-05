@@ -6,7 +6,9 @@
   "allOf": [{ "$ref": "/block/base/base_schema.json" }],
   "properties": {
     "type": {
-      "const": "quote"
+      "type": "string",
+      "const": "quote",
+      "default": "quote"
     },
     "quote": {
       "type": "object",

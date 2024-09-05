@@ -5,7 +5,9 @@
   "type": "object",
   "properties": {
     "type": {
-      "const": "external"
+      "type": "string",
+      "const": "external",
+      "default": "external"
     },
     "external": {
       "type": "object",
