@@ -3,7 +3,18 @@ from textwrap import fill
 import re
 import six
 
-from jsondoc.convert.utils import create_paragraph_block
+from jsondoc.convert.utils import (
+    create_code_block,
+    create_divider_block,
+    create_h1_block,
+    create_h2_block,
+    create_h3_block,
+    create_image_block,
+    create_paragraph_block,
+    create_quote_block,
+    create_rich_text,
+)
+from jsondoc.models.block.base import BlockBase
 from jsondoc.models.block.types.bulleted_list_item import BulletedListItemBlock
 from jsondoc.models.block.types.code import CodeBlock
 from jsondoc.models.block.types.column import ColumnBlock
@@ -17,11 +28,13 @@ from jsondoc.models.block.types.image import ImageBlock
 from jsondoc.models.block.types.numbered_list_item import NumberedListItemBlock
 from jsondoc.models.block.types.paragraph import Paragraph, ParagraphBlock
 from jsondoc.models.block.types.quote import QuoteBlock
+from jsondoc.models.block.types.rich_text.base import RichTextBase
 from jsondoc.models.block.types.rich_text.text import RichTextText
 from jsondoc.models.block.types.table import TableBlock
 from jsondoc.models.block.types.table_row import TableRowBlock
 from jsondoc.models.block.types.to_do import ToDoBlock
 from jsondoc.models.block.types.toggle import ToggleBlock
+from jsondoc.models.shared_definitions import Annotations
 
 
 convert_heading_re = re.compile(r"convert_h(\d+)")
@@ -68,24 +81,56 @@ def abstract_inline_conversion(markup_fn):
     references to self.strong_em_symbol etc.
     """
 
-    def implementation(self, el, text, convert_as_inline):
-        markup_prefix = markup_fn(self)
-        if markup_prefix.startswith("<") and markup_prefix.endswith(">"):
-            markup_suffix = "</" + markup_prefix[1:]
-        else:
-            markup_suffix = markup_prefix
+    def implementation(self, el, convert_as_inline):
+        text = el.get_text()
+        # markup_prefix = markup_fn(self)
+        # if markup_prefix.startswith("<") and markup_prefix.endswith(">"):
+        #     markup_suffix = "</" + markup_prefix[1:]
+        # else:
+        #     markup_suffix = markup_prefix
+        # if el.find_parent(["pre", "code", "kbd", "samp"]):
+        #     return text
+        # prefix, suffix, text = chomp(text)
+        # if not text:
+        #     return ""
+        # return "%s%s%s%s%s" % (prefix, markup_prefix, text, markup_suffix, suffix)
+        annotations = markup_fn(self)
+
         if el.find_parent(["pre", "code", "kbd", "samp"]):
-            return text
+            return [create_rich_text()]
+
         prefix, suffix, text = chomp(text)
         if not text:
-            return ""
-        return "%s%s%s%s%s" % (prefix, markup_prefix, text, markup_suffix, suffix)
+            return []
+
+        return [
+            create_rich_text(text=prefix),
+            create_rich_text(text, annotations=annotations),
+            create_rich_text(text=suffix),
+        ]
 
     return implementation
 
 
 def _todict(obj):
     return dict((k, getattr(obj, k)) for k in dir(obj) if not k.startswith("_"))
+
+
+def has_direct_text(node):
+    """
+    Checks if the given BeautifulSoup node has direct text content (text that is not part of any child nodes).
+
+    Args:
+        node (BeautifulSoup element): The HTML node to check.
+
+    Returns:
+        bool: True if the node has direct text content, False otherwise.
+    """
+    # Check if there is any direct text in the node
+    direct_text = node.find_all(text=True, recursive=False)
+
+    # Return True if there is any non-empty direct text, False otherwise
+    return any(text.strip() for text in direct_text)
 
 
 class HtmlToJsonDocConverter(object):
@@ -136,9 +181,10 @@ class HtmlToJsonDocConverter(object):
         Convert a BeautifulSoup node to JSON-DOC. Recurses through the children
         nodes and converts them to JSON-DOC corresponding current block type
         can have children or not.
-        children_only: Is true only at the top level entry point.
-        """
-        text = ""
+
+                """
+        # text = ""
+        objects = []
 
         # markdown headings or cells can't include
         # block elements (elements w/newlines)
@@ -148,10 +194,6 @@ class HtmlToJsonDocConverter(object):
 
         if not children_only and (is_heading or is_cell):
             convert_children_as_inline = True
-        if node.name == "span":
-            import ipdb
-
-            ipdb.set_trace()
 
         # Remove whitespace-only textnodes in purely nested nodes
         def is_nested_node(el):
@@ -188,21 +230,59 @@ class HtmlToJsonDocConverter(object):
                 ):
                     el.extract()
 
+        children_objects = []
         # Convert the children first
         for el in node.children:
             if isinstance(el, Comment) or isinstance(el, Doctype):
                 continue
             elif isinstance(el, NavigableString):
-                text += self.process_text(el)
+                # text += self.process_text(el)
+                children_objects.append(self.process_text(el))
+                pass
             else:
-                text += self.process_tag(el, convert_children_as_inline)
+                # text += self.process_tag(el, convert_children_as_inline)
+                new_objects = self.process_tag(el, convert_children_as_inline)
+                if new_objects is None:
+                    continue
+                elif isinstance(new_objects, list):
+                    children_objects += new_objects
+                else:
+                    children_objects.append(new_objects)
 
+                # elif isinstance(new_objects, BlockBase):
+                    # children_objects.append(new_objects)
+
+        current_level_objects = None
         if not children_only:
             convert_fn = getattr(self, "convert_%s" % node.name, None)
             if convert_fn and self.should_convert_tag(node.name):
-                text = convert_fn(node, text, convert_as_inline)
+                # text = convert_fn(node, text, convert_as_inline)
+                current_level_objects = convert_fn(node, convert_as_inline)
 
-        return text
+        print(node)
+        # if children_objects:
+        import ipdb
+
+        ipdb.set_trace()
+
+        if current_level_objects is None:
+            objects = children_objects
+        elif isinstance(current_level_objects, list):
+            objects = current_level_objects + children_objects
+        elif isinstance(current_level_objects, BlockBase):
+            objects = current_level_objects
+            if children_objects is not None:
+                # import ipdb
+
+                # ipdb.set_trace()
+                pass
+        elif isinstance(current_level_objects, RichTextBase):
+            pass
+            # import ipdb
+
+            # ipdb.set_trace()
+
+        return objects
 
     def process_text(self, el):
         text = six.text_type(el) or ""
@@ -223,22 +303,23 @@ class HtmlToJsonDocConverter(object):
         ):
             text = text.rstrip()
 
-        return text
+        # return text
+        return create_rich_text(text=text)
 
-    def __getattr__(self, attr):
-        # Handle headings
-        m = convert_heading_re.match(attr)
-        if m:
-            n = int(m.group(1))
+    # def __getattr__(self, attr):
+    #     # Handle headings
+    #     m = convert_heading_re.match(attr)
+    #     if m:
+    #         n = int(m.group(1))
 
-            def convert_tag(el, text, convert_as_inline):
-                return self.convert_hn(n, el, text, convert_as_inline)
+    #         def convert_tag(el, text, convert_as_inline):
+    #             return self.convert_hn(n, el, text, convert_as_inline)
 
-            convert_tag.__name__ = "convert_h%s" % n
-            setattr(self, convert_tag.__name__, convert_tag)
-            return convert_tag
+    #         convert_tag.__name__ = "convert_h%s" % n
+    #         setattr(self, convert_tag.__name__, convert_tag)
+    #         return convert_tag
 
-        raise AttributeError(attr)
+    #     raise AttributeError(attr)
 
     def should_convert_tag(self, tag):
         tag = tag.lower()
@@ -266,145 +347,226 @@ class HtmlToJsonDocConverter(object):
     def indent(self, text, level):
         return line_beginning_re.sub("\t" * level, text) if text else ""
 
-    def underline(self, text, pad_char):
-        text = (text or "").rstrip()
-        return "%s\n%s\n\n" % (text, pad_char * len(text)) if text else ""
+    # def underline(self, text, pad_char):
+    #     text = (text or "").rstrip()
+    #     return "%s\n%s\n\n" % (text, pad_char * len(text)) if text else ""
 
-    def convert_a(self, el, text, convert_as_inline):
+    def convert_a(self, el, convert_as_inline):
+        text = el.get_text()
         prefix, suffix, text = chomp(text)
         if not text:
-            return ""
+            # return ""
+            return []
+
         href = el.get("href")
-        title = el.get("title")
+
+        # title = el.get("title")
         # For the replacement see #29: text nodes underscores are escaped
-        if (
-            self.options["autolinks"]
-            and text.replace(r"\_", "_") == href
-            and not title
-            and not self.options["default_title"]
-        ):
-            # Shortcut syntax
-            return "<%s>" % href
-        if self.options["default_title"] and not title:
-            title = href
-        title_part = ' "%s"' % title.replace('"', r"\"") if title else ""
-        return (
-            "%s[%s](%s%s)%s" % (prefix, text, href, title_part, suffix)
-            if href
-            else text
-        )
+        # if (
+        #     self.options["autolinks"]
+        #     and text.replace(r"\_", "_") == href
+        #     and not title
+        #     and not self.options["default_title"]
+        # ):
+        #     # Shortcut syntax
+        #     return "<%s>" % href
+
+        # if self.options["default_title"] and not title:
+        #     title = href
+
+        # title_part = ' "%s"' % title.replace('"', r"\"") if title else ""
+        return [
+            create_rich_text(text=prefix),
+            create_rich_text(text=text, url=href),
+            create_rich_text(text=suffix),
+        ]
+        # return (
+        #     "%s[%s](%s%s)%s" % (prefix, text, href, title_part, suffix)
+        #     if href
+        #     else text
+        # )
 
     convert_b = abstract_inline_conversion(
-        lambda self: 2 * self.options["strong_em_symbol"]
+        lambda self: Annotations(bold=True)  # 2 * self.options["strong_em_symbol"]
     )
 
-    def convert_blockquote(self, el, text, convert_as_inline):
+    def convert_blockquote(self, el, convert_as_inline):
+        text = el.get_text()
+        # if convert_as_inline:
+        #     return text
+        # return (
+        #     "\n" + (line_beginning_re.sub("> ", text.strip()) + "\n\n") if text else ""
+        # )
+        if not text:
+            return None
 
-        if convert_as_inline:
-            return text
+        # if convert_as_inline:
+        #     return create_rich_text(text=text)
 
-        return (
-            "\n" + (line_beginning_re.sub("> ", text.strip()) + "\n\n") if text else ""
-        )
+        # TODO: If text has newlines, split them and add 2, 3, ... lines as children
+        return create_quote_block()
 
-    def convert_br(self, el, text, convert_as_inline):
-        if convert_as_inline:
-            return ""
+    def convert_br(self, el, convert_as_inline):
+        # if convert_as_inline:
+        #     return ""
 
-        if self.options["newline_style"].lower() == BACKSLASH:
-            return "\\\n"
-        else:
-            return "  \n"
+        # if self.options["newline_style"].lower() == BACKSLASH:
+        #     return "\\\n"
+        # else:
+        #     return "  \n"
+        return None  # TBD
 
-    def convert_code(self, el, text, convert_as_inline):
+    def convert_code(self, el, convert_as_inline):
+        text = el.get_text()
+        # if el.parent.name == "pre":
+        #     return text
+        # converter = abstract_inline_conversion(
+        #      "`",
+        # )
+        # return converter(self, el, convert_as_inline)
         if el.parent.name == "pre":
-            return text
-        converter = abstract_inline_conversion(lambda self: "`")
-        return converter(self, el, text, convert_as_inline)
+            return create_rich_text()
 
-    convert_del = abstract_inline_conversion(lambda self: "~~")
+        converter = abstract_inline_conversion(lambda self: Annotations(code=True))
+        return converter(self, el, convert_as_inline)
+
+    convert_del = abstract_inline_conversion(
+        lambda self: Annotations(strikethrough=True)
+        # "~~"
+    )
 
     convert_em = abstract_inline_conversion(
-        lambda self: self.options["strong_em_symbol"]
+        lambda self: Annotations(italic=True)
+        # self.options["strong_em_symbol"]
     )
 
     convert_kbd = convert_code
 
-    def convert_hn(self, n, el, text, convert_as_inline):
+    # def convert_hn(self, n, el, text, convert_as_inline):
+    #     if convert_as_inline:
+    #         return text
+
+    #     style = self.options["heading_style"].lower()
+    #     text = text.strip()
+    #     if style == UNDERLINED and n <= 2:
+    #         line = "=" if n == 1 else "-"
+    #         return self.underline(text, line)
+    #     hashes = "#" * n
+    #     if style == ATX_CLOSED:
+    #         return "%s %s %s\n\n" % (hashes, text, hashes)
+    #     return "%s %s\n\n" % (hashes, text)
+    def convert_h1(self, el, convert_as_inline):
+        text = el.get_text()
         if convert_as_inline:
-            return text
+            return create_rich_text()
 
-        style = self.options["heading_style"].lower()
-        text = text.strip()
-        if style == UNDERLINED and n <= 2:
-            line = "=" if n == 1 else "-"
-            return self.underline(text, line)
-        hashes = "#" * n
-        if style == ATX_CLOSED:
-            return "%s %s %s\n\n" % (hashes, text, hashes)
-        return "%s %s\n\n" % (hashes, text)
+        return create_h1_block()
 
-    def convert_hr(self, el, text, convert_as_inline):
-        return "\n\n---\n\n"
+    def convert_h2(self, el, convert_as_inline):
+        text = el.get_text()
+        if convert_as_inline:
+            return create_rich_text()
+
+        return create_h2_block()
+
+    def convert_h3(self, el, convert_as_inline):
+        text = el.get_text()
+        if convert_as_inline:
+            return create_rich_text()
+
+        return create_h3_block()
+
+    def convert_h4(self, el, convert_as_inline):
+        text = el.get_text()
+        if convert_as_inline:
+            return create_rich_text()
+
+        return create_paragraph_block()
+
+    def convert_h5(self, el, convert_as_inline):
+        text = el.get_text()
+        if convert_as_inline:
+            return create_rich_text()
+
+        return create_paragraph_block()
+
+    def convert_h6(self, el, convert_as_inline):
+        text = el.get_text()
+        if convert_as_inline:
+            return create_rich_text()
+
+        return create_paragraph_block()
+
+    def convert_hr(self, el, convert_as_inline):
+        # return "\n\n---\n\n"
+        return create_divider_block()
 
     convert_i = convert_em
 
-    def convert_img(self, el, text, convert_as_inline):
-        alt = el.attrs.get("alt", None) or ""
-        src = el.attrs.get("src", None) or ""
-        title = el.attrs.get("title", None) or ""
-        title_part = ' "%s"' % title.replace('"', r"\"") if title else ""
-        if (
-            convert_as_inline
-            and el.parent.name not in self.options["keep_inline_images_in"]
-        ):
-            return alt
+    def convert_img(self, el, convert_as_inline):
+        alt = el.attrs.get("alt", None)
+        src = el.attrs.get("src", None)
+        if not src:
+            return None
 
-        return "![%s](%s%s)" % (alt, src, title_part)
+        # title = el.attrs.get("title", None) or ""
+        # title_part = ' "%s"' % title.replace('"', r"\"") if title else ""
+        # if (
+        #     convert_as_inline
+        #     and el.parent.name not in self.options["keep_inline_images_in"]
+        # ):
+        #     return alt
 
-    def convert_list(self, el, text, convert_as_inline):
+        # return "![%s](%s%s)" % (alt, src, title_part)
+        return create_image_block(url=src, caption=alt)
 
-        # Converting a list to inline is undefined.
-        # Ignoring convert_to_inline for list.
+    def convert_list(self, el, convert_as_inline):
 
-        nested = False
-        before_paragraph = False
-        if el.next_sibling and el.next_sibling.name not in ["ul", "ol"]:
-            before_paragraph = True
-        while el:
-            if el.name == "li":
-                nested = True
-                break
-            el = el.parent
-        if nested:
-            # remove trailing newline if nested
-            return "\n" + self.indent(text, 1).rstrip()
-        return text + ("\n" if before_paragraph else "")
+        # # Converting a list to inline is undefined.
+        # # Ignoring convert_to_inline for list.
+
+        # nested = False
+        # before_paragraph = False
+        # if el.next_sibling and el.next_sibling.name not in ["ul", "ol"]:
+        #     before_paragraph = True
+        # while el:
+        #     if el.name == "li":
+        #         nested = True
+        #         break
+        #     el = el.parent
+        # if nested:
+        #     # remove trailing newline if nested
+        #     return "\n" + self.indent(text, 1).rstrip()
+        # return text + ("\n" if before_paragraph else "")
+        return None  # TBD
 
     convert_ul = convert_list
     convert_ol = convert_list
 
-    def convert_li(self, el, text, convert_as_inline):
-        parent = el.parent
-        if parent is not None and parent.name == "ol":
-            if parent.get("start") and str(parent.get("start")).isnumeric():
-                start = int(parent.get("start"))
-            else:
-                start = 1
-            bullet = "%s." % (start + parent.index(el))
-        else:
-            depth = -1
-            while el:
-                if el.name == "ul":
-                    depth += 1
-                el = el.parent
-            bullets = self.options["bullets"]
-            bullet = bullets[depth % len(bullets)]
-        return "%s %s\n" % (bullet, (text or "").strip())
+    def convert_li(self, el, convert_as_inline):
+        # parent = el.parent
+        # if parent is not None and parent.name == "ol":
+        #     if parent.get("start") and str(parent.get("start")).isnumeric():
+        #         start = int(parent.get("start"))
+        #     else:
+        #         start = 1
+        #     bullet = "%s." % (start + parent.index(el))
+        # else:
+        #     depth = -1
+        #     while el:
+        #         if el.name == "ul":
+        #             depth += 1
+        #         el = el.parent
+        #     bullets = self.options["bullets"]
+        #     bullet = bullets[depth % len(bullets)]
+        # return "%s %s\n" % (bullet, (text or "").strip())
+        return None  # TBD
 
-    def convert_p(self, el, text, convert_as_inline):
-        if convert_as_inline:
-            return text
+    def convert_p(self, el, convert_as_inline):
+        # text = el.get_text()
+        # if convert_as_inline:
+        #     # return text
+        #     return create_rich_text()
 
         # if self.options["wrap"]:
         #     text = fill(
@@ -416,26 +578,38 @@ class HtmlToJsonDocConverter(object):
         # return "%s\n\n" % text if text else ""
         # return ParagraphBlock(
         #     paragraph=Paragraph(
-        #         rich_text=[RichTextText(text=text)],
+        #         rich_text=[RichTextText()],
         #     )
         # )
-        return create_paragraph_block(text=text)
+        return create_paragraph_block()
 
-    def convert_pre(self, el, text, convert_as_inline):
+    def convert_pre(self, el, convert_as_inline):
+        text = el.get_text()
+        # if not text:
+        #     return ""
+        # code_language = self.options["code_language"]
+
+        # if self.options["code_language_callback"]:
+        #     code_language = self.options["code_language_callback"](el) or code_language
+
+        # return "\n```%s\n%s\n```\n" % (code_language, text)
         if not text:
-            return ""
+            return None
+
         code_language = self.options["code_language"]
 
         if self.options["code_language_callback"]:
             code_language = self.options["code_language_callback"](el) or code_language
 
-        return "\n```%s\n%s\n```\n" % (code_language, text)
+        return create_code_block(code=text, language=code_language)
 
-    def convert_script(self, el, text, convert_as_inline):
-        return ""
+    def convert_script(self, el, convert_as_inline):
+        # return ""
+        return None
 
-    def convert_style(self, el, text, convert_as_inline):
-        return ""
+    def convert_style(self, el, convert_as_inline):
+        # return ""
+        return None
 
     convert_s = convert_del
 
@@ -443,64 +617,77 @@ class HtmlToJsonDocConverter(object):
 
     convert_samp = convert_code
 
-    convert_sub = abstract_inline_conversion(lambda self: self.options["sub_symbol"])
+    # Notion does not have an alternative for sub and sup tags
+    convert_sub = abstract_inline_conversion(
+        lambda self: Annotations()
+        # self.options["sub_symbol"],
+    )
 
-    convert_sup = abstract_inline_conversion(lambda self: self.options["sup_symbol"])
+    convert_sup = abstract_inline_conversion(
+        lambda self: Annotations()
+        # self.options["sup_symbol"],
+    )
 
-    def convert_table(self, el, text, convert_as_inline):
-        return "\n\n" + text + "\n"
+    def convert_table(self, el, convert_as_inline):
+        # return "\n\n" + text + "\n"
+        return None  # TBD
 
-    def convert_caption(self, el, text, convert_as_inline):
-        return text + "\n"
+    def convert_caption(self, el, convert_as_inline):
+        # return text + "\n"
+        return None  # TBD
 
-    def convert_figcaption(self, el, text, convert_as_inline):
-        return "\n\n" + text + "\n\n"
+    def convert_figcaption(self, el, convert_as_inline):
+        # return "\n\n" + text + "\n\n"
+        return None  # TBD
 
-    def convert_td(self, el, text, convert_as_inline):
-        colspan = 1
-        if "colspan" in el.attrs and el["colspan"].isdigit():
-            colspan = int(el["colspan"])
-        return " " + text.strip().replace("\n", " ") + " |" * colspan
+    def convert_td(self, el, convert_as_inline):
+        # colspan = 1
+        # if "colspan" in el.attrs and el["colspan"].isdigit():
+        #     colspan = int(el["colspan"])
+        # return " " + text.strip().replace("\n", " ") + " |" * colspan
+        return None  # TBD
 
-    def convert_th(self, el, text, convert_as_inline):
-        colspan = 1
-        if "colspan" in el.attrs and el["colspan"].isdigit():
-            colspan = int(el["colspan"])
-        return " " + text.strip().replace("\n", " ") + " |" * colspan
+    def convert_th(self, el, convert_as_inline):
+        # colspan = 1
+        # if "colspan" in el.attrs and el["colspan"].isdigit():
+        #     colspan = int(el["colspan"])
+        # return " " + text.strip().replace("\n", " ") + " |" * colspan
+        return None  # TBD
 
-    def convert_tr(self, el, text, convert_as_inline):
-        cells = el.find_all(["td", "th"])
-        is_headrow = (
-            all([cell.name == "th" for cell in cells])
-            or (not el.previous_sibling and not el.parent.name == "tbody")
-            or (
-                not el.previous_sibling
-                and el.parent.name == "tbody"
-                and len(el.parent.parent.find_all(["thead"])) < 1
-            )
-        )
-        overline = ""
-        underline = ""
-        if is_headrow and not el.previous_sibling:
-            # first row and is headline: print headline underline
-            full_colspan = 0
-            for cell in cells:
-                if "colspan" in cell.attrs and cell["colspan"].isdigit():
-                    full_colspan += int(cell["colspan"])
-                else:
-                    full_colspan += 1
-            underline += "| " + " | ".join(["---"] * full_colspan) + " |" + "\n"
-        elif not el.previous_sibling and (
-            el.parent.name == "table"
-            or (el.parent.name == "tbody" and not el.parent.previous_sibling)
-        ):
-            # first row, not headline, and:
-            # - the parent is table or
-            # - the parent is tbody at the beginning of a table.
-            # print empty headline above this row
-            overline += "| " + " | ".join([""] * len(cells)) + " |" + "\n"
-            overline += "| " + " | ".join(["---"] * len(cells)) + " |" + "\n"
-        return overline + "|" + text + "\n" + underline
+    def convert_tr(self, el, convert_as_inline):
+        # cells = el.find_all(["td", "th"])
+        # is_headrow = (
+        #     all([cell.name == "th" for cell in cells])
+        #     or (not el.previous_sibling and not el.parent.name == "tbody")
+        #     or (
+        #         not el.previous_sibling
+        #         and el.parent.name == "tbody"
+        #         and len(el.parent.parent.find_all(["thead"])) < 1
+        #     )
+        # )
+        # overline = ""
+        # underline = ""
+        # if is_headrow and not el.previous_sibling:
+        #     # first row and is headline: print headline underline
+        #     full_colspan = 0
+        #     for cell in cells:
+        #         if "colspan" in cell.attrs and cell["colspan"].isdigit():
+        #             full_colspan += int(cell["colspan"])
+        #         else:
+        #             full_colspan += 1
+        #     underline += "| " + " | ".join(["---"] * full_colspan) + " |" + "\n"
+        # elif not el.previous_sibling and (
+        #     el.parent.name == "table"
+        #     or (el.parent.name == "tbody" and not el.parent.previous_sibling)
+        # ):
+        #     # first row, not headline, and:
+        #     # - the parent is table or
+        #     # - the parent is tbody at the beginning of a table.
+        #     # print empty headline above this row
+        #     overline += "| " + " | ".join([""] * len(cells)) + " |" + "\n"
+        #     overline += "| " + " | ".join(["---"] * len(cells)) + " |" + "\n"
+        # return overline + "|" + text + "\n" + underline
+        return None  # TBD
 
 
 def html_to_jsondoc(html, **options):
