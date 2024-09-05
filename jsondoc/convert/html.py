@@ -4,6 +4,7 @@ import re
 import six
 
 from jsondoc.convert.utils import (
+    append_to_rich_text,
     create_code_block,
     create_divider_block,
     create_h1_block,
@@ -13,6 +14,7 @@ from jsondoc.convert.utils import (
     create_paragraph_block,
     create_quote_block,
     create_rich_text,
+    try_append_rich_text_to_block,
 )
 from jsondoc.models.block.base import BlockBase
 from jsondoc.models.block.types.bulleted_list_item import BulletedListItemBlock
@@ -82,7 +84,7 @@ def abstract_inline_conversion(markup_fn):
     """
 
     def implementation(self, el, convert_as_inline):
-        text = el.get_text()
+        # text = el.get_text()
         # markup_prefix = markup_fn(self)
         # if markup_prefix.startswith("<") and markup_prefix.endswith(">"):
         #     markup_suffix = "</" + markup_prefix[1:]
@@ -97,17 +99,19 @@ def abstract_inline_conversion(markup_fn):
         annotations = markup_fn(self)
 
         if el.find_parent(["pre", "code", "kbd", "samp"]):
-            return [create_rich_text()]
+            return create_rich_text()
 
-        prefix, suffix, text = chomp(text)
-        if not text:
-            return []
+        # prefix, suffix, text = chomp(text)
+        # if not text:
+        #     return None
 
-        return [
-            create_rich_text(text=prefix),
-            create_rich_text(text, annotations=annotations),
-            create_rich_text(text=suffix),
-        ]
+        return create_rich_text(annotations=annotations)
+
+        # return [
+        #     # create_rich_text(text=prefix),
+        #     create_rich_text(text, annotations=annotations),
+        #     # create_rich_text(text=suffix),
+        # ]
 
     return implementation
 
@@ -174,7 +178,14 @@ class HtmlToJsonDocConverter(object):
         return self.convert_soup(soup)
 
     def convert_soup(self, soup):
-        return self.process_tag(soup, convert_as_inline=False, children_only=True)
+
+        ret = self.process_tag(soup, convert_as_inline=False, children_only=True)
+        if isinstance(ret, list):
+            # return
+            # TODO: create a page and add all the blocks to it
+            pass
+
+        return ret
 
     def process_tag(self, node, convert_as_inline, children_only=False):
         """
@@ -182,7 +193,7 @@ class HtmlToJsonDocConverter(object):
         nodes and converts them to JSON-DOC corresponding current block type
         can have children or not.
 
-                """
+        """
         # text = ""
         objects = []
 
@@ -250,37 +261,62 @@ class HtmlToJsonDocConverter(object):
                     children_objects.append(new_objects)
 
                 # elif isinstance(new_objects, BlockBase):
-                    # children_objects.append(new_objects)
+                # children_objects.append(new_objects)
 
-        current_level_objects = None
+        current_level_object = None
         if not children_only:
             convert_fn = getattr(self, "convert_%s" % node.name, None)
             if convert_fn and self.should_convert_tag(node.name):
                 # text = convert_fn(node, text, convert_as_inline)
-                current_level_objects = convert_fn(node, convert_as_inline)
+                current_level_object = convert_fn(node, convert_as_inline)
 
-        print(node)
+        print(node, current_level_object)
         # if children_objects:
-        import ipdb
 
-        ipdb.set_trace()
-
-        if current_level_objects is None:
+        if current_level_object is None:
             objects = children_objects
-        elif isinstance(current_level_objects, list):
-            objects = current_level_objects + children_objects
-        elif isinstance(current_level_objects, BlockBase):
-            objects = current_level_objects
-            if children_objects is not None:
-                # import ipdb
+        elif isinstance(current_level_object, list):
+            objects = current_level_object + children_objects
+        elif isinstance(current_level_object, BlockBase):
+            # objects = current_level_object
+            remaining_children = []
+            current_rich_text = None
+            for child in children_objects:
+                if isinstance(child, str):
+                    if current_rich_text is None:
+                        current_rich_text = create_rich_text()
+                    append_to_rich_text(current_rich_text, child)
+                    success_ = try_append_rich_text_to_block(
+                        current_level_object, current_rich_text
+                    )
+                    if not success_:
+                        remaining_children.append(current_rich_text)
 
-                # ipdb.set_trace()
-                pass
-        elif isinstance(current_level_objects, RichTextBase):
-            pass
+                elif isinstance(child, RichTextBase):
+                    success_  = try_append_rich_text_to_block(current_level_object, child)
+                    current_rich_text = None
+                    if not success_:
+                        remaining_children.append(child)
+            # if children_objects is not None:
+            #     # import ipdb
+
+            #     # ipdb.set_trace()
+            #     pass
+            objects = [current_level_object] + remaining_children
+        elif isinstance(current_level_object, RichTextBase):
+            # There is an assumption that text formatting tags will not contain
+            # higher level tags like blockquotes, lists, etc.
+            for child in children_objects:
+                if isinstance(child, str):
+                    append_to_rich_text(current_level_object, child)
+
+            objects = [current_level_object]
             # import ipdb
 
             # ipdb.set_trace()
+        import ipdb
+
+        ipdb.set_trace()
 
         return objects
 
@@ -303,8 +339,8 @@ class HtmlToJsonDocConverter(object):
         ):
             text = text.rstrip()
 
-        # return text
-        return create_rich_text(text=text)
+        return text
+        # return create_rich_text(text=text)
 
     # def __getattr__(self, attr):
     #     # Handle headings

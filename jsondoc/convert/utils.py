@@ -1,6 +1,8 @@
 import logging
 from datetime import datetime, timezone
+from typing import Type
 
+from jsondoc.models.block.base import BlockBase
 from jsondoc.models.block.types.bulleted_list_item import BulletedListItemBlock
 from jsondoc.models.block.types.code import Code, CodeBlock, Language
 from jsondoc.models.block.types.column import ColumnBlock
@@ -16,6 +18,7 @@ from jsondoc.models.block.types.image.file_image import FileImage
 from jsondoc.models.block.types.numbered_list_item import NumberedListItemBlock
 from jsondoc.models.block.types.paragraph import Paragraph, ParagraphBlock
 from jsondoc.models.block.types.quote import Quote, QuoteBlock
+from jsondoc.models.block.types.rich_text.base import RichTextBase
 from jsondoc.models.block.types.rich_text.equation import Equation as EquationObj
 from jsondoc.models.block.types.rich_text.equation import RichTextEquation
 from jsondoc.models.block.types.rich_text.text import Link, RichTextText, Text
@@ -40,8 +43,6 @@ def create_rich_text(
     color: str | None = None,
     annotations: Annotations | None = None,
 ) -> RichTextText | RichTextEquation:
-    if text is None and equation is None:
-        raise ValueError("Either text or equation must be provided")
 
     if text is not None and equation is not None:
         raise ValueError("Only one of text or equation must be provided")
@@ -65,18 +66,28 @@ def create_rich_text(
             annotations=annotations,
             plain_text=equation,
         )
-    elif text is not None:
+    else:
         ret = RichTextText(
             text=Text(
-                content=text,
+                content=text if text else "",
                 link=Link(url=url) if url else None,
             ),
             annotations=annotations,
-            plain_text=text,
+            plain_text=text if text else "",
         )
 
     return ret
 
+def append_to_rich_text(rich_text: RichTextBase, text: str) -> RichTextBase:
+    if isinstance(rich_text, RichTextText):
+        rich_text.text.content += text
+        rich_text.plain_text += text
+    elif isinstance(rich_text, RichTextEquation):
+        rich_text.equation.expression += text
+        rich_text.plain_text += text
+    else:
+        raise ValueError(f"Unsupported rich text type: {type(rich_text)}")
+    return rich_text
 
 def create_paragraph_block(
     text: str | None = None,
@@ -270,5 +281,29 @@ def create_quote_block(
         has_children=False,
     )
 
+
+def try_append_rich_text_to_block(block: BlockBase, rich_text: RichTextBase) -> bool:
+    if not isinstance(block, BlockBase) or not isinstance(rich_text, RichTextBase):
+        return False
+
+    if isinstance(block, ParagraphBlock):
+        block.paragraph.rich_text.append(rich_text)
+        return True
+    elif isinstance(block, CodeBlock):
+        block.code.rich_text.append(rich_text)
+        return True
+    elif isinstance(block, Heading1Block):
+        block.heading_1.rich_text.append(rich_text)
+        return True
+    elif isinstance(block, Heading2Block):
+        block.heading_2.rich_text.append(rich_text)
+        return True
+    elif isinstance(block, Heading3Block):
+        block.heading_3.rich_text.append(rich_text)
+        return True
+    elif isinstance(block, QuoteBlock):
+        block.quote.rich_text.append(rich_text)
+        return True
+    # TODO: Add rest of the block types
 
 # print(create_paragraph_block(text="Hello, world!"))
