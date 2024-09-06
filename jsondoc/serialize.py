@@ -238,3 +238,16 @@ def load_page(obj: Union[str, Dict[str, Any]]) -> Page:
 
     page = Page(**mutable_obj)
     return page
+
+@validate_call
+def load_jsondoc(obj: Union[str, Dict[str, Any]]) -> Page | BlockBase:
+    if isinstance(obj, str):
+        obj = json.loads(obj)
+
+    object_ = obj.get("object")
+    if object_ == "page":
+        return load_page(obj)
+    elif object_ == "block":
+        return load_block(obj)
+    else:
+        raise ValueError("Invalid object: must be either 'page' or 'block'")

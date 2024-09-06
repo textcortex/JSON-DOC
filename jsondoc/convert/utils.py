@@ -1,6 +1,6 @@
 import logging
 from datetime import datetime, timezone
-from typing import Type
+from typing import List, Type
 
 from jsondoc.models.block.base import BlockBase
 from jsondoc.models.block.types.bulleted_list_item import BulletedListItemBlock
@@ -78,6 +78,7 @@ def create_rich_text(
 
     return ret
 
+
 def append_to_rich_text(rich_text: RichTextBase, text: str) -> RichTextBase:
     if isinstance(rich_text, RichTextText):
         rich_text.text.content += text
@@ -88,6 +89,7 @@ def append_to_rich_text(rich_text: RichTextBase, text: str) -> RichTextBase:
     else:
         raise ValueError(f"Unsupported rich text type: {type(rich_text)}")
     return rich_text
+
 
 def create_paragraph_block(
     text: str | None = None,
@@ -282,28 +284,47 @@ def create_quote_block(
     )
 
 
+def get_rich_text_from_block(block: BlockBase) -> List[RichTextBase] | None:
+    """
+    Returns the rich text of a block
+    """
+    ret = None
+    if isinstance(block, ParagraphBlock):
+        ret = block.paragraph.rich_text
+    elif isinstance(block, CodeBlock):
+        ret = block.code.rich_text
+    elif isinstance(block, Heading1Block):
+        ret = block.heading_1.rich_text
+    elif isinstance(block, Heading2Block):
+        ret = block.heading_2.rich_text
+    elif isinstance(block, Heading3Block):
+        ret = block.heading_3.rich_text
+    elif isinstance(block, QuoteBlock):
+        ret = block.quote.rich_text
+    elif isinstance(block, BulletedListItemBlock):
+        ret = block.bulleted_list_item.rich_text
+    elif isinstance(block, NumberedListItemBlock):
+        ret = block.numbered_list_item.rich_text
+    elif isinstance(block, ToDoBlock):
+        ret = block.to_do.rich_text
+    elif isinstance(block, ToggleBlock):
+        ret = block.toggle.rich_text
+    # else:
+    #     raise ValueError(f"Unsupported block type: {type(block)}")
+
+    return ret
+
+
 def try_append_rich_text_to_block(block: BlockBase, rich_text: RichTextBase) -> bool:
     if not isinstance(block, BlockBase) or not isinstance(rich_text, RichTextBase):
         return False
 
-    if isinstance(block, ParagraphBlock):
-        block.paragraph.rich_text.append(rich_text)
+    rich_text_list = get_rich_text_from_block(block)
+    if rich_text_list is not None:
+        rich_text_list.append(rich_text)
         return True
-    elif isinstance(block, CodeBlock):
-        block.code.rich_text.append(rich_text)
-        return True
-    elif isinstance(block, Heading1Block):
-        block.heading_1.rich_text.append(rich_text)
-        return True
-    elif isinstance(block, Heading2Block):
-        block.heading_2.rich_text.append(rich_text)
-        return True
-    elif isinstance(block, Heading3Block):
-        block.heading_3.rich_text.append(rich_text)
-        return True
-    elif isinstance(block, QuoteBlock):
-        block.quote.rich_text.append(rich_text)
-        return True
-    # TODO: Add rest of the block types
+
+    return False
+
 
 # print(create_paragraph_block(text="Hello, world!"))
