@@ -31,6 +31,7 @@ from jsondoc.models.block.types.numbered_list_item import NumberedListItemBlock
 from jsondoc.models.block.types.paragraph import Paragraph, ParagraphBlock
 from jsondoc.models.block.types.quote import QuoteBlock
 from jsondoc.models.block.types.rich_text.base import RichTextBase
+from jsondoc.models.block.types.rich_text.equation import RichTextEquation
 from jsondoc.models.block.types.rich_text.text import RichTextText
 from jsondoc.models.block.types.table import TableBlock
 from jsondoc.models.block.types.table_row import TableRowBlock
@@ -59,6 +60,9 @@ BACKSLASH = "backslash"
 # Strong and emphasis style
 ASTERISK = "*"
 UNDERSCORE = "_"
+
+CHILDREN_TYPE = Union[BlockBase, RichTextBase, str]
+RICH_TEXT_TYPE = Union[RichTextBase, RichTextEquation]
 
 
 def chomp(text):
@@ -137,6 +141,13 @@ def has_direct_text(node):
     return any(text.strip() for text in direct_text)
 
 
+def reconcile_to_rich_text(
+    parent_rich_text: RICH_TEXT_TYPE, children: List[CHILDREN_TYPE]
+):
+    annotations = parent_rich_text.annotations
+    # TBD
+
+
 class HtmlToJsonDocConverter(object):
     class DefaultOptions:
         autolinks = True
@@ -189,7 +200,7 @@ class HtmlToJsonDocConverter(object):
 
     def process_tag(
         self, node, convert_as_inline, children_only=False
-    ) -> List[Union[BlockBase, RichTextBase, str]]:
+    ) -> List[CHILDREN_TYPE]:
         """
         Convert a BeautifulSoup node to JSON-DOC. Recurses through the children
         nodes and converts them to JSON-DOC corresponding current block type
@@ -264,7 +275,7 @@ class HtmlToJsonDocConverter(object):
                 # text = convert_fn(node, text, convert_as_inline)
                 current_level_object = convert_fn(node, convert_as_inline)
 
-        print(node, current_level_object)
+        print(node, repr(current_level_object))
         # if children_objects:
 
         if current_level_object is None:

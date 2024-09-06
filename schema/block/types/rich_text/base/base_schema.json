@@ -4,5 +4,18 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "RichTextBase",
   "type": "object",
-  "properties": {}
+  "properties": {
+    // NOTE: Ideally, these should be owned by RichTextBase, but there were some issues resolving
+    // references. Try again later
+    //
+    // "annotations": {
+    //   "$ref": "/shared_definitions/shared_definitions_schema.json#/$defs/annotations"
+    // },
+    // "plain_text": {
+    //   "type": "string"
+    // },
+    // "href": {
+    //   "type": ["string", "null"]
+    // }
+  }
 }
