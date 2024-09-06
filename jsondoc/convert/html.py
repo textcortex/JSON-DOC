@@ -1,7 +1,6 @@
 from bs4 import BeautifulSoup, NavigableString, Comment, Doctype
 from textwrap import fill
 import re
-import six
 
 from jsondoc.convert.utils import (
     append_to_rich_text,
@@ -236,7 +235,7 @@ class HtmlToJsonDocConverter(object):
                 )
                 if (
                     isinstance(el, NavigableString)
-                    and six.text_type(el).strip() == ""
+                    and str(el).strip() == ""
                     and can_extract
                 ):
                     el.extract()
@@ -293,7 +292,9 @@ class HtmlToJsonDocConverter(object):
                         remaining_children.append(current_rich_text)
 
                 elif isinstance(child, RichTextBase):
-                    success_  = try_append_rich_text_to_block(current_level_object, child)
+                    success_ = try_append_rich_text_to_block(
+                        current_level_object, child
+                    )
                     current_rich_text = None
                     if not success_:
                         remaining_children.append(child)
@@ -321,7 +322,7 @@ class HtmlToJsonDocConverter(object):
         return objects
 
     def process_text(self, el):
-        text = six.text_type(el) or ""
+        text = str(el) or ""
 
         # normalize whitespace if we're not inside a preformatted element
         if not el.find_parent("pre"):
