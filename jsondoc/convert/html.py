@@ -1,3 +1,4 @@
+from typing import List, Union
 from bs4 import BeautifulSoup, NavigableString, Comment, Doctype
 from textwrap import fill
 import re
@@ -186,7 +187,9 @@ class HtmlToJsonDocConverter(object):
 
         return ret
 
-    def process_tag(self, node, convert_as_inline, children_only=False):
+    def process_tag(
+        self, node, convert_as_inline, children_only=False
+    ) -> List[Union[BlockBase, RichTextBase, str]]:
         """
         Convert a BeautifulSoup node to JSON-DOC. Recurses through the children
         nodes and converts them to JSON-DOC corresponding current block type
@@ -252,15 +255,7 @@ class HtmlToJsonDocConverter(object):
             else:
                 # text += self.process_tag(el, convert_children_as_inline)
                 new_objects = self.process_tag(el, convert_children_as_inline)
-                if new_objects is None:
-                    continue
-                elif isinstance(new_objects, list):
-                    children_objects += new_objects
-                else:
-                    children_objects.append(new_objects)
-
-                # elif isinstance(new_objects, BlockBase):
-                # children_objects.append(new_objects)
+                children_objects += new_objects
 
         current_level_object = None
         if not children_only:
@@ -298,11 +293,7 @@ class HtmlToJsonDocConverter(object):
                     current_rich_text = None
                     if not success_:
                         remaining_children.append(child)
-            # if children_objects is not None:
-            #     # import ipdb
 
-            #     # ipdb.set_trace()
-            #     pass
             objects = [current_level_object] + remaining_children
         elif isinstance(current_level_object, RichTextBase):
             # There is an assumption that text formatting tags will not contain
@@ -312,9 +303,7 @@ class HtmlToJsonDocConverter(object):
                     append_to_rich_text(current_level_object, child)
 
             objects = [current_level_object]
-            # import ipdb
 
-            # ipdb.set_trace()
         import ipdb
 
         ipdb.set_trace()

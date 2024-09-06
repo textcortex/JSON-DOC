@@ -33,13 +33,13 @@ graph TD;
     class node1,node3,node4,node6,node7 string;
 ```
 
-In this example, only the paragraph element creates a JSON-DOC (paragraph) block.
+In this example, only the `<p>` element creates a JSON-DOC (paragraph) block.
 
 - Terminal string nodes (colored green) are returned as strings while recursing the tree.
 - HTML tags that don't create blocks (colored yellow), but apply some style, such as `<b>` and `<em>`, are returned as empty rich text objects with corresponding `Annotations`.
 - HTML tags that create blocks (colored red), such as `<p>`, `<blockquote>`, `<code>`, etc. are returned as empty JSON-DOC blocks.
 
-The function `process_tag(node)` receives the top level node and recurses its children which are themselves elements.
+The function `process_tag(node)` receives the top level node and recurses its children which are themselves either HTML elements or text nodes.
 
 ```python
 def process_tag(node):
@@ -48,12 +48,14 @@ def process_tag(node):
         if isinstance(child, NavigableString):
             children_objects.append(child.text)
         else:
-            children_objects.append(process_tag(child))
+            # Note that process_tag returns a list of objects and it is
+            # concatenated to the children_objects list.
+            children_objects.extend(process_tag(child))
 
-    # Get the empty object corresponding to the current node (rich text or block)
-    current_node_object = convert_current_node(node)
+    # Get the empty object corresponding to the current node (rich text, block or None)
+    current_node_object: BlockBase | RichTextBase | None = convert_current_node(node)
 
     # Reconcile the children objects with the current node object
-    return_objects = reconcile_children(current_node_object, children_objects)
+    return_objects: list = reconcile_children(current_node_object, children_objects)
     return return_objects
 ```
