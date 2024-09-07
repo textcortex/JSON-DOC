@@ -14,6 +14,7 @@ from jsondoc.convert.utils import (
     create_paragraph_block,
     create_quote_block,
     create_rich_text,
+    get_rich_text_from_block,
     try_append_rich_text_to_block,
 )
 from jsondoc.models.block.base import BlockBase
@@ -141,11 +142,63 @@ def has_direct_text(node):
     return any(text.strip() for text in direct_text)
 
 
+def apply_parent_annotations(
+    parent_annotations: Annotations,
+    child_annotations: Annotations,
+):
+    if parent_annotations.bold is True:
+        child_annotations.bold = True
+
+    if parent_annotations.italic is True:
+        child_annotations.italic = True
+
+    if parent_annotations.strikethrough is True:
+        child_annotations.strikethrough = True
+
+    if parent_annotations.underline is True:
+        child_annotations.underline = True
+
+    if parent_annotations.code is True:
+        child_annotations.code = True
+
+    # TBD: Decide how to handle color
+
+
+def apply_annotations_to_block(annotations_to_apply: Annotations, block: BlockBase):
+    if hasattr(block, "children"):
+        for child in block.children:
+            apply_annotations_to_block(annotations_to_apply, child)
+
+    # Get rich text
+    rich_text_list = get_rich_text_from_block(block)
+    if isinstance(rich_text_list, list):
+        for rich_text in rich_text_list:
+            apply_parent_annotations(annotations_to_apply, rich_text.annotations)
+
+
 def reconcile_to_rich_text(
     parent_rich_text: RICH_TEXT_TYPE, children: List[CHILDREN_TYPE]
-):
+) -> List[CHILDREN_TYPE]:
+    """ """
     annotations = parent_rich_text.annotations
-    # TBD
+
+    # Get non-null/false values from annotations
+    final_objects = []
+    final_objects.append(parent_rich_text)
+
+    for child in children:
+        if isinstance(child, RichTextBase):
+            apply_parent_annotations(annotations, child.annotations)
+            final_objects.append(child)
+        elif isinstance(child, BlockBase):
+            apply_annotations_to_block(annotations, child)
+            final_objects.append(child)
+        elif isinstance(child, str):
+            append_to_rich_text(parent_rich_text, child)
+        else:
+            raise ValueError(f"Unsupported type: {type(child)}")
+
+    return final_objects
 
 
 class HtmlToJsonDocConverter(object):
@@ -309,11 +362,12 @@ class HtmlToJsonDocConverter(object):
         elif isinstance(current_level_object, RichTextBase):
             # There is an assumption that text formatting tags will not contain
             # higher level tags like blockquotes, lists, etc.
-            for child in children_objects:
-                if isinstance(child, str):
-                    append_to_rich_text(current_level_object, child)
+            # for child in children_objects:
+            #     if isinstance(child, str):
+            #         append_to_rich_text(current_level_object, child)
 
-            objects = [current_level_object]
+            # objects = [current_level_object]
+            objects = reconcile_to_rich_text(current_level_object, children_objects)
 
         import ipdb
 

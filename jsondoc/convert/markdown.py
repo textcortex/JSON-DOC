@@ -117,7 +117,7 @@ class JsonDocToMarkdownConverter(object):
         if isinstance(jsondoc, Page):
             return self.convert_page(jsondoc)
         elif isinstance(jsondoc, BlockBase):
-            return self.convert_block(jsondoc)
+            return self.convert_block(jsondoc, False)
         else:
             raise ValueError(f"Invalid object type: {type(jsondoc)}")
 
