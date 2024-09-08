@@ -38,6 +38,7 @@ from jsondoc.models.block.types.table import TableBlock
 from jsondoc.models.block.types.table_row import TableRowBlock
 from jsondoc.models.block.types.to_do import ToDoBlock
 from jsondoc.models.block.types.toggle import ToggleBlock
+from jsondoc.models.page import Page
 from jsondoc.models.shared_definitions import Annotations
 
 
@@ -127,7 +128,8 @@ def _todict(obj):
 
 def has_direct_text(node):
     """
-    Checks if the given BeautifulSoup node has direct text content (text that is not part of any child nodes).
+    Checks if the given BeautifulSoup node has direct text content
+    (text that is not part of any child nodes).
 
     Args:
         node (BeautifulSoup element): The HTML node to check.
@@ -184,7 +186,6 @@ def reconcile_to_rich_text(
 
     # Get non-null/false values from annotations
     final_objects = []
-    final_objects.append(parent_rich_text)
 
     for child in children:
         if isinstance(child, RichTextBase):
@@ -197,6 +198,10 @@ def reconcile_to_rich_text(
             append_to_rich_text(parent_rich_text, child)
         else:
             raise ValueError(f"Unsupported type: {type(child)}")
+
+    # Append the parent rich text to the final objects only if it has text
+    if len(parent_rich_text.plain_text) > 0:
+        final_objects.insert(0, parent_rich_text)
 
     return final_objects
 
@@ -237,17 +242,21 @@ class HtmlToJsonDocConverter(object):
                 " convert, but not both."
             )
 
-    def convert(self, html):
+    def convert(self, html: str | bytes) -> Page | BlockBase | List[BlockBase]:
         soup = BeautifulSoup(html, "html.parser")
         return self.convert_soup(soup)
 
-    def convert_soup(self, soup):
+    def convert_soup(
+        self, soup, force_page=False
+    ) -> Page | BlockBase | List[BlockBase]:
 
         ret = self.process_tag(soup, convert_as_inline=False, children_only=True)
         if isinstance(ret, list):
             # return
-            # TODO: create a page and add all the blocks to it
-            pass
+            # TODO: create a page and add all the blocks to it if force_page = True
+            # pass
+            if len(ret) == 1:
+                ret = ret[0]
 
         return ret
 
@@ -781,5 +790,5 @@ class HtmlToJsonDocConverter(object):
         return None  # TBD
 
 
-def html_to_jsondoc(html, **options):
+def html_to_jsondoc(html: str | bytes, **options) -> Page | BlockBase | List[BlockBase]:
     return HtmlToJsonDocConverter(**options).convert(html)

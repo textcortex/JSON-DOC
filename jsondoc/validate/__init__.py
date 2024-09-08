@@ -1,4 +1,3 @@
-import argparse
 import os
 import sys
 import time
@@ -59,18 +58,3 @@ def validate_json(schema_path, data_path, root=None):
     except ValidationError as e:
         print(f"Validation error: {e}")
         sys.exit(1)
-
-
-def main():
-    parser = argparse.ArgumentParser(description="Validate JSON against a JSON schema")
-    parser.add_argument("schema", help="Path to the JSON schema file")
-    parser.add_argument("data", help="Path to the JSON data file")
-    parser.add_argument("--root", help="Root of the schema", default=None)
-
-    args = parser.parse_args()
-
-    validate_json(args.schema, args.data, root=args.root)
-
-
-if __name__ == "__main__":
-    main()

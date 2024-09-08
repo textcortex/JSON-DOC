@@ -11,7 +11,7 @@ ARBITRARY_JSON_SCHEMA_OBJECT = {
 
 
 def generate_id() -> str:
-    return uuid.uuid4().hex
+    return str(uuid.uuid4())
 
 
 def replace_refs_with_arbitrary_object(data):

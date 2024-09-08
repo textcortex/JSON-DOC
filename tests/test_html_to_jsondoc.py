@@ -10,8 +10,8 @@ def test_convert_html_all_elements():
     ret = html_to_jsondoc(content)
     print(ret)
 
-    print("\n\nConverted to markdown:\n\n")
-    print(jsondoc_to_markdown(ret[0]))
+    # print("\n\nConverted to markdown:\n\n")
+    # print(jsondoc_to_markdown(ret[0]))
     import ipdb; ipdb.set_trace()
 
 

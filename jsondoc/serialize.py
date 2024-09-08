@@ -1,8 +1,8 @@
 import json
 from copy import deepcopy
-from typing import Any, Dict, Type, Union
+from typing import Any, Dict, List, Type, Union
 
-from pydantic import validate_call
+from pydantic import BaseModel, validate_call
 
 from jsondoc.models.block import Type as BlockType
 from jsondoc.models.block.base import BlockBase
@@ -239,6 +239,7 @@ def load_page(obj: Union[str, Dict[str, Any]]) -> Page:
     page = Page(**mutable_obj)
     return page
 
+
 @validate_call
 def load_jsondoc(obj: Union[str, Dict[str, Any]]) -> Page | BlockBase:
     if isinstance(obj, str):
@@ -251,3 +252,24 @@ def load_jsondoc(obj: Union[str, Dict[str, Any]]) -> Page | BlockBase:
         return load_block(obj)
     else:
         raise ValueError("Invalid object: must be either 'page' or 'block'")
+
+
+def base_model_dump_json(obj: BaseModel, indent: int | None = None) -> str:
+    return obj.model_dump_json(
+        serialize_as_any=True,
+        exclude_none=True,
+        indent=indent,
+    )
+
+
+@validate_call
+def jsondoc_dump_json(
+    obj: BlockBase | List[BlockBase] | Page,
+    indent: int | None = None,
+) -> str:
+    if isinstance(obj, list):
+        strs = [base_model_dump_json(block, indent=indent) for block in obj]
+        dicts = [json.loads(s) for s in strs]
+        return json.dumps(dicts, indent=indent)
+    else:
+        return base_model_dump_json(obj, indent=indent)
