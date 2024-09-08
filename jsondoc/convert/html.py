@@ -167,7 +167,7 @@ def apply_parent_annotations(
 
 
 def apply_annotations_to_block(annotations_to_apply: Annotations, block: BlockBase):
-    if hasattr(block, "children"):
+    if hasattr(block, "children") and isinstance(block.children, list):
         for child in block.children:
             apply_annotations_to_block(annotations_to_apply, child)
 

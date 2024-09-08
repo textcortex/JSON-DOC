@@ -105,16 +105,16 @@
       "additionalProperties": false
     },
     "archived": {
-      "type": "boolean",
-      "default": false
+      "type": "boolean"
+      // "default": false
     },
     "in_trash": {
-      "type": "boolean",
-      "default": false
+      "type": "boolean"
+      // "default": false
     },
     "has_children": {
-      "type": "boolean",
-      "default": false
+      "type": "boolean"
+      // "default": false
     },
     // notion-diverge
     "metadata": {

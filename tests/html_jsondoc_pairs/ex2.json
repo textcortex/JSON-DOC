@@ -1,0 +1,45 @@
+{
+  "html": "<b><p>This is a bold paragraph and this is <em>a bold and emphasized</em> word.</p></b>",
+  "jsondoc": {
+    "object": "block",
+    "id": "07f7d08c-78b7-4e46-a354-940d4e00e6fd",
+    "type": "paragraph",
+    "created_time": "2024-09-08T11:45:31.925539Z",
+    "has_children": false,
+    "paragraph": {
+      "rich_text": [
+        {
+          "type": "text",
+          "text": {
+            "content": "This is a bold paragraph and this is "
+          },
+          "annotations": {
+            "bold": true
+          },
+          "plain_text": "This is a bold paragraph and this is "
+        },
+        {
+          "type": "text",
+          "text": {
+            "content": "a bold and emphasized"
+          },
+          "annotations": {
+            "bold": true,
+            "italic": true
+          },
+          "plain_text": "a bold and emphasized"
+        },
+        {
+          "type": "text",
+          "text": {
+            "content": " word."
+          },
+          "annotations": {
+            "bold": true
+          },
+          "plain_text": " word."
+        }
+      ]
+    }
+  }
+}
