@@ -2,9 +2,9 @@
   "html": "<p>This is a <b>bold</b> word and this is an <em>emphasized</em> word.</p>",
   "jsondoc": {
     "object": "block",
-    "id": "072628f436164455a408aa5cb0e01845",
+    "id": "e78ab305-2511-4d81-a3aa-b5e575d96e63",
     "type": "paragraph",
-    "created_time": "2024-09-08T08:36:34.346476Z",
+    "created_time": "2024-09-08T10:05:11.460021Z",
     "archived": false,
     "in_trash": false,
     "has_children": false,
@@ -24,12 +24,7 @@
             "content": "bold"
           },
           "annotations": {
-            "bold": true,
-            "italic": false,
-            "strikethrough": false,
-            "underline": false,
-            "code": false,
-            "color": "default"
+            "bold": true
           },
           "plain_text": "bold"
         },
@@ -47,12 +42,7 @@
             "content": "emphasized"
           },
           "annotations": {
-            "bold": false,
-            "italic": true,
-            "strikethrough": false,
-            "underline": false,
-            "code": false,
-            "color": "default"
+            "italic": true
           },
           "plain_text": "emphasized"
         },

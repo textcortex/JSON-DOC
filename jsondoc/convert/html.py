@@ -337,7 +337,7 @@ class HtmlToJsonDocConverter(object):
                 # text = convert_fn(node, text, convert_as_inline)
                 current_level_object = convert_fn(node, convert_as_inline)
 
-        print(node, repr(current_level_object))
+        # print(node, repr(current_level_object))
         # if children_objects:
 
         if current_level_object is None:
@@ -378,9 +378,9 @@ class HtmlToJsonDocConverter(object):
             # objects = [current_level_object]
             objects = reconcile_to_rich_text(current_level_object, children_objects)
 
-        import ipdb
+        # import ipdb
 
-        ipdb.set_trace()
+        # ipdb.set_trace()
 
         return objects
 

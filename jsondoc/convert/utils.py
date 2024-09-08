@@ -159,6 +159,7 @@ def create_divider_block(
     return DividerBlock(
         id=id,
         created_time=created_time,
+        divider={},
         has_children=False,
     )
 

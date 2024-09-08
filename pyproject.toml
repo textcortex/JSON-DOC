@@ -14,7 +14,6 @@ convert_jsondoc = "jsondoc.bin.convert_jsondoc:main"
 python = "^3.11"
 requests = "^2.32.2"
 python-dotenv = "^1.0.1"
-anthropic = "^0.26.1"
 ipdb = "^0.13.13"
 pillow = "^10.3.0"
 pydantic = "^2.7.2"
@@ -25,6 +24,7 @@ bs4 = "^0.0.2"
 
 [tool.poetry.group.dev.dependencies]
 datamodel-code-generator = "^0.25.9"
+anthropic = "^0.26.1"
 
 [build-system]
 requires = ["poetry-core"]
