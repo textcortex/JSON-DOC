@@ -2,6 +2,8 @@ import logging
 from datetime import datetime, timezone
 from typing import List, Type
 
+from pydantic import validate_call
+
 from jsondoc.models.block.base import BlockBase
 from jsondoc.models.block.types.bulleted_list_item import BulletedListItemBlock
 from jsondoc.models.block.types.code import Code, CodeBlock, Language
@@ -28,6 +30,7 @@ from jsondoc.models.block.types.to_do import ToDoBlock
 from jsondoc.models.block.types.toggle import ToggleBlock
 from jsondoc.models.file.external import External
 from jsondoc.models.shared_definitions import Annotations
+from jsondoc.rules import is_block_child_allowed
 from jsondoc.utils import generate_id
 
 
@@ -326,6 +329,31 @@ def try_append_rich_text_to_block(block: BlockBase, rich_text: RichTextBase) -> 
         return True
 
     return False
+
+
+@validate_call
+def append_to_parent_block(parent: BlockBase, child: BlockBase) -> bool:
+    """
+    Appends a child block to a parent block
+    """
+    if not hasattr(parent, "children"):
+        raise ValueError("Parent block cannot have children")
+
+    if not is_block_child_allowed(parent, child):
+        raise ValueError(
+            f"Parent block of type {type(parent)} does not allow "
+            f"children of type {type(child)}"
+        )
+
+    if parent.children is None:
+        parent.children = []
+
+    parent.children.append(child)
+
+    if parent.has_children is False:
+        parent.has_children = True
+
+    return True
 
 
 # print(create_paragraph_block(text="Hello, world!"))

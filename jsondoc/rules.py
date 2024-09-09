@@ -1,3 +1,4 @@
+from jsondoc.models.block.base import BlockBase
 from jsondoc.models.block.types.bulleted_list_item import BulletedListItemBlock
 from jsondoc.models.block.types.code import CodeBlock
 from jsondoc.models.block.types.column import ColumnBlock
@@ -58,3 +59,16 @@ ALLOWED_CHILDREN_BLOCK_TYPES = {
     ToDoBlock: ALL_BLOCK_TYPES,
     ToggleBlock: ALL_BLOCK_TYPES,
 }
+
+
+def is_block_child_allowed(parent: BlockBase, child: BlockBase) -> bool:
+    """
+    Given a parent block and a child block,
+    this function will return True if the child block is allowed
+    as a child of the parent block, otherwise False
+    """
+    allowed_types = ALLOWED_CHILDREN_BLOCK_TYPES[type(parent)]
+    for allowed_type in allowed_types:
+        if isinstance(child, allowed_type):
+            return True
+    return False

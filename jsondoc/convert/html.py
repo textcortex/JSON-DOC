@@ -4,6 +4,7 @@ from textwrap import fill
 import re
 
 from jsondoc.convert.utils import (
+    append_to_parent_block,
     append_to_rich_text,
     create_code_block,
     create_divider_block,
@@ -40,6 +41,7 @@ from jsondoc.models.block.types.to_do import ToDoBlock
 from jsondoc.models.block.types.toggle import ToggleBlock
 from jsondoc.models.page import Page
 from jsondoc.models.shared_definitions import Annotations
+from jsondoc.rules import is_block_child_allowed
 
 
 convert_heading_re = re.compile(r"convert_h(\d+)")
@@ -181,7 +183,11 @@ def apply_annotations_to_block(annotations_to_apply: Annotations, block: BlockBa
 def reconcile_to_rich_text(
     parent_rich_text: RICH_TEXT_TYPE, children: List[CHILDREN_TYPE]
 ) -> List[CHILDREN_TYPE]:
-    """ """
+    """
+    Given a parent rich text and a list of children,
+    this function will apply the parent annotations
+    to the children and return a list of objects
+    """
     annotations = parent_rich_text.annotations
 
     # Get non-null/false values from annotations
@@ -199,11 +205,50 @@ def reconcile_to_rich_text(
         else:
             raise ValueError(f"Unsupported type: {type(child)}")
 
-    # Append the parent rich text to the final objects only if it has text
+    # Append the parent rich text to the final objects ONLY if it has text
     if len(parent_rich_text.plain_text) > 0:
         final_objects.insert(0, parent_rich_text)
 
     return final_objects
+
+
+def reconcile_to_block(
+    block: BlockBase, children: List[CHILDREN_TYPE]
+) -> List[CHILDREN_TYPE]:
+    """
+    Given a block and a list of children,
+    this function will reconcile the children to the block
+    and return a list of objects
+    """
+    remaining_children = []
+
+    # Any string will be added to the current rich text
+    current_rich_text = None
+    for child in children:
+        if isinstance(child, str):
+            if current_rich_text is None:
+                current_rich_text = create_rich_text()
+            append_to_rich_text(current_rich_text, child)
+            success_ = try_append_rich_text_to_block(block, current_rich_text)
+            if not success_:
+                remaining_children.append(current_rich_text)
+
+        elif isinstance(child, RichTextBase):
+            success_ = try_append_rich_text_to_block(block, child)
+            current_rich_text = None
+            if not success_:
+                remaining_children.append(child)
+
+        elif isinstance(child, BlockBase):
+            child_allowed = is_block_child_allowed(block, child)
+
+            if child_allowed:
+                append_to_parent_block(block, child)
+            else:
+                remaining_children.append(child)
+
+    objects = [block] + remaining_children
+    return objects
 
 
 class HtmlToJsonDocConverter(object):
@@ -346,28 +391,7 @@ class HtmlToJsonDocConverter(object):
             objects = current_level_object + children_objects
         elif isinstance(current_level_object, BlockBase):
             # objects = current_level_object
-            remaining_children = []
-            current_rich_text = None
-            for child in children_objects:
-                if isinstance(child, str):
-                    if current_rich_text is None:
-                        current_rich_text = create_rich_text()
-                    append_to_rich_text(current_rich_text, child)
-                    success_ = try_append_rich_text_to_block(
-                        current_level_object, current_rich_text
-                    )
-                    if not success_:
-                        remaining_children.append(current_rich_text)
-
-                elif isinstance(child, RichTextBase):
-                    success_ = try_append_rich_text_to_block(
-                        current_level_object, child
-                    )
-                    current_rich_text = None
-                    if not success_:
-                        remaining_children.append(child)
-
-            objects = [current_level_object] + remaining_children
+            objects = reconcile_to_block(current_level_object, children_objects)
         elif isinstance(current_level_object, RichTextBase):
             # There is an assumption that text formatting tags will not contain
             # higher level tags like blockquotes, lists, etc.

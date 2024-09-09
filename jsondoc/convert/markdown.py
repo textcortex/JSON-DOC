@@ -9,6 +9,7 @@ from jsondoc.models.block.types.heading_1 import Heading1Block
 from jsondoc.models.block.types.heading_2 import Heading2Block
 from jsondoc.models.block.types.heading_3 import Heading3Block
 from jsondoc.models.block.types.paragraph import ParagraphBlock
+from jsondoc.models.block.types.quote import QuoteBlock
 from jsondoc.models.block.types.rich_text.base import RichTextBase
 from jsondoc.models.block.types.rich_text.equation import RichTextEquation
 from jsondoc.models.block.types.rich_text.text import RichTextText
@@ -130,6 +131,14 @@ class JsonDocToMarkdownConverter(object):
 
         return ret
 
+    def _get_children_content(self, block: BlockBase, convert_as_inline: bool) -> str:
+        children_content = ""
+        if hasattr(block, "children") and block.children:
+            for child in block.children:
+                children_content += self.convert_block(child, convert_as_inline)
+
+        return children_content
+
     @validate_call
     def convert_block(self, block: BlockBase, convert_as_inline: bool) -> str:
 
@@ -143,9 +152,6 @@ class JsonDocToMarkdownConverter(object):
 
         block_content = convert_fn(block, convert_as_inline)
 
-        if hasattr(block, "children") and block.children:
-            for child in block.children:
-                block_content += self.convert_block(child, convert_as_inline)
 
         # rich_text = get_rich_text_from_block(block)
         # if rich_text is None:
@@ -248,6 +254,8 @@ class JsonDocToMarkdownConverter(object):
 
         text = self.convert_rich_text_list_to_markdown(rich_text, escape=True)
 
+        text += self._get_children_content(block, convert_as_inline)
+
         if convert_as_inline:
             return text
 
@@ -276,6 +284,7 @@ class JsonDocToMarkdownConverter(object):
         #     language = f" {language}"
 
         code = self.convert_rich_text_list_to_markdown(rich_text, escape=True)
+        code += self._get_children_content(block, convert_as_inline)
 
         if convert_as_inline:
             return f"{code}"
@@ -294,6 +303,8 @@ class JsonDocToMarkdownConverter(object):
             return ""
 
         text = self.convert_rich_text_list_to_markdown(rich_text, escape=True)
+        text += self._get_children_content(block, convert_as_inline)
+
         if convert_as_inline:
             return text
 
@@ -309,6 +320,21 @@ class JsonDocToMarkdownConverter(object):
 
         return "%s %s\n\n" % (hashes, text)
 
+    def convert_quote_block(self, block: QuoteBlock, convert_as_inline: bool) -> str:
+        rich_text = get_rich_text_from_block(block)
+
+        if rich_text is None:
+            return ""
+
+        # Code blocks are kept verbatim
+        # escape = isinstance(block, CodeBlock)
+
+        text = self.convert_rich_text_list_to_markdown(rich_text, escape=True)
+        text += self._get_children_content(block, convert_as_inline)
+
+        if convert_as_inline:
+            return text
+        return '\n' + (line_beginning_re.sub('> ', text.strip()) + '\n\n') if text else ''
 
 def jsondoc_to_markdown(jsondoc, **options):
     return JsonDocToMarkdownConverter(**options).convert(jsondoc)

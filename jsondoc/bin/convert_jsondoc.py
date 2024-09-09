@@ -37,6 +37,8 @@ def convert_to_jsondoc(input_file, output_file=None, indent=None):
         # Print to terminal
         print(serialized_jsondoc)
 
+        # print(jsondoc_to_markdown(jsondoc))
+
 
 def markdown_to_html(markdown_content):
     # Placeholder function for markdown to HTML conversion
