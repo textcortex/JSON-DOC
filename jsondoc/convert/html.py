@@ -387,24 +387,15 @@ class HtmlToJsonDocConverter(object):
 
         if current_level_object is None:
             objects = children_objects
-        elif isinstance(current_level_object, list):
-            objects = current_level_object + children_objects
         elif isinstance(current_level_object, BlockBase):
-            # objects = current_level_object
             objects = reconcile_to_block(current_level_object, children_objects)
         elif isinstance(current_level_object, RichTextBase):
-            # There is an assumption that text formatting tags will not contain
-            # higher level tags like blockquotes, lists, etc.
-            # for child in children_objects:
-            #     if isinstance(child, str):
-            #         append_to_rich_text(current_level_object, child)
-
-            # objects = [current_level_object]
             objects = reconcile_to_rich_text(current_level_object, children_objects)
-
-        # import ipdb
-
-        # ipdb.set_trace()
+        else:
+            import ipdb; ipdb.set_trace()
+            raise Exception(
+                f"Current node has yielded an unexpected type {type(current_level_object)}"
+            )
 
         return objects
 
@@ -499,11 +490,12 @@ class HtmlToJsonDocConverter(object):
         #     title = href
 
         # title_part = ' "%s"' % title.replace('"', r"\"") if title else ""
-        return [
-            create_rich_text(text=prefix),
-            create_rich_text(text=text, url=href),
-            create_rich_text(text=suffix),
-        ]
+        # return [
+        #     create_rich_text(text=prefix),
+        #     create_rich_text(text=text, url=href),
+        #     create_rich_text(text=suffix),
+        # ]
+        return create_rich_text(text=text, url=href)
         # return (
         #     "%s[%s](%s%s)%s" % (prefix, text, href, title_part, suffix)
         #     if href
