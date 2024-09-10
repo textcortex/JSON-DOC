@@ -63,6 +63,7 @@ def process_tag(node):
 
 ## Remaining tasks
 
-- Convert lists `<ul>` and `<ol>` to `ListBlock`
-- Convert line breaks `<br>` to `ParagraphBlock`
-- Add sup/sub annotation?
+- [x] Convert lists `<ul>` and `<ol>`
+- [x] Convert line breaks `<br>`
+- [ ] Convert `<caption>` and `<figcaption>`
+- [ ] Add sup/sub annotation?

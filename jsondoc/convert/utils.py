@@ -6,7 +6,10 @@ from bs4 import Tag
 from pydantic import validate_call
 
 from jsondoc.models.block.base import BlockBase
-from jsondoc.models.block.types.bulleted_list_item import BulletedListItemBlock
+from jsondoc.models.block.types.bulleted_list_item import (
+    BulletedListItem,
+    BulletedListItemBlock,
+)
 from jsondoc.models.block.types.code import Code, CodeBlock, Language
 from jsondoc.models.block.types.column import ColumnBlock
 from jsondoc.models.block.types.column_list import ColumnListBlock
@@ -18,7 +21,7 @@ from jsondoc.models.block.types.heading_3 import Heading3, Heading3Block
 from jsondoc.models.block.types.image import ImageBlock
 from jsondoc.models.block.types.image.external_image import ExternalImage
 from jsondoc.models.block.types.image.file_image import FileImage
-from jsondoc.models.block.types.numbered_list_item import NumberedListItemBlock
+from jsondoc.models.block.types.numbered_list_item import NumberedListItem, NumberedListItemBlock
 from jsondoc.models.block.types.paragraph import Paragraph, ParagraphBlock
 from jsondoc.models.block.types.quote import Quote, QuoteBlock
 from jsondoc.models.block.types.rich_text.base import RichTextBase
@@ -126,6 +129,52 @@ def create_paragraph_block(
         paragraph=Paragraph(rich_text=rich_text),
         has_children=False,
         metadata=metadata,
+    )
+
+
+def create_bullet_list_item_block(
+    text: str | None = None,
+    id: str | None = None,
+    created_time=None,
+    **kwargs,
+) -> BulletedListItemBlock:
+    if id is None:
+        id = generate_id()
+    if created_time is None:
+        created_time = get_current_time()
+
+    rich_text = []
+    if text is not None:
+        rich_text.append(create_rich_text(text, **kwargs))
+
+    return BulletedListItemBlock(
+        id=id,
+        created_time=created_time,
+        bulleted_list_item=BulletedListItem(rich_text=rich_text),
+        has_children=False,
+    )
+
+
+def create_numbered_list_item_block(
+    text: str | None = None,
+    id: str | None = None,
+    created_time=None,
+    **kwargs,
+) -> NumberedListItemBlock:
+    if id is None:
+        id = generate_id()
+    if created_time is None:
+        created_time = get_current_time()
+
+    rich_text = []
+    if text is not None:
+        rich_text.append(create_rich_text(text, **kwargs))
+
+    return NumberedListItemBlock(
+        id=id,
+        created_time=created_time,
+        numbered_list_item=NumberedListItem(rich_text=rich_text),
+        has_children=False,
     )
 
 

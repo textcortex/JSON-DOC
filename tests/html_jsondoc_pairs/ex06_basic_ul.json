@@ -1,0 +1,100 @@
+{
+  "html": "<ul><li>Apples</li><li>Bananas</li><li>Milk</li><li>Bread</li><li>Eggs</li></ul>",
+  "jsondoc": [
+    {
+      "object": "block",
+      "id": "76686868-1db8-463f-93f0-a651ba5aed85",
+      "type": "bulleted_list_item",
+      "created_time": "2024-09-10T21:45:51.602464Z",
+      "has_children": false,
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Apples"
+            },
+            "annotations": {},
+            "plain_text": "Apples"
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "1a6ad38d-dd94-42ca-af19-612cfa859e57",
+      "type": "bulleted_list_item",
+      "created_time": "2024-09-10T21:45:52.401377Z",
+      "has_children": false,
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Bananas"
+            },
+            "annotations": {},
+            "plain_text": "Bananas"
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "1bd29dba-7cbf-42f2-8e68-d83333856537",
+      "type": "bulleted_list_item",
+      "created_time": "2024-09-10T21:45:52.665542Z",
+      "has_children": false,
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Milk"
+            },
+            "annotations": {},
+            "plain_text": "Milk"
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "205c98eb-b7a0-42b4-8eea-f8dc3849d338",
+      "type": "bulleted_list_item",
+      "created_time": "2024-09-10T21:45:52.911620Z",
+      "has_children": false,
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Bread"
+            },
+            "annotations": {},
+            "plain_text": "Bread"
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "15ce4101-06ed-4628-849b-976232d9c3dd",
+      "type": "bulleted_list_item",
+      "created_time": "2024-09-10T21:45:53.167066Z",
+      "has_children": false,
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Eggs"
+            },
+            "annotations": {},
+            "plain_text": "Eggs"
+          }
+        ]
+      }
+    }
+  ]
+}

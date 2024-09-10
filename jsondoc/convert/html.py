@@ -7,12 +7,14 @@ from jsondoc.convert.utils import (
     BreakElementPlaceholderBlock,
     append_to_parent_block,
     append_to_rich_text,
+    create_bullet_list_item_block,
     create_code_block,
     create_divider_block,
     create_h1_block,
     create_h2_block,
     create_h3_block,
     create_image_block,
+    create_numbered_list_item_block,
     create_paragraph_block,
     create_quote_block,
     create_rich_text,
@@ -279,7 +281,7 @@ def reconcile_to_block(
             init_kwargs = {
                 "id": generate_id(),
                 "created_time": child.created_time,
-                block_type: type(block_field)()
+                block_type: type(block_field)(),
             }
 
             empty_block = type(block)(**init_kwargs)
@@ -370,7 +372,6 @@ class HtmlToJsonDocConverter(object):
         Convert a BeautifulSoup node to JSON-DOC. Recurses through the children
         nodes and converts them to JSON-DOC corresponding current block type
         can have children or not.
-
         """
         # text = ""
         objects = []
@@ -426,8 +427,9 @@ class HtmlToJsonDocConverter(object):
                 continue
             elif isinstance(el, NavigableString):
                 # text += self.process_text(el)
-                children_objects.append(self.process_text(el))
-                pass
+                processed_text = self.process_text(el)
+                if processed_text:
+                    children_objects.append(processed_text)
             else:
                 # text += self.process_tag(el, convert_children_as_inline)
                 new_objects = self.process_tag(el, convert_children_as_inline)
@@ -441,6 +443,7 @@ class HtmlToJsonDocConverter(object):
                 current_level_object = convert_fn(node, convert_as_inline)
 
         # print(node, repr(current_level_object))
+        # import ipdb; ipdb.set_trace()
 
         if current_level_object is None:
             objects = children_objects
@@ -473,6 +476,11 @@ class HtmlToJsonDocConverter(object):
             not el.next_sibling or el.next_sibling.name in ["ul", "ol"]
         ):
             text = text.rstrip()
+
+        # Strip preceding and trailing only newlines
+        text = text.strip("\n")
+        if len(text) == 0:
+            return None
 
         return text
         # return create_rich_text(text=text)
@@ -579,14 +587,9 @@ class HtmlToJsonDocConverter(object):
         return create_quote_block()
 
     def convert_br(self, el, convert_as_inline):
-        # if convert_as_inline:
-        #     return ""
+        if convert_as_inline:
+            return None
 
-        # if self.options["newline_style"].lower() == BACKSLASH:
-        #     return "\\\n"
-        # else:
-        #     return "  \n"
-        # return None  # TBD
         return BreakElementPlaceholderBlock(id="", created_time=get_current_time())
 
     def convert_code(self, el, convert_as_inline):
@@ -695,46 +698,21 @@ class HtmlToJsonDocConverter(object):
         return create_image_block(url=src, caption=alt)
 
     def convert_list(self, el, convert_as_inline):
-
-        # # Converting a list to inline is undefined.
-        # # Ignoring convert_to_inline for list.
-
-        # nested = False
-        # before_paragraph = False
-        # if el.next_sibling and el.next_sibling.name not in ["ul", "ol"]:
-        #     before_paragraph = True
-        # while el:
-        #     if el.name == "li":
-        #         nested = True
-        #         break
-        #     el = el.parent
-        # if nested:
-        #     # remove trailing newline if nested
-        #     return "\n" + self.indent(text, 1).rstrip()
-        # return text + ("\n" if before_paragraph else "")
-        return None  # TBD
+        """
+        This is applied to <ul> and <ol> tags. We simply return None, because
+        there is no need for a container block for list items in JSON-DOC.
+        """
+        return None
 
     convert_ul = convert_list
     convert_ol = convert_list
 
     def convert_li(self, el, convert_as_inline):
-        # parent = el.parent
-        # if parent is not None and parent.name == "ol":
-        #     if parent.get("start") and str(parent.get("start")).isnumeric():
-        #         start = int(parent.get("start"))
-        #     else:
-        #         start = 1
-        #     bullet = "%s." % (start + parent.index(el))
-        # else:
-        #     depth = -1
-        #     while el:
-        #         if el.name == "ul":
-        #             depth += 1
-        #         el = el.parent
-        #     bullets = self.options["bullets"]
-        #     bullet = bullets[depth % len(bullets)]
-        # return "%s %s\n" % (bullet, (text or "").strip())
-        return None  # TBD
+        parent = el.parent
+        if parent is not None and parent.name == "ol":
+            return create_numbered_list_item_block()
+        else:
+            return create_bullet_list_item_block()
 
     def convert_p(self, el, convert_as_inline):
         # text = el.get_text()
@@ -830,7 +808,6 @@ class HtmlToJsonDocConverter(object):
         """
         Table header cell
         """
-        # TBD: Somehow convey header info to table block
         return create_paragraph_block()
 
     def convert_tr(self, el, convert_as_inline):
