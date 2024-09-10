@@ -15,7 +15,10 @@ from jsondoc.convert.utils import (
     create_paragraph_block,
     create_quote_block,
     create_rich_text,
+    create_table_block,
+    create_table_row_block,
     get_rich_text_from_block,
+    table_has_header_row,
     try_append_rich_text_to_block,
 )
 from jsondoc.models.block.base import BlockBase
@@ -180,6 +183,30 @@ def apply_annotations_to_block(annotations_to_apply: Annotations, block: BlockBa
             apply_parent_annotations(annotations_to_apply, rich_text.annotations)
 
 
+def append_paragraph_block_to_table_row_block(
+    parent_table_row_block: TableRowBlock, child_paragraph_block: ParagraphBlock
+):
+    """
+    Appends a paragraph block to a table row block
+    """
+    if parent_table_row_block.table_row.cells is None:
+        parent_table_row_block.table_row.cells = []
+
+    child_rich_text = get_rich_text_from_block(child_paragraph_block)
+    if child_rich_text is None:
+        child_rich_text = []
+
+    parent_table_row_block.table_row.cells.append(child_rich_text)
+
+
+# Override append functions
+# Maps pairs of (parent_block_type, child_block_type) to a function
+# that appends the child block to the parent block
+OVERRIDE_APPEND_FUNCTIONS = {
+    (TableRowBlock, ParagraphBlock): append_paragraph_block_to_table_row_block,
+}
+
+
 def reconcile_to_rich_text(
     parent_rich_text: RICH_TEXT_TYPE, children: List[CHILDREN_TYPE]
 ) -> List[CHILDREN_TYPE]:
@@ -241,9 +268,19 @@ def reconcile_to_block(
 
         elif isinstance(child, BlockBase):
             child_allowed = is_block_child_allowed(block, child)
+            append_function = OVERRIDE_APPEND_FUNCTIONS.get(
+                (type(block), type(child))
+            )
 
-            if child_allowed:
-                append_to_parent_block(block, child)
+            # We introduce the following condition instead of only
+            # if child_allowed:
+            # because we need to do a hack with some block types, such as
+            # convert td/th elements to paragraph blocks
+            if child_allowed or append_function is not None:
+                if append_function:
+                    append_function(block, child)
+                else:
+                    append_to_parent_block(block, child)
             else:
                 remaining_children.append(child)
 
@@ -392,7 +429,9 @@ class HtmlToJsonDocConverter(object):
         elif isinstance(current_level_object, RichTextBase):
             objects = reconcile_to_rich_text(current_level_object, children_objects)
         else:
-            import ipdb; ipdb.set_trace()
+            import ipdb
+
+            ipdb.set_trace()
             raise Exception(
                 f"Current node has yielded an unexpected type {type(current_level_object)}"
             )
@@ -571,43 +610,44 @@ class HtmlToJsonDocConverter(object):
     #     if style == ATX_CLOSED:
     #         return "%s %s %s\n\n" % (hashes, text, hashes)
     #     return "%s %s\n\n" % (hashes, text)
+
     def convert_h1(self, el, convert_as_inline):
-        text = el.get_text()
+        # text = el.get_text()
         if convert_as_inline:
             return create_rich_text()
 
         return create_h1_block()
 
     def convert_h2(self, el, convert_as_inline):
-        text = el.get_text()
+        # text = el.get_text()
         if convert_as_inline:
             return create_rich_text()
 
         return create_h2_block()
 
     def convert_h3(self, el, convert_as_inline):
-        text = el.get_text()
+        # text = el.get_text()
         if convert_as_inline:
             return create_rich_text()
 
         return create_h3_block()
 
     def convert_h4(self, el, convert_as_inline):
-        text = el.get_text()
+        # text = el.get_text()
         if convert_as_inline:
             return create_rich_text()
 
         return create_paragraph_block()
 
     def convert_h5(self, el, convert_as_inline):
-        text = el.get_text()
+        # text = el.get_text()
         if convert_as_inline:
             return create_rich_text()
 
         return create_paragraph_block()
 
     def convert_h6(self, el, convert_as_inline):
-        text = el.get_text()
+        # text = el.get_text()
         if convert_as_inline:
             return create_rich_text()
 
@@ -720,11 +760,9 @@ class HtmlToJsonDocConverter(object):
         return create_code_block(code=text, language=code_language)
 
     def convert_script(self, el, convert_as_inline):
-        # return ""
         return None
 
     def convert_style(self, el, convert_as_inline):
-        # return ""
         return None
 
     convert_s = convert_del
@@ -746,7 +784,10 @@ class HtmlToJsonDocConverter(object):
 
     def convert_table(self, el, convert_as_inline):
         # return "\n\n" + text + "\n"
-        return None  # TBD
+        has_column_header = table_has_header_row(el)
+        return create_table_block(
+            has_column_header=has_column_header,
+        )
 
     def convert_caption(self, el, convert_as_inline):
         # return text + "\n"
@@ -757,53 +798,28 @@ class HtmlToJsonDocConverter(object):
         return None  # TBD
 
     def convert_td(self, el, convert_as_inline):
-        # colspan = 1
-        # if "colspan" in el.attrs and el["colspan"].isdigit():
-        #     colspan = int(el["colspan"])
-        # return " " + text.strip().replace("\n", " ") + " |" * colspan
-        return None  # TBD
+        """
+        Regular table cell
+
+        <td> and <th> elements are intermediately converted to ParagraphBlocks.
+        This is so that they act as rich-text containers.
+        While paragraph block child is being reconciled to a table row block,
+        paragraph_block.rich_text will be extracted to form table_row.cells.
+        """
+        return create_paragraph_block()
 
     def convert_th(self, el, convert_as_inline):
-        # colspan = 1
-        # if "colspan" in el.attrs and el["colspan"].isdigit():
-        #     colspan = int(el["colspan"])
-        # return " " + text.strip().replace("\n", " ") + " |" * colspan
-        return None  # TBD
+        """
+        Table header cell
+        """
+        # TBD: Somehow convey header info to table block
+        return create_paragraph_block()
 
     def convert_tr(self, el, convert_as_inline):
-        # cells = el.find_all(["td", "th"])
-        # is_headrow = (
-        #     all([cell.name == "th" for cell in cells])
-        #     or (not el.previous_sibling and not el.parent.name == "tbody")
-        #     or (
-        #         not el.previous_sibling
-        #         and el.parent.name == "tbody"
-        #         and len(el.parent.parent.find_all(["thead"])) < 1
-        #     )
-        # )
-        # overline = ""
-        # underline = ""
-        # if is_headrow and not el.previous_sibling:
-        #     # first row and is headline: print headline underline
-        #     full_colspan = 0
-        #     for cell in cells:
-        #         if "colspan" in cell.attrs and cell["colspan"].isdigit():
-        #             full_colspan += int(cell["colspan"])
-        #         else:
-        #             full_colspan += 1
-        #     underline += "| " + " | ".join(["---"] * full_colspan) + " |" + "\n"
-        # elif not el.previous_sibling and (
-        #     el.parent.name == "table"
-        #     or (el.parent.name == "tbody" and not el.parent.previous_sibling)
-        # ):
-        #     # first row, not headline, and:
-        #     # - the parent is table or
-        #     # - the parent is tbody at the beginning of a table.
-        #     # print empty headline above this row
-        #     overline += "| " + " | ".join([""] * len(cells)) + " |" + "\n"
-        #     overline += "| " + " | ".join(["---"] * len(cells)) + " |" + "\n"
-        # return overline + "|" + text + "\n" + underline
-        return None  # TBD
+        """
+        Table row
+        """
+        return create_table_row_block()
 
 
 def html_to_jsondoc(html: str | bytes, **options) -> Page | BlockBase | List[BlockBase]:

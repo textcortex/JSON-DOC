@@ -2,6 +2,7 @@ import logging
 from datetime import datetime, timezone
 from typing import List, Type
 
+from bs4 import Tag
 from pydantic import validate_call
 
 from jsondoc.models.block.base import BlockBase
@@ -24,8 +25,8 @@ from jsondoc.models.block.types.rich_text.base import RichTextBase
 from jsondoc.models.block.types.rich_text.equation import Equation as EquationObj
 from jsondoc.models.block.types.rich_text.equation import RichTextEquation
 from jsondoc.models.block.types.rich_text.text import Link, RichTextText, Text
-from jsondoc.models.block.types.table import TableBlock
-from jsondoc.models.block.types.table_row import TableRowBlock
+from jsondoc.models.block.types.table import Table, TableBlock
+from jsondoc.models.block.types.table_row import TableRow, TableRowBlock
 from jsondoc.models.block.types.to_do import ToDoBlock
 from jsondoc.models.block.types.toggle import ToggleBlock
 from jsondoc.models.file.external import External
@@ -288,6 +289,49 @@ def create_quote_block(
     )
 
 
+def create_table_row_block(
+    cells: List[List[RichTextBase]] = [],
+    id: str | None = None,
+    created_time=None,
+) -> TableRowBlock:
+    if id is None:
+        id = generate_id()
+    if created_time is None:
+        created_time = datetime.now(tz=timezone.utc)
+
+    return TableRowBlock(
+        id=id,
+        created_time=created_time,
+        table_row=TableRow(cells=cells),
+        has_children=False,
+    )
+
+
+def create_table_block(
+    table_rows: List[TableRowBlock] = [],
+    id: str | None = None,
+    created_time=None,
+    table_width: int | None = None,
+    has_column_header: bool = False,
+    has_row_header: bool = False,
+) -> TableBlock:
+    if id is None:
+        id = generate_id()
+    if created_time is None:
+        created_time = datetime.now(tz=timezone.utc)
+
+    return TableBlock(
+        id=id,
+        created_time=created_time,
+        children=table_rows,
+        table=Table(
+            table_width=table_width,
+            has_column_header=has_column_header,
+            has_row_header=has_row_header,
+        ),
+    )
+
+
 def get_rich_text_from_block(block: BlockBase) -> List[RichTextBase] | None:
     """
     Returns the rich text of a block
@@ -356,4 +400,27 @@ def append_to_parent_block(parent: BlockBase, child: BlockBase) -> bool:
     return True
 
 
-# print(create_paragraph_block(text="Hello, world!"))
+def table_has_header_row(table: Tag) -> bool:
+    """
+    Check if a table has a header row.
+    """
+    # Check if there's a thead element
+    if table.find("thead"):
+        return True
+
+    # Check the first row of the table
+    first_row = table.find("tr")
+    if first_row:
+        # If all cells in the first row are th, it's a header row
+        if all(cell.name == "th" for cell in first_row.find_all(["td", "th"])):
+            return True
+
+        # If it's the first row in a tbody and there's no thead, it might be a header
+        if (
+            first_row.parent.name == "tbody"
+            and not first_row.previous_sibling
+            and not table.find("thead")
+        ):
+            return True
+
+    return False

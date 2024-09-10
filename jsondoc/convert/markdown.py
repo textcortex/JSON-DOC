@@ -13,6 +13,8 @@ from jsondoc.models.block.types.quote import QuoteBlock
 from jsondoc.models.block.types.rich_text.base import RichTextBase
 from jsondoc.models.block.types.rich_text.equation import RichTextEquation
 from jsondoc.models.block.types.rich_text.text import RichTextText
+from jsondoc.models.block.types.table import TableBlock
+from jsondoc.models.block.types.table_row import TableRowBlock
 from jsondoc.models.page import Page
 from jsondoc.models.shared_definitions import Annotations
 from jsondoc.serialize import load_jsondoc, load_page
@@ -151,7 +153,6 @@ class JsonDocToMarkdownConverter(object):
             # raise ValueError(f"Unsupported block type: {type_}")
 
         block_content = convert_fn(block, convert_as_inline)
-
 
         # rich_text = get_rich_text_from_block(block)
         # if rich_text is None:
@@ -334,7 +335,56 @@ class JsonDocToMarkdownConverter(object):
 
         if convert_as_inline:
             return text
-        return '\n' + (line_beginning_re.sub('> ', text.strip()) + '\n\n') if text else ''
+        return (
+            "\n" + (line_beginning_re.sub("> ", text.strip()) + "\n\n") if text else ""
+        )
+
+    def _convert_table_row_block(
+        self, block: TableRowBlock, convert_as_inline: bool, is_headrow: bool
+    ) -> str:
+        # cells = block.table_row.cells
+
+        # cells = el.find_all(["td", "th"])
+        cells = block.table_row.cells
+
+        overline = ""
+        underline = ""
+        if is_headrow:
+            # first row and is headline: print headline underline
+            full_colspan = 0
+            for cell in cells:
+                # if "colspan" in cell.attrs and cell["colspan"].isdigit():
+                #     full_colspan += int(cell["colspan"])
+                # else:
+                full_colspan += 1
+            underline += "| " + " | ".join(["---"] * full_colspan) + " |" + "\n"
+        # else:
+        #     # first row, not headline, and:
+        #     # - the parent is table or
+        #     # - the parent is tbody at the beginning of a table.
+        #     # print empty headline above this row
+        #     overline += "| " + " | ".join([""] * len(cells)) + " |" + "\n"
+        #     overline += "| " + " | ".join(["---"] * len(cells)) + " |" + "\n"
+
+        text = ""
+        for cell in cells:
+            cell_text = self.convert_rich_text_list_to_markdown(cell, escape=True)
+            text += " " + cell_text.strip().replace("\n", " ") + " |"
+
+        return overline + "|" + text + "\n" + underline
+
+    def convert_table_block(self, block: TableBlock, convert_as_inline: bool) -> str:
+        text = ""
+
+        for n, row in enumerate(block.children):
+            is_headrow = block.table.has_column_header and n == 0
+
+            text += self._convert_table_row_block(
+                row, convert_as_inline, is_headrow=is_headrow,
+            )
+
+        return "\n\n" + text + "\n"
+
 
 def jsondoc_to_markdown(jsondoc, **options):
     return JsonDocToMarkdownConverter(**options).convert(jsondoc)

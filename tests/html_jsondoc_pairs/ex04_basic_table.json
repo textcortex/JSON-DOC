@@ -1,0 +1,179 @@
+{
+  "html": "<table border=\"1\"><thead><tr><th>Name</th><th>Age</th><th>Country</th></tr></thead><tbody><tr><td>John Doe</td><td>30</td><td>USA</td></tr><tr><td>Jane Smith</td><td>25</td><td>Canada</td></tr><tr><td>Bob Johnson</td><td>35</td><td>UK</td></tr></tbody></table>",
+  "jsondoc": {
+    "object": "block",
+    "id": "38edfaa5-3ce1-478a-8172-2c64d6d32b1b",
+    "type": "table",
+    "created_time": "2024-09-10T14:08:38.442893Z",
+    "table": {
+      "has_column_header": true,
+      "has_row_header": false
+    },
+    "children": [
+      {
+        "object": "block",
+        "id": "8c17b0c5-f741-49a9-98c6-05605a9cb0ed",
+        "type": "table_row",
+        "created_time": "2024-09-10T14:08:38.442626Z",
+        "has_children": false,
+        "table_row": {
+          "cells": [
+            [
+              {
+                "type": "text",
+                "text": {
+                  "content": "Name"
+                },
+                "annotations": {},
+                "plain_text": "Name"
+              }
+            ],
+            [
+              {
+                "type": "text",
+                "text": {
+                  "content": "Age"
+                },
+                "annotations": {},
+                "plain_text": "Age"
+              }
+            ],
+            [
+              {
+                "type": "text",
+                "text": {
+                  "content": "Country"
+                },
+                "annotations": {},
+                "plain_text": "Country"
+              }
+            ]
+          ]
+        }
+      },
+      {
+        "object": "block",
+        "id": "86e7aca1-3626-40a3-bb41-d3df63aab639",
+        "type": "table_row",
+        "created_time": "2024-09-10T14:08:38.442732Z",
+        "has_children": false,
+        "table_row": {
+          "cells": [
+            [
+              {
+                "type": "text",
+                "text": {
+                  "content": "John Doe"
+                },
+                "annotations": {},
+                "plain_text": "John Doe"
+              }
+            ],
+            [
+              {
+                "type": "text",
+                "text": {
+                  "content": "30"
+                },
+                "annotations": {},
+                "plain_text": "30"
+              }
+            ],
+            [
+              {
+                "type": "text",
+                "text": {
+                  "content": "USA"
+                },
+                "annotations": {},
+                "plain_text": "USA"
+              }
+            ]
+          ]
+        }
+      },
+      {
+        "object": "block",
+        "id": "34688e59-64ce-4b98-9e45-561816f909ea",
+        "type": "table_row",
+        "created_time": "2024-09-10T14:08:38.442811Z",
+        "has_children": false,
+        "table_row": {
+          "cells": [
+            [
+              {
+                "type": "text",
+                "text": {
+                  "content": "Jane Smith"
+                },
+                "annotations": {},
+                "plain_text": "Jane Smith"
+              }
+            ],
+            [
+              {
+                "type": "text",
+                "text": {
+                  "content": "25"
+                },
+                "annotations": {},
+                "plain_text": "25"
+              }
+            ],
+            [
+              {
+                "type": "text",
+                "text": {
+                  "content": "Canada"
+                },
+                "annotations": {},
+                "plain_text": "Canada"
+              }
+            ]
+          ]
+        }
+      },
+      {
+        "object": "block",
+        "id": "20ea1917-b79e-4362-a0ee-61ee5b347a38",
+        "type": "table_row",
+        "created_time": "2024-09-10T14:08:38.442882Z",
+        "has_children": false,
+        "table_row": {
+          "cells": [
+            [
+              {
+                "type": "text",
+                "text": {
+                  "content": "Bob Johnson"
+                },
+                "annotations": {},
+                "plain_text": "Bob Johnson"
+              }
+            ],
+            [
+              {
+                "type": "text",
+                "text": {
+                  "content": "35"
+                },
+                "annotations": {},
+                "plain_text": "35"
+              }
+            ],
+            [
+              {
+                "type": "text",
+                "text": {
+                  "content": "UK"
+                },
+                "annotations": {},
+                "plain_text": "UK"
+              }
+            ]
+          ]
+        }
+      }
+    ]
+  }
+}
