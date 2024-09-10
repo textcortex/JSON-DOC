@@ -1,6 +1,6 @@
 import logging
 from datetime import datetime, timezone
-from typing import List, Type
+from typing import List, Literal, Type
 
 from bs4 import Tag
 from pydantic import validate_call
@@ -32,7 +32,16 @@ from jsondoc.models.block.types.toggle import ToggleBlock
 from jsondoc.models.file.external import External
 from jsondoc.models.shared_definitions import Annotations
 from jsondoc.rules import is_block_child_allowed
-from jsondoc.utils import generate_id
+from jsondoc.utils import generate_id, get_current_time
+
+
+class BreakElementPlaceholderBlock(BlockBase):
+    type: Literal["break_element_placeholder"] = "break_element_placeholder"
+
+
+PLACEHOLDER_BLOCKS = [
+    BreakElementPlaceholderBlock,
+]
 
 
 def create_rich_text(
@@ -99,12 +108,13 @@ def create_paragraph_block(
     text: str | None = None,
     id: str | None = None,
     created_time=None,
+    metadata: dict | None = None,
     **kwargs,
 ) -> ParagraphBlock:
     if id is None:
         id = generate_id()
     if created_time is None:
-        created_time = datetime.now(tz=timezone.utc)
+        created_time = get_current_time()
 
     rich_text = []
     if text is not None:
@@ -115,6 +125,7 @@ def create_paragraph_block(
         created_time=created_time,
         paragraph=Paragraph(rich_text=rich_text),
         has_children=False,
+        metadata=metadata,
     )
 
 
@@ -128,7 +139,7 @@ def create_code_block(
     if id is None:
         id = generate_id()
     if created_time is None:
-        created_time = datetime.now(tz=timezone.utc)
+        created_time = get_current_time()
 
     language_ = None
     try:
@@ -158,7 +169,7 @@ def create_divider_block(
     if id is None:
         id = generate_id()
     if created_time is None:
-        created_time = datetime.now(tz=timezone.utc)
+        created_time = get_current_time()
 
     return DividerBlock(
         id=id,
@@ -178,7 +189,7 @@ def create_h1_block(
         id = generate_id()
 
     if created_time is None:
-        created_time = datetime.now(tz=timezone.utc)
+        created_time = get_current_time()
 
     rich_text = []
     if text is not None:
@@ -202,7 +213,7 @@ def create_h2_block(
         id = generate_id()
 
     if created_time is None:
-        created_time = datetime.now(tz=timezone.utc)
+        created_time = get_current_time()
 
     rich_text = []
     if text is not None:
@@ -226,7 +237,7 @@ def create_h3_block(
         id = generate_id()
 
     if created_time is None:
-        created_time = datetime.now(tz=timezone.utc)
+        created_time = get_current_time()
 
     rich_text = []
     if text is not None:
@@ -249,7 +260,7 @@ def create_image_block(
     if id is None:
         id = generate_id()
     if created_time is None:
-        created_time = datetime.now(tz=timezone.utc)
+        created_time = get_current_time()
 
     caption_ = None
     if caption is not None:
@@ -275,7 +286,7 @@ def create_quote_block(
     if id is None:
         id = generate_id()
     if created_time is None:
-        created_time = datetime.now(tz=timezone.utc)
+        created_time = get_current_time()
 
     rich_text = []
     if text is not None:
@@ -297,7 +308,7 @@ def create_table_row_block(
     if id is None:
         id = generate_id()
     if created_time is None:
-        created_time = datetime.now(tz=timezone.utc)
+        created_time = get_current_time()
 
     return TableRowBlock(
         id=id,
@@ -318,7 +329,7 @@ def create_table_block(
     if id is None:
         id = generate_id()
     if created_time is None:
-        created_time = datetime.now(tz=timezone.utc)
+        created_time = get_current_time()
 
     return TableBlock(
         id=id,

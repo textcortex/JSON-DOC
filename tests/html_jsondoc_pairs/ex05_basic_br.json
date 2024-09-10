@@ -1,0 +1,42 @@
+{
+  "html": "<p>This is the first line.<br>This is the second line.</p>",
+  "jsondoc": [
+    {
+      "object": "block",
+      "id": "3bbab45c-f5b2-4809-b39f-2f63b4304726",
+      "type": "paragraph",
+      "created_time": "2024-09-10T16:03:20.216781Z",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "This is the first line."
+            },
+            "annotations": {},
+            "plain_text": "This is the first line."
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "0f6f7f81-4690-4e9b-82fc-66232ef38d86",
+      "type": "paragraph",
+      "created_time": "2024-09-10T16:03:20.216170Z",
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "This is the second line."
+            },
+            "annotations": {},
+            "plain_text": "This is the second line."
+          }
+        ]
+      }
+    }
+  ]
+}

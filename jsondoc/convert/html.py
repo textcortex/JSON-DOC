@@ -4,6 +4,7 @@ from textwrap import fill
 import re
 
 from jsondoc.convert.utils import (
+    BreakElementPlaceholderBlock,
     append_to_parent_block,
     append_to_rich_text,
     create_code_block,
@@ -45,6 +46,7 @@ from jsondoc.models.block.types.toggle import ToggleBlock
 from jsondoc.models.page import Page
 from jsondoc.models.shared_definitions import Annotations
 from jsondoc.rules import is_block_child_allowed
+from jsondoc.utils import generate_id, get_current_time
 
 
 convert_heading_re = re.compile(r"convert_h(\d+)")
@@ -248,6 +250,7 @@ def reconcile_to_block(
     and return a list of objects
     """
     remaining_children = []
+    objects = [block]
 
     # Any string will be added to the current rich text
     current_rich_text = None
@@ -266,11 +269,28 @@ def reconcile_to_block(
             if not success_:
                 remaining_children.append(child)
 
+        elif isinstance(child, BreakElementPlaceholderBlock):
+            # TBD: Should probably abstract away all placeholder blocks
+            # Create an empty version of the current block, and set it as the current parent
+            # A <br> element basically creates an empty block of the same type as the parent
+            block_type = block.type
+            # Get corresponding field from the block
+            block_field = getattr(block, block_type)
+            init_kwargs = {
+                "id": generate_id(),
+                "created_time": child.created_time,
+                block_type: type(block_field)()
+            }
+
+            empty_block = type(block)(**init_kwargs)
+            # If we don't set current_rich_text to None, then the rich_text object will be
+            # shared across different blocks and cause duplicate text issues
+            current_rich_text = None
+            objects.append(empty_block)
+            block = empty_block
         elif isinstance(child, BlockBase):
             child_allowed = is_block_child_allowed(block, child)
-            append_function = OVERRIDE_APPEND_FUNCTIONS.get(
-                (type(block), type(child))
-            )
+            append_function = OVERRIDE_APPEND_FUNCTIONS.get((type(block), type(child)))
 
             # We introduce the following condition instead of only
             # if child_allowed:
@@ -284,7 +304,8 @@ def reconcile_to_block(
             else:
                 remaining_children.append(child)
 
-    objects = [block] + remaining_children
+    objects = objects + remaining_children
+
     return objects
 
 
@@ -420,7 +441,6 @@ class HtmlToJsonDocConverter(object):
                 current_level_object = convert_fn(node, convert_as_inline)
 
         # print(node, repr(current_level_object))
-        # if children_objects:
 
         if current_level_object is None:
             objects = children_objects
@@ -429,9 +449,6 @@ class HtmlToJsonDocConverter(object):
         elif isinstance(current_level_object, RichTextBase):
             objects = reconcile_to_rich_text(current_level_object, children_objects)
         else:
-            import ipdb
-
-            ipdb.set_trace()
             raise Exception(
                 f"Current node has yielded an unexpected type {type(current_level_object)}"
             )
@@ -569,7 +586,8 @@ class HtmlToJsonDocConverter(object):
         #     return "\\\n"
         # else:
         #     return "  \n"
-        return None  # TBD
+        # return None  # TBD
+        return BreakElementPlaceholderBlock(id="", created_time=get_current_time())
 
     def convert_code(self, el, convert_as_inline):
         text = el.get_text()

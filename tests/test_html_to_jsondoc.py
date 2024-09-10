@@ -83,8 +83,10 @@ def test_examples():
     json_files = [f for f in os.listdir(html_jsondoc_pairs_dir) if f.endswith(".json")]
 
     for json_file in json_files:
+        print(f"Processing {json_file}...", end="")
         json_path = html_jsondoc_pairs_dir / json_file
         _process_example(json_path)
+        print("PASS")
 
 
 if __name__ == "__main__":

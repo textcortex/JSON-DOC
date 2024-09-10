@@ -17,7 +17,8 @@
           "type": "array",
           "items": {
             "$ref": "/block/types/rich_text/rich_text_schema.json"
-          }
+          },
+          "default": []
         },
         "color": {
           "$ref": "/shared_definitions/shared_definitions_schema.json#/$defs/color"

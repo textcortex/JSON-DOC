@@ -59,3 +59,10 @@ def process_tag(node):
     return_objects: list = reconcile_children(current_node_object, children_objects)
     return return_objects
 ```
+
+
+## Remaining tasks
+
+- Convert lists `<ul>` and `<ol>` to `ListBlock`
+- Convert line breaks `<br>` to `ParagraphBlock`
+- Add sup/sub annotation?

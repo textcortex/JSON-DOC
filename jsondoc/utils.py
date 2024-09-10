@@ -1,3 +1,4 @@
+from datetime import datetime, timezone
 import difflib
 import json
 import logging
@@ -14,6 +15,10 @@ ARBITRARY_JSON_SCHEMA_OBJECT = {
 
 def generate_id() -> str:
     return str(uuid.uuid4())
+
+
+def get_current_time() -> datetime:
+    return datetime.now(tz=timezone.utc)
 
 
 def replace_refs_with_arbitrary_object(data):
@@ -120,12 +125,17 @@ def set_dict_recursive(d: dict | list, key: str, value: str):
     """
     Set all values that match a key in a nested dictionary or list.
     """
-    for k, v in d.items():
-        if isinstance(v, dict):
-            set_dict_recursive(v, key, value)
-        elif isinstance(v, list):
-            for item in v:
-                if isinstance(item, dict):
-                    set_dict_recursive(item, key, value)
-        elif k == key:
-            d[k] = value
+    if isinstance(d, dict):
+        for k, v in d.items():
+            if isinstance(v, dict):
+                set_dict_recursive(v, key, value)
+            elif isinstance(v, list):
+                for item in v:
+                    if isinstance(item, dict):
+                        set_dict_recursive(item, key, value)
+            elif k == key:
+                d[k] = value
+    elif isinstance(d, list):
+        for item in d:
+            if isinstance(item, dict):
+                set_dict_recursive(item, key, value)

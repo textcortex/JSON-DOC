@@ -241,8 +241,10 @@ def load_page(obj: Union[str, Dict[str, Any]]) -> Page:
 
 
 @validate_call
-def load_jsondoc(obj: Union[str, Dict[str, Any]]) -> Page | BlockBase:
-    if isinstance(obj, str):
+def load_jsondoc(obj: Union[str, Dict[str, Any], List[Dict[str, Any]]]) -> Page | BlockBase:
+    if isinstance(obj, list):
+        return [load_jsondoc(block) for block in obj]
+    elif isinstance(obj, str):
         obj = json.loads(obj)
 
     object_ = obj.get("object")
