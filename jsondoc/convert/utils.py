@@ -667,9 +667,6 @@ def _final_block_transformation(obj: BlockBase | str | RichTextBase):
         ret = create_paragraph_block()
         ret.paragraph.rich_text = obj.rich_text
         return ret
-    elif isinstance(obj, BreakElementPlaceholderBlock):
-        # These should be handled in reconcile_* functions
-        return None
     elif isinstance(obj, TableBlock):
         ensure_table_cell_count(obj)
     elif isinstance(obj, str):
@@ -679,6 +676,9 @@ def _final_block_transformation(obj: BlockBase | str | RichTextBase):
         new_obj_ = create_paragraph_block()
         new_obj_.paragraph.rich_text = [obj]
         return new_obj_
+    elif isinstance(obj, PlaceholderBlock):
+        # Make sure no placeholder blocks are left behind
+        return None
 
     return obj
 
