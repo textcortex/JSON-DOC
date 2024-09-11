@@ -45,29 +45,33 @@ from jsondoc.utils import generate_id, get_current_time
 all_whitespace_re = re.compile(r"[\s]+")
 
 
-class PlaceholderBlock(BlockBase):
+class PlaceholderBlockBase(BlockBase):
+    """
+    Base class for all placeholder blocks.
+    """
+
     pass
 
 
-class BreakElementPlaceholderBlock(PlaceholderBlock):
+class BreakElementPlaceholderBlock(PlaceholderBlockBase):
     type: Literal["break_element_placeholder"] = "break_element_placeholder"
 
 
-class CaptionPlaceholderBlock(PlaceholderBlock):
+class CaptionPlaceholderBlock(PlaceholderBlockBase):
     type: Literal["caption_placeholder"] = "caption_placeholder"
     rich_text: Optional[List[RichTextBase]] = None
 
 
-class CellPlaceholderBlock(PlaceholderBlock):
+class CellPlaceholderBlock(PlaceholderBlockBase):
     type: Literal["cell_placeholder"] = "cell_placeholder"
     rich_text: Optional[List[RichTextBase]] = None
 
 
-class FigurePlaceholderBlock(PlaceholderBlock):
+class FigurePlaceholderBlock(PlaceholderBlockBase):
     type: Literal["figure_placeholder"] = "figure_placeholder"
 
 
-PLACEHOLDER_BLOCKS: List[Type[PlaceholderBlock]] = [
+PLACEHOLDER_BLOCKS: List[Type[PlaceholderBlockBase]] = [
     BreakElementPlaceholderBlock,
     CaptionPlaceholderBlock,
     CellPlaceholderBlock,
@@ -87,7 +91,7 @@ BLOCKS_WITH_RICH_TEXT: List[Type[BlockBase]] = [
     ToggleBlock,
 ]
 
-PLACEHOLDER_BLOCKS_WITH_RICH_TEXT: List[Type[PlaceholderBlock]] = [
+PLACEHOLDER_BLOCKS_WITH_RICH_TEXT: List[Type[PlaceholderBlockBase]] = [
     CaptionPlaceholderBlock,
     CellPlaceholderBlock,
 ]
@@ -676,7 +680,7 @@ def _final_block_transformation(obj: BlockBase | str | RichTextBase):
         new_obj_ = create_paragraph_block()
         new_obj_.paragraph.rich_text = [obj]
         return new_obj_
-    elif isinstance(obj, PlaceholderBlock):
+    elif isinstance(obj, PlaceholderBlockBase):
         # Make sure no placeholder blocks are left behind
         return None
 
