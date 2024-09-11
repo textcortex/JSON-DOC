@@ -10,6 +10,7 @@ from jsondoc.convert.utils import (
     BreakElementPlaceholderBlock,
     CaptionPlaceholderBlock,
     CellPlaceholderBlock,
+    FigurePlaceholderBlock,
     append_to_parent_block,
     append_to_rich_text,
     block_supports_rich_text,
@@ -222,11 +223,53 @@ def append_caption_block_to_table_row_block(
     parent_table_row_block.table_row.cells.append(child_rich_text)
 
 
+def append_caption_block_to_image_block(
+    parent_image_block: ImageBlock,
+    child_paragraph_block: CaptionPlaceholderBlock,
+):
+    """
+    Sets a caption for an image block
+    """
+    parent_image_block.image.caption = child_paragraph_block.rich_text
+
+
+def override_reconcile_to_figure_placeholder_block(
+    block: FigurePlaceholderBlock, children: List[CHILDREN_TYPE]
+):
+    """
+    Given a figure placeholder block and a list of children,
+    this function will reconcile the children to the block
+    and return a list of objects
+    """
+    image_block = None
+    caption_block = None
+
+    ret = []
+    for child in children:
+        if isinstance(child, CaptionPlaceholderBlock):
+            caption_block = child
+            continue
+        elif isinstance(child, ImageBlock):
+            image_block = child
+
+        ret.append(child)
+
+    if image_block is not None and caption_block is not None:
+        image_block.image.caption = caption_block.rich_text
+
+    return ret
+
+
 # Override append functions
 # Maps pairs of (parent_block_type, child_block_type) to a function
 # that appends the child block to the parent block
 OVERRIDE_APPEND_FUNCTIONS = {
     (TableRowBlock, CellPlaceholderBlock): append_caption_block_to_table_row_block,
+    (ImageBlock, CaptionPlaceholderBlock): append_caption_block_to_image_block,
+}
+
+OVERRIDE_RECONCILE_FUNCTIONS = {
+    FigurePlaceholderBlock: override_reconcile_to_figure_placeholder_block,
 }
 
 
@@ -270,6 +313,10 @@ def reconcile_to_block(
     this function will reconcile the children to the block
     and return a list of objects
     """
+    override_reconcile_fn = OVERRIDE_RECONCILE_FUNCTIONS.get(type(block))
+    if override_reconcile_fn:
+        return override_reconcile_fn(block, children)
+
     remaining_children = []
     objects = [block]
 
@@ -462,7 +509,6 @@ class HtmlToJsonDocConverter(object):
             if isinstance(el, Comment) or isinstance(el, Doctype):
                 continue
             elif isinstance(el, NavigableString):
-                # text += self.process_text(el)
                 processed_text = self.process_text(el)
                 if processed_text:
                     children_objects.append(processed_text)
@@ -571,13 +617,24 @@ class HtmlToJsonDocConverter(object):
         # remove trailing whitespaces if any of the following condition is true:
         # - current text node is the last node in li
         # - current text node is followed by an embedded list
-        if el.parent.name == "li" and (
-            not el.next_sibling or el.next_sibling.name in ["ul", "ol"]
-        ):
-            text = text.rstrip()
+        # if el.parent.name == "li" and (
+        #     not el.next_sibling or el.next_sibling.name in ["ul", "ol"]
+        # ):
+        #     text = text.rstrip()
 
         # Strip preceding and trailing only newlines
-        text = text.strip("\n")
+        # text = text.strip("\n")
+        # Match whitespace at the end of string and convert it to a single space
+        text = re.sub(r"\s+$", " ", text)
+        # Match whitespace at the beginning of string and convert it to a single space
+        text = re.sub(r"^\s+", " ", text)
+
+        if not el.previous_sibling:
+            text = text.lstrip()
+
+        if not el.next_sibling:
+            text = text.rstrip()
+
         if len(text) == 0:
             return None
 
@@ -798,7 +855,12 @@ class HtmlToJsonDocConverter(object):
         #     return alt
 
         # return "![%s](%s%s)" % (alt, src, title_part)
-        return ConvertOutput(main_object=create_image_block(url=src, caption=alt))
+        return ConvertOutput(
+            main_object=create_image_block(
+                url=src,
+                # caption=alt,
+            )
+        )
 
     def convert_list(self, el, convert_as_inline):
         """
@@ -893,7 +955,6 @@ class HtmlToJsonDocConverter(object):
         )
 
     def convert_caption(self, el, convert_as_inline):
-        # return text + "\n"
         return ConvertOutput(
             main_object=CaptionPlaceholderBlock(
                 id="",
@@ -903,9 +964,17 @@ class HtmlToJsonDocConverter(object):
             )
         )
 
-    def convert_figcaption(self, el, convert_as_inline):
-        # return "\n\n" + text + "\n\n"
-        return None  # TBD
+    convert_figcaption = convert_caption
+
+    def convert_figure(self, el, convert_as_inline):
+        return ConvertOutput(
+            main_object=FigurePlaceholderBlock(
+                id="",
+                created_time=get_current_time(),
+                type="figure_placeholder",
+                rich_text=[],
+            )
+        )
 
     def convert_td(self, el, convert_as_inline):
         """

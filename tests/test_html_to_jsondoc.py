@@ -17,7 +17,8 @@ def test_convert_html_all_elements():
     # content = "<p>This is a <b>bold</b> word and this is an <em>emphasized</em> word.</p>"
 
     ret = html_to_jsondoc(content)
-    print(ret)
+    # print(ret)
+    print(jsondoc_dump_json(ret, indent=2))
 
     # print("\n\nConverted to markdown:\n\n")
     # print(jsondoc_to_markdown(ret[0]))

@@ -45,24 +45,33 @@ from jsondoc.utils import generate_id, get_current_time
 all_whitespace_re = re.compile(r"[\s]+")
 
 
-class BreakElementPlaceholderBlock(BlockBase):
+class PlaceholderBlock(BlockBase):
+    pass
+
+
+class BreakElementPlaceholderBlock(PlaceholderBlock):
     type: Literal["break_element_placeholder"] = "break_element_placeholder"
 
 
-class CaptionPlaceholderBlock(BlockBase):
+class CaptionPlaceholderBlock(PlaceholderBlock):
     type: Literal["caption_placeholder"] = "caption_placeholder"
     rich_text: Optional[List[RichTextBase]] = None
 
 
-class CellPlaceholderBlock(BlockBase):
+class CellPlaceholderBlock(PlaceholderBlock):
     type: Literal["cell_placeholder"] = "cell_placeholder"
     rich_text: Optional[List[RichTextBase]] = None
 
 
-PLACEHOLDER_BLOCKS = [
+class FigurePlaceholderBlock(PlaceholderBlock):
+    type: Literal["figure_placeholder"] = "figure_placeholder"
+
+
+PLACEHOLDER_BLOCKS: List[Type[PlaceholderBlock]] = [
     BreakElementPlaceholderBlock,
     CaptionPlaceholderBlock,
     CellPlaceholderBlock,
+    FigurePlaceholderBlock,
 ]
 
 BLOCKS_WITH_RICH_TEXT: List[Type[BlockBase]] = [
@@ -78,7 +87,7 @@ BLOCKS_WITH_RICH_TEXT: List[Type[BlockBase]] = [
     ToggleBlock,
 ]
 
-PLACEHOLDER_BLOCKS_WITH_RICH_TEXT: List[Type[BlockBase]] = [
+PLACEHOLDER_BLOCKS_WITH_RICH_TEXT: List[Type[PlaceholderBlock]] = [
     CaptionPlaceholderBlock,
     CellPlaceholderBlock,
 ]
