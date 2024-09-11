@@ -24,7 +24,6 @@ bs4 = "^0.0.2"
 
 [tool.poetry.group.dev.dependencies]
 datamodel-code-generator = "^0.25.9"
-anthropic = "^0.26.1"
 
 [build-system]
 requires = ["poetry-core"]

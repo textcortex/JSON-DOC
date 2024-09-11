@@ -74,8 +74,8 @@ To conditionally handle these elements, we create a corresponding placeholder bl
 - [x] Convert lists `<ul>` and `<ol>`
 - [x] Convert line breaks `<br>`
 - [x] Convert `<caption>` and `<figcaption>`
+- [x] Force_page=true
+- [ ] Residual strings, newlines or empty paragraphs in the final output list (in progress)
 - [ ] Table cells with colspan/rowspan
 - [ ] Table thead/tbody/tfoot ordering
-- [x] Residual strings or newlines in the final output list
-- [x] Force_page=true
 - [ ] Add sup/sub annotation?
