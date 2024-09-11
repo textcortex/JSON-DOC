@@ -77,6 +77,8 @@ To conditionally handle these elements, we create a corresponding placeholder bl
 - [x] Force_page=true
 - [ ] Residual strings, newlines or empty paragraphs in the final output list (in progress)
 - [ ] Make sure `<a>` conversion is consistent
+- [ ] Cleanup empty blocks at the end
 - [ ] Table cells with colspan/rowspan
+- [ ] Add test for `<code>` and `<pre>`
 - [ ] Table thead/tbody/tfoot ordering
 - [ ] Add sup/sub annotation?
