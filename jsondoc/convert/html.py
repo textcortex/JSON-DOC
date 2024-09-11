@@ -194,7 +194,9 @@ def apply_parent_rich_text_style(
     if parent.href is not None:
         child.href = parent.href
         child.text.link = Link(url=parent.href)
-        import ipdb; ipdb.set_trace()
+        import ipdb
+
+        ipdb.set_trace()
 
     # TBD: Decide how to handle color
 
@@ -743,55 +745,48 @@ class HtmlToJsonDocConverter(object):
     #     return "%s %s\n\n" % (hashes, text)
 
     def convert_h1(self, el, convert_as_inline):
-        # text = el.get_text()
         if convert_as_inline:
             return create_rich_text()
 
         return ConvertOutput(main_object=create_h1_block())
 
     def convert_h2(self, el, convert_as_inline):
-        # text = el.get_text()
         if convert_as_inline:
             return create_rich_text()
 
         return ConvertOutput(main_object=create_h2_block())
 
     def convert_h3(self, el, convert_as_inline):
-        # text = el.get_text()
         if convert_as_inline:
             return create_rich_text()
 
         return ConvertOutput(main_object=create_h3_block())
 
     def convert_h4(self, el, convert_as_inline):
-        # text = el.get_text()
         if convert_as_inline:
             return create_rich_text()
 
         return ConvertOutput(main_object=create_paragraph_block())
 
     def convert_h5(self, el, convert_as_inline):
-        # text = el.get_text()
         if convert_as_inline:
             return create_rich_text()
 
         return ConvertOutput(main_object=create_paragraph_block())
 
     def convert_h6(self, el, convert_as_inline):
-        # text = el.get_text()
         if convert_as_inline:
             return create_rich_text()
 
         return ConvertOutput(main_object=create_paragraph_block())
 
     def convert_hr(self, el, convert_as_inline):
-        # return "\n\n---\n\n"
         return ConvertOutput(main_object=create_divider_block())
 
     convert_i = convert_em
 
     def convert_img(self, el, convert_as_inline):
-        alt = el.attrs.get("alt", None)
+        # alt = el.attrs.get("alt", None)
         src = el.attrs.get("src", None)
         if not src:
             return None
@@ -896,7 +891,6 @@ class HtmlToJsonDocConverter(object):
     )
 
     def convert_table(self, el, convert_as_inline):
-        # return "\n\n" + text + "\n"
         has_column_header = html_table_has_header_row(el)
         return ConvertOutput(
             main_object=create_table_block(
@@ -950,19 +944,9 @@ class HtmlToJsonDocConverter(object):
             next_objects=next_objects,
         )
 
+    # Headers are handled the same way as regular cells
+    # Header row/column information is passed at a higher level
     convert_th = convert_td
-    # def convert_th(self, el, convert_as_inline):
-    #     """
-    #     Table header cell
-    #     """
-    #     return ConvertOutput(
-    #         main_object=CellPlaceholderBlock(
-    #             id="",
-    #             created_time=get_current_time(),
-    #             type="cell_placeholder",
-    #             rich_text=[],
-    #         )
-    #     )
 
     def convert_tr(self, el, convert_as_inline):
         """
