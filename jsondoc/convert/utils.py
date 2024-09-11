@@ -1,5 +1,6 @@
 import logging
 from datetime import datetime, timezone
+import re
 from typing import List, Literal, Optional, Type
 
 from bs4 import Tag
@@ -40,6 +41,8 @@ from jsondoc.models.page import CreatedBy, LastEditedBy, Page, Parent, Propertie
 from jsondoc.models.shared_definitions import Annotations
 from jsondoc.rules import is_block_child_allowed
 from jsondoc.utils import generate_id, get_current_time
+
+all_whitespace_re = re.compile(r"[\s]+")
 
 
 class BreakElementPlaceholderBlock(BlockBase):
@@ -648,23 +651,30 @@ def ensure_table_cell_count(table: TableBlock):
             row.table_row.cells.append([])
 
 
-def _final_block_check(block: BlockBase):
-    if isinstance(block, CaptionPlaceholderBlock):
+def _final_block_transformation(obj: BlockBase | str | RichTextBase):
+    if isinstance(obj, CaptionPlaceholderBlock):
         # Convert caption to a paragraph block
 
         ret = create_paragraph_block()
-        ret.paragraph.rich_text = block.rich_text
+        ret.paragraph.rich_text = obj.rich_text
         return ret
-    elif isinstance(block, BreakElementPlaceholderBlock):
+    elif isinstance(obj, BreakElementPlaceholderBlock):
         # These should be handled in reconcile_* functions
         return None
-    elif isinstance(block, TableBlock):
-        ensure_table_cell_count(block)
+    elif isinstance(obj, TableBlock):
+        ensure_table_cell_count(obj)
+    elif isinstance(obj, str):
+        text_ = all_whitespace_re.sub(" ", obj)
+        return create_paragraph_block(text=text_)
+    elif isinstance(obj, RichTextBase):
+        new_obj_ = create_paragraph_block()
+        new_obj_.paragraph.rich_text = [obj]
+        return new_obj_
 
-    return block
+    return obj
 
 
-def run_final_block_checks(blocks: List[BlockBase]):
+def run_final_block_transformations(blocks: List[BlockBase]):
     """
     Runs final checks on blocks after the main conversion is complete.
 
@@ -674,9 +684,9 @@ def run_final_block_checks(blocks: List[BlockBase]):
     ret = []
     for block in blocks:
         if isinstance(getattr(block, "children", None), list):
-            block.children = run_final_block_checks(block.children)
+            block.children = run_final_block_transformations(block.children)
 
-        handled_block = _final_block_check(block)
+        handled_block = _final_block_transformation(block)
         if handled_block is not None:
             ret.append(handled_block)
 

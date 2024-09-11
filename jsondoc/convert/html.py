@@ -29,7 +29,7 @@ from jsondoc.convert.utils import (
     create_table_block,
     create_table_row_block,
     get_rich_text_from_block,
-    run_final_block_checks,
+    run_final_block_transformations,
     html_table_has_header_row,
     append_rich_text_to_block,
 )
@@ -379,7 +379,7 @@ class HtmlToJsonDocConverter(object):
     ) -> Page | BlockBase | List[BlockBase]:
 
         children = self.process_tag(soup, convert_as_inline=False, children_only=True)
-        children = run_final_block_checks(children)
+        children = run_final_block_transformations(children)
         is_page = self._is_soup_page(soup)
 
         ret = None
@@ -483,13 +483,13 @@ class HtmlToJsonDocConverter(object):
                 assert isinstance(
                     convert_output, (ConvertOutput, NoneType)
                 ), f"Convert function {convert_fn} must return a ConvertOutput or None"
+
                 if convert_output is not None:
                     current_level_object = convert_output.main_object
                     current_level_prev_objects = convert_output.prev_objects
                     current_level_next_objects = convert_output.next_objects
 
         # print(node, repr(current_level_object))
-        # import ipdb; ipdb.set_trace()
 
         if current_level_object is None:
             objects = children_objects

@@ -248,8 +248,9 @@ class JsonDocToMarkdownConverter(object):
     def convert_paragraph_block(
         self, block: ParagraphBlock, convert_as_inline: bool
     ) -> str:
-        rich_text = get_rich_text_from_block(block)
-        if rich_text is None:
+        try:
+            rich_text = get_rich_text_from_block(block)
+        except ValueError:
             return ""
 
         # Code blocks are kept verbatim
@@ -274,11 +275,15 @@ class JsonDocToMarkdownConverter(object):
         return "\n\n---\n\n"
 
     def convert_code_block(self, block: CodeBlock, convert_as_inline: bool) -> str:
-        rich_text = get_rich_text_from_block(block)
-        if rich_text is None:
+        try:
+            rich_text = get_rich_text_from_block(block)
+        except ValueError:
             return ""
 
-        language = block.code.language.value
+        try:
+            language = block.code.language.value
+        except AttributeError:
+            language = ""
 
         # if self.options["code_language_callback"]:
         #     language = self.options["code_language_callback"](language)
@@ -300,10 +305,12 @@ class JsonDocToMarkdownConverter(object):
         block: Heading1Block | Heading2Block | Heading3Block,
         convert_as_inline: bool,
     ):
-
-        rich_text = get_rich_text_from_block(block)
-        if rich_text is None:
+        try:
+            rich_text = get_rich_text_from_block(block)
+        except ValueError:
             return ""
+        # if rich_text is None:
+        #     return ""
 
         text = self.convert_rich_text_list_to_markdown(rich_text, escape=True)
         text += self._get_children_content(block, convert_as_inline)
@@ -324,9 +331,9 @@ class JsonDocToMarkdownConverter(object):
         return "%s %s\n\n" % (hashes, text)
 
     def convert_quote_block(self, block: QuoteBlock, convert_as_inline: bool) -> str:
-        rich_text = get_rich_text_from_block(block)
-
-        if rich_text is None:
+        try:
+            rich_text = get_rich_text_from_block(block)
+        except ValueError:
             return ""
 
         # Code blocks are kept verbatim
@@ -382,7 +389,9 @@ class JsonDocToMarkdownConverter(object):
             is_headrow = block.table.has_column_header and n == 0
 
             text += self._convert_table_row_block(
-                row, convert_as_inline, is_headrow=is_headrow,
+                row,
+                convert_as_inline,
+                is_headrow=is_headrow,
             )
 
         return "\n\n" + text + "\n"
