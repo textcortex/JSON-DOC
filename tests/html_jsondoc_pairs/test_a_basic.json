@@ -1,0 +1,42 @@
+{
+  "html": "<p>Click <a href=\"http://solmaz.io\">here</a> to read awesome stuff.</p>",
+  "jsondoc": {
+    "object": "block",
+    "id": "62fce278-d8b2-4d7d-ba54-e11767c4f4f9",
+    "type": "paragraph",
+    "created_time": "2024-09-11T21:03:28.000649Z",
+    "has_children": false,
+    "paragraph": {
+      "rich_text": [
+        {
+          "type": "text",
+          "text": {
+            "content": "Click "
+          },
+          "annotations": {},
+          "plain_text": "Click "
+        },
+        {
+          "type": "text",
+          "text": {
+            "content": "here",
+            "link": {
+              "url": "http://solmaz.io"
+            }
+          },
+          "annotations": {},
+          "plain_text": "here",
+          "href": "http://solmaz.io"
+        },
+        {
+          "type": "text",
+          "text": {
+            "content": " to read awesome stuff."
+          },
+          "annotations": {},
+          "plain_text": " to read awesome stuff."
+        }
+      ]
+    }
+  }
+}

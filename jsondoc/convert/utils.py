@@ -131,6 +131,8 @@ def create_rich_text(
             equation=RichTextEquation(expression=equation),
             annotations=annotations,
             plain_text=equation,
+            # Equations don't support URLs
+            href=None,
         )
     else:
         ret = RichTextText(
@@ -140,6 +142,7 @@ def create_rich_text(
             ),
             annotations=annotations,
             plain_text=text if text else "",
+            href=url if url else None,
         )
 
     return ret

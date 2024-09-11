@@ -22,13 +22,14 @@
         {
           "type": "text",
           "text": {
-            "content": "@mrmrs@mrmrs",
+            "content": "@mrmrs",
             "link": {
               "url": "http://flickr.com/photos/heyitsadam/"
             }
           },
           "annotations": {},
-          "plain_text": "@mrmrs@mrmrs"
+          "plain_text": "@mrmrs",
+          "href": "http://flickr.com/photos/heyitsadam/"
         }
       ]
     }

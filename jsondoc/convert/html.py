@@ -50,7 +50,7 @@ from jsondoc.models.block.types.paragraph import Paragraph, ParagraphBlock
 from jsondoc.models.block.types.quote import QuoteBlock
 from jsondoc.models.block.types.rich_text.base import RichTextBase
 from jsondoc.models.block.types.rich_text.equation import RichTextEquation
-from jsondoc.models.block.types.rich_text.text import RichTextText
+from jsondoc.models.block.types.rich_text.text import Link, RichTextText
 from jsondoc.models.block.types.table import TableBlock
 from jsondoc.models.block.types.table_row import TableRowBlock
 from jsondoc.models.block.types.to_do import ToDoBlock
@@ -169,10 +169,13 @@ def has_direct_text(node):
     return any(text.strip() for text in direct_text)
 
 
-def apply_parent_annotations(
-    parent_annotations: Annotations,
-    child_annotations: Annotations,
+def apply_parent_rich_text_style(
+    parent: RichTextText | RichTextEquation,
+    child: RichTextText | RichTextEquation,
 ):
+    parent_annotations = parent.annotations
+    child_annotations = child.annotations
+
     if parent_annotations.bold is True:
         child_annotations.bold = True
 
@@ -188,22 +191,30 @@ def apply_parent_annotations(
     if parent_annotations.code is True:
         child_annotations.code = True
 
+    if parent.href is not None:
+        child.href = parent.href
+        child.text.link = Link(url=parent.href)
+        import ipdb; ipdb.set_trace()
+
     # TBD: Decide how to handle color
 
 
-def apply_annotations_to_block(annotations_to_apply: Annotations, block: BlockBase):
+def apply_rich_text_style_to_block_recursive(
+    rich_text: RichTextText | RichTextEquation,
+    block: BlockBase,
+):
     """
     Recursively applies the annotations to the block and its children
     """
     if hasattr(block, "children") and isinstance(block.children, list):
         for child in block.children:
-            apply_annotations_to_block(annotations_to_apply, child)
+            apply_rich_text_style_to_block_recursive(rich_text, child)
 
     # Get rich text
     rich_text_list = get_rich_text_from_block(block)
     if isinstance(rich_text_list, list):
-        for rich_text in rich_text_list:
-            apply_parent_annotations(annotations_to_apply, rich_text.annotations)
+        for sub_rich_text in rich_text_list:
+            apply_parent_rich_text_style(rich_text, sub_rich_text)
 
 
 def append_caption_block_to_table_row_block(
@@ -281,17 +292,15 @@ def reconcile_to_rich_text(
     this function will apply the parent annotations
     to the children and return a list of objects
     """
-    annotations = parent_rich_text.annotations
-
     # Get non-null/false values from annotations
     final_objects = []
 
     for child in children:
         if isinstance(child, RichTextBase):
-            apply_parent_annotations(annotations, child.annotations)
+            apply_parent_rich_text_style(parent_rich_text, child)
             final_objects.append(child)
         elif isinstance(child, BlockBase):
-            apply_annotations_to_block(annotations, child)
+            apply_rich_text_style_to_block_recursive(parent_rich_text, child)
             final_objects.append(child)
         elif isinstance(child, str):
             append_to_rich_text(parent_rich_text, child)
@@ -639,22 +648,6 @@ class HtmlToJsonDocConverter(object):
             return None
 
         return text
-        # return create_rich_text(text=text)
-
-    # def __getattr__(self, attr):
-    #     # Handle headings
-    #     m = convert_heading_re.match(attr)
-    #     if m:
-    #         n = int(m.group(1))
-
-    #         def convert_tag(el, text, convert_as_inline):
-    #             return self.convert_hn(n, el, text, convert_as_inline)
-
-    #         convert_tag.__name__ = "convert_h%s" % n
-    #         setattr(self, convert_tag.__name__, convert_tag)
-    #         return convert_tag
-
-    #     raise AttributeError(attr)
 
     def should_convert_tag(self, tag):
         tag = tag.lower()
@@ -667,60 +660,17 @@ class HtmlToJsonDocConverter(object):
         else:
             return True
 
-    # def escape(self, text):
-    #     if not text:
-    #         return ""
-    #     if self.options["escape_misc"]:
-    #         text = re.sub(r"([\\&<`[>~#=+|-])", r"\\\1", text)
-    #         text = re.sub(r"([0-9])([.)])", r"\1\\\2", text)
-    #     if self.options["escape_asterisks"]:
-    #         text = text.replace("*", r"\*")
-    #     if self.options["escape_underscores"]:
-    #         text = text.replace("_", r"\_")
-    #     return text
-
     def indent(self, text, level):
         return line_beginning_re.sub("\t" * level, text) if text else ""
 
-    # def underline(self, text, pad_char):
-    #     text = (text or "").rstrip()
-    #     return "%s\n%s\n\n" % (text, pad_char * len(text)) if text else ""
-
     def convert_a(self, el, convert_as_inline):
-        text = el.get_text()
-        prefix, suffix, text = chomp(text)
-        if not text:
-            # return ""
-            return []
+        # text = el.get_text()
+        # prefix, suffix, text = chomp(text)
+        # if not text:
+        #     return None
 
         href = el.get("href")
-
-        # title = el.get("title")
-        # For the replacement see #29: text nodes underscores are escaped
-        # if (
-        #     self.options["autolinks"]
-        #     and text.replace(r"\_", "_") == href
-        #     and not title
-        #     and not self.options["default_title"]
-        # ):
-        #     # Shortcut syntax
-        #     return "<%s>" % href
-
-        # if self.options["default_title"] and not title:
-        #     title = href
-
-        # title_part = ' "%s"' % title.replace('"', r"\"") if title else ""
-        # return [
-        #     create_rich_text(text=prefix),
-        #     create_rich_text(text=text, url=href),
-        #     create_rich_text(text=suffix),
-        # ]
-        return ConvertOutput(main_object=create_rich_text(text=text, url=href))
-        # return (
-        #     "%s[%s](%s%s)%s" % (prefix, text, href, title_part, suffix)
-        #     if href
-        #     else text
-        # )
+        return ConvertOutput(main_object=create_rich_text(url=href))
 
     convert_b = abstract_inline_conversion(
         lambda self: Annotations(bold=True)  # 2 * self.options["strong_em_symbol"]
