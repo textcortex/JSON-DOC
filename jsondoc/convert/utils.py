@@ -21,7 +21,10 @@ from jsondoc.models.block.types.heading_3 import Heading3, Heading3Block
 from jsondoc.models.block.types.image import ImageBlock
 from jsondoc.models.block.types.image.external_image import ExternalImage
 from jsondoc.models.block.types.image.file_image import FileImage
-from jsondoc.models.block.types.numbered_list_item import NumberedListItem, NumberedListItemBlock
+from jsondoc.models.block.types.numbered_list_item import (
+    NumberedListItem,
+    NumberedListItemBlock,
+)
 from jsondoc.models.block.types.paragraph import Paragraph, ParagraphBlock
 from jsondoc.models.block.types.quote import Quote, QuoteBlock
 from jsondoc.models.block.types.rich_text.base import RichTextBase
@@ -33,6 +36,7 @@ from jsondoc.models.block.types.table_row import TableRow, TableRowBlock
 from jsondoc.models.block.types.to_do import ToDoBlock
 from jsondoc.models.block.types.toggle import ToggleBlock
 from jsondoc.models.file.external import External
+from jsondoc.models.page import CreatedBy, LastEditedBy, Page, Parent, Properties, Title
 from jsondoc.models.shared_definitions import Annotations
 from jsondoc.rules import is_block_child_allowed
 from jsondoc.utils import generate_id, get_current_time
@@ -308,6 +312,7 @@ def create_image_block(
 ) -> ImageBlock:
     if id is None:
         id = generate_id()
+
     if created_time is None:
         created_time = get_current_time()
 
@@ -334,6 +339,7 @@ def create_quote_block(
 ) -> QuoteBlock:
     if id is None:
         id = generate_id()
+
     if created_time is None:
         created_time = get_current_time()
 
@@ -356,6 +362,7 @@ def create_table_row_block(
 ) -> TableRowBlock:
     if id is None:
         id = generate_id()
+
     if created_time is None:
         created_time = get_current_time()
 
@@ -377,6 +384,7 @@ def create_table_block(
 ) -> TableBlock:
     if id is None:
         id = generate_id()
+
     if created_time is None:
         created_time = get_current_time()
 
@@ -389,6 +397,67 @@ def create_table_block(
             has_column_header=has_column_header,
             has_row_header=has_row_header,
         ),
+    )
+
+
+def create_page(
+    id: str | None = None,
+    created_time=None,
+    created_by: str | None = None,
+    last_edited_time: datetime | None = None,
+    last_edited_by: str | None = None,
+    children: List[BlockBase] = [],
+    title: str | List[RichTextBase] | None = None,
+    archived: bool | None = None,
+    in_trash: bool | None = None,
+    # parent: str | None = None,
+    # icon # TBD
+) -> Page:
+    """
+    Creates a page with the given blocks
+    """
+    if id is None:
+        id = generate_id()
+
+    if created_time is None:
+        created_time = get_current_time()
+
+    created_by_ = None
+    if created_by is not None:
+        created_by_ = CreatedBy(id=created_by)
+
+    last_edited_by_ = None
+    if last_edited_by is not None:
+        last_edited_by_ = LastEditedBy(id=last_edited_by)
+
+    if last_edited_time is not None:
+        # Ensure that it has timezone information
+        if last_edited_time.tzinfo is None:
+            raise ValueError("last_edited_time must be timezone-aware")
+
+    title_ = None
+    if title is not None:
+        # Create rich text if title is a string
+        if isinstance(title, str):
+            title = [create_rich_text(title)]
+
+        title_ = Title(title=title)
+
+    properties = Properties(title=title_)
+
+    # if parent is not None:
+    #     parent_ = Parent(type="page_id", page_id=parent)
+
+    return Page(
+        id=id,
+        created_time=created_time,
+        created_by=created_by_,
+        last_edited_time=last_edited_time,
+        last_edited_by=last_edited_by_,
+        children=children,
+        properties=properties,
+        archived=archived,
+        in_trash=in_trash,
     )
 
 
@@ -460,9 +529,9 @@ def append_to_parent_block(parent: BlockBase, child: BlockBase) -> bool:
     return True
 
 
-def table_has_header_row(table: Tag) -> bool:
+def html_table_has_header_row(table: Tag) -> bool:
     """
-    Check if a table has a header row.
+    Check if an HTML table has a header row.
     """
     # Check if there's a thead element
     if table.find("thead"):

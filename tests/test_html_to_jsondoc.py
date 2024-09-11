@@ -90,5 +90,5 @@ def test_examples():
 
 
 if __name__ == "__main__":
-    test_examples()
+    # test_examples()
     test_convert_html_all_elements()

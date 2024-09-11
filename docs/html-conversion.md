@@ -66,4 +66,7 @@ def process_tag(node):
 - [x] Convert lists `<ul>` and `<ol>`
 - [x] Convert line breaks `<br>`
 - [ ] Convert `<caption>` and `<figcaption>`
+- [ ] Table cells with colspan/rowspan
+- [ ] Residual strings or newlines in the final output list
+- [ ] Force_page=true
 - [ ] Add sup/sub annotation?

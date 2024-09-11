@@ -15,13 +15,14 @@ from jsondoc.convert.utils import (
     create_h3_block,
     create_image_block,
     create_numbered_list_item_block,
+    create_page,
     create_paragraph_block,
     create_quote_block,
     create_rich_text,
     create_table_block,
     create_table_row_block,
     get_rich_text_from_block,
-    table_has_header_row,
+    html_table_has_header_row,
     try_append_rich_text_to_block,
 )
 from jsondoc.models.block.base import BlockBase
@@ -352,16 +353,30 @@ class HtmlToJsonDocConverter(object):
         return self.convert_soup(soup)
 
     def convert_soup(
-        self, soup, force_page=False
+        self, soup: BeautifulSoup, force_page=False
     ) -> Page | BlockBase | List[BlockBase]:
 
-        ret = self.process_tag(soup, convert_as_inline=False, children_only=True)
-        if isinstance(ret, list):
-            # return
-            # TODO: create a page and add all the blocks to it if force_page = True
-            # pass
-            if len(ret) == 1:
-                ret = ret[0]
+        children = self.process_tag(soup, convert_as_inline=False, children_only=True)
+
+        is_page = self._is_soup_page(soup)
+
+        ret = None
+        if is_page or force_page:
+            title = self._get_html_title(soup)
+            # Ensure that children is a list
+            if not isinstance(children, list):
+                children = [children]
+
+            # Create a page and add all the blocks to it
+            ret = create_page(
+                title=title,
+                children=children,
+            )
+        else:
+            ret = children
+            if isinstance(ret, list):
+                if len(ret) == 1:
+                    ret = ret[0]
 
         return ret
 
@@ -457,6 +472,58 @@ class HtmlToJsonDocConverter(object):
             )
 
         return objects
+
+    @staticmethod
+    def _get_html_title(soup: BeautifulSoup) -> str | None:
+        """
+        Extracts the title from the HTML document.
+
+        :param soup: BeautifulSoup object of the HTML document
+        :return: The title string or None if not found
+        """
+        title_tag = soup.find("title")
+        if title_tag and title_tag.string:
+            return title_tag.string.strip()
+
+        # If no title tag, check for the first h1
+        h1_tag = soup.find("h1")
+        if h1_tag:
+            return h1_tag.get_text(strip=True)
+
+        return None
+
+    @staticmethod
+    def _is_soup_page(soup: BeautifulSoup) -> bool:
+        """
+        Determines if the BeautifulSoup object represents a JSON-DOC page.
+
+        :param soup: BeautifulSoup object
+        :return: Boolean indicating if it's a JSON-DOC page
+        """
+        # Check for DOCTYPE
+        if not soup.contents or not isinstance(soup.contents[0], Doctype):
+            return False
+
+        # Check for <html> tag
+        html_tag = soup.find("html")
+        if not html_tag:
+            return False
+
+        # # Check for <head> and <body> tags
+        # head_tag = soup.find('head')
+        # body_tag = soup.find('body')
+        # if not (head_tag and body_tag):
+        #     return False
+
+        # # Check for essential head elements
+        # if not (head_tag.find('title') or head_tag.find('meta')):
+        #     return False
+
+        # # Check if body has some content
+        # if not body_tag.contents:
+        #     return False
+
+        return True
 
     def process_text(self, el):
         text = str(el) or ""
@@ -780,7 +847,7 @@ class HtmlToJsonDocConverter(object):
 
     def convert_table(self, el, convert_as_inline):
         # return "\n\n" + text + "\n"
-        has_column_header = table_has_header_row(el)
+        has_column_header = html_table_has_header_row(el)
         return create_table_block(
             has_column_header=has_column_header,
         )
