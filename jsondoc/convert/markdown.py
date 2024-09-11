@@ -110,7 +110,7 @@ class JsonDocToMarkdownConverter(object):
         raise AttributeError(attr)
 
     @validate_call
-    def convert(self, obj: str | dict | BlockBase | Page) -> str:
+    def convert(self, obj: str | dict | BlockBase | List[BlockBase] | Page) -> str:
 
         if isinstance(obj, (str, dict)):
             jsondoc = load_jsondoc(obj)
@@ -121,6 +121,8 @@ class JsonDocToMarkdownConverter(object):
             return self.convert_page(jsondoc)
         elif isinstance(jsondoc, BlockBase):
             return self.convert_block(jsondoc, False)
+        elif isinstance(jsondoc, list):
+            return "\n\n".join(self.convert_block(block, False) for block in jsondoc)
         else:
             raise ValueError(f"Invalid object type: {type(jsondoc)}")
 

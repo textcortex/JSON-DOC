@@ -1,6 +1,6 @@
 import logging
 from datetime import datetime, timezone
-from typing import List, Literal, Type
+from typing import List, Literal, Optional, Type
 
 from bs4 import Tag
 from pydantic import validate_call
@@ -46,8 +46,38 @@ class BreakElementPlaceholderBlock(BlockBase):
     type: Literal["break_element_placeholder"] = "break_element_placeholder"
 
 
+class CaptionPlaceholderBlock(BlockBase):
+    type: Literal["caption_placeholder"] = "caption_placeholder"
+    rich_text: Optional[List[RichTextBase]] = None
+
+
+class CellPlaceholderBlock(BlockBase):
+    type: Literal["cell_placeholder"] = "cell_placeholder"
+    rich_text: Optional[List[RichTextBase]] = None
+
+
 PLACEHOLDER_BLOCKS = [
     BreakElementPlaceholderBlock,
+    CaptionPlaceholderBlock,
+    CellPlaceholderBlock,
+]
+
+BLOCKS_WITH_RICH_TEXT: List[Type[BlockBase]] = [
+    ParagraphBlock,
+    CodeBlock,
+    Heading1Block,
+    Heading2Block,
+    Heading3Block,
+    QuoteBlock,
+    BulletedListItemBlock,
+    NumberedListItemBlock,
+    ToDoBlock,
+    ToggleBlock,
+]
+
+PLACEHOLDER_BLOCKS_WITH_RICH_TEXT: List[Type[BlockBase]] = [
+    CaptionPlaceholderBlock,
+    CellPlaceholderBlock,
 ]
 
 
@@ -461,47 +491,97 @@ def create_page(
     )
 
 
-def get_rich_text_from_block(block: BlockBase) -> List[RichTextBase] | None:
+def create_cell_placeholder_block():
+    return CellPlaceholderBlock(
+        id="",
+        created_time=get_current_time(),
+        type="cell_placeholder",
+        rich_text=[],
+    )
+
+
+def get_rich_text_from_block(block: BlockBase) -> List[RichTextBase]:
     """
-    Returns the rich text of a block
+    Returns the rich text of a block. If the block does not support rich text,
+    it will raise a ValueError. If the rich text is not initialized, it will
+    initialize it to an empty list and return that.
     """
+    if not block_supports_rich_text(block):
+        raise ValueError(f"Block of type {type(block)} does not support rich text")
+
     ret = None
     if isinstance(block, ParagraphBlock):
+        if block.paragraph.rich_text is None:
+            block.paragraph.rich_text = []
         ret = block.paragraph.rich_text
     elif isinstance(block, CodeBlock):
+        if block.code.rich_text is None:
+            block.code.rich_text = []
         ret = block.code.rich_text
     elif isinstance(block, Heading1Block):
+        if block.heading_1.rich_text is None:
+            block.heading_1.rich_text = []
         ret = block.heading_1.rich_text
     elif isinstance(block, Heading2Block):
+        if block.heading_2.rich_text is None:
+            block.heading_2.rich_text = []
         ret = block.heading_2.rich_text
     elif isinstance(block, Heading3Block):
+        if block.heading_3.rich_text is None:
+            block.heading_3.rich_text = []
         ret = block.heading_3.rich_text
     elif isinstance(block, QuoteBlock):
+        if block.quote.rich_text is None:
+            block.quote.rich_text = []
         ret = block.quote.rich_text
     elif isinstance(block, BulletedListItemBlock):
+        if block.bulleted_list_item.rich_text is None:
+            block.bulleted_list_item.rich_text = []
         ret = block.bulleted_list_item.rich_text
     elif isinstance(block, NumberedListItemBlock):
+        if block.numbered_list_item.rich_text is None:
+            block.numbered_list_item.rich_text = []
         ret = block.numbered_list_item.rich_text
     elif isinstance(block, ToDoBlock):
+        if block.to_do.rich_text is None:
+            block.to_do.rich_text = []
         ret = block.to_do.rich_text
     elif isinstance(block, ToggleBlock):
+        if block.toggle.rich_text is None:
+            block.toggle.rich_text = []
         ret = block.toggle.rich_text
+    # Placeholder blocks with rich text
+    elif isinstance(block, CaptionPlaceholderBlock):
+        if block.rich_text is None:
+            block.rich_text = []
+        ret = block.rich_text
+    elif isinstance(block, CellPlaceholderBlock):
+        if block.rich_text is None:
+            block.rich_text = []
+        ret = block.rich_text
+    else:
+        raise Exception(
+            f"Unsupported block type: {type(block)}. "
+            "This should not happen as long as this function implements all block types."
+        )
     # else:
     #     raise ValueError(f"Unsupported block type: {type(block)}")
 
     return ret
 
 
-def try_append_rich_text_to_block(block: BlockBase, rich_text: RichTextBase) -> bool:
-    if not isinstance(block, BlockBase) or not isinstance(rich_text, RichTextBase):
-        return False
+def append_rich_text_to_block(block: BlockBase, rich_text: RichTextBase):
+    # if not isinstance(block, BlockBase) or not isinstance(rich_text, RichTextBase):
+    #     return False
+    if not block_supports_rich_text(block):
+        raise ValueError(f"Block of type {type(block)} does not support rich text")
 
     rich_text_list = get_rich_text_from_block(block)
-    if rich_text_list is not None:
-        rich_text_list.append(rich_text)
-        return True
+    rich_text_list.append(rich_text)
 
-    return False
+
+def block_supports_rich_text(block: BlockBase) -> bool:
+    return type(block) in BLOCKS_WITH_RICH_TEXT + PLACEHOLDER_BLOCKS_WITH_RICH_TEXT
 
 
 @validate_call
@@ -553,3 +633,51 @@ def html_table_has_header_row(table: Tag) -> bool:
             return True
 
     return False
+
+
+def ensure_table_cell_count(table: TableBlock):
+    """
+    Ensures that the table has the same number of cells in each row.
+    """
+    # Get the maximum number of cells in all rows
+    max_cells = max(len(row.table_row.cells) for row in table.children)
+    for row in table.children:
+        n_diff = max_cells - len(row.table_row.cells)
+        # Append empty cells to the row
+        for _ in range(n_diff):
+            row.table_row.cells.append([])
+
+
+def _final_block_check(block: BlockBase):
+    if isinstance(block, CaptionPlaceholderBlock):
+        # Convert caption to a paragraph block
+
+        ret = create_paragraph_block()
+        ret.paragraph.rich_text = block.rich_text
+        return ret
+    elif isinstance(block, BreakElementPlaceholderBlock):
+        # These should be handled in reconcile_* functions
+        return None
+    elif isinstance(block, TableBlock):
+        ensure_table_cell_count(block)
+
+    return block
+
+
+def run_final_block_checks(blocks: List[BlockBase]):
+    """
+    Runs final checks on blocks after the main conversion is complete.
+
+    E.g. Handles residual placeholder blocks after the main conversion is complete.
+    This is needed because some placeholder blocks need to be handled in a special way.
+    """
+    ret = []
+    for block in blocks:
+        if isinstance(getattr(block, "children", None), list):
+            block.children = run_final_block_checks(block.children)
+
+        handled_block = _final_block_check(block)
+        if handled_block is not None:
+            ret.append(handled_block)
+
+    return ret

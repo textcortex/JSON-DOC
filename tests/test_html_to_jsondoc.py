@@ -7,7 +7,7 @@ from pydantic import BaseModel
 from jsondoc.convert.html import html_to_jsondoc
 from jsondoc.convert.markdown import jsondoc_to_markdown
 from jsondoc.serialize import jsondoc_dump_json, load_jsondoc
-from jsondoc.utils import diff_jsonable_dict, set_dict_recursive
+from jsondoc.utils import diff_jsonable_dict, load_json_file, set_dict_recursive
 
 
 def test_convert_html_all_elements():
@@ -56,8 +56,8 @@ def compare_jsondoc(jsondoc1: BaseModel, jsondoc2: BaseModel) -> bool:
 
 
 def _process_example(json_path):
-    with open(json_path, "r") as f:
-        data = json.load(f)
+    # with open(json_path, "r") as f:
+    data = load_json_file(json_path)
 
     html_source = data.get("html")
     jsondoc_target = data.get("jsondoc")
@@ -90,5 +90,5 @@ def test_examples():
 
 
 if __name__ == "__main__":
-    # test_examples()
+    test_examples()
     test_convert_html_all_elements()

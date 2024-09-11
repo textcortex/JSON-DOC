@@ -36,6 +36,7 @@ def convert_to_jsondoc(input_file, output_file=None, indent=None):
     else:
         # Print to terminal
         print(serialized_jsondoc)
+        # import ipdb; ipdb.set_trace()
         # print(jsondoc_to_markdown(jsondoc))
 
 

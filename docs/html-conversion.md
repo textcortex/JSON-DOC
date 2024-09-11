@@ -60,6 +60,14 @@ def process_tag(node):
     return return_objects
 ```
 
+## Placeholder blocks
+
+Some HTML elements are not guaranteed to be converted to a JSON-DOC block:
+
+- For example, in JSON-DOC, images can have captions, but tables cannot. So HTML `<caption>` elements needs to be handled separately.
+- HTML `<br>` elements do not resolve to a JSON-DOC block, but instead trigger a split in a parent block which can contain rich text.
+
+To conditionally handle these elements, we create a corresponding placeholder block and handle them in various ways while the tree is being processed.
 
 ## Remaining tasks
 

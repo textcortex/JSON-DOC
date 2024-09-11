@@ -1,13 +1,20 @@
+from types import NoneType
 from typing import List, Union
 from bs4 import BeautifulSoup, NavigableString, Comment, Doctype
 from textwrap import fill
 import re
 
+from pydantic import BaseModel
+
 from jsondoc.convert.utils import (
     BreakElementPlaceholderBlock,
+    CaptionPlaceholderBlock,
+    CellPlaceholderBlock,
     append_to_parent_block,
     append_to_rich_text,
+    block_supports_rich_text,
     create_bullet_list_item_block,
+    create_cell_placeholder_block,
     create_code_block,
     create_divider_block,
     create_h1_block,
@@ -22,8 +29,9 @@ from jsondoc.convert.utils import (
     create_table_block,
     create_table_row_block,
     get_rich_text_from_block,
+    run_final_block_checks,
     html_table_has_header_row,
-    try_append_rich_text_to_block,
+    append_rich_text_to_block,
 )
 from jsondoc.models.block.base import BlockBase
 from jsondoc.models.block.types.bulleted_list_item import BulletedListItemBlock
@@ -77,6 +85,12 @@ CHILDREN_TYPE = Union[BlockBase, RichTextBase, str]
 RICH_TEXT_TYPE = Union[RichTextBase, RichTextEquation]
 
 
+class ConvertOutput(BaseModel):
+    main_object: BlockBase | RichTextBase
+    prev_objects: List[BlockBase | RichTextBase] = []
+    next_objects: List[BlockBase | RichTextBase] = []
+
+
 def chomp(text):
     """
     If the text in an inline tag like b, a, or em contains a leading or trailing
@@ -115,13 +129,13 @@ def abstract_inline_conversion(markup_fn):
         annotations = markup_fn(self)
 
         if el.find_parent(["pre", "code", "kbd", "samp"]):
-            return create_rich_text()
+            return ConvertOutput(main_object=create_rich_text())
 
         # prefix, suffix, text = chomp(text)
         # if not text:
         #     return None
 
-        return create_rich_text(annotations=annotations)
+        return ConvertOutput(main_object=create_rich_text(annotations=annotations))
 
         # return [
         #     # create_rich_text(text=prefix),
@@ -177,6 +191,9 @@ def apply_parent_annotations(
 
 
 def apply_annotations_to_block(annotations_to_apply: Annotations, block: BlockBase):
+    """
+    Recursively applies the annotations to the block and its children
+    """
     if hasattr(block, "children") and isinstance(block.children, list):
         for child in block.children:
             apply_annotations_to_block(annotations_to_apply, child)
@@ -188,8 +205,9 @@ def apply_annotations_to_block(annotations_to_apply: Annotations, block: BlockBa
             apply_parent_annotations(annotations_to_apply, rich_text.annotations)
 
 
-def append_paragraph_block_to_table_row_block(
-    parent_table_row_block: TableRowBlock, child_paragraph_block: ParagraphBlock
+def append_caption_block_to_table_row_block(
+    parent_table_row_block: TableRowBlock,
+    child_paragraph_block: CellPlaceholderBlock,
 ):
     """
     Appends a paragraph block to a table row block
@@ -208,7 +226,7 @@ def append_paragraph_block_to_table_row_block(
 # Maps pairs of (parent_block_type, child_block_type) to a function
 # that appends the child block to the parent block
 OVERRIDE_APPEND_FUNCTIONS = {
-    (TableRowBlock, ParagraphBlock): append_paragraph_block_to_table_row_block,
+    (TableRowBlock, CellPlaceholderBlock): append_caption_block_to_table_row_block,
 }
 
 
@@ -261,15 +279,19 @@ def reconcile_to_block(
         if isinstance(child, str):
             if current_rich_text is None:
                 current_rich_text = create_rich_text()
+
             append_to_rich_text(current_rich_text, child)
-            success_ = try_append_rich_text_to_block(block, current_rich_text)
-            if not success_:
+
+            if block_supports_rich_text(block):
+                append_rich_text_to_block(block, current_rich_text)
+            else:
                 remaining_children.append(current_rich_text)
 
         elif isinstance(child, RichTextBase):
-            success_ = try_append_rich_text_to_block(block, child)
-            current_rich_text = None
-            if not success_:
+            if block_supports_rich_text(block):
+                append_rich_text_to_block(block, child)
+                current_rich_text = None
+            else:
                 remaining_children.append(child)
 
         elif isinstance(child, BreakElementPlaceholderBlock):
@@ -357,7 +379,7 @@ class HtmlToJsonDocConverter(object):
     ) -> Page | BlockBase | List[BlockBase]:
 
         children = self.process_tag(soup, convert_as_inline=False, children_only=True)
-
+        children = run_final_block_checks(children)
         is_page = self._is_soup_page(soup)
 
         ret = None
@@ -391,8 +413,7 @@ class HtmlToJsonDocConverter(object):
         # text = ""
         objects = []
 
-        # markdown headings or cells can't include
-        # block elements (elements w/newlines)
+        # Headings or cells can't include block elements (elements w/newlines)
         is_heading = html_heading_re.match(node.name) is not None
         is_cell = node.name in ["td", "th"]
         convert_children_as_inline = convert_as_inline
@@ -451,11 +472,21 @@ class HtmlToJsonDocConverter(object):
                 children_objects += new_objects
 
         current_level_object = None
+        current_level_prev_objects = []
+        current_level_next_objects = []
         if not children_only:
             convert_fn = getattr(self, "convert_%s" % node.name, None)
             if convert_fn and self.should_convert_tag(node.name):
                 # text = convert_fn(node, text, convert_as_inline)
-                current_level_object = convert_fn(node, convert_as_inline)
+                # current_level_object = convert_fn(node, convert_as_inline)
+                convert_output = convert_fn(node, convert_as_inline)
+                assert isinstance(
+                    convert_output, (ConvertOutput, NoneType)
+                ), f"Convert function {convert_fn} must return a ConvertOutput or None"
+                if convert_output is not None:
+                    current_level_object = convert_output.main_object
+                    current_level_prev_objects = convert_output.prev_objects
+                    current_level_next_objects = convert_output.next_objects
 
         # print(node, repr(current_level_object))
         # import ipdb; ipdb.set_trace()
@@ -471,6 +502,7 @@ class HtmlToJsonDocConverter(object):
                 f"Current node has yielded an unexpected type {type(current_level_object)}"
             )
 
+        objects = current_level_prev_objects + objects + current_level_next_objects
         return objects
 
     @staticmethod
@@ -626,7 +658,7 @@ class HtmlToJsonDocConverter(object):
         #     create_rich_text(text=text, url=href),
         #     create_rich_text(text=suffix),
         # ]
-        return create_rich_text(text=text, url=href)
+        return ConvertOutput(main_object=create_rich_text(text=text, url=href))
         # return (
         #     "%s[%s](%s%s)%s" % (prefix, text, href, title_part, suffix)
         #     if href
@@ -651,13 +683,17 @@ class HtmlToJsonDocConverter(object):
         #     return create_rich_text(text=text)
 
         # TODO: If text has newlines, split them and add 2, 3, ... lines as children
-        return create_quote_block()
+        return ConvertOutput(main_object=create_quote_block())
 
     def convert_br(self, el, convert_as_inline):
         if convert_as_inline:
             return None
 
-        return BreakElementPlaceholderBlock(id="", created_time=get_current_time())
+        return ConvertOutput(
+            main_object=BreakElementPlaceholderBlock(
+                id="", created_time=get_current_time()
+            )
+        )
 
     def convert_code(self, el, convert_as_inline):
         text = el.get_text()
@@ -668,7 +704,7 @@ class HtmlToJsonDocConverter(object):
         # )
         # return converter(self, el, convert_as_inline)
         if el.parent.name == "pre":
-            return create_rich_text()
+            return ConvertOutput(main_object=create_rich_text())
 
         converter = abstract_inline_conversion(lambda self: Annotations(code=True))
         return converter(self, el, convert_as_inline)
@@ -704,46 +740,46 @@ class HtmlToJsonDocConverter(object):
         if convert_as_inline:
             return create_rich_text()
 
-        return create_h1_block()
+        return ConvertOutput(main_object=create_h1_block())
 
     def convert_h2(self, el, convert_as_inline):
         # text = el.get_text()
         if convert_as_inline:
             return create_rich_text()
 
-        return create_h2_block()
+        return ConvertOutput(main_object=create_h2_block())
 
     def convert_h3(self, el, convert_as_inline):
         # text = el.get_text()
         if convert_as_inline:
             return create_rich_text()
 
-        return create_h3_block()
+        return ConvertOutput(main_object=create_h3_block())
 
     def convert_h4(self, el, convert_as_inline):
         # text = el.get_text()
         if convert_as_inline:
             return create_rich_text()
 
-        return create_paragraph_block()
+        return ConvertOutput(main_object=create_paragraph_block())
 
     def convert_h5(self, el, convert_as_inline):
         # text = el.get_text()
         if convert_as_inline:
             return create_rich_text()
 
-        return create_paragraph_block()
+        return ConvertOutput(main_object=create_paragraph_block())
 
     def convert_h6(self, el, convert_as_inline):
         # text = el.get_text()
         if convert_as_inline:
             return create_rich_text()
 
-        return create_paragraph_block()
+        return ConvertOutput(main_object=create_paragraph_block())
 
     def convert_hr(self, el, convert_as_inline):
         # return "\n\n---\n\n"
-        return create_divider_block()
+        return ConvertOutput(main_object=create_divider_block())
 
     convert_i = convert_em
 
@@ -762,7 +798,7 @@ class HtmlToJsonDocConverter(object):
         #     return alt
 
         # return "![%s](%s%s)" % (alt, src, title_part)
-        return create_image_block(url=src, caption=alt)
+        return ConvertOutput(main_object=create_image_block(url=src, caption=alt))
 
     def convert_list(self, el, convert_as_inline):
         """
@@ -777,9 +813,9 @@ class HtmlToJsonDocConverter(object):
     def convert_li(self, el, convert_as_inline):
         parent = el.parent
         if parent is not None and parent.name == "ol":
-            return create_numbered_list_item_block()
+            return ConvertOutput(main_object=create_numbered_list_item_block())
         else:
-            return create_bullet_list_item_block()
+            return ConvertOutput(main_object=create_bullet_list_item_block())
 
     def convert_p(self, el, convert_as_inline):
         # text = el.get_text()
@@ -800,7 +836,7 @@ class HtmlToJsonDocConverter(object):
         #         rich_text=[RichTextText()],
         #     )
         # )
-        return create_paragraph_block()
+        return ConvertOutput(main_object=create_paragraph_block())
 
     def convert_pre(self, el, convert_as_inline):
         text = el.get_text()
@@ -820,7 +856,9 @@ class HtmlToJsonDocConverter(object):
         if self.options["code_language_callback"]:
             code_language = self.options["code_language_callback"](el) or code_language
 
-        return create_code_block(code=text, language=code_language)
+        return ConvertOutput(
+            main_object=create_code_block(code=text, language=code_language)
+        )
 
     def convert_script(self, el, convert_as_inline):
         return None
@@ -848,13 +886,22 @@ class HtmlToJsonDocConverter(object):
     def convert_table(self, el, convert_as_inline):
         # return "\n\n" + text + "\n"
         has_column_header = html_table_has_header_row(el)
-        return create_table_block(
-            has_column_header=has_column_header,
+        return ConvertOutput(
+            main_object=create_table_block(
+                has_column_header=has_column_header,
+            )
         )
 
     def convert_caption(self, el, convert_as_inline):
         # return text + "\n"
-        return None  # TBD
+        return ConvertOutput(
+            main_object=CaptionPlaceholderBlock(
+                id="",
+                created_time=get_current_time(),
+                type="caption_placeholder",
+                rich_text=[],
+            )
+        )
 
     def convert_figcaption(self, el, convert_as_inline):
         # return "\n\n" + text + "\n\n"
@@ -869,19 +916,40 @@ class HtmlToJsonDocConverter(object):
         While paragraph block child is being reconciled to a table row block,
         paragraph_block.rich_text will be extracted to form table_row.cells.
         """
-        return create_paragraph_block()
+        # Get colspan
+        colspan = el.get("colspan", 1)
+        # Get rowspan
+        # rowspan = el.get("rowspan", 1)
+        # We need to come up with a much different way to handle rowspan
 
-    def convert_th(self, el, convert_as_inline):
-        """
-        Table header cell
-        """
-        return create_paragraph_block()
+        next_objects = []
+        if colspan > 1:
+            next_objects = [create_cell_placeholder_block() for _ in range(colspan - 1)]
+
+        return ConvertOutput(
+            main_object=create_cell_placeholder_block(),
+            next_objects=next_objects,
+        )
+
+    convert_th = convert_td
+    # def convert_th(self, el, convert_as_inline):
+    #     """
+    #     Table header cell
+    #     """
+    #     return ConvertOutput(
+    #         main_object=CellPlaceholderBlock(
+    #             id="",
+    #             created_time=get_current_time(),
+    #             type="cell_placeholder",
+    #             rich_text=[],
+    #         )
+    #     )
 
     def convert_tr(self, el, convert_as_inline):
         """
         Table row
         """
-        return create_table_row_block()
+        return ConvertOutput(main_object=create_table_row_block())
 
 
 def html_to_jsondoc(html: str | bytes, **options) -> Page | BlockBase | List[BlockBase]:

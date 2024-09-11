@@ -1,0 +1,214 @@
+// This example should also work when <thead><tbody><tfoot> are not in this order
+{
+  "html": "<table><caption>This is a caption for a table</caption><thead><tr><th>ID</th><th>Name</th><th>Date</th><th>Address</th></tr></thead><tbody><tr><td>#999-32ac</td><td>First Name</td><td>13 May, 2013</td><td>999 Spruce Lane, Somewhere, CA 94101</td></tr><tr><td>#888-32dd</td><td>Sample Name</td><td>17 May, 1984</td><td>999 Spruce Lane, Somewhere, CA 94101</td></tr></tbody><tfoot><tr><td>Table footer info</td></tr></tfoot></table>",
+  "jsondoc": [
+    {
+      "object": "block",
+      "id": "837b2347-ff8f-4c45-a07d-372425837ec5",
+      "type": "table",
+      "created_time": "2024-09-11T17:37:36.129629Z",
+      "table": {
+        "has_column_header": true,
+        "has_row_header": false
+      },
+      "children": [
+        {
+          "object": "block",
+          "id": "e39fc489-b2e8-49dc-8d78-4b33b7da276e",
+          "type": "table_row",
+          "created_time": "2024-09-11T17:37:36.128975Z",
+          "has_children": false,
+          "table_row": {
+            "cells": [
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "ID"
+                  },
+                  "annotations": {},
+                  "plain_text": "ID"
+                }
+              ],
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "Name"
+                  },
+                  "annotations": {},
+                  "plain_text": "Name"
+                }
+              ],
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "Date"
+                  },
+                  "annotations": {},
+                  "plain_text": "Date"
+                }
+              ],
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "Address"
+                  },
+                  "annotations": {},
+                  "plain_text": "Address"
+                }
+              ]
+            ]
+          }
+        },
+        {
+          "object": "block",
+          "id": "fbaf9cec-56a2-420e-adb0-c3713f9d1ee5",
+          "type": "table_row",
+          "created_time": "2024-09-11T17:37:36.129406Z",
+          "has_children": false,
+          "table_row": {
+            "cells": [
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "#999-32ac"
+                  },
+                  "annotations": {},
+                  "plain_text": "#999-32ac"
+                }
+              ],
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "First Name"
+                  },
+                  "annotations": {},
+                  "plain_text": "First Name"
+                }
+              ],
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "13 May, 2013"
+                  },
+                  "annotations": {},
+                  "plain_text": "13 May, 2013"
+                }
+              ],
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "999 Spruce Lane, Somewhere, CA 94101"
+                  },
+                  "annotations": {},
+                  "plain_text": "999 Spruce Lane, Somewhere, CA 94101"
+                }
+              ]
+            ]
+          }
+        },
+        {
+          "object": "block",
+          "id": "e7e6d08a-8a56-4a91-bf12-1b912dbe3a1f",
+          "type": "table_row",
+          "created_time": "2024-09-11T17:37:36.129535Z",
+          "has_children": false,
+          "table_row": {
+            "cells": [
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "#888-32dd"
+                  },
+                  "annotations": {},
+                  "plain_text": "#888-32dd"
+                }
+              ],
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "Sample Name"
+                  },
+                  "annotations": {},
+                  "plain_text": "Sample Name"
+                }
+              ],
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "17 May, 1984"
+                  },
+                  "annotations": {},
+                  "plain_text": "17 May, 1984"
+                }
+              ],
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "999 Spruce Lane, Somewhere, CA 94101"
+                  },
+                  "annotations": {},
+                  "plain_text": "999 Spruce Lane, Somewhere, CA 94101"
+                }
+              ]
+            ]
+          }
+        },
+        {
+          "object": "block",
+          "id": "c28ddc6c-51af-4b57-b32b-2967a5c7867f",
+          "type": "table_row",
+          "created_time": "2024-09-11T17:37:36.129591Z",
+          "has_children": false,
+          "table_row": {
+            "cells": [
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "Table footer info"
+                  },
+                  "annotations": {},
+                  "plain_text": "Table footer info"
+                }
+              ],
+              [],
+              [],
+              []
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "object": "block",
+      "id": "d0d57490-d0d1-4db8-a5be-d254415324b2",
+      "type": "paragraph",
+      "created_time": "2024-09-11T17:37:36.129737Z",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "This is a caption for a table"
+            },
+            "annotations": {},
+            "plain_text": "This is a caption for a table"
+          }
+        ]
+      }
+    }
+  ]
+}
