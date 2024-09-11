@@ -44,32 +44,26 @@ from jsondoc.models.shared_definitions import Annotations
 from jsondoc.rules import is_block_child_allowed
 from jsondoc.utils import generate_id, get_current_time
 
-convert_heading_re = re.compile(r"convert_h(\d+)")
 line_beginning_re = re.compile(r"^", re.MULTILINE)
 whitespace_re = re.compile(r"[\t ]+")
 all_whitespace_re = re.compile(r"[\s]+")
 html_heading_re = re.compile(r"h[1-6]")
 
 
-# Heading styles
-ATX = "atx"
-ATX_CLOSED = "atx_closed"
-UNDERLINED = "underlined"
-SETEXT = UNDERLINED
-
-# Newline style
-SPACES = "spaces"
-BACKSLASH = "backslash"
-
-# Strong and emphasis style
-ASTERISK = "*"
-UNDERSCORE = "_"
-
 CHILDREN_TYPE = Union[BlockBase, RichTextBase, str]
 RICH_TEXT_TYPE = Union[RichTextBase, RichTextEquation]
 
 
 class ConvertOutput(BaseModel):
+    """
+    Return type for convert functions
+
+    Children objects are reconciled to the main object,
+    i.e. first we run:
+    >>> reconcile_to_block(block: BlockBase, children: List[CHILDREN_TYPE]) -> List[CHILDREN_TYPE]
+    and then we concatenate the result with prev_objects and next_objects:
+    >>> final_objects = prev_objects + reconciled_objects + next_objects
+    """
     main_object: BlockBase | RichTextBase
     prev_objects: List[BlockBase | RichTextBase] = []
     next_objects: List[BlockBase | RichTextBase] = []
@@ -600,9 +594,6 @@ class HtmlToJsonDocConverter(object):
             return tag in convert
         else:
             return True
-
-    def indent(self, text, level):
-        return line_beginning_re.sub("\t" * level, text) if text else ""
 
     def convert_a(self, el, convert_as_inline):
         href = el.get("href")
