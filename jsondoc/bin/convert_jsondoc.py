@@ -101,10 +101,10 @@ def convert_to_jsondoc(
             raise ValueError("Converting only to/from JSON-DOC is not supported. ")
 
     if source_format == "jsondoc":
-        assert target_format in [
-            "markdown",
-            None,
-        ], "Currently can only convert from JSON-DOC to Markdown"
+        assert target_format is not None, "Target format must be specified"
+        assert (
+            target_format == "markdown"
+        ), "Currently can only convert from JSON-DOC to Markdown"
 
         if input_content is None:
             raise Exception(

@@ -69,6 +69,38 @@ Some HTML elements are not guaranteed to be converted to a JSON-DOC block:
 
 To conditionally handle these elements, we create a corresponding placeholder block and handle them in various ways while the tree is being processed.
 
+## Using the converter script
+
+The Python package `jsondoc` includes a command line script `convert_jsondoc` to convert between JSON-DOC and other formats. To see how to use the converter script, run:
+
+```bash
+convert_jsondoc --help
+```
+
+Source and target formats can be specified with the `-s` and `-t` flags. If they are not specified, the converter will try to infer them from file extensions in input and output file names.
+
+Convert the example HTML file to JSON-DOC:
+
+```bash
+convert_jsondoc -i examples/html/html_all_elements.html --indent 2
+```
+
+- The script will exclusively convert from JSON-DOC to other formats and vice versa. So either the source or the target must be JSON-DOC.
+- If the source is not JSON-DOC, then target will be assumed to be JSON-DOC.
+- If the source is JSON-DOC, then the target format will have to be specified, either directly with `-t` or indirectly by providing a file name with an extension that can be used to infer the format.
+
+```bash
+# Will convert an_awesome_file.docx to JSON-DOC and save it in awesome_jsondoc.json
+convert_jsondoc -i an_awesome_file.docx --indent 2 -o awesome_jsondoc.json
+```
+
+You can also pipe the output of one converter to the input of another, to convert from one format to another.
+
+```bash
+# Convert from HTML to JSON-DOC and then to Markdown
+convert_jsondoc -i an_awesome_file.html --indent 2 | convert_jsondoc -s jsondoc -t markdown
+```
+
 ## Remaining tasks
 
 - [x] Convert lists `<ul>` and `<ol>`
