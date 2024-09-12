@@ -8,3 +8,4 @@
 ## Ideas
 
 - Let TableBlocks have caption? In Notion, they cannot have captions.
+- Add subscript/superscript annotation to rich text?

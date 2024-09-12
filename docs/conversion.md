@@ -1,4 +1,20 @@
-# HTML Conversion
+---
+date: 2024-09-12
+---
+
+# Conversion between JSON-DOC and other formats
+
+JSON-DOC is designed to be a versatile and interoperable format for representing structured block-based documents. To facilitate its adoption and integration with existing systems, we provide conversion capabilities between JSON-DOC and other common document formats.
+
+## HTML as intermediate format
+
+Writing a converter between a single pair of formats is an arduous task by itself. At the initial stage, it is infeasible to write converters between all the existing formats and JSON-DOC.
+
+To remedy this, we follow a pivot approach over HTML. HTML is a well-established and unambiguous format (unlike Markdown and its flavors) with rich markup elements, capable of representing most of the document constructs we encounter in practice. The most popular Python HTML parser BeautifulSoup is efficient and well tested. Therefore, we choose HTML as the intermediate format. We implement the pair JSON-DOC <-> HTML and couple it with Pandoc to convert between all the existing formats and JSON-DOC.
+
+For examle, to convert a Markdown file to JSON-DOC, we first use one of the existing converters to convert the Markdown file to HTML, and then use the converter we wrote to convert from HTML to JSON-DOC, i.e. Markdown --(pandoc)--> HTML --(this library)--> JSON-DOC.
+
+## Details of HTML conversion
 
 - Terminal text nodes are to be converted to rich text blocks.
 - Order of children blocks must be preserved
@@ -103,6 +119,8 @@ convert_jsondoc -i an_awesome_file.html --indent 2 | convert_jsondoc -s jsondoc 
 
 ## Remaining tasks
 
+HTML->JSON-DOC tasks
+
 - [x] Convert lists `<ul>` and `<ol>`
 - [x] Convert line breaks `<br>`
 - [x] Convert `<caption>` and `<figcaption>`
@@ -113,5 +131,3 @@ convert_jsondoc -i an_awesome_file.html --indent 2 | convert_jsondoc -s jsondoc 
 - [ ] Table cells with colspan/rowspan
 - [ ] Add test for `<code>` and `<pre>`
 - [ ] Table thead/tbody/tfoot ordering
-- [ ] Add sup/sub annotation?
-- [ ] Add converters to/from other formats (markdown, latex, etc.)
