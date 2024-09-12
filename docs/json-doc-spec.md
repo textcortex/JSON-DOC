@@ -1,9 +1,13 @@
 
-# Children blocks
+# JSON-DOC Specification
+
+TBD
+
+## Children blocks
 
 See `jsondoc.validate.rules` for more details.
 
-## Block types with no restrictions on children types
+### Block types with no restrictions on children types
 
 - `type: paragraph`
 - `type: toggle`
@@ -14,7 +18,7 @@ See `jsondoc.validate.rules` for more details.
 - `type: to_do`
 - `type: column`
 
-## Block types where children are restricted to a specific type
+### Block types where children are restricted to a specific type
 
 - `type: column_list`
   - Children type: `type: column`

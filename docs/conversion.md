@@ -82,3 +82,4 @@ To conditionally handle these elements, we create a corresponding placeholder bl
 - [ ] Add test for `<code>` and `<pre>`
 - [ ] Table thead/tbody/tfoot ordering
 - [ ] Add sup/sub annotation?
+- [ ] Add converters to/from other formats (markdown, latex, etc.)
