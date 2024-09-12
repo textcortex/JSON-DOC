@@ -116,6 +116,7 @@ def convert_json_schema_to_model(
         input_filename="example.json",
         output=output,
         output_model_type=DataModelType.PydanticV2BaseModel,
+        apply_default_values_for_required_fields=True,
     )
     model: str = output.read_text()
 

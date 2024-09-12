@@ -6,7 +6,8 @@
   "properties": {
     "type": {
       "type": "string",
-      "const": "equation"
+      "const": "equation",
+      "default": "equation"
     },
     "equation": {
       "type": "object",
@@ -19,35 +20,7 @@
       "additionalProperties": false
     },
     "annotations": {
-      "type": "object",
-      "properties": {
-        "bold": {
-          "type": "boolean"
-        },
-        "italic": {
-          "type": "boolean"
-        },
-        "strikethrough": {
-          "type": "boolean"
-        },
-        "underline": {
-          "type": "boolean"
-        },
-        "code": {
-          "type": "boolean"
-        },
-        "color": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "bold",
-        "italic",
-        "strikethrough",
-        "underline",
-        "code",
-        "color"
-      ]
+      "$ref": "/shared_definitions/shared_definitions_schema.json#/$defs/annotations"
     },
     "plain_text": {
       "type": "string"

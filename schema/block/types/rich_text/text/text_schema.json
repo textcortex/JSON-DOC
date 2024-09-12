@@ -6,7 +6,8 @@
   "properties": {
     "type": {
       "type": "string",
-      "const": "text"
+      "const": "text",
+      "default": "text"
     },
     "text": {
       "type": "object",
@@ -27,35 +28,7 @@
       "required": ["content", "link"]
     },
     "annotations": {
-      "type": "object",
-      "properties": {
-        "bold": {
-          "type": "boolean"
-        },
-        "italic": {
-          "type": "boolean"
-        },
-        "strikethrough": {
-          "type": "boolean"
-        },
-        "underline": {
-          "type": "boolean"
-        },
-        "code": {
-          "type": "boolean"
-        },
-        "color": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "bold",
-        "italic",
-        "strikethrough",
-        "underline",
-        "code",
-        "color"
-      ]
+      "$ref": "/shared_definitions/shared_definitions_schema.json#/$defs/annotations"
     },
     "plain_text": {
       "type": "string"

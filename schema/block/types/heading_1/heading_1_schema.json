@@ -6,7 +6,9 @@
   "allOf": [{ "$ref": "/block/base/base_schema.json" }],
   "properties": {
     "type": {
-      "const": "heading_1"
+      "type": "string",
+      "const": "heading_1",
+      "default": "heading_1"
     },
     "heading_1": {
       "type": "object",
@@ -15,7 +17,8 @@
           "type": "array",
           "items": {
             "$ref": "/block/types/rich_text/rich_text_schema.json"
-          }
+          },
+          "default": []
         },
         "color": {
           "$ref": "/shared_definitions/shared_definitions_schema.json#/$defs/color"
@@ -26,13 +29,14 @@
       },
       "required": ["rich_text"],
       "additionalProperties": false
-    },
-    "children": {
-      "type": "array",
-      "items": {
-        "$ref": "/block/block_schema.json"
-      }
     }
+    // Headings can't have children
+    // "children": {
+    //   "type": "array",
+    //   "items": {
+    //     "$ref": "/block/block_schema.json"
+    //   }
+    // }
   },
   "required": ["type", "heading_1"],
   "unevaluatedProperties": false

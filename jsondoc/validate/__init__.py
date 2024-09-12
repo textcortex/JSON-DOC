@@ -1,6 +1,6 @@
-import argparse
 import os
 import sys
+import time
 
 from jsonschema import Draft202012Validator, ValidationError, validate
 from referencing import Registry, Resource
@@ -49,24 +49,12 @@ def validate_json(schema_path, data_path, root=None):
     validator = Draft202012Validator(schema, registry=registry)
 
     try:
+        start = time.time()
         validator.validate(data)
-        print(f"{data_path} is valid")
+        end = time.time()
+        elapsed_ms = (end - start) * 1000
+        print(f"{data_path} is valid (took {elapsed_ms:.3f}ms)")
         sys.exit(0)
     except ValidationError as e:
         print(f"Validation error: {e}")
         sys.exit(1)
-
-
-def main():
-    parser = argparse.ArgumentParser(description="Validate JSON against a JSON schema")
-    parser.add_argument("schema", help="Path to the JSON schema file")
-    parser.add_argument("data", help="Path to the JSON data file")
-    parser.add_argument("--root", help="Root of the schema", default=None)
-
-    args = parser.parse_args()
-
-    validate_json(args.schema, args.data, root=args.root)
-
-
-if __name__ == "__main__":
-    main()

@@ -11,6 +11,9 @@
   },
   "required": ["type"],
   "allOf": [
+    // {
+    //   "$ref": "/block/types/rich_text/base/base_schema.json"
+    // },
     {
       "if": {
         "properties": { "type": { "const": "text" } }

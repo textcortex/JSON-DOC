@@ -6,19 +6,19 @@ title: "JSON-DOC"
 
 # JSON-DOC Implementation Roadmap
 
-- [ ] Create JSONSchema for each block type.
-- [ ] Implement converters into JSON-DOC
+- [x] Create JSONSchema for each block type.
+- [x] Implement converters into JSON-DOC
   - [ ] Multimodal-LLM based PDF/raster image -> JSON-DOC (Most important)
-  - [ ] HTML -> JSON-DOC
-  - [ ] DOCX -> JSON-DOC
-  - [ ] XLSX -> JSON-DOC
-  - [ ] PPTX -> JSON-DOC
-  - [ ] CSV -> JSON-DOC
-  - [ ] Google Docs -> JSON-DOC (lower priority compared to DOCX)
-  - [ ] Google Sheets -> JSON-DOC
-  - [ ] Google Slides -> JSON-DOC
+  - [x] HTML -> JSON-DOC
+  - [x] DOCX -> JSON-DOC
+  - [x] XLSX -> JSON-DOC
+  - [x] PPTX -> JSON-DOC
+  - [x] CSV -> JSON-DOC
+  - [x] Google Docs -> JSON-DOC (lower priority compared to DOCX)
+  - [x] Google Sheets -> JSON-DOC
+  - [x] Google Slides -> JSON-DOC
 - [ ] Implement converters from JSON-DOC
-  - [ ] JSON-DOC -> Markdown/plain text with tabular metadata for injecting into LLM context.
+  - [x] JSON-DOC -> Markdown/plain text with tabular metadata for injecting into LLM context.
   - [ ] Ability to reference, extract and render a certain table range. (Important for scrolling in spreadsheets)
 - [ ] Frontend for JSON-DOC
   - [ ] JavaScript renderer for JSON-DOC to render it in the browser.
@@ -121,5 +121,5 @@ These are not "official" blocks, but exist under the `rich_text` key in some blo
 ## Miscellaneous tasks
 
 - [ ] Make non-essential fields optional with default values to make JSON files smaller. Start with rich text fields.
-- [ ] Reserve jsondoc PyPI package name.
-- [ ] Buy a JSON-DOC domain. json-doc.org and json-doc.com are available.
+- [x] Reserve jsondoc PyPI package name. (Reserved python-jsondoc since PyPI rejected jsondoc)
+- [x] Buy a JSON-DOC domain. json-doc.org and json-doc.com are available.

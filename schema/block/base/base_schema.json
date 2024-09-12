@@ -6,7 +6,8 @@
   "properties": {
     "object": {
       "type": "string",
-      "const": "block"
+      "const": "block",
+      "default": "block"
     },
     "id": {
       "type": "string"
@@ -105,12 +106,15 @@
     },
     "archived": {
       "type": "boolean"
+      // "default": false
     },
     "in_trash": {
       "type": "boolean"
+      // "default": false
     },
     "has_children": {
       "type": "boolean"
+      // "default": false
     },
     // notion-diverge
     "metadata": {
@@ -122,12 +126,13 @@
     "object",
     "id",
     "type",
-    "created_time",
+    "created_time"
+    // notion-diverge
     // "created_by", // These are optional since we can be out of Notion context
     // "last_edited_time",
     // "last_edited_by",
-    "archived",
-    "has_children"
+    // "archived",
+    // "has_children",
   ]
   // This was meant to refer to the object that contains type-specific block
   //   "additionalProperties": {

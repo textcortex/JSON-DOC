@@ -6,7 +6,9 @@
   "allOf": [{ "$ref": "/block/base/base_schema.json" }],
   "properties": {
     "type": {
-      "const": "code"
+      "type": "string",
+      "const": "code",
+      "default": "code"
     },
     "code": {
       "type": "object",
@@ -21,7 +23,8 @@
           "type": "array",
           "items": {
             "$ref": "/block/types/rich_text/rich_text_schema.json"
-          }
+          },
+          "default": []
         },
         "language": {
           "type": "string",
@@ -103,13 +106,14 @@
       },
       "required": ["rich_text"],
       "additionalProperties": false
-    },
-    "children": {
-      "type": "array",
-      "items": {
-        "$ref": "/block/block_schema.json"
-      }
     }
+    // Code block can't have children
+    // "children": {
+    //   "type": "array",
+    //   "items": {
+    //     "$ref": "/block/block_schema.json"
+    //   }
+    // }
   },
   "required": ["type", "code"],
   "unevaluatedProperties": false

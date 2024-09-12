@@ -15,6 +15,8 @@ def run_validation(schema_path, data_path, root=None):
     if root is not None:
         cmd.extend(["--root", root])
 
+    # print(" ".join(cmd))
+
     result = subprocess.run(
         cmd,
         capture_output=True,

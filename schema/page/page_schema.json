@@ -6,7 +6,8 @@
   "properties": {
     "object": {
       "type": "string",
-      "const": "page"
+      "const": "page",
+      "default": "page"
     },
     "id": {
       "type": "string"
@@ -34,7 +35,8 @@
       "properties": {
         "object": {
           "type": "string",
-          "const": "user"
+          "const": "user",
+          "default": "user"
         },
         "id": {
           "type": "string"
@@ -52,7 +54,8 @@
       "properties": {
         "object": {
           "type": "string",
-          "const": "user"
+          "const": "user",
+          "default": "user"
         },
         "id": {
           "type": "string"
@@ -93,7 +96,8 @@
             },
             "type": {
               "type": "string",
-              "const": "title"
+              "const": "title",
+              "default": "title"
             },
             "title": {
               "type": "array",

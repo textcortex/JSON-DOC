@@ -1,17 +1,10 @@
 import difflib
 import json
+import time
 from jsondoc.serialize import load_page
-from jsondoc.utils import load_json_file
+from jsondoc.utils import diff_strings, load_json_file, timer
 
-PAGE_PATH = "schema/page/ex2_success.json"
-
-
-def diff_strings(string1, string2):
-    lines1 = string1.splitlines(keepends=True)
-    lines2 = string2.splitlines(keepends=True)
-
-    diff = difflib.unified_diff(lines1, lines2, lineterm="")
-    return "".join(diff)
+PAGE_PATH = "schema/page/ex1_success.json"
 
 
 def remove_null_fields(string):
@@ -37,7 +30,9 @@ def test_load_page():
     content = load_json_file(PAGE_PATH)
 
     # This should not raise any errors
-    page = load_page(content)
+    with timer("load_page", unit="ms"):
+        page = load_page(content)
+
     assert page is not None
 
     # Serialize it again

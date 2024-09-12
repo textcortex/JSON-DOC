@@ -7,7 +7,9 @@
   "allOf": [{ "$ref": "/block/base/base_schema.json" }],
   "properties": {
     "type": {
-      "const": "to_do"
+      "type": "string",
+      "const": "to_do",
+      "default": "to_do"
     },
     "to_do": {
       "type": "object",
@@ -16,7 +18,8 @@
           "type": "array",
           "items": {
             "$ref": "/block/types/rich_text/rich_text_schema.json"
-          }
+          },
+          "default": []
         },
         "checked": {
           "type": "boolean"

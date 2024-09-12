@@ -1,0 +1,70 @@
+{
+  "html": "<blockquote><p>This is a <b>paragraph</b> inside a <em>blockquote</em> element.</p></blockquote>",
+  "jsondoc": {
+    "object": "block",
+    "id": "4616a665-f8cd-478d-8116-f243c321d261",
+    "type": "quote",
+    "created_time": "2024-09-09T21:21:32.914510Z",
+    "has_children": true,
+    "quote": {
+      "rich_text": []
+    },
+    "children": [
+      {
+        "object": "block",
+        "id": "783174c8-d717-47e0-a2de-1945007bb051",
+        "type": "paragraph",
+        "created_time": "2024-09-09T21:21:32.913806Z",
+        "has_children": false,
+        "paragraph": {
+          "rich_text": [
+            {
+              "type": "text",
+              "text": {
+                "content": "This is a "
+              },
+              "annotations": {},
+              "plain_text": "This is a "
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "paragraph"
+              },
+              "annotations": {
+                "bold": true
+              },
+              "plain_text": "paragraph"
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " inside a "
+              },
+              "annotations": {},
+              "plain_text": " inside a "
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": "blockquote"
+              },
+              "annotations": {
+                "italic": true
+              },
+              "plain_text": "blockquote"
+            },
+            {
+              "type": "text",
+              "text": {
+                "content": " element."
+              },
+              "annotations": {},
+              "plain_text": " element."
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

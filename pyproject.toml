@@ -7,19 +7,20 @@ readme = "README.md"
 packages = [{ include = "jsondoc" }]
 
 [tool.poetry.scripts]
-validate_jsondoc = "jsondoc.validate:main"
+validate_jsondoc = "jsondoc.bin.validate_jsondoc:main"
+convert_jsondoc = "jsondoc.bin.convert_jsondoc:main"
 
 [tool.poetry.dependencies]
 python = "^3.11"
 requests = "^2.32.2"
 python-dotenv = "^1.0.1"
-anthropic = "^0.26.1"
 ipdb = "^0.13.13"
 pillow = "^10.3.0"
 pydantic = "^2.7.2"
 thefuzz = "^0.22.1"
 jsonschema = "^4.23.0"
 bs4 = "^0.0.2"
+pypandoc = "^1.13"
 
 
 [tool.poetry.group.dev.dependencies]

@@ -42,8 +42,9 @@ jobs:
     - name: Run tests
       run: |
         source .venv/bin/activate
-        python tests/run_validation_tests.py schema
-        python tests/run_serialization_tests.py
+        python tests/test_validation.py schema
+        python tests/test_serialization.py
+        python tests/test_html_to_jsondoc.py
 
     # - name: Upload test results
     #   uses: actions/upload-artifact@v2

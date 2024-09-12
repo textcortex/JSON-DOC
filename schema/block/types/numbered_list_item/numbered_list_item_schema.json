@@ -7,7 +7,9 @@
   "allOf": [{ "$ref": "/block/base/base_schema.json" }],
   "properties": {
     "type": {
-      "const": "numbered_list_item"
+      "type": "string",
+      "const": "numbered_list_item",
+      "default": "numbered_list_item"
     },
     "numbered_list_item": {
       "type": "object",
@@ -16,7 +18,8 @@
           "type": "array",
           "items": {
             "$ref": "/block/types/rich_text/rich_text_schema.json"
-          }
+          },
+          "default": []
         },
         "color": {
           "$ref": "/shared_definitions/shared_definitions_schema.json#/$defs/color"
