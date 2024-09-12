@@ -191,6 +191,9 @@ def load_block(obj: Union[str, Dict[str, Any]]) -> Type[BlockBase]:
         for rt_field in rt_fields:
             val_ = get_nested_value(mutable_obj, rt_field)
 
+            if val_ is None:
+                continue
+
             if not isinstance(val_, list):
                 raise ValueError(f"Field {rt_field} must be a list: {val_}")
 
@@ -241,11 +244,12 @@ def load_page(obj: Union[str, Dict[str, Any]]) -> Page:
 
 
 @validate_call
-def load_jsondoc(obj: Union[str, Dict[str, Any], List[Dict[str, Any]]]) -> Page | BlockBase:
+def load_jsondoc(obj: Union[str, Dict[str, Any], List[Dict[str, Any]]]) -> Page | BlockBase | List[BlockBase]:
+    if isinstance(obj, str):
+        obj = json.loads(obj)
+
     if isinstance(obj, list):
         return [load_jsondoc(block) for block in obj]
-    elif isinstance(obj, str):
-        obj = json.loads(obj)
 
     object_ = obj.get("object")
     if object_ == "page":
@@ -269,6 +273,13 @@ def jsondoc_dump_json(
     obj: BlockBase | List[BlockBase] | Page,
     indent: int | None = None,
 ) -> str:
+    """
+    Serializes an input JSON-DOC object to a JSON string.
+
+    :param obj: JSON-DOC object to serialize (can be a single block, a list of blocks, or a page)
+    :param indent: Indentation level for the JSON string
+    :return: JSON string
+    """
     if isinstance(obj, list):
         strs = [base_model_dump_json(block, indent=indent) for block in obj]
         dicts = [json.loads(s) for s in strs]
