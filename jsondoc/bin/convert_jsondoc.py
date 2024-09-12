@@ -1,30 +1,27 @@
 import argparse
-import json
+import pypandoc
+
 from jsondoc.convert.html import html_to_jsondoc
 from jsondoc.convert.markdown import jsondoc_to_markdown
-from jsondoc.serialize import jsondoc_dump_json, load_jsondoc
+from jsondoc.serialize import jsondoc_dump_json
 
 
 def convert_to_jsondoc(input_file, output_file=None, indent=None):
     # Read the input file
-    with open(input_file, "r") as file:
-        content = file.read()
 
     # Determine the file type based on extension
     file_extension = input_file.split(".")[-1].lower()
 
     if file_extension in ["html", "htm"]:
-        # Convert HTML to jsondoc
-        jsondoc = html_to_jsondoc(content)
-    elif file_extension in ["md", "markdown"]:
-        # For markdown, we'll first convert to HTML, then to jsondoc
-        # This is a placeholder as we don't have a direct markdown to jsondoc converter
-        html_content = markdown_to_html(
-            content
-        )  # You'll need to implement this function
-        jsondoc = html_to_jsondoc(html_content)
+        with open(input_file, "r") as file:
+            html_content = file.read()
     else:
-        raise ValueError(f"Unsupported file type: {file_extension}")
+        try:
+            html_content = pypandoc.convert_file(input_file, "html")
+        except RuntimeError as e:
+            raise ValueError(f"File type not supported for conversion: {input_file}")
+
+    jsondoc = html_to_jsondoc(html_content)
 
     # Serialize the jsondoc
     serialized_jsondoc = jsondoc_dump_json(jsondoc, indent=indent)
@@ -38,15 +35,6 @@ def convert_to_jsondoc(input_file, output_file=None, indent=None):
         print(serialized_jsondoc)
         # import ipdb; ipdb.set_trace()
         # print(jsondoc_to_markdown(jsondoc))
-
-
-def markdown_to_html(markdown_content):
-    # Placeholder function for markdown to HTML conversion
-    # You'll need to implement this using a markdown library
-    # For example, you could use the `markdown` library:
-    # import markdown
-    # return markdown.markdown(markdown_content)
-    raise NotImplementedError("Markdown to HTML conversion not implemented")
 
 
 if __name__ == "__main__":
@@ -66,8 +54,12 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    convert_to_jsondoc(
-        args.input_file,
-        args.output_file,
-        indent=args.indent,
-    )
+    try:
+        convert_to_jsondoc(
+            args.input_file,
+            args.output_file,
+            indent=args.indent,
+        )
+    except ValueError as e:
+        print(e)
+        exit(1)

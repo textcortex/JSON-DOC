@@ -20,6 +20,7 @@ pydantic = "^2.7.2"
 thefuzz = "^0.22.1"
 jsonschema = "^4.23.0"
 bs4 = "^0.0.2"
+pypandoc = "^1.13"
 
 
 [tool.poetry.group.dev.dependencies]
