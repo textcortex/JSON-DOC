@@ -125,6 +125,8 @@ HTML->JSON-DOC tasks
 - [x] Convert line breaks `<br>`
 - [x] Convert `<caption>` and `<figcaption>`
 - [x] Force_page=true
+- [x] Add an argument to CLI for force-creating  a page
+    - for some reason, pandoc doesn't create a top-level `<html>` and `<body>` when converting from docx to HTML
 - [ ] Residual strings, newlines or empty paragraphs in the final output list (in progress)
 - [ ] Make sure `<a>` conversion is consistent
 - [ ] Cleanup empty blocks at the end

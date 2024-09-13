@@ -64,6 +64,7 @@ class ConvertOutput(BaseModel):
     and then we concatenate the result with prev_objects and next_objects:
     >>> final_objects = prev_objects + reconciled_objects + next_objects
     """
+
     main_object: BlockBase | RichTextBase
     prev_objects: List[BlockBase | RichTextBase] = []
     next_objects: List[BlockBase | RichTextBase] = []
@@ -359,6 +360,7 @@ class HtmlToJsonDocConverter(object):
         default_title = False
         keep_inline_images_in = []
         strip = None
+        force_page = False
 
     class Options(DefaultOptions):
         pass
@@ -379,16 +381,14 @@ class HtmlToJsonDocConverter(object):
         soup = BeautifulSoup(html, "html.parser")
         return self.convert_soup(soup)
 
-    def convert_soup(
-        self, soup: BeautifulSoup, force_page=False
-    ) -> Page | BlockBase | List[BlockBase]:
+    def convert_soup(self, soup: BeautifulSoup) -> Page | BlockBase | List[BlockBase]:
 
         children = self.process_tag(soup, convert_as_inline=False, children_only=True)
         children = run_final_block_transformations(children)
         is_page = self._is_soup_page(soup)
 
         ret = None
-        if is_page or force_page:
+        if is_page or self.options["force_page"]:
             title = self._get_html_title(soup)
             # Ensure that children is a list
             if not isinstance(children, list):

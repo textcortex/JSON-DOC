@@ -65,6 +65,7 @@ def convert_to_jsondoc(
     indent: int | None = None,
     source_format: str | None = None,
     target_format: str | None = None,
+    force_page: bool = False,
 ):
     """
     Convert to and from JSON-DOC format.
@@ -127,6 +128,7 @@ def convert_to_jsondoc(
                     input_content if input_content is not None else input_file,
                     "html",
                     format=source_format,
+                    extra_args=["--wrap=none"],
                 )
             except RuntimeError as e:
                 # Handle different error message from Pandoc
@@ -143,7 +145,7 @@ def convert_to_jsondoc(
                 else:
                     raise e
 
-        jsondoc = html_to_jsondoc(html_content)
+        jsondoc = html_to_jsondoc(html_content, force_page=force_page)
 
         # Serialize the jsondoc
         serialized_jsondoc = jsondoc_dump_json(jsondoc, indent=indent)
@@ -189,6 +191,12 @@ def main():
         help="Number of spaces for indentation in the output JSON file",
         default=None,
     )
+    parser.add_argument(
+        "--force-page",
+        action="store_true",
+        help="Force the creation of a page even if the input doesn't "
+        "contain a top-level HTML structure",
+    )
     args = parser.parse_args()
 
     try:
@@ -198,6 +206,7 @@ def main():
             indent=args.indent,
             source_format=args.source_format,
             target_format=args.target_format,
+            force_page=args.force_page,
         )
     except (ValueError, RuntimeError) as e:
         print(e)
