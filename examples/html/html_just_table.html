@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <!-- Set the title of your site here -->
+    <title>HTML Patterns</title>
+
+    <meta name="author" content="mrmrs" />
+    <meta name="description" content="Common HTML patterns" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Link to your stylesheet here
+    <link rel="stylesheet" href="css/i.css">
+
+    Favicons and Touch Device Icons
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="touch-icon-iphone-precomposed.png">
+    <link rel="apple-touch-icon" sizes="72x72"   href="touch-icon-ipad-precomposed.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="touch-icon-iphone-retina-precomposed.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="touch-icon-ipad-retina-precomposed.png">
+    -->
+  </head>
+
+  <body>
+    <header>
+      <h1>HTML</h1>
+      <h2>Every html element in one place. Just waiting to be styled.</h2>
+    </header>
+
+    <section>
+      <h1>Tables</h1>
+      <!--
+        From the HTML spec (http://www.w3.org/TR/html401/struct/tables.html)
+
+        TFOOT must appear before TBODY within a TABLE definition so that user agents can
+        render the foot before receiving all of the (potentially numerous) rows of data.
+        The following summarizes which tags are required and which may be omitted:
+
+        The TBODY start tag is always required except when the table contains only one
+        table body and no table head or foot sections. The TBODY end tag may always be
+        safely omitted.
+
+        The start tags for THEAD and TFOOT are required when the table head and foot sections
+        are present respectively, but the corresponding end tags may always be safely
+        omitted.
+
+        Conforming user agent parsers must obey these rules for reasons of backward
+        compatibility.
+        -->
+      <table>
+        <caption>
+          This is a caption for a table
+        </caption>
+
+        <tfoot>
+          <tr>
+            <td>Table footer info</td>
+          </tr>
+        </tfoot>
+        <tbody>
+          <tr>
+            <td>#999-32ac</td>
+            <td>First Name</td>
+            <td>13 May, 2013</td>
+            <td>999 Spruce Lane, Somewhere, CA 94101</td>
+          </tr>
+          <tr>
+            <td>#888-32dd</td>
+            <td>Sample Name</td>
+            <td>17 May, 1984</td>
+            <td>999 Spruce Lane, Somewhere, CA 94101</td>
+          </tr>
+        </tbody>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Date</th>
+            <th>Address</th>
+          </tr>
+        </thead>
+      </table>
+    </section>
+    <section>
+      <h1>Footer</h1>
+      <footer>
+        <small>© 2014 Some company name</small>
+        <address>email@email.com</address>
+      </footer>
+    </section>
+  </body>
+</html>

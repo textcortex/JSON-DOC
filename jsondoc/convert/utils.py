@@ -408,6 +408,8 @@ def create_table_row_block(
     cells: List[List[RichTextBase]] = [],
     id: str | None = None,
     created_time=None,
+    isHeader: bool = False,
+    isFooter: bool = False,
 ) -> TableRowBlock:
     if id is None:
         id = generate_id()
@@ -420,6 +422,8 @@ def create_table_row_block(
         created_time=created_time,
         table_row=TableRow(cells=cells),
         has_children=False,
+        isHeader=isHeader,
+        isFooter=isFooter,
     )
 
 
@@ -430,6 +434,7 @@ def create_table_block(
     table_width: int | None = None,
     has_column_header: bool = False,
     has_row_header: bool = False,
+    caption: str | None = None,
 ) -> TableBlock:
     if id is None:
         id = generate_id()

@@ -349,7 +349,7 @@ class JsonDocToMarkdownConverter(object):
         )
 
     def _convert_table_row_block(
-        self, block: TableRowBlock, convert_as_inline: bool, is_headrow: bool
+        self, block: TableRowBlock, convert_as_inline: bool, is_headrow: bool, is_footrow: bool
     ) -> str:
         # cells = block.table_row.cells
 
@@ -383,18 +383,37 @@ class JsonDocToMarkdownConverter(object):
         return overline + "|" + text + "\n" + underline
 
     def convert_table_block(self, block: TableBlock, convert_as_inline: bool) -> str:
+        # TODO: Caption is not at the very bottom after the footer. Fix it.
         text = ""
-
         for n, row in enumerate(block.children):
-            is_headrow = block.table.has_column_header and n == 0
-
-            text += self._convert_table_row_block(
+            is_headrow = block.table.has_column_header and row.isHeader
+            is_footrow = row.isFooter
+            
+            textHeader = "\n\n"
+            textFooter = ""
+            
+            if is_headrow:
+                textHeader = self._convert_table_row_block(
                 row,
                 convert_as_inline,
                 is_headrow=is_headrow,
+                is_footrow=is_footrow,
             )
-
-        return "\n\n" + text + "\n"
+            elif is_footrow:
+                textFooter = self._convert_table_row_block(
+                row,
+                convert_as_inline,
+                is_headrow=is_headrow,
+                is_footrow=is_footrow,
+            )
+            else:
+                text += self._convert_table_row_block(
+                    row,
+                    convert_as_inline,
+                    is_headrow=is_headrow,
+                    is_footrow=is_footrow,
+                )
+        return textHeader + text + textFooter
 
 
 def jsondoc_to_markdown(jsondoc, **options):
