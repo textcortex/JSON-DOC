@@ -23,3 +23,5 @@ class TableRow(BaseModel):
 class TableRowBlock(BlockBase):
     type: Literal['table_row'] = 'table_row'
     table_row: TableRow
+    isHeader: bool
+    isFooter: bool

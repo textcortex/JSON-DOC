@@ -61,7 +61,9 @@
                 }
               ]
             ]
-          }
+          },
+          "isHeader": true,
+          "isFooter": false
         },
         {
           "object": "block",
@@ -112,7 +114,9 @@
                 }
               ]
             ]
-          }
+          },
+          "isHeader": false,
+          "isFooter": false
         },
         {
           "object": "block",
@@ -163,7 +167,9 @@
                 }
               ]
             ]
-          }
+          },
+          "isHeader": false,
+          "isFooter": false
         },
         {
           "object": "block",
@@ -187,7 +193,9 @@
               [],
               []
             ]
-          }
+          },
+          "isHeader": false,
+          "isFooter": true
         }
       ]
     },

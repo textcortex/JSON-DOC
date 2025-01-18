@@ -26,6 +26,12 @@
       },
       "required": ["cells"],
       "additionalProperties": false
+    },
+    "isHeader": {
+      "type": "boolean"
+    },
+    "isFooter": {
+      "type": "boolean"
     }
   },
   "required": ["type", "table_row"],

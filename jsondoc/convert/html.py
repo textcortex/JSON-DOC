@@ -834,7 +834,15 @@ class HtmlToJsonDocConverter(object):
         """
         Table row
         """
-        return ConvertOutput(main_object=create_table_row_block())
+        # Check if this is a header row
+        is_header = False
+        is_footer = False
+        if el.find_parent("thead") or el.find_parent("th"):
+            is_header = True
+        # Check if this is a footer row
+        if el.find_parent("tfoot"):
+            is_footer = True
+        return ConvertOutput(main_object=create_table_row_block(isHeader=is_header, isFooter=is_footer))
 
 
 def html_to_jsondoc(html: str | bytes, **options) -> Page | BlockBase | List[BlockBase]:

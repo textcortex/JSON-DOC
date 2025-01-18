@@ -87,6 +87,18 @@ def test_examples():
         print("PASS")
 
 
+def test():
+    path = "examples/html/html_just_table.html" 
+    content = open(path, "r").read()
+    ret = html_to_jsondoc(content)
+    # print(jsondoc_dump_json(ret, indent=2))
+
+    # print("\n\nConverted to markdown:\n\n")
+    # print(jsondoc_to_markdown(ret[0]))
+    print(jsondoc_to_markdown(ret))
+
 if __name__ == "__main__":
     test_examples()
     test_convert_html_all_elements()
+    # Test for working specifically on tables with caption
+    # test() 
