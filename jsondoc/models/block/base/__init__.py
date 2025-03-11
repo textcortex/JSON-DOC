@@ -12,7 +12,7 @@ from typing_extensions import Literal
 
 class Parent(BaseModel):
     model_config = ConfigDict(
-        extra='forbid',
+        extra="forbid",
     )
     type: str
     block_id: Optional[str] = None
@@ -21,22 +21,22 @@ class Parent(BaseModel):
 
 class CreatedBy(BaseModel):
     model_config = ConfigDict(
-        extra='forbid',
+        extra="forbid",
     )
-    object: Literal['user']
+    object: Literal["user"]
     id: str
 
 
 class LastEditedBy(BaseModel):
     model_config = ConfigDict(
-        extra='forbid',
+        extra="forbid",
     )
-    object: Literal['user']
+    object: Literal["user"]
     id: str
 
 
 class BlockBase(BaseModel):
-    object: Literal['block'] = 'block'
+    object: Literal["block"] = "block"
     id: str
     parent: Optional[Parent] = None
     type: str

@@ -10,24 +10,24 @@ from jsondoc.models.block.base import BlockBase
 
 
 class Type(Enum):
-    paragraph = 'paragraph'
-    to_do = 'to_do'
-    bulleted_list_item = 'bulleted_list_item'
-    numbered_list_item = 'numbered_list_item'
-    code = 'code'
-    column = 'column'
-    column_list = 'column_list'
-    divider = 'divider'
-    equation = 'equation'
-    heading_1 = 'heading_1'
-    heading_2 = 'heading_2'
-    heading_3 = 'heading_3'
-    image = 'image'
-    quote = 'quote'
-    equation_1 = 'equation'
-    table = 'table'
-    table_row = 'table_row'
-    toggle = 'toggle'
+    paragraph = "paragraph"
+    to_do = "to_do"
+    bulleted_list_item = "bulleted_list_item"
+    numbered_list_item = "numbered_list_item"
+    code = "code"
+    column = "column"
+    column_list = "column_list"
+    divider = "divider"
+    equation = "equation"
+    heading_1 = "heading_1"
+    heading_2 = "heading_2"
+    heading_3 = "heading_3"
+    image = "image"
+    quote = "quote"
+    equation_1 = "equation"
+    table = "table"
+    table_row = "table_row"
+    toggle = "toggle"
 
 
 class Block(BlockBase):

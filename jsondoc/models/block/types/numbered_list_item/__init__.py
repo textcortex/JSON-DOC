@@ -6,16 +6,17 @@ from __future__ import annotations
 
 from typing import List, Optional
 
+from pydantic import BaseModel, ConfigDict
+from typing_extensions import Literal
+
 from jsondoc.models.block.base import BlockBase
 from jsondoc.models.block.types.rich_text.base import RichTextBase
 from jsondoc.models.shared_definitions import Color
-from pydantic import BaseModel, ConfigDict
-from typing_extensions import Literal
 
 
 class NumberedListItem(BaseModel):
     model_config = ConfigDict(
-        extra='forbid',
+        extra="forbid",
         arbitrary_types_allowed=True,
     )
     rich_text: Optional[List[RichTextBase]] = []
@@ -26,6 +27,6 @@ class NumberedListItemBlock(BlockBase):
     model_config = ConfigDict(
         arbitrary_types_allowed=True,
     )
-    type: Literal['numbered_list_item'] = 'numbered_list_item'
+    type: Literal["numbered_list_item"] = "numbered_list_item"
     numbered_list_item: NumberedListItem
     children: Optional[List[BlockBase]] = None

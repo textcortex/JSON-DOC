@@ -1,6 +1,8 @@
 import re
 from typing import List, Union
+
 from pydantic import validate_call
+
 from jsondoc.convert.utils import get_rich_text_from_block
 from jsondoc.models.block.base import BlockBase
 from jsondoc.models.block.types.code import CodeBlock
@@ -18,7 +20,6 @@ from jsondoc.models.block.types.table_row import TableRowBlock
 from jsondoc.models.page import Page
 from jsondoc.models.shared_definitions import Annotations
 from jsondoc.serialize import load_jsondoc, load_page
-
 
 convert_heading_re = re.compile(r"convert_heading_(\d+)")
 line_beginning_re = re.compile(r"^", re.MULTILINE)
@@ -60,7 +61,6 @@ def chomp(text):
 
 
 class JsonDocToMarkdownConverter(object):
-
     class DefaultOptions:
         autolinks = True
         bullets = "*+-"  # An iterable of bullet types.
@@ -90,8 +90,7 @@ class JsonDocToMarkdownConverter(object):
         self.options.update(options)
         if self.options["strip"] is not None and self.options["convert"] is not None:
             raise ValueError(
-                "You may specify either tags to strip or tags to"
-                " convert, but not both."
+                "You may specify either tags to strip or tags to convert, but not both."
             )
 
     def __getattr__(self, attr):
@@ -111,7 +110,6 @@ class JsonDocToMarkdownConverter(object):
 
     @validate_call
     def convert(self, obj: str | dict | BlockBase | List[BlockBase] | Page) -> str:
-
         if isinstance(obj, (str, dict)):
             jsondoc = load_jsondoc(obj)
         else:
@@ -145,7 +143,6 @@ class JsonDocToMarkdownConverter(object):
 
     @validate_call
     def convert_block(self, block: BlockBase, convert_as_inline: bool) -> str:
-
         type_ = block.type
         convert_fn = getattr(self, f"convert_{type_}_block", None)
 

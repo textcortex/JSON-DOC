@@ -10,8 +10,8 @@ from pydantic import BaseModel
 
 
 class Type(Enum):
-    text = 'text'
-    equation = 'equation'
+    text = "text"
+    equation = "equation"
 
 
 class Model(BaseModel):

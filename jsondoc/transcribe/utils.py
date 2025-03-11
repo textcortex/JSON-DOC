@@ -1,5 +1,6 @@
 from decimal import Decimal
 from typing import Tuple
+
 from pydantic import BaseModel
 
 

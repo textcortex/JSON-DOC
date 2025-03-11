@@ -7,15 +7,16 @@ from __future__ import annotations
 from enum import Enum
 from typing import List, Optional
 
-from jsondoc.models.block.base import BlockBase
-from jsondoc.models.block.types.rich_text.text import RichTextText
 from pydantic import AwareDatetime, BaseModel, ConfigDict
 from typing_extensions import Literal
+
+from jsondoc.models.block.base import BlockBase
+from jsondoc.models.block.types.rich_text.text import RichTextText
 
 
 class Parent(BaseModel):
     model_config = ConfigDict(
-        extra='forbid',
+        extra="forbid",
     )
     type: str
     page_id: Optional[str] = None
@@ -23,27 +24,27 @@ class Parent(BaseModel):
 
 class CreatedBy(BaseModel):
     model_config = ConfigDict(
-        extra='forbid',
+        extra="forbid",
     )
-    object: Literal['user'] = 'user'
+    object: Literal["user"] = "user"
     id: str
 
 
 class LastEditedBy(BaseModel):
     model_config = ConfigDict(
-        extra='forbid',
+        extra="forbid",
     )
-    object: Literal['user'] = 'user'
+    object: Literal["user"] = "user"
     id: str
 
 
 class Type(Enum):
-    emoji = 'emoji'
+    emoji = "emoji"
 
 
 class Icon(BaseModel):
     model_config = ConfigDict(
-        extra='forbid',
+        extra="forbid",
     )
     type: Type
     emoji: str
@@ -54,23 +55,23 @@ class Title(BaseModel):
         arbitrary_types_allowed=True,
     )
     id: Optional[str] = None
-    type: Literal['title'] = 'title'
+    type: Literal["title"] = "title"
     title: Optional[List[RichTextText]] = None
 
 
 class Properties(BaseModel):
     model_config = ConfigDict(
-        extra='forbid',
+        extra="forbid",
     )
     title: Optional[Title] = None
 
 
 class Page(BaseModel):
     model_config = ConfigDict(
-        extra='forbid',
+        extra="forbid",
         arbitrary_types_allowed=True,
     )
-    object: Literal['page'] = 'page'
+    object: Literal["page"] = "page"
     id: str
     parent: Optional[Parent] = None
     created_time: AwareDatetime

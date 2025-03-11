@@ -25,11 +25,11 @@ from jsondoc.models.block.types.rich_text import Type as RichTextType
 from jsondoc.models.block.types.rich_text.base import RichTextBase
 from jsondoc.models.block.types.rich_text.equation import RichTextEquation
 from jsondoc.models.block.types.rich_text.text import RichTextText
-from jsondoc.models.file import Type as FileType
 from jsondoc.models.block.types.table import TableBlock
 from jsondoc.models.block.types.table_row import TableRowBlock
 from jsondoc.models.block.types.to_do import ToDoBlock
 from jsondoc.models.block.types.toggle import ToggleBlock
+from jsondoc.models.file import Type as FileType
 from jsondoc.models.file.base import FileBase
 from jsondoc.models.page import Page
 from jsondoc.utils import get_nested_value, set_nested_value
@@ -244,7 +244,9 @@ def load_page(obj: Union[str, Dict[str, Any]]) -> Page:
 
 
 @validate_call
-def load_jsondoc(obj: Union[str, Dict[str, Any], List[Dict[str, Any]]]) -> Page | BlockBase | List[BlockBase]:
+def load_jsondoc(
+    obj: Union[str, Dict[str, Any], List[Dict[str, Any]]],
+) -> Page | BlockBase | List[BlockBase]:
     if isinstance(obj, str):
         obj = json.loads(obj)
 

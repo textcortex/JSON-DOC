@@ -1,6 +1,7 @@
 import difflib
 import json
 import time
+
 from jsondoc.serialize import load_page
 from jsondoc.utils import diff_strings, load_json_file, timer
 

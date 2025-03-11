@@ -61,9 +61,9 @@ def _process_example(json_path):
     jsondoc_target = data.get("jsondoc")
 
     assert html_source is not None, f"file {json_path} does not contain field 'html'"
-    assert (
-        jsondoc_target is not None
-    ), f"file {json_path} does not contain field 'jsondoc'"
+    assert jsondoc_target is not None, (
+        f"file {json_path} does not contain field 'jsondoc'"
+    )
 
     ret = html_to_jsondoc(html_source)
 
@@ -74,7 +74,6 @@ def _process_example(json_path):
 
 
 def test_examples():
-
     current_dir = Path(__file__).parent
     html_jsondoc_pairs_dir = current_dir / "html_jsondoc_pairs"
 

@@ -4,9 +4,10 @@
 
 from __future__ import annotations
 
-from jsondoc.models.file.base import FileBase
 from pydantic import BaseModel
 from typing_extensions import Literal
+
+from jsondoc.models.file.base import FileBase
 
 
 class External(BaseModel):
@@ -14,5 +15,5 @@ class External(BaseModel):
 
 
 class FileExternal(FileBase):
-    type: Literal['external'] = 'external'
+    type: Literal["external"] = "external"
     external: External

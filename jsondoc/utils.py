@@ -1,10 +1,10 @@
-from datetime import datetime, timezone
 import difflib
 import json
 import logging
 import time
-from contextlib import contextmanager
 import uuid
+from contextlib import contextmanager
+from datetime import datetime, timezone
 
 ARBITRARY_JSON_SCHEMA_OBJECT = {
     "type": "object",

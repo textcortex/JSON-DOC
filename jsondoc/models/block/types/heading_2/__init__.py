@@ -6,11 +6,12 @@ from __future__ import annotations
 
 from typing import List, Optional
 
+from pydantic import BaseModel, ConfigDict
+from typing_extensions import Literal
+
 from jsondoc.models.block.base import BlockBase
 from jsondoc.models.block.types.rich_text.base import RichTextBase
 from jsondoc.models.shared_definitions import Color
-from pydantic import BaseModel, ConfigDict
-from typing_extensions import Literal
 
 
 class Heading2(BaseModel):
@@ -23,5 +24,5 @@ class Heading2(BaseModel):
 
 
 class Heading2Block(BlockBase):
-    type: Literal['heading_2'] = 'heading_2'
+    type: Literal["heading_2"] = "heading_2"
     heading_2: Heading2
