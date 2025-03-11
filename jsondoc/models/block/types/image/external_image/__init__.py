@@ -6,9 +6,10 @@ from __future__ import annotations
 
 from typing import List, Optional
 
+from pydantic import ConfigDict
+
 from jsondoc.models.block.types.rich_text.base import RichTextBase
 from jsondoc.models.file.external import FileExternal
-from pydantic import ConfigDict
 
 
 class ExternalImage(FileExternal):

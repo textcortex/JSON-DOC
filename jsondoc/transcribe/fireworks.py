@@ -1,8 +1,9 @@
 import base64
-import os
-import requests
 import json
+import os
+
 import dotenv
+import requests
 
 from jsondoc.transcribe.utils import TokenPrice, Transcriber, Usage, per_mil_tok
 

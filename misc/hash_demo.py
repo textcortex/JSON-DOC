@@ -1,5 +1,5 @@
-import json
 import hashlib
+import json
 
 
 def hash_json_object(json_obj):
