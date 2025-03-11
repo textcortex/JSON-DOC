@@ -24,7 +24,9 @@ convert_jsondoc = "jsondoc.bin.convert_jsondoc:main"
 [dependency-groups]
 dev = [
     "datamodel-code-generator>=0.25.9,<0.26",
+    "pre-commit>=4.1.0",
     "pytest>=8.3.5",
+    "ruff>=0.9.10",
 ]
 
 [tool.hatch.build.targets.sdist]

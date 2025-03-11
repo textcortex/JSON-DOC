@@ -1,0 +1,21 @@
+# Pre-commit hooks
+# 1. Run ruff on all python files
+repos:
+- repo: https://github.com/astral-sh/ruff-pre-commit
+  # Ruff version.
+  rev: v0.9.4
+  hooks:
+    # Run the linter.
+    # - id: ruff
+    # Run the formatter.
+    - id: ruff
+      args: ["check", "--select", "I", "--fix"]
+    - id: ruff-format
+
+# 2. Run terraform fmt on all terraform files
+- repo: https://github.com/antonbabenko/pre-commit-terraform
+  rev: v1.97.3
+  hooks:
+    - id: terraform_fmt
+      args:
+        - --recursive
