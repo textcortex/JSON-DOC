@@ -10,9 +10,6 @@ def test_convert_jsondoc_to_markdown():
     page = load_jsondoc(content)
 
     print(jsondoc_to_markdown(page))
-    import ipdb
-
-    ipdb.set_trace()
 
 
 if __name__ == "__main__":
