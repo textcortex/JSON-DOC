@@ -10,46 +10,26 @@ on:
 
 jobs:
   test:
+    name: python
     runs-on: ubuntu-latest
 
     steps:
     - name: Check out repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
-        python-version: '3.11'
+        python-version: '3.12'
 
-    - name: Install Poetry
-      uses: snok/install-poetry@v1
-      with:
-        version: 1.5.0
-        virtualenvs-create: true
-        virtualenvs-in-project: true
-
-    - name: Load cached venv
-      id: cached-poetry-dependencies
-      uses: actions/cache@v2
-      with:
-        path: .venv
-        key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
+    - name: Install uv
+      uses: astral-sh/setup-uv@v5
 
     - name: Install dependencies
-      if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-      run: poetry install --no-interaction
+      run: uv sync --all-extras --dev
 
     - name: Run tests
       run: |
-        source .venv/bin/activate
-        python tests/test_validation.py schema
-        python tests/test_serialization.py
-        python tests/test_html_to_jsondoc.py
-
-    # - name: Upload test results
-    #   uses: actions/upload-artifact@v2
-    #   with:
-    #     name: test-results
-    #     path: test-results  # Adjust this path if your tests output results to a different directory
+        uv run pytest
 
 

@@ -113,6 +113,3 @@ for model_ in MODELS_TO_BENCHMARK:
             print(f"Skipping resolution {height}")
         print("====================================================")
 
-import ipdb
-
-ipdb.set_trace()

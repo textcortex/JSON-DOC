@@ -4,3 +4,5 @@
 *.png
 __pycache__
 build/
+*.docx
+*.pptx
