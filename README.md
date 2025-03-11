@@ -4,6 +4,14 @@ JSON-DOC is a simple and flexible format for storing structured content in JSON 
 
 JSON-DOC is an attempt to standardize the data model used by [Notion](https://notion.so).
 
+## Installation
+
+Install the package from PyPI:
+
+```bash
+pip install python-jsondoc
+```
+
 ## Features
 
 - Documents are represented as a list of blocks
