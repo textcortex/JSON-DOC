@@ -9,8 +9,9 @@
 name: Upload Python Package
 
 on:
-  release:
-    types: [published]
+  push:
+    tags:
+      - 'v*'  # Push events to matching v*, i.e. v1.0, v20.15.10, v0.1.0.dev1
 
 permissions:
   contents: read
@@ -21,6 +22,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -30,11 +33,36 @@ jobs:
       - name: Install uv
         uses: astral-sh/setup-uv@v5
 
+      - name: Install dependencies
+        run: |
+          uv pip install toml
+
+      - name: Extract version from tag and update pyproject.toml
+        run: |
+          # Get the version from the tag (remove 'v' prefix)
+          TAG_VERSION=${GITHUB_REF#refs/tags/v}
+          echo "Tag version: $TAG_VERSION"
+
+          # Update pyproject.toml with the version from the tag
+          python -c "
+          import toml
+          data = toml.load('pyproject.toml')
+          original_version = data['project']['version']
+          data['project']['version'] = '$TAG_VERSION'
+          with open('pyproject.toml', 'w') as f:
+              toml.dump(data, f)
+          print(f'Version updated in pyproject.toml: {original_version} -> {data[\"project\"][\"version\"]}')
+          "
+
+          # Verify the change
+          cat pyproject.toml | grep version
+
       - name: Build package
         run: uv build --no-sources
 
-      - name: Publish package
-        uses: pypa/gh-action-pypi-publish@v1.12.4
-        with:
-          user: __token__
-          password: ${{ secrets.PYPI_API_TOKEN }}
+      # - name: Publish package to PyPI
+      #   uses: pypa/gh-action-pypi-publish@v1.12.4
+      #   with:
+      #     user: __token__
+      #     password: ${{ secrets.PYPI_API_TOKEN }}
+      #     verbose: true
