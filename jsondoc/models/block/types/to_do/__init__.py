@@ -6,16 +6,17 @@ from __future__ import annotations
 
 from typing import List, Optional
 
+from pydantic import BaseModel, ConfigDict
+from typing_extensions import Literal
+
 from jsondoc.models.block.base import BlockBase
 from jsondoc.models.block.types.rich_text.base import RichTextBase
 from jsondoc.models.shared_definitions import Color
-from pydantic import BaseModel, ConfigDict
-from typing_extensions import Literal
 
 
 class ToDo(BaseModel):
     model_config = ConfigDict(
-        extra='forbid',
+        extra="forbid",
         arbitrary_types_allowed=True,
     )
     rich_text: Optional[List[RichTextBase]] = []
@@ -27,6 +28,6 @@ class ToDoBlock(BlockBase):
     model_config = ConfigDict(
         arbitrary_types_allowed=True,
     )
-    type: Literal['to_do'] = 'to_do'
+    type: Literal["to_do"] = "to_do"
     to_do: ToDo
     children: Optional[List[BlockBase]] = None

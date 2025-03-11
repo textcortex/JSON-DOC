@@ -6,11 +6,12 @@ from __future__ import annotations
 
 from typing import List, Optional
 
+from pydantic import BaseModel, ConfigDict
+from typing_extensions import Literal
+
 from jsondoc.models.block.base import BlockBase
 from jsondoc.models.block.types.rich_text.base import RichTextBase
 from jsondoc.models.shared_definitions import Color
-from pydantic import BaseModel, ConfigDict
-from typing_extensions import Literal
 
 
 class Toggle(BaseModel):
@@ -25,6 +26,6 @@ class ToggleBlock(BlockBase):
     model_config = ConfigDict(
         arbitrary_types_allowed=True,
     )
-    type: Literal['toggle'] = 'toggle'
+    type: Literal["toggle"] = "toggle"
     toggle: Toggle
     children: Optional[List[BlockBase]] = None

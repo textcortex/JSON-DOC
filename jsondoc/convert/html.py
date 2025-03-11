@@ -373,8 +373,7 @@ class HtmlToJsonDocConverter(object):
         self.options.update(options)
         if self.options["strip"] is not None and self.options["convert"] is not None:
             raise ValueError(
-                "You may specify either tags to strip or tags to"
-                " convert, but not both."
+                "You may specify either tags to strip or tags to convert, but not both."
             )
 
     def convert(self, html: str | bytes) -> Page | BlockBase | List[BlockBase]:
@@ -382,7 +381,6 @@ class HtmlToJsonDocConverter(object):
         return self.convert_soup(soup)
 
     def convert_soup(self, soup: BeautifulSoup) -> Page | BlockBase | List[BlockBase]:
-
         children = self.process_tag(soup, convert_as_inline=False, children_only=True)
         children = run_final_block_transformations(children)
         is_page = self._is_soup_page(soup)
@@ -483,9 +481,9 @@ class HtmlToJsonDocConverter(object):
                 # text = convert_fn(node, text, convert_as_inline)
                 # current_level_object = convert_fn(node, convert_as_inline)
                 convert_output = convert_fn(node, convert_as_inline)
-                assert isinstance(
-                    convert_output, (ConvertOutput, NoneType)
-                ), f"Convert function {convert_fn} must return a ConvertOutput or None"
+                assert isinstance(convert_output, (ConvertOutput, NoneType)), (
+                    f"Convert function {convert_fn} must return a ConvertOutput or None"
+                )
 
                 if convert_output is not None:
                     current_level_object = convert_output.main_object

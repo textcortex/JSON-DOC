@@ -6,15 +6,16 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from jsondoc.models.block.base import BlockBase
-from jsondoc.models.block.types.table_row import TableRowBlock
 from pydantic import BaseModel, ConfigDict
 from typing_extensions import Literal
+
+from jsondoc.models.block.base import BlockBase
+from jsondoc.models.block.types.table_row import TableRowBlock
 
 
 class Table(BaseModel):
     model_config = ConfigDict(
-        extra='forbid',
+        extra="forbid",
     )
     table_width: Optional[int] = None
     has_column_header: bool
@@ -25,6 +26,6 @@ class TableBlock(BlockBase):
     model_config = ConfigDict(
         arbitrary_types_allowed=True,
     )
-    type: Literal['table'] = 'table'
+    type: Literal["table"] = "table"
     table: Table
     children: Optional[List[TableRowBlock]] = None

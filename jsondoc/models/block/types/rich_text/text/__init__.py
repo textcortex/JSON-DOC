@@ -6,10 +6,11 @@ from __future__ import annotations
 
 from typing import Optional
 
-from jsondoc.models.block.types.rich_text.base import RichTextBase
-from jsondoc.models.shared_definitions import Annotations
 from pydantic import BaseModel, ConfigDict
 from typing_extensions import Literal
+
+from jsondoc.models.block.types.rich_text.base import RichTextBase
+from jsondoc.models.shared_definitions import Annotations
 
 
 class Link(BaseModel):
@@ -25,7 +26,7 @@ class RichTextText(RichTextBase):
     model_config = ConfigDict(
         arbitrary_types_allowed=True,
     )
-    type: Literal['text'] = 'text'
+    type: Literal["text"] = "text"
     text: Text
     annotations: Annotations
     plain_text: str

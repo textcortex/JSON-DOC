@@ -10,8 +10,8 @@ from pydantic import BaseModel
 
 
 class Type(Enum):
-    external = 'external'
-    file = 'file'
+    external = "external"
+    file = "file"
 
 
 class Model(BaseModel):

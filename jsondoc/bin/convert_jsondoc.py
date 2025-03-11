@@ -1,5 +1,6 @@
 import argparse
 import sys
+
 import pypandoc
 
 from jsondoc.convert.html import html_to_jsondoc
@@ -81,9 +82,9 @@ def convert_to_jsondoc(
 
     input_content = None
     if input_file is None:
-        assert (
-            source_format is not None
-        ), "Source format must be specified if input file is not provided"
+        assert source_format is not None, (
+            "Source format must be specified if input file is not provided"
+        )
 
         # Read from stdin
         input_content = sys.stdin.read()
@@ -103,9 +104,9 @@ def convert_to_jsondoc(
 
     if source_format == "jsondoc":
         assert target_format is not None, "Target format must be specified"
-        assert (
-            target_format == "markdown"
-        ), "Currently can only convert from JSON-DOC to Markdown"
+        assert target_format == "markdown", (
+            "Currently can only convert from JSON-DOC to Markdown"
+        )
 
         if input_content is None:
             raise Exception(

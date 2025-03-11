@@ -11,11 +11,3 @@ repos:
     - id: ruff
       args: ["check", "--select", "I", "--fix"]
     - id: ruff-format
-
-# 2. Run terraform fmt on all terraform files
-- repo: https://github.com/antonbabenko/pre-commit-terraform
-  rev: v1.97.3
-  hooks:
-    - id: terraform_fmt
-      args:
-        - --recursive

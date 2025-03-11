@@ -4,18 +4,19 @@
 
 from __future__ import annotations
 
-from jsondoc.models.block.base import BlockBase
 from pydantic import BaseModel, ConfigDict
 from typing_extensions import Literal
+
+from jsondoc.models.block.base import BlockBase
 
 
 class Equation(BaseModel):
     model_config = ConfigDict(
-        extra='forbid',
+        extra="forbid",
     )
     expression: str
 
 
 class EquationBlock(BlockBase):
-    type: Literal['equation'] = 'equation'
+    type: Literal["equation"] = "equation"
     equation: Equation

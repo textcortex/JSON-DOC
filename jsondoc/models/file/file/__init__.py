@@ -6,9 +6,10 @@ from __future__ import annotations
 
 from typing import Optional
 
-from jsondoc.models.file.base import FileBase
 from pydantic import AwareDatetime, BaseModel
 from typing_extensions import Literal
+
+from jsondoc.models.file.base import FileBase
 
 
 class File(BaseModel):
@@ -17,5 +18,5 @@ class File(BaseModel):
 
 
 class FileFile(FileBase):
-    type: Literal['file'] = 'file'
+    type: Literal["file"] = "file"
     file: File

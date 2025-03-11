@@ -6,10 +6,11 @@ from __future__ import annotations
 
 from typing import Any, Dict
 
-from jsondoc.models.block.base import BlockBase
 from typing_extensions import Literal
+
+from jsondoc.models.block.base import BlockBase
 
 
 class DividerBlock(BlockBase):
-    type: Literal['divider'] = 'divider'
+    type: Literal["divider"] = "divider"
     divider: Dict[str, Any]

@@ -1,6 +1,6 @@
 import logging
-from datetime import datetime, timezone
 import re
+from datetime import datetime, timezone
 from typing import List, Literal, Optional, Type
 
 from bs4 import Tag
@@ -109,7 +109,6 @@ def create_rich_text(
     color: str | None = None,
     annotations: Annotations | None = None,
 ) -> RichTextText | RichTextEquation:
-
     if text is not None and equation is not None:
         raise ValueError("Only one of text or equation must be provided")
 

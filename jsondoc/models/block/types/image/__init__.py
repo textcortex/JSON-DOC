@@ -4,15 +4,16 @@
 
 from __future__ import annotations
 
-from jsondoc.models.block.base import BlockBase
-from jsondoc.models.file.base import FileBase
 from pydantic import ConfigDict
 from typing_extensions import Literal
+
+from jsondoc.models.block.base import BlockBase
+from jsondoc.models.file.base import FileBase
 
 
 class ImageBlock(BlockBase):
     model_config = ConfigDict(
         arbitrary_types_allowed=True,
     )
-    type: Literal['image'] = 'image'
+    type: Literal["image"] = "image"
     image: FileBase

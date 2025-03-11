@@ -6,16 +6,17 @@ from __future__ import annotations
 
 from typing import Any, Dict, List, Optional
 
-from jsondoc.models.block.base import BlockBase
-from jsondoc.models.block.types.column import ColumnBlock
 from pydantic import ConfigDict
 from typing_extensions import Literal
+
+from jsondoc.models.block.base import BlockBase
+from jsondoc.models.block.types.column import ColumnBlock
 
 
 class ColumnListBlock(BlockBase):
     model_config = ConfigDict(
         arbitrary_types_allowed=True,
     )
-    type: Literal['column_list'] = 'column_list'
+    type: Literal["column_list"] = "column_list"
     column_list: Dict[str, Any]
     children: Optional[List[ColumnBlock]] = None

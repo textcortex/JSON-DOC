@@ -4,8 +4,8 @@ import dotenv
 import PIL.Image
 from thefuzz import fuzz
 
-from jsondoc.transcribe.fireworks import LLAVA_YI_34B
 from jsondoc.transcribe.anthropic_ import HAIKU
+from jsondoc.transcribe.fireworks import LLAVA_YI_34B
 from jsondoc.transcribe.utils import ImageInfo, Transcriber, get_alphanumeric
 
 dotenv.load_dotenv(".env")
@@ -48,7 +48,6 @@ def transcribe_resize(
     height=None,
     ground_truth=None,
 ):
-
     # Get image information
     image = PIL.Image.open(path)
     if height is not None:
@@ -112,4 +111,3 @@ for model_ in MODELS_TO_BENCHMARK:
         except ValueError:
             print(f"Skipping resolution {height}")
         print("====================================================")
-
