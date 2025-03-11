@@ -22,7 +22,10 @@ validate_jsondoc = "jsondoc.bin.validate_jsondoc:main"
 convert_jsondoc = "jsondoc.bin.convert_jsondoc:main"
 
 [dependency-groups]
-dev = ["datamodel-code-generator>=0.25.9,<0.26"]
+dev = [
+    "datamodel-code-generator>=0.25.9,<0.26",
+    "pytest>=8.3.5",
+]
 
 [tool.hatch.build.targets.sdist]
 include = ["jsondoc"]
