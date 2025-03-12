@@ -244,12 +244,15 @@ def override_reconcile_to_caption_placeholder_block(
     and set it as the rich text of the caption placeholder block
     Finally, it will return the caption placeholder block
     """
+
     final_rich_text = []
     for child in children:
         if isinstance(child, RichTextBase):
             final_rich_text.append(child)
         elif isinstance(child, BlockBase):
             final_rich_text.extend(get_rich_text_from_block(child))
+        elif isinstance(child, str):
+            final_rich_text.append(create_rich_text(text=child))
         else:
             pass
             # raise ValueError(f"Unsupported type: {type(child)}")
