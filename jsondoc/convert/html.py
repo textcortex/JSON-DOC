@@ -5,11 +5,13 @@ from typing import List, Union
 from bs4 import BeautifulSoup, Comment, Doctype, NavigableString
 from pydantic import BaseModel
 
-from jsondoc.convert.utils import (
+from jsondoc.convert.placeholder import (
     BreakElementPlaceholderBlock,
     CaptionPlaceholderBlock,
     CellPlaceholderBlock,
     FigurePlaceholderBlock,
+)
+from jsondoc.convert.utils import (
     append_rich_text_to_block,
     append_to_parent_block,
     append_to_rich_text,
@@ -35,6 +37,7 @@ from jsondoc.convert.utils import (
 )
 from jsondoc.models.block.base import BlockBase
 from jsondoc.models.block.types.image import ImageBlock
+from jsondoc.models.block.types.paragraph import ParagraphBlock
 from jsondoc.models.block.types.rich_text.base import RichTextBase
 from jsondoc.models.block.types.rich_text.equation import RichTextEquation
 from jsondoc.models.block.types.rich_text.text import Link, RichTextText
@@ -232,6 +235,30 @@ def override_reconcile_to_figure_placeholder_block(
     return ret
 
 
+def override_reconcile_to_caption_placeholder_block(
+    parent: CaptionPlaceholderBlock, children: List[CHILDREN_TYPE]
+):
+    """
+    Given a caption placeholder block and a list of children,
+    this function will get the rich text from the children
+    and set it as the rich text of the caption placeholder block
+    Finally, it will return the caption placeholder block
+    """
+    final_rich_text = []
+    for child in children:
+        if isinstance(child, RichTextBase):
+            final_rich_text.append(child)
+        elif isinstance(child, BlockBase):
+            final_rich_text.extend(get_rich_text_from_block(child))
+        else:
+            pass
+            # raise ValueError(f"Unsupported type: {type(child)}")
+
+    parent.rich_text = final_rich_text
+
+    return [parent]
+
+
 # Override append functions
 # Maps pairs of (parent_block_type, child_block_type) to a function
 # that appends the child block to the parent block
@@ -242,6 +269,7 @@ OVERRIDE_APPEND_FUNCTIONS = {
 
 OVERRIDE_RECONCILE_FUNCTIONS = {
     FigurePlaceholderBlock: override_reconcile_to_figure_placeholder_block,
+    CaptionPlaceholderBlock: override_reconcile_to_caption_placeholder_block,
 }
 
 

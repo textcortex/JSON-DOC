@@ -6,6 +6,11 @@ from typing import List, Literal, Optional, Type
 from bs4 import Tag
 from pydantic import validate_call
 
+from jsondoc.convert.placeholder import (
+    CaptionPlaceholderBlock,
+    CellPlaceholderBlock,
+    PlaceholderBlockBase,
+)
 from jsondoc.models.block.base import BlockBase
 from jsondoc.models.block.types.bulleted_list_item import (
     BulletedListItem,
@@ -44,39 +49,6 @@ from jsondoc.utils import generate_id, get_current_time
 
 all_whitespace_re = re.compile(r"[\s]+")
 
-
-class PlaceholderBlockBase(BlockBase):
-    """
-    Base class for all placeholder blocks.
-    """
-
-    pass
-
-
-class BreakElementPlaceholderBlock(PlaceholderBlockBase):
-    type: Literal["break_element_placeholder"] = "break_element_placeholder"
-
-
-class CaptionPlaceholderBlock(PlaceholderBlockBase):
-    type: Literal["caption_placeholder"] = "caption_placeholder"
-    rich_text: Optional[List[RichTextBase]] = None
-
-
-class CellPlaceholderBlock(PlaceholderBlockBase):
-    type: Literal["cell_placeholder"] = "cell_placeholder"
-    rich_text: Optional[List[RichTextBase]] = None
-
-
-class FigurePlaceholderBlock(PlaceholderBlockBase):
-    type: Literal["figure_placeholder"] = "figure_placeholder"
-
-
-PLACEHOLDER_BLOCKS: List[Type[PlaceholderBlockBase]] = [
-    BreakElementPlaceholderBlock,
-    CaptionPlaceholderBlock,
-    CellPlaceholderBlock,
-    FigurePlaceholderBlock,
-]
 
 BLOCKS_WITH_RICH_TEXT: List[Type[BlockBase]] = [
     ParagraphBlock,

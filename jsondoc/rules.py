@@ -1,3 +1,4 @@
+from jsondoc.convert.placeholder import CaptionPlaceholderBlock
 from jsondoc.models.block.base import BlockBase
 from jsondoc.models.block.types.bulleted_list_item import BulletedListItemBlock
 from jsondoc.models.block.types.code import CodeBlock
@@ -58,6 +59,7 @@ ALLOWED_CHILDREN_BLOCK_TYPES = {
     TableRowBlock: [],
     ToDoBlock: ALL_BLOCK_TYPES,
     ToggleBlock: ALL_BLOCK_TYPES,
+    CaptionPlaceholderBlock: [ParagraphBlock],
 }
 
 
