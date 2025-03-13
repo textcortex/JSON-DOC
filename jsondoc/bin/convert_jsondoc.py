@@ -6,6 +6,7 @@ import pypandoc
 from jsondoc.convert.html import html_to_jsondoc
 from jsondoc.convert.markdown import jsondoc_to_markdown
 from jsondoc.serialize import jsondoc_dump_json, load_jsondoc
+from jsondoc.utils import set_created_by
 
 ALLOWED_FORMATS = [
     "jsondoc",
@@ -67,6 +68,7 @@ def convert_to_jsondoc(
     source_format: str | None = None,
     target_format: str | None = None,
     force_page: bool = False,
+    created_by: str | None = None,
 ):
     """
     Convert to and from JSON-DOC format.
@@ -147,6 +149,8 @@ def convert_to_jsondoc(
                     raise e
 
         jsondoc = html_to_jsondoc(html_content, force_page=force_page)
+        if created_by is not None:
+            set_created_by(jsondoc, created_by)
 
         # Serialize the jsondoc
         serialized_jsondoc = jsondoc_dump_json(jsondoc, indent=indent)
@@ -198,6 +202,12 @@ def main():
         help="Force the creation of a page even if the input doesn't "
         "contain a top-level HTML structure",
     )
+    parser.add_argument(
+        "--created-by",
+        type=str,
+        help="An identifier for the entity that created the JSON-DOC file",
+        default=None,
+    )
     args = parser.parse_args()
 
     try:
@@ -208,6 +218,7 @@ def main():
             source_format=args.source_format,
             target_format=args.target_format,
             force_page=args.force_page,
+            created_by=args.created_by,
         )
     except (ValueError, RuntimeError) as e:
         print(e)

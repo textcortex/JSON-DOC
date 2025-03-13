@@ -139,3 +139,58 @@ def set_dict_recursive(d: dict | list, key: str, value: str):
         for item in d:
             if isinstance(item, dict):
                 set_dict_recursive(item, key, value)
+
+
+def set_field_recursive(obj: any, field_name: str, value: any) -> None:
+    """
+    Recursively sets all fields with name 'field_name' to 'value' in the given object.
+    Works with dictionaries, lists, Pydantic models, and other objects with attributes.
+
+    Args:
+        obj: The object to traverse (dict, list, Pydantic model, or other object)
+        field_name: The name of the field to set
+        value: The value to set the field to
+    """
+    from pydantic import BaseModel
+
+    # Handle dictionary
+    if isinstance(obj, dict):
+        for k, v in list(obj.items()):
+            if k == field_name:
+                obj[k] = value
+            else:
+                set_field_recursive(v, field_name, value)
+
+    # Handle list
+    elif isinstance(obj, list):
+        for item in obj:
+            set_field_recursive(item, field_name, value)
+
+    # Handle Pydantic models
+    elif isinstance(obj, BaseModel):
+        # Get the model fields as a dict and process them
+        data = obj.model_dump()
+        for k, v in data.items():
+            if k == field_name:
+                setattr(obj, k, value)
+            else:
+                model_value = getattr(obj, k)
+                set_field_recursive(model_value, field_name, value)
+
+    # # Handle other objects with attributes (non-primitive types)
+    # elif hasattr(obj, "__dict__") and not isinstance(
+    #     obj, (str, int, float, bool, type(None))
+    # ):
+    #     for k, v in list(obj.__dict__.items()):
+    #         if k == field_name:
+    #             setattr(obj, k, value)
+    #         else:
+    #             set_field_recursive(v, field_name, value)
+
+
+def set_created_by(obj: any, created_by: str) -> None:
+    """
+    Recursively sets the 'created_by' field to the given value in the given object.
+    """
+    assert isinstance(created_by, str)
+    set_field_recursive(obj, "created_by", created_by)
