@@ -9,6 +9,7 @@ from jsondoc.models.page import Page
 
 
 class BackRef(BaseModel):
+    plain_text: str
     block_id: str
     begin_idx: int
     end_idx: int
@@ -47,7 +48,14 @@ def extract_text_with_backref_from_page(
         concat_text += title_text
         end_idx = len(concat_text)
         # Add a backref for the page title using the page's ID
-        backrefs.append(BackRef(block_id=page.id, begin_idx=begin_idx, end_idx=end_idx))
+        backrefs.append(
+            BackRef(
+                plain_text=title_text,
+                block_id=page.id,
+                begin_idx=begin_idx,
+                end_idx=end_idx,
+            )
+        )
         # Add a newline after the title
         concat_text += "\n\n"
 
@@ -62,7 +70,12 @@ def extract_text_with_backref_from_page(
             end_idx = len(concat_text)
 
             backrefs.append(
-                BackRef(block_id=block_id, begin_idx=begin_idx, end_idx=end_idx)
+                BackRef(
+                    plain_text=block_text,
+                    block_id=block_id,
+                    begin_idx=begin_idx,
+                    end_idx=end_idx,
+                )
             )
 
             # Add a space after each block
