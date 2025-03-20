@@ -649,14 +649,27 @@ def _final_block_transformation(obj: BlockBase | str | RichTextBase):
         ensure_table_cell_count(obj)
     elif isinstance(obj, str):
         text_ = all_whitespace_re.sub(" ", obj)
+        if not text_.strip():
+            # Skip empty strings
+            return None
         return create_paragraph_block(text=text_)
     elif isinstance(obj, RichTextBase):
+        # if not obj.plain_text.strip():
+        #     # Skip empty rich text objects
+        #     return None
         new_obj_ = create_paragraph_block()
         new_obj_.paragraph.rich_text = [obj]
         return new_obj_
     elif isinstance(obj, PlaceholderBlockBase):
         # Make sure no placeholder blocks are left behind
         return None
+    # elif isinstance(obj, tuple(BLOCKS_WITH_RICH_TEXT)):
+    #     # Check for blocks that support rich text
+    #     rich_text = get_rich_text_from_block(obj)
+    #     if rich_text is not None:
+    #         # If the block has no rich text or only empty rich text, skip it
+    #         if not rich_text or all(not rt.plain_text.strip() for rt in rich_text):
+    #             return None
 
     return obj
 
