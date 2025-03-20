@@ -11,7 +11,7 @@ from jsondoc.models.page import Page
 class BackRef(BaseModel):
     plain_text: str
     block_id: str
-    begin_idx: int
+    start_idx: int
     end_idx: int
 
 
@@ -44,7 +44,7 @@ def extract_text_with_backref_from_page(
             title_text += rich_text.plain_text
 
     if title_text:
-        begin_idx = len(concat_text)
+        start_idx = len(concat_text)
         concat_text += title_text
         end_idx = len(concat_text)
         # Add a backref for the page title using the page's ID
@@ -52,7 +52,7 @@ def extract_text_with_backref_from_page(
             BackRef(
                 plain_text=title_text,
                 block_id=page.id,
-                begin_idx=begin_idx,
+                start_idx=start_idx,
                 end_idx=end_idx,
             )
         )
@@ -65,7 +65,7 @@ def extract_text_with_backref_from_page(
     # Add all blocks to the concatenated text with their respective backrefs
     for block_id, block_text in blocks_with_text:
         if block_text:
-            begin_idx = len(concat_text)
+            start_idx = len(concat_text)
             concat_text += block_text
             end_idx = len(concat_text)
 
@@ -73,7 +73,7 @@ def extract_text_with_backref_from_page(
                 BackRef(
                     plain_text=block_text,
                     block_id=block_id,
-                    begin_idx=begin_idx,
+                    start_idx=start_idx,
                     end_idx=end_idx,
                 )
             )
