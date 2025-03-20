@@ -841,10 +841,15 @@ class HtmlToJsonDocConverter(object):
         paragraph_block.rich_text will be extracted to form table_row.cells.
         """
         # Get colspan
-        colspan = el.get("colspan", 1)
+        colspan = el.get("colspan", "1")
         # Get rowspan
         # rowspan = el.get("rowspan", 1)
         # We need to come up with a much different way to handle rowspan
+        if not isinstance(colspan, int):
+            try:
+                colspan = int(colspan)
+            except ValueError:
+                colspan = 1
 
         next_objects = []
         if colspan > 1:
