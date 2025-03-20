@@ -19,6 +19,26 @@ class TextWithBackrefs(BaseModel):
     text: str
     backrefs: list[BackRef]
 
+    def get_intersecting_backrefs(self, start_idx: int, end_idx: int) -> list[BackRef]:
+        """
+        Returns all backrefs that intersect with the given text range.
+
+        A backref intersects if any part of it overlaps with the range defined by start_idx and end_idx.
+        This happens when the backref starts before the end of the range AND ends after the start of the range.
+
+        Args:
+            start_idx: The starting index of the text range
+            end_idx: The ending index of the text range (exclusive)
+
+        Returns:
+            A list of BackRef objects that intersect with the given range
+        """
+        return [
+            backref
+            for backref in self.backrefs
+            if backref.start_idx < end_idx and backref.end_idx > start_idx
+        ]
+
 
 def extract_text_with_backref_from_page(
     page: Page, include_annotations: bool = False
