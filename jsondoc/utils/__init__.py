@@ -6,6 +6,8 @@ import uuid
 from contextlib import contextmanager
 from datetime import datetime, timezone
 
+from typeid import TypeID
+
 from jsondoc.models.block.base import CreatedBy
 
 ARBITRARY_JSON_SCHEMA_OBJECT = {
@@ -14,8 +16,19 @@ ARBITRARY_JSON_SCHEMA_OBJECT = {
     "additionalProperties": True,
 }
 
+TYPEID_BLOCK_ID_PREFIX = "bk"
+TYPEID_PAGE_ID_PREFIX = "pg"
 
-def generate_id() -> str:
+
+def generate_block_id(typeid: bool = False) -> str:
+    if typeid:
+        return str(TypeID(prefix=TYPEID_BLOCK_ID_PREFIX))
+    return str(uuid.uuid4())
+
+
+def generate_page_id(typeid: bool = False) -> str:
+    if typeid:
+        return str(TypeID(prefix=TYPEID_PAGE_ID_PREFIX))
     return str(uuid.uuid4())
 
 
