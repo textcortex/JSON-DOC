@@ -1,6 +1,6 @@
 import re
 from types import NoneType
-from typing import List, Union
+from typing import Callable, List, Union
 
 from bs4 import BeautifulSoup, Comment, Doctype, NavigableString
 from pydantic import BaseModel
@@ -45,7 +45,7 @@ from jsondoc.models.block.types.table_row import TableRowBlock
 from jsondoc.models.page import Page
 from jsondoc.models.shared_definitions import Annotations
 from jsondoc.rules import is_block_child_allowed
-from jsondoc.utils import generate_id, get_current_time
+from jsondoc.utils import generate_block_id, get_current_time
 
 line_beginning_re = re.compile(r"^", re.MULTILINE)
 whitespace_re = re.compile(r"[\t ]+")
@@ -307,7 +307,9 @@ def reconcile_to_rich_text(
 
 
 def reconcile_to_block(
-    block: BlockBase, children: List[CHILDREN_TYPE]
+    block: BlockBase,
+    children: List[CHILDREN_TYPE],
+    typeid: bool = False,
 ) -> List[CHILDREN_TYPE]:
     """
     Given a block and a list of children,
@@ -350,7 +352,7 @@ def reconcile_to_block(
             # Get corresponding field from the block
             block_field = getattr(block, block_type)
             init_kwargs = {
-                "id": generate_id(),
+                "id": generate_block_id(typeid=typeid),
                 "created_time": child.created_time,
                 block_type: type(block_field)(),
             }
@@ -383,26 +385,20 @@ def reconcile_to_block(
 
 
 class HtmlToJsonDocConverter(object):
-    class DefaultOptions:
-        autolinks = True
-        code_language = ""
-        code_language_callback = None
-        convert = None
-        default_title = False
-        keep_inline_images_in = []
-        strip = None
-        force_page = False
-
-    class Options(DefaultOptions):
-        pass
+    class Options(BaseModel):
+        autolinks: bool = True
+        code_language: str = ""
+        code_language_callback: Callable | None = None
+        convert: Callable | None = None
+        default_title: bool = False
+        keep_inline_images_in: list[str] = []
+        strip: str | None = None
+        force_page: bool = False
+        typeid: bool = False
 
     def __init__(self, **options):
-        # Create an options dictionary. Use DefaultOptions as a base so that
-        # it doesn't have to be extended.
-        self.options = _todict(self.DefaultOptions)
-        self.options.update(_todict(self.Options))
-        self.options.update(options)
-        if self.options["strip"] is not None and self.options["convert"] is not None:
+        self.options = self.Options(**options)
+        if self.options.strip is not None and self.options.convert is not None:
             raise ValueError(
                 "You may specify either tags to strip or tags to convert, but not both."
             )
@@ -417,7 +413,7 @@ class HtmlToJsonDocConverter(object):
         is_page = self._is_soup_page(soup)
 
         ret = None
-        if is_page or self.options["force_page"]:
+        if is_page or self.options.force_page:
             title = self._get_html_title(soup)
             # Ensure that children is a list
             if not isinstance(children, list):
@@ -427,6 +423,7 @@ class HtmlToJsonDocConverter(object):
             ret = create_page(
                 title=title,
                 children=children,
+                typeid=self.options.typeid,
             )
         else:
             ret = children
@@ -526,7 +523,11 @@ class HtmlToJsonDocConverter(object):
         if current_level_object is None:
             objects = children_objects
         elif isinstance(current_level_object, BlockBase):
-            objects = reconcile_to_block(current_level_object, children_objects)
+            objects = reconcile_to_block(
+                current_level_object,
+                children_objects,
+                typeid=self.options.typeid,
+            )
         elif isinstance(current_level_object, RichTextBase):
             objects = reconcile_to_rich_text(current_level_object, children_objects)
         else:
@@ -615,8 +616,8 @@ class HtmlToJsonDocConverter(object):
 
     def should_convert_tag(self, tag):
         tag = tag.lower()
-        strip = self.options["strip"]
-        convert = self.options["convert"]
+        strip = self.options.strip
+        convert = self.options.convert
         if strip is not None:
             return tag not in strip
         elif convert is not None:
@@ -629,7 +630,7 @@ class HtmlToJsonDocConverter(object):
         return ConvertOutput(main_object=create_rich_text(url=href))
 
     convert_b = abstract_inline_conversion(
-        lambda self: Annotations(bold=True)  # 2 * self.options["strong_em_symbol"]
+        lambda self: Annotations(bold=True)  # 2 * self.options.strong_em_symbol
     )
 
     def convert_blockquote(self, el, convert_as_inline):
@@ -646,7 +647,11 @@ class HtmlToJsonDocConverter(object):
             return ConvertOutput(main_object=create_rich_text())
 
         # TODO: If text has newlines, split them and add 2, 3, ... lines as children
-        return ConvertOutput(main_object=create_quote_block())
+        return ConvertOutput(
+            main_object=create_quote_block(
+                typeid=self.options.typeid,
+            )
+        )
 
     def convert_br(self, el, convert_as_inline):
         if convert_as_inline:
@@ -683,40 +688,48 @@ class HtmlToJsonDocConverter(object):
         if convert_as_inline:
             return ConvertOutput(main_object=create_rich_text())
 
-        return ConvertOutput(main_object=create_h1_block())
+        return ConvertOutput(main_object=create_h1_block(typeid=self.options.typeid))
 
     def convert_h2(self, el, convert_as_inline):
         if convert_as_inline:
             return ConvertOutput(main_object=create_rich_text())
 
-        return ConvertOutput(main_object=create_h2_block())
+        return ConvertOutput(main_object=create_h2_block(typeid=self.options.typeid))
 
     def convert_h3(self, el, convert_as_inline):
         if convert_as_inline:
             return ConvertOutput(main_object=create_rich_text())
 
-        return ConvertOutput(main_object=create_h3_block())
+        return ConvertOutput(main_object=create_h3_block(typeid=self.options.typeid))
 
     def convert_h4(self, el, convert_as_inline):
         if convert_as_inline:
             return ConvertOutput(main_object=create_rich_text())
 
-        return ConvertOutput(main_object=create_paragraph_block())
+        return ConvertOutput(
+            main_object=create_paragraph_block(typeid=self.options.typeid)
+        )
 
     def convert_h5(self, el, convert_as_inline):
         if convert_as_inline:
             return ConvertOutput(main_object=create_rich_text())
 
-        return ConvertOutput(main_object=create_paragraph_block())
+        return ConvertOutput(
+            main_object=create_paragraph_block(typeid=self.options.typeid)
+        )
 
     def convert_h6(self, el, convert_as_inline):
         if convert_as_inline:
             return ConvertOutput(main_object=create_rich_text())
 
-        return ConvertOutput(main_object=create_paragraph_block())
+        return ConvertOutput(
+            main_object=create_paragraph_block(typeid=self.options.typeid)
+        )
 
     def convert_hr(self, el, convert_as_inline):
-        return ConvertOutput(main_object=create_divider_block())
+        return ConvertOutput(
+            main_object=create_divider_block(typeid=self.options.typeid)
+        )
 
     convert_i = convert_em
 
@@ -730,13 +743,14 @@ class HtmlToJsonDocConverter(object):
         # title_part = ' "%s"' % title.replace('"', r"\"") if title else ""
         if (
             convert_as_inline
-            and el.parent.name not in self.options["keep_inline_images_in"]
+            and el.parent.name not in self.options.keep_inline_images_in
         ):
             return alt
 
         return ConvertOutput(
             main_object=create_image_block(
                 url=src,
+                typeid=self.options.typeid,
                 # alt is not supported in JSON-DOC yet
                 # caption=alt,
             )
@@ -755,15 +769,21 @@ class HtmlToJsonDocConverter(object):
     def convert_li(self, el, convert_as_inline):
         parent = el.parent
         if parent is not None and parent.name == "ol":
-            return ConvertOutput(main_object=create_numbered_list_item_block())
+            return ConvertOutput(
+                main_object=create_numbered_list_item_block(typeid=self.options.typeid)
+            )
         else:
-            return ConvertOutput(main_object=create_bullet_list_item_block())
+            return ConvertOutput(
+                main_object=create_bullet_list_item_block(typeid=self.options.typeid)
+            )
 
     def convert_p(self, el, convert_as_inline):
         if convert_as_inline:
             return ConvertOutput(main_object=create_rich_text())
 
-        return ConvertOutput(main_object=create_paragraph_block())
+        return ConvertOutput(
+            main_object=create_paragraph_block(typeid=self.options.typeid)
+        )
 
     def convert_pre(self, el, convert_as_inline):
         text = el.get_text()
@@ -771,12 +791,16 @@ class HtmlToJsonDocConverter(object):
         if not text:
             return None
 
-        code_language = self.options["code_language"]
+        code_language = self.options.code_language
 
-        if self.options["code_language_callback"]:
-            code_language = self.options["code_language_callback"](el) or code_language
+        if self.options.code_language_callback:
+            code_language = self.options.code_language_callback(el) or code_language
 
-        return ConvertOutput(main_object=create_code_block(language=code_language))
+        return ConvertOutput(
+            main_object=create_code_block(
+                language=code_language, typeid=self.options.typeid
+            )
+        )
 
     def convert_script(self, el, convert_as_inline):
         return None
@@ -793,19 +817,19 @@ class HtmlToJsonDocConverter(object):
     # Notion does not have an alternative for sub and sup tags
     convert_sub = abstract_inline_conversion(
         lambda self: Annotations()
-        # self.options["sub_symbol"],
+        # self.options.sub_symbol,
     )
 
     convert_sup = abstract_inline_conversion(
         lambda self: Annotations()
-        # self.options["sup_symbol"],
+        # self.options.sup_symbol,
     )
 
     def convert_table(self, el, convert_as_inline):
         has_column_header = html_table_has_header_row(el)
         return ConvertOutput(
             main_object=create_table_block(
-                has_column_header=has_column_header,
+                has_column_header=has_column_header, typeid=self.options.typeid
             )
         )
 
@@ -841,10 +865,15 @@ class HtmlToJsonDocConverter(object):
         paragraph_block.rich_text will be extracted to form table_row.cells.
         """
         # Get colspan
-        colspan = el.get("colspan", 1)
+        colspan = el.get("colspan", "1")
         # Get rowspan
         # rowspan = el.get("rowspan", 1)
         # We need to come up with a much different way to handle rowspan
+        if not isinstance(colspan, int):
+            try:
+                colspan = int(colspan)
+            except ValueError:
+                colspan = 1
 
         next_objects = []
         if colspan > 1:
@@ -863,7 +892,9 @@ class HtmlToJsonDocConverter(object):
         """
         Table row
         """
-        return ConvertOutput(main_object=create_table_row_block())
+        return ConvertOutput(
+            main_object=create_table_row_block(typeid=self.options.typeid)
+        )
 
 
 def html_to_jsondoc(html: str | bytes, **options) -> Page | BlockBase | List[BlockBase]:

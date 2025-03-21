@@ -6,14 +6,29 @@ import uuid
 from contextlib import contextmanager
 from datetime import datetime, timezone
 
+from typeid import TypeID
+
+from jsondoc.models.block.base import CreatedBy
+
 ARBITRARY_JSON_SCHEMA_OBJECT = {
     "type": "object",
     "properties": {},
     "additionalProperties": True,
 }
 
+TYPEID_BLOCK_ID_PREFIX = "bk"
+TYPEID_PAGE_ID_PREFIX = "pg"
 
-def generate_id() -> str:
+
+def generate_block_id(typeid: bool = False) -> str:
+    if typeid:
+        return str(TypeID(prefix=TYPEID_BLOCK_ID_PREFIX))
+    return str(uuid.uuid4())
+
+
+def generate_page_id(typeid: bool = False) -> str:
+    if typeid:
+        return str(TypeID(prefix=TYPEID_PAGE_ID_PREFIX))
     return str(uuid.uuid4())
 
 
@@ -188,9 +203,13 @@ def set_field_recursive(obj: any, field_name: str, value: any) -> None:
     #             set_field_recursive(v, field_name, value)
 
 
-def set_created_by(obj: any, created_by: str) -> None:
+def set_created_by(obj: any, created_by: str | CreatedBy) -> None:
     """
     Recursively sets the 'created_by' field to the given value in the given object.
     """
-    assert isinstance(created_by, str)
+    assert isinstance(created_by, (str, CreatedBy))
+
+    if isinstance(created_by, str):
+        created_by = CreatedBy(id=created_by, object="user")
+
     set_field_recursive(obj, "created_by", created_by)

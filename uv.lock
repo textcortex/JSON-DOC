@@ -748,6 +748,7 @@ dependencies = [
     { name = "jsonschema" },
     { name = "pydantic" },
     { name = "pypandoc" },
+    { name = "typeid-python" },
 ]
 
 [package.dev-dependencies]
@@ -767,6 +768,7 @@ requires-dist = [
     { name = "jsonschema", specifier = ">=4.23.0,<5" },
     { name = "pydantic", specifier = ">=2.7.2,<3" },
     { name = "pypandoc", specifier = ">=1.15" },
+    { name = "typeid-python", specifier = ">=0.3.2" },
 ]
 
 [package.metadata.requires-dev]
@@ -999,6 +1001,18 @@ wheels = [
 ]
 
 [[package]]
+name = "typeid-python"
+version = "0.3.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "uuid6" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/8d/09/b9b747c4f5f47e32fcb49d2a61c1235838df22bd02445507f60744bb6759/typeid_python-0.3.2.tar.gz", hash = "sha256:07d176af35ba75a10721ffd73f70e9582bc2705d3b4cb3d8df956e3221eaf2a6", size = 6934 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/8a/24/f5f6373f168c362c861c89fc7f7b3750968784ab90b0162bdc6cf77ad0bf/typeid_python-0.3.2-py3-none-any.whl", hash = "sha256:d4fc91e12152df9f7a468655c5fbd1824fb1b706a19ffdce0e7fcef4520ed139", size = 7229 },
+]
+
+[[package]]
 name = "typing-extensions"
 version = "4.12.2"
 source = { registry = "https://pypi.org/simple" }
@@ -1014,6 +1028,15 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/aa/63/e53da845320b757bf29ef6a9062f5c669fe997973f966045cb019c3f4b66/urllib3-2.3.0.tar.gz", hash = "sha256:f8c5449b3cf0861679ce7e0503c7b44b5ec981bec0d1d3795a07f1ba96f0204d", size = 307268 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/c8/19/4ec628951a74043532ca2cf5d97b7b14863931476d117c471e8e2b1eb39f/urllib3-2.3.0-py3-none-any.whl", hash = "sha256:1cee9ad369867bfdbbb48b7dd50374c0967a0bb7710050facf0dd6911440e3df", size = 128369 },
+]
+
+[[package]]
+name = "uuid6"
+version = "2024.7.10"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/2c/56/2560a9f1ccab9e12b1b3478a3c870796cf4d8ee5652bb19b61751cced14a/uuid6-2024.7.10.tar.gz", hash = "sha256:2d29d7f63f593caaeea0e0d0dd0ad8129c9c663b29e19bdf882e864bedf18fb0", size = 8705 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/d3/3e/4ae6af487ce5781ed71d5fe10aca72e7cbc4d4f45afc31b120287082a8dd/uuid6-2024.7.10-py3-none-any.whl", hash = "sha256:93432c00ba403751f722829ad21759ff9db051dea140bf81493271e8e4dd18b7", size = 6376 },
 ]
 
 [[package]]

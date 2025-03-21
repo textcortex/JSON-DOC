@@ -45,7 +45,7 @@ from jsondoc.models.file.external import External
 from jsondoc.models.page import CreatedBy, LastEditedBy, Page, Parent, Properties, Title
 from jsondoc.models.shared_definitions import Annotations
 from jsondoc.rules import is_block_child_allowed
-from jsondoc.utils import generate_id, get_current_time
+from jsondoc.utils import generate_block_id, generate_page_id, get_current_time
 
 all_whitespace_re = re.compile(r"[\s]+")
 
@@ -136,10 +136,11 @@ def create_paragraph_block(
     id: str | None = None,
     created_time=None,
     metadata: dict | None = None,
+    typeid: bool = False,
     **kwargs,
 ) -> ParagraphBlock:
     if id is None:
-        id = generate_id()
+        id = generate_block_id(typeid=typeid)
     if created_time is None:
         created_time = get_current_time()
 
@@ -160,10 +161,11 @@ def create_bullet_list_item_block(
     text: str | None = None,
     id: str | None = None,
     created_time=None,
+    typeid: bool = False,
     **kwargs,
 ) -> BulletedListItemBlock:
     if id is None:
-        id = generate_id()
+        id = generate_block_id(typeid=typeid)
     if created_time is None:
         created_time = get_current_time()
 
@@ -183,10 +185,11 @@ def create_numbered_list_item_block(
     text: str | None = None,
     id: str | None = None,
     created_time=None,
+    typeid: bool = False,
     **kwargs,
 ) -> NumberedListItemBlock:
     if id is None:
-        id = generate_id()
+        id = generate_block_id(typeid=typeid)
     if created_time is None:
         created_time = get_current_time()
 
@@ -207,10 +210,11 @@ def create_code_block(
     language: str | None = None,
     id: str | None = None,
     created_time=None,
+    typeid: bool = False,
     **kwargs,
 ) -> CodeBlock:
     if id is None:
-        id = generate_id()
+        id = generate_block_id(typeid=typeid)
     if created_time is None:
         created_time = get_current_time()
 
@@ -238,9 +242,10 @@ def create_code_block(
 def create_divider_block(
     id: str | None = None,
     created_time=None,
+    typeid: bool = False,
 ) -> DividerBlock:
     if id is None:
-        id = generate_id()
+        id = generate_block_id(typeid=typeid)
     if created_time is None:
         created_time = get_current_time()
 
@@ -256,10 +261,11 @@ def create_h1_block(
     text: str | None = None,
     id: str | None = None,
     created_time=None,
+    typeid: bool = False,
     **kwargs,
 ) -> Heading1Block:
     if id is None:
-        id = generate_id()
+        id = generate_block_id(typeid=typeid)
 
     if created_time is None:
         created_time = get_current_time()
@@ -280,10 +286,11 @@ def create_h2_block(
     text: str | None = None,
     id: str | None = None,
     created_time=None,
+    typeid: bool = False,
     **kwargs,
 ) -> Heading2Block:
     if id is None:
-        id = generate_id()
+        id = generate_block_id(typeid=typeid)
 
     if created_time is None:
         created_time = get_current_time()
@@ -304,10 +311,11 @@ def create_h3_block(
     text: str | None = None,
     id: str | None = None,
     created_time=None,
+    typeid: bool = False,
     **kwargs,
 ) -> Heading3Block:
     if id is None:
-        id = generate_id()
+        id = generate_block_id(typeid=typeid)
 
     if created_time is None:
         created_time = get_current_time()
@@ -329,9 +337,10 @@ def create_image_block(
     caption: str | None = None,
     id: str | None = None,
     created_time=None,
+    typeid: bool = False,
 ) -> ImageBlock:
     if id is None:
-        id = generate_id()
+        id = generate_block_id(typeid=typeid)
 
     if created_time is None:
         created_time = get_current_time()
@@ -355,10 +364,11 @@ def create_quote_block(
     text: str | None = None,
     id: str | None = None,
     created_time=None,
+    typeid: bool = False,
     **kwargs,
 ) -> QuoteBlock:
     if id is None:
-        id = generate_id()
+        id = generate_block_id(typeid=typeid)
 
     if created_time is None:
         created_time = get_current_time()
@@ -379,9 +389,10 @@ def create_table_row_block(
     cells: List[List[RichTextBase]] = [],
     id: str | None = None,
     created_time=None,
+    typeid: bool = False,
 ) -> TableRowBlock:
     if id is None:
-        id = generate_id()
+        id = generate_block_id(typeid=typeid)
 
     if created_time is None:
         created_time = get_current_time()
@@ -401,9 +412,10 @@ def create_table_block(
     table_width: int | None = None,
     has_column_header: bool = False,
     has_row_header: bool = False,
+    typeid: bool = False,
 ) -> TableBlock:
     if id is None:
-        id = generate_id()
+        id = generate_block_id(typeid=typeid)
 
     if created_time is None:
         created_time = get_current_time()
@@ -430,6 +442,7 @@ def create_page(
     title: str | List[RichTextBase] | None = None,
     archived: bool | None = None,
     in_trash: bool | None = None,
+    typeid: bool = False,
     # parent: str | None = None,
     # icon # TBD
 ) -> Page:
@@ -437,7 +450,7 @@ def create_page(
     Creates a page with the given blocks
     """
     if id is None:
-        id = generate_id()
+        id = generate_page_id(typeid=typeid)
 
     if created_time is None:
         created_time = get_current_time()
@@ -649,14 +662,27 @@ def _final_block_transformation(obj: BlockBase | str | RichTextBase):
         ensure_table_cell_count(obj)
     elif isinstance(obj, str):
         text_ = all_whitespace_re.sub(" ", obj)
+        if not text_.strip():
+            # Skip empty strings
+            return None
         return create_paragraph_block(text=text_)
     elif isinstance(obj, RichTextBase):
+        # if not obj.plain_text.strip():
+        #     # Skip empty rich text objects
+        #     return None
         new_obj_ = create_paragraph_block()
         new_obj_.paragraph.rich_text = [obj]
         return new_obj_
     elif isinstance(obj, PlaceholderBlockBase):
         # Make sure no placeholder blocks are left behind
         return None
+    # elif isinstance(obj, tuple(BLOCKS_WITH_RICH_TEXT)):
+    #     # Check for blocks that support rich text
+    #     rich_text = get_rich_text_from_block(obj)
+    #     if rich_text is not None:
+    #         # If the block has no rich text or only empty rich text, skip it
+    #         if not rich_text or all(not rt.plain_text.strip() for rt in rich_text):
+    #             return None
 
     return obj
 

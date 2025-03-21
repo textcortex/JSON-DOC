@@ -10,6 +10,7 @@ dependencies = [
     "jsonschema>=4.23.0,<5",
     "pypandoc>=1.15",
     "beautifulsoup4>=4.13.3",
+    "typeid-python>=0.3.2",
 ]
 
 [project.scripts]
