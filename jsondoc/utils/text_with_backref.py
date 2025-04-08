@@ -10,9 +10,16 @@ from jsondoc.models.page import Page
 
 class BackRef(BaseModel):
     plain_text: str
-    block_id: str
     start_idx: int
     end_idx: int
+    """
+    block_id must be set for most cases.
+    """
+    block_id: str | None = None
+    """
+    Used for content that do not belong to a block, e.g. page title.
+    """
+    page_id: str | None = None
 
 
 class TextWithBackrefs(BaseModel):
@@ -71,7 +78,7 @@ def extract_text_with_backref_from_page(
         backrefs.append(
             BackRef(
                 plain_text=title_text,
-                block_id=page.id,
+                page_id=page.id,
                 start_idx=start_idx,
                 end_idx=end_idx,
             )
