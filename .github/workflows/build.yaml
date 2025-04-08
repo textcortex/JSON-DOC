@@ -24,21 +24,25 @@ jobs:
         with:
           python-version: "3.12"
           enable-cache: true
-          cache-dependency-glob: "requirements.txt"
+          cache-dependency-glob: "python/requirements.txt"
 
       - name: Install dependencies
+        working-directory: ./python
         run: |
           if [ -f requirements.txt ]; then uv pip install -r requirements.txt; fi
           uv pip install pytest
 
       - name: Install the package
+        working-directory: ./python
         run: |
           uv pip install .
 
       - name: Test with pytest
+        working-directory: ./python
         run: |
-          uv run pytest
+          PYTHONPATH=.. uv run pytest
 
       - name: Check if the main script is installed
+        working-directory: ./python
         run: |
           uv run convert_jsondoc --help
