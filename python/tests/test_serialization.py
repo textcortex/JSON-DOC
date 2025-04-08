@@ -5,7 +5,7 @@ import time
 from jsondoc.serialize import load_page
 from jsondoc.utils import diff_strings, load_json_file, timer
 
-PAGE_PATH = "schema/page/ex1_success.json"
+PAGE_PATH = "../schema/page/ex1_success.json"
 
 
 def remove_null_fields(string):

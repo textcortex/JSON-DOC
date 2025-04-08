@@ -26,10 +26,12 @@ jobs:
       uses: astral-sh/setup-uv@v5
 
     - name: Install dependencies
+      working-directory: ./python
       run: uv sync --all-extras --dev
 
     - name: Run tests
+      working-directory: ./python
       run: |
-        uv run pytest
+        PYTHONPATH=.. uv run pytest
 
 

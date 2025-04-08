@@ -5,7 +5,7 @@ from jsondoc.utils import load_json_file
 
 
 def test_convert_jsondoc_to_markdown():
-    path = "schema/page/ex1_success.json"
+    path = "../schema/page/ex1_success.json"
     content = load_json_file(path)
     page = load_jsondoc(content)
 
