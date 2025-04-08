@@ -2,12 +2,11 @@ import json
 import os
 from pathlib import Path
 
-from pydantic import BaseModel
-
 from jsondoc.convert.html import html_to_jsondoc
 from jsondoc.convert.markdown import jsondoc_to_markdown
 from jsondoc.serialize import jsondoc_dump_json, load_jsondoc
 from jsondoc.utils import diff_jsonable_dict, load_json_file, set_dict_recursive
+from pydantic import BaseModel
 
 
 def test_convert_html_all_elements():
