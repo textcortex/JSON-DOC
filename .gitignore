@@ -7,3 +7,4 @@ build/
 *.docx
 *.pptx
 scratch/
+dist/

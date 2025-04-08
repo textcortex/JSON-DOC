@@ -34,10 +34,12 @@ jobs:
         uses: astral-sh/setup-uv@v5
 
       - name: Install dependencies
+        working-directory: ./python
         run: |
           uv pip install --system toml
 
       - name: Extract version from tag and update pyproject.toml
+        working-directory: ./python
         run: |
           # Get the version from the tag (remove 'v' prefix)
           TAG_VERSION=${GITHUB_REF#refs/tags/v}
@@ -58,11 +60,13 @@ jobs:
           cat pyproject.toml | grep version
 
       - name: Build package
+        working-directory: ./python
         run: uv build --no-sources
 
       - name: Publish package to PyPI
         uses: pypa/gh-action-pypi-publish@v1.12.4
         with:
+          packages-dir: python/dist/
           user: __token__
           password: ${{ secrets.PYPI_API_TOKEN }}
           verbose: true

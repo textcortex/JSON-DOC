@@ -2,7 +2,6 @@ import argparse
 import sys
 
 import pypandoc
-
 from jsondoc.convert.html import html_to_jsondoc
 from jsondoc.convert.markdown import jsondoc_to_markdown
 from jsondoc.serialize import jsondoc_dump_json, load_jsondoc

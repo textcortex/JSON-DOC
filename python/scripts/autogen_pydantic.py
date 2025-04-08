@@ -6,7 +6,6 @@ from tempfile import TemporaryDirectory
 from urllib.parse import urljoin
 
 from datamodel_code_generator import DataModelType, InputFileType, generate
-
 from jsondoc.utils import load_json_file, replace_refs_with_arbitrary_object
 
 # from scripts.utils import copy_directory_without_comments
