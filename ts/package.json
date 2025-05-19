@@ -1,0 +1,10 @@
+{
+  "name": "jsondoc-ts",
+  "version": "0.1.0",
+  "type": "commonjs",
+  "scripts": {
+    "build": "tsc",
+    "test": "npm run build && node dist/tests/test_serialization.js"
+  },
+  "devDependencies": {}
+}
