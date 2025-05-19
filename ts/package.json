@@ -1,0 +1,15 @@
+{
+  "name": "jsondoc-ts",
+  "version": "0.1.0",
+  "type": "commonjs",
+  "scripts": {
+    "generate": "node scripts/generate.js",
+    "build": "npm run generate && tsc",
+    "test": "npm run build && node dist/tests/test_serialization.js"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.19",
+    "json-schema-to-typescript": "^10.1.5",
+    "typescript": "^5.3.3"
+  }
+}
