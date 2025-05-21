@@ -4,6 +4,8 @@ import sys
 
 # Usage: python run_validation_tests.py schema/
 
+SCHEMA_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../schema"))
+
 
 def run_validation(schema_path, data_path, root=None):
     cmd = [
@@ -25,7 +27,7 @@ def run_validation(schema_path, data_path, root=None):
     return result.returncode == 0, result.stdout
 
 
-def process_directory(source_dir):
+def process_directory(source_dir) -> list[str]:
     failed_tests = []
 
     for root, dirs, files in os.walk(source_dir):
@@ -55,6 +57,11 @@ def process_directory(source_dir):
                         print(output)  # Print the output only if the test fails
 
     return failed_tests
+
+
+def test_validation():
+    failed_tests = process_directory(SCHEMA_DIR)
+    assert len(failed_tests) == 0, f"Failed tests: {failed_tests}"
 
 
 if __name__ == "__main__":
