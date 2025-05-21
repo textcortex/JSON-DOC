@@ -161,8 +161,6 @@ async function generateTypeDefinitions(outputPath: string): Promise<void> {
     fs.mkdirSync(outputDir, { recursive: true });
   }
 
-  // Write the type definitions to the output file
-  await writeFile(outputPath, commonTypes);
   console.log(`Generated type definitions at ${outputPath}`);
 }
 
