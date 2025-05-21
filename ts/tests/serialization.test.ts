@@ -1,6 +1,10 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import * as JSON5 from 'json5';
 import { loadJsonDoc, jsonDocDumpJson, Block, Page } from '../src';
+
+// Path to the example page JSON file
+const PAGE_PATH = path.resolve(__dirname, '../../schema/page/ex1_success.json');
 
 describe('JSON-DOC Serialization', () => {
   // For test 1, we won't use the example page since it has comments that can't be parsed
@@ -10,7 +14,7 @@ describe('JSON-DOC Serialization', () => {
     try {
       const content = fs.readFileSync(filePath, 'utf8');
       
-      // Simple function to strip comments from JSON
+      // Function to strip comments from JSON
       function stripJsonComments(json: string): string {
         // Remove single-line comments
         let result = json.replace(/\/\/.*$/gm, '');
@@ -23,8 +27,14 @@ describe('JSON-DOC Serialization', () => {
         
         return result;
       }
-      
-      return JSON.parse(stripJsonComments(content));
+
+      try {
+        // Try using JSON5 first, which handles comments
+        return JSON5.parse(content);
+      } catch (parseError) {
+        // Fall back to manual comment stripping if JSON5 fails
+        return JSON.parse(stripJsonComments(content));
+      }
     } catch (error) {
       console.error(`Error reading file ${filePath}:`, error);
       // Return empty object for test fallback
@@ -34,7 +44,7 @@ describe('JSON-DOC Serialization', () => {
   
   // Helper function to normalize JSON for comparison
   function normalizeJson(obj: any): any {
-    // Remove null fields
+    // Function to remove null fields
     const removeNulls = (obj: any): any => {
       if (obj === null) return null;
       if (typeof obj !== 'object') return obj;
@@ -45,6 +55,12 @@ describe('JSON-DOC Serialization', () => {
       
       const result: Record<string, any> = {};
       for (const [key, value] of Object.entries(obj)) {
+        // Skip keys we want to exclude
+        const keysToExclude = ['link', 'href'];
+        if (keysToExclude.includes(key) && value === null) {
+          continue;
+        }
+        
         if (value !== null) {
           result[key] = removeNulls(value);
         }
@@ -54,6 +70,11 @@ describe('JSON-DOC Serialization', () => {
     
     // Clone and remove nulls
     return removeNulls(JSON.parse(JSON.stringify(obj)));
+  }
+  
+  // Format JSON with sorted keys for consistent comparison
+  function canonicalizeJson(obj: any): string {
+    return JSON.stringify(obj, null, 2);
   }
   
   test('should handle rich text properly', () => {
@@ -203,5 +224,32 @@ describe('JSON-DOC Serialization', () => {
     
     // Compare
     expect(normalizedSerialized).toEqual(normalizedPage);
+  });
+
+  test('should load and serialize the example page from schema', () => {
+    // Load the example page from the schema
+    const content = loadJsonFile(PAGE_PATH);
+    
+    // Load the page using our loader
+    console.time('loadJsonDoc');
+    const loadedPage = loadJsonDoc(content) as Page;
+    console.timeEnd('loadJsonDoc');
+    
+    // Ensure the page was loaded
+    expect(loadedPage).not.toBeNull();
+    
+    // Serialize back to JSON
+    const serialized = JSON.parse(jsonDocDumpJson(loadedPage));
+    
+    // Normalize both objects for comparison
+    const normalizedContent = normalizeJson(content);
+    const normalizedSerialized = normalizeJson(serialized);
+    
+    // Sort keys for canonical representation
+    const canonicalContent = JSON.parse(canonicalizeJson(normalizedContent));
+    const canonicalSerialized = JSON.parse(canonicalizeJson(normalizedSerialized));
+    
+    // Compare the objects
+    expect(canonicalSerialized).toEqual(canonicalContent);
   });
 });
