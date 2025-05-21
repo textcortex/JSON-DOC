@@ -253,9 +253,9 @@ export function loadJsonDoc(obj: any): Page | Block | Block[] {
   }
   
   const objectType = obj.object;
-  if (objectType === ObjectType.Page) {
+  if ((objectType === ObjectType.Page) || (objectType === 'page')) {
     return loadPage(obj);
-  } else if (objectType === ObjectType.Block) {
+  } else if ((objectType === ObjectType.Block) || (objectType === 'block')) {
     return loadBlock(obj);
   } else {
     throw new Error(`Invalid object type: ${objectType}. Must be either 'page' or 'block'`);
@@ -283,71 +283,71 @@ export function jsonDocDumpJson(
 
 // Factory functions for different block types
 function createParagraphBlock(obj: any): ParagraphBlock {
-  return { ...obj, object: ObjectType.Block } as ParagraphBlock;
+  return { ...obj, object: 'block' } as ParagraphBlock;
 }
 
 function createToDoBlock(obj: any): ToDoBlock {
-  return { ...obj, object: ObjectType.Block } as ToDoBlock;
+  return { ...obj, object: 'block' } as ToDoBlock;
 }
 
 function createBulletedListItemBlock(obj: any): BulletedListItemBlock {
-  return { ...obj, object: ObjectType.Block } as BulletedListItemBlock;
+  return { ...obj, object: 'block' } as BulletedListItemBlock;
 }
 
 function createNumberedListItemBlock(obj: any): NumberedListItemBlock {
-  return { ...obj, object: ObjectType.Block } as NumberedListItemBlock;
+  return { ...obj, object: 'block' } as NumberedListItemBlock;
 }
 
 function createCodeBlock(obj: any): CodeBlock {
-  return { ...obj, object: ObjectType.Block } as CodeBlock;
+  return { ...obj, object: 'block' } as CodeBlock;
 }
 
 function createColumnBlock(obj: any): ColumnBlock {
-  return { ...obj, object: ObjectType.Block } as ColumnBlock;
+  return { ...obj, object: 'block' } as ColumnBlock;
 }
 
 function createColumnListBlock(obj: any): ColumnListBlock {
-  return { ...obj, object: ObjectType.Block } as ColumnListBlock;
+  return { ...obj, object: 'block' } as ColumnListBlock;
 }
 
 function createDividerBlock(obj: any): DividerBlock {
-  return { ...obj, object: ObjectType.Block } as DividerBlock;
+  return { ...obj, object: 'block' } as DividerBlock;
 }
 
 function createEquationBlock(obj: any): EquationBlock {
-  return { ...obj, object: ObjectType.Block } as EquationBlock;
+  return { ...obj, object: 'block' } as EquationBlock;
 }
 
 function createHeading1Block(obj: any): Heading1Block {
-  return { ...obj, object: ObjectType.Block } as Heading1Block;
+  return { ...obj, object: 'block' } as Heading1Block;
 }
 
 function createHeading2Block(obj: any): Heading2Block {
-  return { ...obj, object: ObjectType.Block } as Heading2Block;
+  return { ...obj, object: 'block' } as Heading2Block;
 }
 
 function createHeading3Block(obj: any): Heading3Block {
-  return { ...obj, object: ObjectType.Block } as Heading3Block;
+  return { ...obj, object: 'block' } as Heading3Block;
 }
 
 function createImageBlock(obj: any): ImageBlock {
-  return { ...obj, object: ObjectType.Block } as ImageBlock;
+  return { ...obj, object: 'block' } as ImageBlock;
 }
 
 function createQuoteBlock(obj: any): QuoteBlock {
-  return { ...obj, object: ObjectType.Block } as QuoteBlock;
+  return { ...obj, object: 'block' } as QuoteBlock;
 }
 
 function createTableBlock(obj: any): TableBlock {
-  return { ...obj, object: ObjectType.Block } as TableBlock;
+  return { ...obj, object: 'block' } as TableBlock;
 }
 
 function createTableRowBlock(obj: any): TableRowBlock {
-  return { ...obj, object: ObjectType.Block } as TableRowBlock;
+  return { ...obj, object: 'block' } as TableRowBlock;
 }
 
 function createToggleBlock(obj: any): ToggleBlock {
-  return { ...obj, object: ObjectType.Block } as ToggleBlock;
+  return { ...obj, object: 'block' } as ToggleBlock;
 }
 
 // Factory functions for rich text types

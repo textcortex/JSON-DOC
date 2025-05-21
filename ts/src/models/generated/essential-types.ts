@@ -1,9 +1,8 @@
 
 // Object types
 export enum ObjectType {
-  Page = 'page',
   Block = 'block',
-  User = 'user',
+  Page = 'page',
 }
 
 // Block types
@@ -35,8 +34,8 @@ export enum RichTextType {
 
 // File types
 export enum FileType {
-  File = 'file',
   External = 'external',
+  File = 'file',
 }
 
 // Parent types
@@ -53,26 +52,72 @@ export interface JsonObject { [key: string]: JsonValue }
 export type JsonArray = JsonValue[];
 
 // Type guards
-export function isPage(obj: any): obj is any {
-  return obj && obj.object === ObjectType.Page;
-}
-
 export function isBlock(obj: any): obj is any {
   return obj && obj.object === ObjectType.Block;
 }
-
+export function isPage(obj: any): obj is any {
+  return obj && obj.object === ObjectType.Page;
+}
+export function isParagraphBlock(obj: any): obj is any {
+  return obj && obj.type === BlockType.Paragraph;
+}
+export function isToDoBlock(obj: any): obj is any {
+  return obj && obj.type === BlockType.ToDo;
+}
+export function isBulletedListItemBlock(obj: any): obj is any {
+  return obj && obj.type === BlockType.BulletedListItem;
+}
+export function isNumberedListItemBlock(obj: any): obj is any {
+  return obj && obj.type === BlockType.NumberedListItem;
+}
+export function isCodeBlock(obj: any): obj is any {
+  return obj && obj.type === BlockType.Code;
+}
+export function isColumnBlock(obj: any): obj is any {
+  return obj && obj.type === BlockType.Column;
+}
+export function isColumnListBlock(obj: any): obj is any {
+  return obj && obj.type === BlockType.ColumnList;
+}
+export function isDividerBlock(obj: any): obj is any {
+  return obj && obj.type === BlockType.Divider;
+}
+export function isEquationBlock(obj: any): obj is any {
+  return obj && obj.type === BlockType.Equation;
+}
+export function isHeading1Block(obj: any): obj is any {
+  return obj && obj.type === BlockType.Heading1;
+}
+export function isHeading2Block(obj: any): obj is any {
+  return obj && obj.type === BlockType.Heading2;
+}
+export function isHeading3Block(obj: any): obj is any {
+  return obj && obj.type === BlockType.Heading3;
+}
+export function isImageBlock(obj: any): obj is any {
+  return obj && obj.type === BlockType.Image;
+}
+export function isQuoteBlock(obj: any): obj is any {
+  return obj && obj.type === BlockType.Quote;
+}
+export function isTableBlock(obj: any): obj is any {
+  return obj && obj.type === BlockType.Table;
+}
+export function isTableRowBlock(obj: any): obj is any {
+  return obj && obj.type === BlockType.TableRow;
+}
+export function isToggleBlock(obj: any): obj is any {
+  return obj && obj.type === BlockType.Toggle;
+}
 export function isRichTextText(obj: any): obj is any {
   return obj && obj.type === RichTextType.Text;
 }
-
 export function isRichTextEquation(obj: any): obj is any {
   return obj && obj.type === RichTextType.Equation;
 }
-
 export function isExternalFile(obj: any): obj is any {
   return obj && obj.type === FileType.External;
 }
-
 export function isFileFile(obj: any): obj is any {
   return obj && obj.type === FileType.File;
 }

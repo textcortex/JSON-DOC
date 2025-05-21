@@ -261,88 +261,272 @@ function createBarrelFiles(dir: string): void {
 }
 
 /**
+ * Extract enum values from a JSON schema file
+ */
+async function extractEnumValues(schemaFilePath: string, propertyPath: string = 'properties.type.enum'): Promise<string[]> {
+  try {
+    const schema = await loadJsonFile(schemaFilePath);
+    
+    // Navigate through the property path to find the enum values
+    const pathParts = propertyPath.split('.');
+    let current = schema;
+    
+    for (const part of pathParts) {
+      if (current && typeof current === 'object' && part in current) {
+        current = current[part];
+      } else {
+        return [];
+      }
+    }
+    
+    // Return the enum values if they exist and are an array
+    if (Array.isArray(current)) {
+      return current.map(String);
+    }
+    
+    return [];
+  } catch (error) {
+    console.error(`Error extracting enum values from ${schemaFilePath}:`, error);
+    return [];
+  }
+}
+
+/**
+ * Extract enum values from a schema using const values in conditional blocks
+ */
+async function extractEnumValuesFromConditionals(schemaFilePath: string, conditionalPath: string = 'allOf'): Promise<string[]> {
+  try {
+    const schema = await loadJsonFile(schemaFilePath);
+    
+    // Navigate to the conditional blocks
+    const pathParts = conditionalPath.split('.');
+    let current = schema;
+    
+    for (const part of pathParts) {
+      if (current && typeof current === 'object' && part in current) {
+        current = current[part];
+      } else {
+        return [];
+      }
+    }
+    
+    // Return empty array if conditionals don't exist or aren't an array
+    if (!Array.isArray(current)) {
+      return [];
+    }
+    
+    // Extract const values from conditionals
+    const constValues: string[] = [];
+    
+    for (const condition of current) {
+      if (condition?.if?.properties?.type?.const) {
+        constValues.push(String(condition.if.properties.type.const));
+      }
+    }
+    
+    return constValues;
+  } catch (error) {
+    console.error(`Error extracting enum values from conditionals in ${schemaFilePath}:`, error);
+    return [];
+  }
+}
+
+/**
+ * Extract const values from a JSON schema file for object types
+ */
+async function extractConstValues(schemaFilePaths: string[], propertyPath: string = 'properties.object.const'): Promise<string[]> {
+  const constValues: string[] = [];
+  
+  for (const filePath of schemaFilePaths) {
+    try {
+      const schema = await loadJsonFile(filePath);
+      
+      // Navigate through the property path to find the const value
+      const pathParts = propertyPath.split('.');
+      let current = schema;
+      
+      for (const part of pathParts) {
+        if (current && typeof current === 'object' && part in current) {
+          current = current[part];
+        } else {
+          current = null;
+          break;
+        }
+      }
+      
+      // Add the const value if it exists and is a string
+      if (current && typeof current === 'string') {
+        constValues.push(current);
+      }
+    } catch (error) {
+      console.error(`Error extracting const value from ${filePath}:`, error);
+    }
+  }
+  
+  // Remove duplicates and return
+  return [...new Set(constValues)];
+}
+
+/**
+ * Generate enums from extracted values
+ */
+function generateEnum(name: string, values: string[], camelCaseValues: boolean = false): string {
+  if (values.length === 0) {
+    return `export enum ${name} {}\n`;
+  }
+  
+  let enumString = `export enum ${name} {\n`;
+  
+  for (const value of values) {
+    let enumKey = value;
+    
+    if (camelCaseValues) {
+      // Convert snake_case to PascalCase
+      enumKey = value
+        .split('_')
+        .map(part => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
+        .join('');
+    }
+    
+    // For ObjectType, we need to keep the original string value lowercase
+    // since that's what's used in the serialization code
+    const stringValue = (name === 'ObjectType') ? value.toLowerCase() : value;
+    
+    enumString += `  ${enumKey} = '${stringValue}',\n`;
+  }
+  
+  enumString += '}\n';
+  return enumString;
+}
+
+/**
+ * Generate type guards for the types
+ */
+function generateTypeGuards(typeMap: Record<string, string[]>): string {
+  let typeGuards = '';
+  
+  for (const [typeName, values] of Object.entries(typeMap)) {
+    for (const value of values) {
+      let guardName = '';
+      let checkProperty = '';
+      let enumKey = '';
+      
+      // Skip if value is empty
+      if (!value) continue;
+      
+      if (typeName === 'ObjectType') {
+        // For ObjectType, use values like 'page', 'block', etc.
+        // We need to capitalize the first letter for the enum key
+        enumKey = value.charAt(0).toUpperCase() + value.slice(1);
+        guardName = `is${enumKey}`;
+        checkProperty = `obj.object === ${typeName}.${enumKey}`;
+      } else if (typeName === 'BlockType') {
+        // For BlockType, use values like 'paragraph', 'to_do', etc.
+        const pascalCaseValue = value
+          .split('_')
+          .map(part => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
+          .join('');
+        
+        enumKey = pascalCaseValue;
+        guardName = `is${pascalCaseValue}Block`;
+        checkProperty = `obj.type === ${typeName}.${pascalCaseValue}`;
+      } else if (typeName === 'RichTextType') {
+        // For RichTextType, use values like 'text', 'equation', etc.
+        enumKey = value.charAt(0).toUpperCase() + value.slice(1);
+        guardName = `isRichText${enumKey}`;
+        checkProperty = `obj.type === ${typeName}.${enumKey}`;
+      } else if (typeName === 'FileType') {
+        // For FileType, use values like 'file', 'external', etc.
+        enumKey = value.charAt(0).toUpperCase() + value.slice(1);
+        guardName = `is${enumKey}File`;
+        checkProperty = `obj.type === ${typeName}.${enumKey}`;
+      }
+      
+      if (guardName && checkProperty) {
+        typeGuards += `
+export function ${guardName}(obj: any): obj is any {
+  return obj && ${checkProperty};
+}`;
+      }
+    }
+  }
+  
+  return typeGuards;
+}
+
+/**
  * Generate essential enums and interfaces that are needed for type references
  */
 async function generateEssentialTypes(outputDir: string): Promise<void> {
-  // Define essential enums
+  // Paths to schema files with enum values
+  const blockSchemaPath = path.resolve(SCHEMA_DIR, 'block/block_schema.json');
+  const richTextSchemaPath = path.resolve(SCHEMA_DIR, 'block/types/rich_text/rich_text_schema.json');
+  const fileSchemaPath = path.resolve(SCHEMA_DIR, 'file/file_schema.json');
+  
+  // Files to extract object type constants from
+  const objectTypeFiles = [
+    path.resolve(SCHEMA_DIR, 'block/base/base_schema.json'),
+    path.resolve(SCHEMA_DIR, 'page/page_schema.json')
+  ];
+  
+  // Extract enum values from schemas
+  const blockTypes = await extractEnumValues(blockSchemaPath);
+  const richTextTypes = await extractEnumValues(richTextSchemaPath);
+  const fileTypes = await extractEnumValues(fileSchemaPath);
+  
+  // Extract additional values from conditionals if needed
+  const blockTypesFromConditionals = await extractEnumValuesFromConditionals(blockSchemaPath);
+  const richTextTypesFromConditionals = await extractEnumValuesFromConditionals(richTextSchemaPath);
+  const fileTypesFromConditionals = await extractEnumValuesFromConditionals(fileSchemaPath);
+  
+  // Extract object type constants
+  const objectTypes = await extractConstValues(objectTypeFiles);
+  
+  // Combine values and remove duplicates
+  const allBlockTypes = [...new Set([...blockTypes, ...blockTypesFromConditionals])];
+  const allRichTextTypes = [...new Set([...richTextTypes, ...richTextTypesFromConditionals])];
+  const allFileTypes = [...new Set([...fileTypes, ...fileTypesFromConditionals])];
+  
+  // Extract enum values for parent types from schemas if available
+  // For now, we'll hardcode them as they're not explicitly defined in schemas
+  const parentTypes = ['database_id', 'page_id', 'workspace', 'block_id'];
+  
+  // Create a map of type names to their values for generating type guards
+  const typeMap: Record<string, string[]> = {
+    'ObjectType': objectTypes,
+    'BlockType': allBlockTypes,
+    'RichTextType': allRichTextTypes,
+    'FileType': allFileTypes
+  };
+  
+  // Generate enums
+  const objectTypeEnum = generateEnum('ObjectType', objectTypes.map(value => value.charAt(0).toUpperCase() + value.slice(1)));
+  const blockTypeEnum = generateEnum('BlockType', allBlockTypes, true);
+  const richTextTypeEnum = generateEnum('RichTextType', allRichTextTypes, true);
+  const fileTypeEnum = generateEnum('FileType', allFileTypes, true);
+  const parentTypeEnum = generateEnum('ParentType', parentTypes, true);
+  
+  // Generate type guards for all the types
+  const typeGuards = generateTypeGuards(typeMap);
+  
+  // Combine all the generated types
   const essentialTypesDef = `
 // Object types
-export enum ObjectType {
-  Page = 'page',
-  Block = 'block',
-  User = 'user',
-}
-
+${objectTypeEnum}
 // Block types
-export enum BlockType {
-  Paragraph = 'paragraph',
-  ToDo = 'to_do',
-  BulletedListItem = 'bulleted_list_item',
-  NumberedListItem = 'numbered_list_item',
-  Code = 'code',
-  Column = 'column',
-  ColumnList = 'column_list',
-  Divider = 'divider',
-  Equation = 'equation',
-  Heading1 = 'heading_1',
-  Heading2 = 'heading_2',
-  Heading3 = 'heading_3',
-  Image = 'image',
-  Quote = 'quote',
-  Table = 'table',
-  TableRow = 'table_row',
-  Toggle = 'toggle',
-}
-
+${blockTypeEnum}
 // Rich text types
-export enum RichTextType {
-  Text = 'text',
-  Equation = 'equation',
-}
-
+${richTextTypeEnum}
 // File types
-export enum FileType {
-  File = 'file',
-  External = 'external',
-}
-
+${fileTypeEnum}
 // Parent types
-export enum ParentType {
-  DatabaseId = 'database_id',
-  PageId = 'page_id',
-  Workspace = 'workspace',
-  BlockId = 'block_id',
-}
-
+${parentTypeEnum}
 // Base types
 export type JsonValue = string | number | boolean | null | JsonObject | JsonArray;
 export interface JsonObject { [key: string]: JsonValue }
 export type JsonArray = JsonValue[];
 
-// Type guards
-export function isPage(obj: any): obj is any {
-  return obj && obj.object === ObjectType.Page;
-}
-
-export function isBlock(obj: any): obj is any {
-  return obj && obj.object === ObjectType.Block;
-}
-
-export function isRichTextText(obj: any): obj is any {
-  return obj && obj.type === RichTextType.Text;
-}
-
-export function isRichTextEquation(obj: any): obj is any {
-  return obj && obj.type === RichTextType.Equation;
-}
-
-export function isExternalFile(obj: any): obj is any {
-  return obj && obj.type === FileType.External;
-}
-
-export function isFileFile(obj: any): obj is any {
-  return obj && obj.type === FileType.File;
-}
+// Type guards${typeGuards}
 `;
 
   // Write the essential types to a file
