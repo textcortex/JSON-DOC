@@ -1,6 +1,6 @@
-import Ajv, { ErrorObject } from 'ajv';
-import addFormats from 'ajv-formats';
-import { deepClone } from '../utils/json';
+import Ajv, { ErrorObject } from "ajv";
+import addFormats from "ajv-formats";
+import { deepClone } from "../utils/json";
 
 // Initialize AJV
 const ajv = new Ajv({
@@ -21,10 +21,10 @@ const validatorCache: Record<string, ReturnType<typeof ajv.compile>> = {};
  */
 export class ValidationError extends Error {
   public errors: ErrorObject[];
-  
+
   constructor(message: string, errors: ErrorObject[]) {
     super(message);
-    this.name = 'ValidationError';
+    this.name = "ValidationError";
     this.errors = errors;
   }
 }
@@ -37,11 +37,11 @@ export class ValidationError extends Error {
 export async function loadSchema(schemaPath: string): Promise<any> {
   try {
     const schemaResponse = await fetch(schemaPath);
-    
+
     if (!schemaResponse.ok) {
       throw new Error(`Failed to load schema: ${schemaResponse.statusText}`);
     }
-    
+
     return await schemaResponse.json();
   } catch (error) {
     throw new Error(`Error loading schema ${schemaPath}: ${error}`);
@@ -58,24 +58,21 @@ export async function loadSchema(schemaPath: string): Promise<any> {
 export function validateAgainstSchema(data: any, schema: any): boolean {
   // Create a unique key for the schema
   const schemaKey = JSON.stringify(schema);
-  
+
   // Get or create a validator
   if (!validatorCache[schemaKey]) {
     validatorCache[schemaKey] = ajv.compile(schema);
   }
-  
+
   const validate = validatorCache[schemaKey];
-  
+
   // Validate the data
   const isValid = validate(deepClone(data));
-  
+
   if (!isValid && validate.errors) {
-    throw new ValidationError(
-      'Validation failed',
-      validate.errors
-    );
+    throw new ValidationError("Validation failed", validate.errors);
   }
-  
+
   return true;
 }
 

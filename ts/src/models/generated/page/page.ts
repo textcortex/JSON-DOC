@@ -8,7 +8,7 @@ export type RichTextText = RichTextText;
 export type Block = BlockBase;
 
 export interface Page {
-  object: 'page';
+  object: "page";
   id: string;
   parent?: {
     type: string;
@@ -16,16 +16,16 @@ export interface Page {
   };
   created_time: string;
   created_by?: {
-    object: 'user';
+    object: "user";
     id: string;
   };
   last_edited_time?: string;
   last_edited_by?: {
-    object: 'user';
+    object: "user";
     id: string;
   };
   icon?: {
-    type: 'emoji';
+    type: "emoji";
     emoji: string;
   };
   archived?: boolean;
@@ -33,7 +33,7 @@ export interface Page {
   properties: {
     title?: {
       id?: string;
-      type?: 'title';
+      type?: "title";
       title?: RichTextText[];
     };
   };

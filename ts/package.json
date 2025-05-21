@@ -9,7 +9,8 @@
     "build": "tsc",
     "generate-types": "ts-node scripts/generate-types.ts",
     "test": "jest",
-    "prepublishOnly": "npm run clean && npm run generate-types && npm run build"
+    "prepublishOnly": "npm run clean && npm run generate-types && npm run build",
+    "format": "prettier --write ."
   },
   "keywords": [
     "json",

@@ -8,7 +8,7 @@
  * @returns Parsed JSON object
  */
 export function loadJson<T>(input: string | object): T {
-  if (typeof input === 'string') {
+  if (typeof input === "string") {
     return JSON.parse(input) as T;
   }
   return input as T;
@@ -22,12 +22,12 @@ export function loadJson<T>(input: string | object): T {
  */
 export function getNestedValue(obj: any, path: string): any {
   if (!path || !obj) return undefined;
-  
+
   // Remove leading dot if present
-  const normalizedPath = path.startsWith('.') ? path.substring(1) : path;
-  
+  const normalizedPath = path.startsWith(".") ? path.substring(1) : path;
+
   // Navigate through object properties
-  return normalizedPath.split('.').reduce((current, key) => {
+  return normalizedPath.split(".").reduce((current, key) => {
     return current && current[key] !== undefined ? current[key] : undefined;
   }, obj);
 }
@@ -41,13 +41,13 @@ export function getNestedValue(obj: any, path: string): any {
  */
 export function setNestedValue(obj: any, path: string, value: any): any {
   if (!path) return obj;
-  
+
   // Remove leading dot if present
-  const normalizedPath = path.startsWith('.') ? path.substring(1) : path;
-  
-  const parts = normalizedPath.split('.');
+  const normalizedPath = path.startsWith(".") ? path.substring(1) : path;
+
+  const parts = normalizedPath.split(".");
   let current = obj;
-  
+
   // Navigate to the second-to-last part
   for (let i = 0; i < parts.length - 1; i++) {
     const key = parts[i];
@@ -56,11 +56,11 @@ export function setNestedValue(obj: any, path: string, value: any): any {
     }
     current = current[key];
   }
-  
+
   // Set the value
   const lastKey = parts[parts.length - 1];
   current[lastKey] = value;
-  
+
   return obj;
 }
 
