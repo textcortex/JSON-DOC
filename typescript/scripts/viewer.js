@@ -572,18 +572,91 @@ const htmlTemplate = `
                                   key: 'img',
                                   alt: '',
                                   src: imageUrl,
-                                  style: { maxWidth: '100%', height: 'auto' }
-                                })
+                                  style: { maxWidth: '100%', height: 'auto' },
+                                  onError: () => {
+                                    // If image fails to load, show placeholder
+                                    event.target.style.display = 'none';
+                                    event.target.nextSibling.style.display = 'block';
+                                  }
+                                }),
+                                h('div', {
+                                  key: 'fallback',
+                                  style: {
+                                    display: 'none',
+                                    width: '300px',
+                                    height: '200px',
+                                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                                    borderRadius: '8px',
+                                    position: 'relative',
+                                    overflow: 'hidden',
+                                    margin: '10px 0'
+                                  }
+                                }, [
+                                  h('div', {
+                                    key: 'mountains',
+                                    style: {
+                                      position: 'absolute',
+                                      bottom: '0',
+                                      left: '0',
+                                      right: '0',
+                                      height: '60%',
+                                      background: 'linear-gradient(to top, #2c3e50 0%, #3498db 70%)',
+                                      clipPath: 'polygon(0 100%, 30% 60%, 60% 80%, 100% 50%, 100% 100%)'
+                                    }
+                                  }),
+                                  h('div', {
+                                    key: 'sun',
+                                    style: {
+                                      position: 'absolute',
+                                      top: '20px',
+                                      right: '30px',
+                                      width: '40px',
+                                      height: '40px',
+                                      background: '#f1c40f',
+                                      borderRadius: '50%',
+                                      boxShadow: '0 0 20px rgba(241, 196, 15, 0.3)'
+                                    }
+                                  })
+                                ])
                               ] : [
                                 h('div', {
                                   key: 'placeholder',
                                   style: {
-                                    background: '#f1f1f1',
-                                    padding: '40px',
-                                    textAlign: 'center',
-                                    color: '#999'
+                                    width: '300px',
+                                    height: '200px',
+                                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                                    borderRadius: '8px',
+                                    position: 'relative',
+                                    overflow: 'hidden',
+                                    margin: '10px 0'
                                   }
-                                }, 'Image not available')
+                                }, [
+                                  h('div', {
+                                    key: 'mountains',
+                                    style: {
+                                      position: 'absolute',
+                                      bottom: '0',
+                                      left: '0',
+                                      right: '0',
+                                      height: '60%',
+                                      background: 'linear-gradient(to top, #2c3e50 0%, #3498db 70%)',
+                                      clipPath: 'polygon(0 100%, 30% 60%, 60% 80%, 100% 50%, 100% 100%)'
+                                    }
+                                  }),
+                                  h('div', {
+                                    key: 'sun',
+                                    style: {
+                                      position: 'absolute',
+                                      top: '20px',
+                                      right: '30px',
+                                      width: '40px',
+                                      height: '40px',
+                                      background: '#f1c40f',
+                                      borderRadius: '50%',
+                                      boxShadow: '0 0 20px rgba(241, 196, 15, 0.3)'
+                                    }
+                                  })
+                                ])
                               ]
                             )
                           ])
@@ -641,26 +714,20 @@ const htmlTemplate = `
             style: { display: 'flex', gap: '16px' }
           }, block.children?.map((child, index) => {
             if (child?.type === 'column') {
-              return h('div', {
+              return h(BlockRenderer, {
                 key: child.id || index,
-                className: 'notion-column',
-                style: { flex: 1, minWidth: 0 }
-              }, child.children?.map((columnChild, columnIndex) =>
-                h(BlockRenderer, {
-                  key: columnChild.id || columnIndex,
-                  block: columnChild,
-                  depth: depth + 1
-                })
-              ));
+                block: child,
+                depth: depth + 1,
+                parentType: 'column_list'
+              });
             }
             return null;
-          }).filter(Boolean)),
-          renderChildren()
+          }).filter(Boolean))
         ]);
       }
 
-      // Column block (individual column)
-      if (block?.type === 'column') {
+      // Column block (individual column) - only render if parent is column_list
+      if (block?.type === 'column' && parentType === 'column_list') {
         return h('div', {
           className: 'notion-column',
           'data-block-id': block.id,

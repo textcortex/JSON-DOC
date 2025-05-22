@@ -34,17 +34,17 @@
 /* Block Styles */
 .notion-selectable {
   position: relative;
-  margin: 1px 0;
-  padding: 3px 2px;
+  margin: 0;
+  padding: 2px 2px;
 }
 
 .notion-block-children {
-  margin-top: 2px;
+  margin-top: 0;
 }
 
 /* Improve spacing between blocks */
 .notion-selectable + .notion-selectable {
-  margin-top: 1px;
+  margin-top: 0;
 }
 
 /* Better spacing for headings */
@@ -66,7 +66,7 @@
 
 /* Text Block */
 .notion-text-block {
-  padding: 3px 2px;
+  padding: 2px 2px;
 }
 
 /* Heading Blocks */
@@ -99,7 +99,8 @@
 .notion-numbered_list-block {
   display: flex;
   align-items: flex-start;
-  padding: 3px 2px;
+  padding: 1px 2px;
+  margin: 0;
 }
 
 .notion-list-item-box-left {
@@ -162,7 +163,8 @@
 .notion-to_do-block {
   display: flex;
   align-items: flex-start;
-  padding: 3px 2px;
+  padding: 1px 2px;
+  margin: 0;
 }
 
 .notion-to_do-block .checkboxSquare,
