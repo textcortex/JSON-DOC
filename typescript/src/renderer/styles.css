@@ -94,30 +94,45 @@
   padding: 3px 2px;
 }
 
-/* List Items */
+/* List Items - Match Notion spacing exactly */
 .notion-bulleted_list-block,
 .notion-numbered_list-block {
+  display: block;
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+}
+
+.notion-list-content {
   display: flex;
   align-items: flex-start;
-  padding: 1px 2px;
-  margin: 0;
+  min-height: 1.5em;
+  padding: 1px 0;
 }
 
-.notion-list-item-box-left {
+.notion-list-item-marker {
   flex-shrink: 0;
-  width: 24px;
+  width: 1.5em;
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin-right: 8px;
+  justify-content: flex-start;
+  padding-right: 0.5em;
   user-select: none;
-}
-
-.pseudoBefore {
-  display: inline-block;
-  font-weight: normal;
   font-size: inherit;
   line-height: inherit;
+}
+
+.notion-list-item-text {
+  flex: 1;
+  min-width: 0;
+  line-height: inherit;
+}
+
+.notion-checkbox {
+  width: 14px;
+  height: 14px;
+  margin: 0;
+  cursor: pointer;
 }
 
 /* Code Block */
@@ -239,12 +254,72 @@
   padding: 3px 2px;
 }
 
-.notion-selectable-container {
+.notion-image-placeholder {
+  width: 300px;
+  height: 200px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 8px;
   position: relative;
+  overflow: hidden;
+  margin: 10px 0;
 }
 
-.notion-cursor-default {
-  cursor: default;
+.notion-image-placeholder::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60%;
+  background: linear-gradient(to top, #2c3e50 0%, #3498db 70%);
+  clip-path: polygon(0 100%, 30% 60%, 60% 80%, 100% 50%, 100% 100%);
+}
+
+.notion-image-placeholder::after {
+  content: '';
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  width: 40px;
+  height: 40px;
+  background: #f1c40f;
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(241, 196, 15, 0.3);
+}
+
+.notion-image-caption {
+  color: #37352f;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+/* Column Layout */
+.notion-column-list {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+}
+
+.notion-column {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Toggle Block */
+.notion-toggle-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.notion-toggle-arrow {
+  color: rgba(55, 53, 47, 0.45);
+  font-size: 12px;
+  transition: transform 0.2s ease;
+}
+
+.notion-toggle-text {
+  flex: 1;
 }
 
 /* Column Layout */

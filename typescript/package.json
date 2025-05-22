@@ -9,7 +9,7 @@
     "build": "tsc",
     "generate-types": "ts-node scripts/generate-types.ts",
     "test": "jest",
-    "view": "node scripts/viewer.js",
+    "view": "node scripts/viewer-clean.js",
     "screenshot": "node scripts/screenshot.js",
     "prepublishOnly": "npm run clean && npm run generate-types && npm run build",
     "format": "prettier --write ."
