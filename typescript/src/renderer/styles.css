@@ -216,37 +216,22 @@
 /* Table Block */
 .notion-table-block {
   margin: 4px 0;
+  width: 100%;
 }
 
-.notion-scroller.horizontal {
-  overflow-x: auto;
-  overflow-y: hidden;
-}
-
-.notion-table-content {
-  min-width: 100%;
-}
-
-.notion-table-content table {
+.notion-table {
   width: 100%;
   border-collapse: collapse;
   border-spacing: 0;
+  table-layout: fixed;
 }
 
 .notion-table-row th,
 .notion-table-row td {
   border: 1px solid rgb(233, 233, 231);
-  padding: 0;
-  vertical-align: top;
-}
-
-.notion-table-cell {
-  min-height: 33px;
   padding: 6px 8px;
-}
-
-.notion-table-cell-text {
-  min-height: 1em;
+  vertical-align: top;
+  word-wrap: break-word;
 }
 
 /* Image Block */

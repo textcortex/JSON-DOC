@@ -1,5 +1,5 @@
-// Rich Text Renderer Component
-function RichTextRenderer({ richText }) {
+// Rich Text Renderer utility
+export function renderRichText(richText, createElement) {
   if (!richText || richText.length === 0) {
     return null;
   }
@@ -13,27 +13,27 @@ function RichTextRenderer({ richText }) {
 
       if (!content) return null;
 
-      let element = React.createElement('span', { key }, content);
+      let element = createElement('span', { key }, content);
 
       // Apply text formatting
       if (annotations) {
         if (annotations.bold) {
-          element = React.createElement('strong', { key }, element);
+          element = createElement('strong', { key }, element);
         }
         if (annotations.italic) {
-          element = React.createElement('em', { key }, element);
+          element = createElement('em', { key }, element);
         }
         if (annotations.strikethrough) {
-          element = React.createElement('del', { key }, element);
+          element = createElement('del', { key }, element);
         }
         if (annotations.underline) {
-          element = React.createElement('u', { key }, element);
+          element = createElement('u', { key }, element);
         }
         if (annotations.code) {
-          element = React.createElement('code', { key, className: 'notion-inline-code' }, content);
+          element = createElement('code', { key, className: 'notion-inline-code' }, content);
         }
         if (annotations.color && annotations.color !== 'default') {
-          element = React.createElement('span', {
+          element = createElement('span', {
             key,
             className: `notion-text-color-${annotations.color}`
           }, element);
@@ -42,7 +42,7 @@ function RichTextRenderer({ richText }) {
 
       // Handle links
       if (href) {
-        element = React.createElement('a', {
+        element = createElement('a', {
           key,
           href,
           className: 'notion-link',
@@ -55,17 +55,18 @@ function RichTextRenderer({ richText }) {
     }
 
     if (item?.type === 'equation') {
-      return React.createElement('span', {
+      return createElement('span', {
         key,
-        className: 'notion-equation'
-      }, item.equation?.expression || '');
+        className: 'notion-equation',
+        dangerouslySetInnerHTML: {
+          __html: window.katex ? window.katex.renderToString(item.equation?.expression || '', {
+            throwOnError: false,
+            displayMode: false
+          }) : item.equation?.expression || ''
+        }
+      });
     }
 
     return null;
   });
-}
-
-// Export for use in other files
-if (typeof module !== 'undefined') {
-  module.exports = RichTextRenderer;
 }

@@ -9,7 +9,7 @@
     "build": "tsc",
     "generate-types": "ts-node scripts/generate-types.ts",
     "test": "jest",
-    "view": "node scripts/viewer-fixed.js",
+    "view": "node scripts/viewer.js",
     "screenshot": "node scripts/screenshot.js",
     "prepublishOnly": "npm run clean && npm run generate-types && npm run build",
     "format": "prettier --write ."
@@ -41,6 +41,7 @@
     "ajv": "^8.17.1",
     "ajv-formats": "^3.0.1",
     "json5": "^2.2.3",
+    "katex": "^0.16.22",
     "puppeteer": "^24.9.0",
     "react-dom": "^19.1.0",
     "strip-json-comments": "^5.0.2"
