@@ -21,6 +21,7 @@ convert_jsondoc = "jsondoc.bin.convert_jsondoc:main"
 dev = [
     "datamodel-code-generator>=0.25.9,<0.26",
     "ipdb>=0.13.13",
+    "lxml>=5.4.0",
     "pre-commit>=4.1.0",
     "pytest>=8.3.5",
     "python-dotenv>=1.0.1",
