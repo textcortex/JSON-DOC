@@ -1,5 +1,5 @@
 export type File = {
   [k: string]: unknown;
 } & {
-  type: "external" | "file";
+  type: 'external' | 'file';
 };

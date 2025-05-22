@@ -1,1 +1,1 @@
-export * from "./shared_definitions";
+export * from './shared_definitions';

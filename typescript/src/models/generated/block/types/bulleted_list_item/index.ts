@@ -1,1 +1,1 @@
-export * from "./bulleted_list_item";
+export * from './bulleted_list_item';

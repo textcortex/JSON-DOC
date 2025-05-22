@@ -1,5 +1,5 @@
 export interface FileExternal {
-  type?: "external";
+  type?: 'external';
   external: {
     url: string;
   };

@@ -1,5 +1,5 @@
 export type DividerBlock = BlockBase & {
-  type: "divider";
+  type: 'divider';
   divider: {};
 };
 /**

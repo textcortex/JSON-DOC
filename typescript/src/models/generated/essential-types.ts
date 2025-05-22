@@ -1,61 +1,54 @@
+
 // Object types
 export enum ObjectType {
-  Block = "block",
-  Page = "page",
+  Block = 'block',
+  Page = 'page',
 }
 
 // Block types
 export enum BlockType {
-  Paragraph = "paragraph",
-  ToDo = "to_do",
-  BulletedListItem = "bulleted_list_item",
-  NumberedListItem = "numbered_list_item",
-  Code = "code",
-  Column = "column",
-  ColumnList = "column_list",
-  Divider = "divider",
-  Equation = "equation",
-  Heading1 = "heading_1",
-  Heading2 = "heading_2",
-  Heading3 = "heading_3",
-  Image = "image",
-  Quote = "quote",
-  Table = "table",
-  TableRow = "table_row",
-  Toggle = "toggle",
+  Paragraph = 'paragraph',
+  ToDo = 'to_do',
+  BulletedListItem = 'bulleted_list_item',
+  NumberedListItem = 'numbered_list_item',
+  Code = 'code',
+  Column = 'column',
+  ColumnList = 'column_list',
+  Divider = 'divider',
+  Equation = 'equation',
+  Heading1 = 'heading_1',
+  Heading2 = 'heading_2',
+  Heading3 = 'heading_3',
+  Image = 'image',
+  Quote = 'quote',
+  Table = 'table',
+  TableRow = 'table_row',
+  Toggle = 'toggle',
 }
 
 // Rich text types
 export enum RichTextType {
-  Text = "text",
-  Equation = "equation",
+  Text = 'text',
+  Equation = 'equation',
 }
 
 // File types
 export enum FileType {
-  External = "external",
-  File = "file",
+  External = 'external',
+  File = 'file',
 }
 
 // Parent types
 export enum ParentType {
-  DatabaseId = "database_id",
-  PageId = "page_id",
-  Workspace = "workspace",
-  BlockId = "block_id",
+  DatabaseId = 'database_id',
+  PageId = 'page_id',
+  Workspace = 'workspace',
+  BlockId = 'block_id',
 }
 
 // Base types
-export type JsonValue =
-  | string
-  | number
-  | boolean
-  | null
-  | JsonObject
-  | JsonArray;
-export interface JsonObject {
-  [key: string]: JsonValue;
-}
+export type JsonValue = string | number | boolean | null | JsonObject | JsonArray;
+export interface JsonObject { [key: string]: JsonValue }
 export type JsonArray = JsonValue[];
 
 // Type guards

@@ -1,5 +1,5 @@
 export interface BlockBase {
-  object: "block";
+  object: 'block';
   id: string;
   parent?: {
     type: string;
@@ -9,12 +9,12 @@ export interface BlockBase {
   type: string;
   created_time: string;
   created_by?: {
-    object: "user";
+    object: 'user';
     id: string;
   };
   last_edited_time?: string;
   last_edited_by?: {
-    object: "user";
+    object: 'user';
     id: string;
   };
   archived?: boolean;

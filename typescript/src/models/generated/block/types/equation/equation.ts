@@ -1,5 +1,5 @@
 export type EquationBlock = BlockBase & {
-  type: "equation";
+  type: 'equation';
   equation: {
     expression: string;
   };

@@ -1,5 +1,5 @@
 export type TableBlock = BlockBase & {
-  type: "table";
+  type: 'table';
   table: {
     table_width?: number;
     has_column_header: boolean;

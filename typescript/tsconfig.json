@@ -10,8 +10,10 @@
     "outDir": "./dist",
     "declaration": true,
     "rootDir": ".",
-    "isolatedModules": true
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "allowSyntheticDefaultImports": true
   },
-  "include": ["src/**/*.ts", "tests/**/*.ts", "scripts/**/*.ts"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "tests/**/*.ts", "scripts/**/*.ts"],
   "exclude": ["node_modules", "dist"]
 }
