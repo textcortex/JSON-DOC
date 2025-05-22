@@ -42,6 +42,22 @@
   margin-top: 2px;
 }
 
+/* Improve spacing between blocks */
+.notion-selectable + .notion-selectable {
+  margin-top: 1px;
+}
+
+/* Better spacing for headings */
+.notion-header-block,
+.notion-sub_header-block {
+  margin: 16px 0 4px 0;
+}
+
+.notion-header-block:first-child,
+.notion-sub_header-block:first-child {
+  margin-top: 0;
+}
+
 .notranslate {
   min-height: 1em;
   white-space: pre-wrap;
@@ -160,8 +176,17 @@
   color: #0f7b0f;
 }
 
+.pseudoHover.pseudoActive {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* Toggle Block */
 .notion-toggle-block {
+  display: flex;
+  align-items: flex-start;
   padding: 3px 2px;
 }
 

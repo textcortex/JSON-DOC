@@ -51,7 +51,7 @@ const htmlTemplate = `
       padding: 0;
       background: #ffffff;
     }
-    
+
     .viewer-header {
       background: #f7f6f3;
       border-bottom: 1px solid #e9e9e9;
@@ -60,19 +60,46 @@ const htmlTemplate = `
       font-size: 14px;
       color: #37352f;
     }
-    
+
     .viewer-header h1 {
       margin: 0;
       font-size: 16px;
       font-weight: 600;
     }
-    
+
     .viewer-header p {
       margin: 4px 0 0 0;
       opacity: 0.7;
     }
-    
+
     ${cssContent}
+
+    /* Additional viewer-specific improvements */
+    .notion-selectable + .notion-selectable {
+      margin-top: 1px;
+    }
+
+    .notion-header-block,
+    .notion-sub_header-block {
+      margin: 16px 0 4px 0;
+    }
+
+    .notion-header-block:first-child,
+    .notion-sub_header-block:first-child {
+      margin-top: 0;
+    }
+
+    .pseudoHover.pseudoActive {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .notion-toggle-block {
+      display: flex;
+      align-items: flex-start;
+    }
   </style>
 </head>
 <body>
@@ -80,35 +107,35 @@ const htmlTemplate = `
     <h1>JSON-DOC Viewer</h1>
     <p>File: ${path.basename(filePath)} • Blocks: ${pageData.children?.length || 0}</p>
   </div>
-  
+
   <div id="json-doc-container"></div>
-  
+
   <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
   <script>
     // Page data
     const pageData = ${JSON.stringify(pageData, null, 2)};
-    
+
     // Simple React components for rendering
     const { createElement: h, Fragment } = React;
-    
+
     // Rich Text Renderer
     function RichTextRenderer({ richText }) {
       if (!richText || richText.length === 0) {
         return null;
       }
-      
+
       return richText.map((item, index) => {
         const key = \`rich-text-\${index}\`;
-        
+
         if (item?.type === 'text') {
           const { text, annotations, href } = item;
           const content = text?.content || '';
-          
+
           if (!content) return null;
-          
+
           let element = h('span', { key }, content);
-          
+
           // Apply text formatting
           if (annotations) {
             if (annotations.bold) {
@@ -127,13 +154,13 @@ const htmlTemplate = `
               element = h('code', { key, className: 'notion-inline-code' }, content);
             }
             if (annotations.color && annotations.color !== 'default') {
-              element = h('span', { 
-                key, 
-                className: \`notion-text-color-\${annotations.color}\` 
+              element = h('span', {
+                key,
+                className: \`notion-text-color-\${annotations.color}\`
               }, element);
             }
           }
-          
+
           // Handle links
           if (href) {
             element = h('a', {
@@ -144,41 +171,41 @@ const htmlTemplate = `
               rel: 'noopener noreferrer'
             }, element);
           }
-          
+
           return element;
         }
-        
+
         if (item?.type === 'equation') {
           return h('span', {
             key,
             className: 'notion-equation'
           }, item.equation?.expression || '');
         }
-        
+
         return null;
       });
     }
-    
+
     // Block Renderer
     function BlockRenderer({ block, depth = 0 }) {
       const commonProps = { block, depth };
-      
+
       // Render children helper
       function renderChildren() {
         if (!block.children || block.children.length === 0) return null;
-        
+
         return h('div', {
           className: 'notion-block-children',
           style: { marginLeft: \`\${depth * 24}px\` }
-        }, block.children.map((child, index) => 
-          h(BlockRenderer, { 
-            key: child.id || index, 
-            block: child, 
-            depth: depth + 1 
+        }, block.children.map((child, index) =>
+          h(BlockRenderer, {
+            key: child.id || index,
+            block: child,
+            depth: depth + 1
           })
         ));
       }
-      
+
       // Paragraph block
       if (block?.type === 'paragraph') {
         return h('div', {
@@ -187,16 +214,16 @@ const htmlTemplate = `
         }, [
           h('div', { key: 'content' }, [
             h('div', { key: 'inner' }, [
-              h('div', { 
+              h('div', {
                 key: 'text',
-                className: 'notranslate' 
+                className: 'notranslate'
               }, h(RichTextRenderer, { richText: block.paragraph?.rich_text || [] }))
             ])
           ]),
           renderChildren()
         ]);
       }
-      
+
       // Heading blocks
       if (block?.type === 'heading_1') {
         const headingData = block.heading_1;
@@ -205,15 +232,15 @@ const htmlTemplate = `
           'data-block-id': block.id
         }, [
           h('div', { key: 'content' }, [
-            h('h2', { 
+            h('h2', {
               key: 'heading',
-              className: 'notranslate' 
+              className: 'notranslate'
             }, h(RichTextRenderer, { richText: headingData?.rich_text || [] }))
           ]),
           renderChildren()
         ]);
       }
-      
+
       if (block?.type === 'heading_2') {
         const headingData = block.heading_2;
         return h('div', {
@@ -221,15 +248,15 @@ const htmlTemplate = `
           'data-block-id': block.id
         }, [
           h('div', { key: 'content' }, [
-            h('h3', { 
+            h('h3', {
               key: 'heading',
-              className: 'notranslate' 
+              className: 'notranslate'
             }, h(RichTextRenderer, { richText: headingData?.rich_text || [] }))
           ]),
           renderChildren()
         ]);
       }
-      
+
       if (block?.type === 'heading_3') {
         const headingData = block.heading_3;
         return h('div', {
@@ -237,15 +264,15 @@ const htmlTemplate = `
           'data-block-id': block.id
         }, [
           h('div', { key: 'content' }, [
-            h('h4', { 
+            h('h4', {
               key: 'heading',
-              className: 'notranslate' 
+              className: 'notranslate'
             }, h(RichTextRenderer, { richText: headingData?.rich_text || [] }))
           ]),
           renderChildren()
         ]);
       }
-      
+
       // List items
       if (block?.type === 'bulleted_list_item') {
         const listData = block.bulleted_list_item;
@@ -254,15 +281,15 @@ const htmlTemplate = `
           'data-block-id': block.id
         }, [
           h('div', { key: 'content' }, [
-            h('div', { 
+            h('div', {
               key: 'bullet',
-              className: 'notion-list-item-box-left' 
+              className: 'notion-list-item-box-left'
             }, h('div', { className: 'pseudoBefore' }, '•')),
             h('div', { key: 'text' }, [
               h('div', { key: 'inner' }, [
-                h('div', { 
+                h('div', {
                   key: 'content',
-                  className: 'notranslate' 
+                  className: 'notranslate'
                 }, h(RichTextRenderer, { richText: listData?.rich_text || [] }))
               ])
             ])
@@ -270,7 +297,7 @@ const htmlTemplate = `
           renderChildren()
         ]);
       }
-      
+
       if (block?.type === 'numbered_list_item') {
         const listData = block.numbered_list_item;
         return h('div', {
@@ -278,15 +305,15 @@ const htmlTemplate = `
           'data-block-id': block.id
         }, [
           h('div', { key: 'content' }, [
-            h('div', { 
+            h('div', {
               key: 'number',
-              className: 'notion-list-item-box-left' 
+              className: 'notion-list-item-box-left'
             }, h('span', { className: 'pseudoBefore' }, '1.')),
             h('div', { key: 'text' }, [
               h('div', { key: 'inner' }, [
-                h('div', { 
+                h('div', {
                   key: 'content',
-                  className: 'notranslate' 
+                  className: 'notranslate'
                 }, h(RichTextRenderer, { richText: listData?.rich_text || [] }))
               ])
             ])
@@ -294,7 +321,7 @@ const htmlTemplate = `
           renderChildren()
         ]);
       }
-      
+
       // Code block
       if (block?.type === 'code') {
         const codeData = block.code;
@@ -310,13 +337,13 @@ const htmlTemplate = `
                 ])
               ]),
               h('div', { key: 'code' }, [
-                h('div', { 
+                h('div', {
                   key: 'lines',
-                  className: 'line-numbers notion-code-block' 
+                  className: 'line-numbers notion-code-block'
                 }, [
-                  h('div', { 
+                  h('div', {
                     key: 'content',
-                    className: 'notranslate' 
+                    className: 'notranslate'
                   }, h(RichTextRenderer, { richText: codeData?.rich_text || [] }))
                 ])
               ])
@@ -325,7 +352,7 @@ const htmlTemplate = `
           renderChildren()
         ]);
       }
-      
+
       // Quote block
       if (block?.type === 'quote') {
         const quoteData = block.quote;
@@ -335,32 +362,336 @@ const htmlTemplate = `
         }, [
           h('blockquote', { key: 'quote' }, [
             h('div', { key: 'content' }, [
-              h('div', { 
+              h('div', {
                 key: 'text',
-                className: 'notranslate' 
+                className: 'notranslate'
               }, h(RichTextRenderer, { richText: quoteData?.rich_text || [] }))
             ])
           ]),
           renderChildren()
         ]);
       }
-      
+
       // Divider block
       if (block?.type === 'divider') {
         return h('div', {
           className: 'notion-selectable notion-divider-block',
           'data-block-id': block.id
         }, [
-          h('div', { 
+          h('div', {
             key: 'divider',
-            className: 'notion-cursor-default' 
+            className: 'notion-cursor-default'
           }, [
             h('div', { key: 'line', role: 'separator' })
           ]),
           renderChildren()
         ]);
       }
-      
+
+      // To-do block
+      if (block?.type === 'to_do') {
+        const todoData = block.to_do;
+        const isChecked = todoData?.checked || false;
+
+        return h('div', {
+          className: 'notion-selectable notion-to_do-block',
+          'data-block-id': block.id
+        }, [
+          h('div', { key: 'content' }, [
+            h('div', {
+              key: 'checkbox',
+              className: 'notion-list-item-box-left'
+            }, [
+              h('div', {
+                key: 'wrapper',
+                className: 'pseudoHover pseudoActive'
+              }, [
+                h('div', {
+                  key: 'icon',
+                  'aria-hidden': 'true'
+                }, [
+                  h('svg', {
+                    key: 'svg',
+                    'aria-hidden': 'true',
+                    className: isChecked ? 'check' : 'checkboxSquare',
+                    role: 'graphics-symbol',
+                    viewBox: '0 0 16 16',
+                    style: { width: '16px', height: '16px' }
+                  }, isChecked ?
+                    h('path', {
+                      key: 'checkmark',
+                      d: 'M13.5 2.5l-7 7-3.5-3.5-1.5 1.5 5 5 8.5-8.5z',
+                      fill: 'currentColor'
+                    }) :
+                    h('rect', {
+                      key: 'square',
+                      x: '2', y: '2', width: '12', height: '12',
+                      fill: 'none', stroke: 'currentColor', strokeWidth: '1'
+                    })
+                  )
+                ]),
+                h('input', {
+                  key: 'input',
+                  type: 'checkbox',
+                  checked: isChecked,
+                  readOnly: true,
+                  style: { position: 'absolute', opacity: 0, pointerEvents: 'none' }
+                })
+              ])
+            ]),
+            h('div', { key: 'text' }, [
+              h('div', { key: 'inner' }, [
+                h('div', {
+                  key: 'content',
+                  className: 'notranslate'
+                }, h(RichTextRenderer, { richText: todoData?.rich_text || [] }))
+              ])
+            ])
+          ]),
+          renderChildren()
+        ]);
+      }
+
+      // Table block
+      if (block?.type === 'table') {
+        const tableData = block.table;
+
+        return h('div', {
+          className: 'notion-selectable notion-table-block',
+          'data-block-id': block.id
+        }, [
+          h('div', { key: 'content' }, [
+            h('div', { key: 'wrapper' }, [
+              h('div', {
+                key: 'scroller',
+                className: 'notion-scroller horizontal'
+              }, [
+                h('div', {
+                  key: 'table-content',
+                  className: 'notion-table-content'
+                }, [
+                  h('table', { key: 'table' }, [
+                    h('tbody', { key: 'tbody' },
+                      block.children?.map((child, index) => {
+                        if (child?.type === 'table_row') {
+                          const rowData = child.table_row;
+                          const isHeader = index === 0 && tableData?.has_column_header;
+
+                          return h('tr', {
+                            key: child.id || index,
+                            className: 'notion-table-row'
+                          }, rowData?.cells?.map((cell, cellIndex) => {
+                            const CellTag = isHeader ? 'th' : 'td';
+                            return h(CellTag, {
+                              key: cellIndex,
+                              scope: isHeader ? 'col' : undefined
+                            }, [
+                              h('div', {
+                                key: 'cell',
+                                className: 'notion-table-cell'
+                              }, [
+                                h('div', {
+                                  key: 'text',
+                                  className: 'notion-table-cell-text notranslate'
+                                }, h(RichTextRenderer, { richText: cell || [] }))
+                              ])
+                            ]);
+                          }));
+                        }
+                        return null;
+                      }).filter(Boolean)
+                    )
+                  ])
+                ])
+              ])
+            ])
+          ]),
+          renderChildren()
+        ]);
+      }
+
+      // Image block
+      if (block?.type === 'image') {
+        const imageData = block.image;
+
+        const getImageUrl = () => {
+          if (imageData?.type === 'external') {
+            return imageData.external?.url;
+          } else if (imageData?.type === 'file') {
+            return imageData.file?.url;
+          }
+          return null;
+        };
+
+        const imageUrl = getImageUrl();
+
+        return h('div', {
+          className: 'notion-selectable notion-image-block',
+          'data-block-id': block.id
+        }, [
+          h('div', { key: 'content' }, [
+            h('div', {
+              key: 'container',
+              className: 'notion-selectable-container'
+            }, [
+              h('div', { key: 'wrapper' }, [
+                h('div', { key: 'inner' }, [
+                  h('div', { key: 'figure', role: 'figure' }, [
+                    h('div', { key: 'image-wrapper' }, [
+                      h('div', {
+                        key: 'cursor',
+                        className: 'notion-cursor-default'
+                      }, [
+                        h('div', { key: 'image-container' }, [
+                          h('div', { key: 'image-inner' }, [
+                            h('div', { key: 'image-div' },
+                              imageUrl ? [
+                                h('img', {
+                                  key: 'img',
+                                  alt: '',
+                                  src: imageUrl,
+                                  style: { maxWidth: '100%', height: 'auto' }
+                                })
+                              ] : [
+                                h('div', {
+                                  key: 'placeholder',
+                                  style: {
+                                    background: '#f1f1f1',
+                                    padding: '40px',
+                                    textAlign: 'center',
+                                    color: '#999'
+                                  }
+                                }, 'Image not available')
+                              ]
+                            )
+                          ])
+                        ])
+                      ])
+                    ]),
+                    // Caption
+                    imageData?.caption && imageData.caption.length > 0 && h('div', { key: 'caption' }, [
+                      h('div', {
+                        key: 'caption-text',
+                        className: 'notranslate'
+                      }, h(RichTextRenderer, { richText: imageData.caption }))
+                    ])
+                  ])
+                ])
+              ])
+            ])
+          ]),
+          renderChildren()
+        ]);
+      }
+
+      // Equation block
+      if (block?.type === 'equation') {
+        const equationData = block.equation;
+
+        return h('div', {
+          className: 'notion-selectable notion-equation-block',
+          'data-block-id': block.id
+        }, [
+          h('div', { key: 'content' }, [
+            h('div', {
+              key: 'display',
+              className: 'notion-equation-display'
+            }, [
+              h('div', {
+                key: 'equation-content',
+                className: 'notion-equation-content'
+              }, equationData?.expression || '')
+            ])
+          ]),
+          renderChildren()
+        ]);
+      }
+
+      // Column list block
+      if (block?.type === 'column_list') {
+        return h('div', {
+          className: 'notion-selectable notion-column_list-block',
+          'data-block-id': block.id
+        }, [
+          h('div', {
+            key: 'columns',
+            className: 'notion-column-list',
+            style: { display: 'flex', gap: '16px' }
+          }, block.children?.map((child, index) => {
+            if (child?.type === 'column') {
+              return h('div', {
+                key: child.id || index,
+                className: 'notion-column',
+                style: { flex: 1, minWidth: 0 }
+              }, child.children?.map((columnChild, columnIndex) =>
+                h(BlockRenderer, {
+                  key: columnChild.id || columnIndex,
+                  block: columnChild,
+                  depth: depth + 1
+                })
+              ));
+            }
+            return null;
+          }).filter(Boolean)),
+          renderChildren()
+        ]);
+      }
+
+      // Toggle block
+      if (block?.type === 'toggle') {
+        const toggleData = block.toggle;
+
+        return h('div', {
+          className: 'notion-selectable notion-toggle-block',
+          'data-block-id': block.id
+        }, [
+          h('div', { key: 'content' }, [
+            h('div', {
+              key: 'arrow',
+              className: 'notion-list-item-box-left'
+            }, [
+              h('div', {
+                key: 'button',
+                'aria-expanded': 'false',
+                'aria-label': 'Open',
+                role: 'button',
+                tabIndex: 0,
+                style: { cursor: 'pointer' }
+              }, [
+                h('svg', {
+                  key: 'svg',
+                  'aria-hidden': 'true',
+                  className: 'arrowCaretDownFillSmall',
+                  role: 'graphics-symbol',
+                  viewBox: '0 0 16 16',
+                  style: {
+                    width: '16px',
+                    height: '16px',
+                    transform: 'rotate(0deg)',
+                    transition: 'transform 0.2s ease'
+                  }
+                }, [
+                  h('path', {
+                    key: 'arrow-path',
+                    d: 'M6 12l6-6H6z',
+                    fill: 'currentColor'
+                  })
+                ])
+              ])
+            ]),
+            h('div', { key: 'text' }, [
+              h('div', { key: 'inner' }, [
+                h('div', {
+                  key: 'content',
+                  className: 'notranslate'
+                }, h(RichTextRenderer, { richText: toggleData?.rich_text || [] }))
+              ])
+            ])
+          ]),
+          renderChildren()
+        ]);
+      }
+
       // Fallback for unsupported block types
       return h('div', {
         className: 'notion-unsupported-block',
@@ -370,7 +701,7 @@ const htmlTemplate = `
         renderChildren()
       ]);
     }
-    
+
     // Main JSON-DOC Renderer
     function JsonDocRenderer({ page }) {
       return h('div', { className: 'json-doc-renderer' }, [
@@ -380,28 +711,28 @@ const htmlTemplate = `
             key: 'icon',
             className: 'json-doc-page-icon'
           }, page.icon.type === 'emoji' && page.icon.emoji),
-          
+
           // Page title
           page.properties?.title && h('h1', {
             key: 'title',
             className: 'json-doc-page-title'
           }, page.properties.title.title?.[0]?.plain_text || 'Untitled'),
-          
+
           // Page children blocks
           page.children && page.children.length > 0 && h('div', {
             key: 'content',
             className: 'json-doc-page-content'
-          }, page.children.map((block, index) => 
-            h(BlockRenderer, { 
-              key: block.id || index, 
-              block, 
-              depth: 0 
+          }, page.children.map((block, index) =>
+            h(BlockRenderer, {
+              key: block.id || index,
+              block,
+              depth: 0
             })
           ))
         ])
       ]);
     }
-    
+
     // Render the page
     const container = document.getElementById('json-doc-container');
     const root = ReactDOM.createRoot(container);
@@ -417,7 +748,7 @@ const server = http.createServer((req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  
+
   if (req.url === '/') {
     res.writeHead(200, { 'Content-Type': 'text/html' });
     res.end(htmlTemplate);
@@ -432,7 +763,7 @@ server.listen(PORT, () => {
   const url = `http://localhost:${PORT}`;
   console.log(`\\nJSON-DOC Viewer started at ${url}`);
   console.log('Press Ctrl+C to stop the server\\n');
-  
+
   // Try to open browser automatically
   const open = (url) => {
     const { exec } = require('child_process');
@@ -440,7 +771,7 @@ server.listen(PORT, () => {
                   process.platform === 'win32' ? 'start' : 'xdg-open';
     exec(`${start} ${url}`);
   };
-  
+
   try {
     open(url);
   } catch (err) {
