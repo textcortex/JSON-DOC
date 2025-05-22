@@ -1,22 +1,22 @@
-import React from 'react';
-import { RichTextRenderer } from '../RichTextRenderer';
-import { BlockRenderer } from '../BlockRenderer';
+import React from "react";
+import { RichTextRenderer } from "../RichTextRenderer";
+import { BlockRenderer } from "../BlockRenderer";
 
 interface ImageBlockRendererProps {
   block: any;
   depth?: number;
 }
 
-export const ImageBlockRenderer: React.FC<ImageBlockRendererProps> = ({ 
-  block, 
-  depth = 0 
+export const ImageBlockRenderer: React.FC<ImageBlockRendererProps> = ({
+  block,
+  depth = 0,
 }) => {
   const imageData = block.image;
-  
+
   const getImageUrl = () => {
-    if (imageData?.type === 'external') {
+    if (imageData?.type === "external") {
       return imageData.external?.url;
-    } else if (imageData?.type === 'file') {
+    } else if (imageData?.type === "file") {
       return imageData.file?.url;
     }
     return null;
@@ -25,7 +25,10 @@ export const ImageBlockRenderer: React.FC<ImageBlockRendererProps> = ({
   const imageUrl = getImageUrl();
 
   return (
-    <div className="notion-selectable notion-image-block" data-block-id={block.id}>
+    <div
+      className="notion-selectable notion-image-block"
+      data-block-id={block.id}
+    >
       <div>
         <div className="notion-selectable-container">
           <div>
@@ -37,10 +40,10 @@ export const ImageBlockRenderer: React.FC<ImageBlockRendererProps> = ({
                       <div>
                         <div>
                           {imageUrl && (
-                            <img 
-                              alt="" 
+                            <img
+                              alt=""
                               src={imageUrl}
-                              style={{ maxWidth: '100%', height: 'auto' }}
+                              style={{ maxWidth: "100%", height: "auto" }}
                             />
                           )}
                         </div>
@@ -61,12 +64,19 @@ export const ImageBlockRenderer: React.FC<ImageBlockRendererProps> = ({
           </div>
         </div>
       </div>
-      
+
       {/* Render children blocks recursively */}
       {block.children && block.children.length > 0 && (
-        <div className="notion-block-children" style={{ marginLeft: `${depth * 24}px` }}>
+        <div
+          className="notion-block-children"
+          style={{ marginLeft: `${depth * 24}px` }}
+        >
           {block.children.map((child: any, index: number) => (
-            <BlockRenderer key={child.id || index} block={child} depth={depth + 1} />
+            <BlockRenderer
+              key={child.id || index}
+              block={child}
+              depth={depth + 1}
+            />
           ))}
         </div>
       )}

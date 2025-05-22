@@ -1,5 +1,5 @@
 export interface RichTextEquation {
-  type: 'equation';
+  type: "equation";
   equation: {
     expression: string;
   };

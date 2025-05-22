@@ -1,5 +1,5 @@
 export interface RichTextText {
-  type: 'text';
+  type: "text";
   text: {
     content: string;
     link: {

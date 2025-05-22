@@ -22,31 +22,31 @@ describe("JSON-DOC Utilities", () => {
   test("should load JSON correctly", () => {
     const testData = { hello: "world", nested: { value: 42 } };
     const jsonString = JSON.stringify(testData);
-    
+
     // Test loading from string
     const loaded = loadJson(jsonString);
     expect(loaded).toEqual(testData);
-    
+
     // Test loading from object
     const loadedObj = loadJson(testData);
     expect(loadedObj).toEqual(testData);
   });
 
   test("should deep clone objects", () => {
-    const original = { 
-      hello: "world", 
+    const original = {
+      hello: "world",
       nested: { value: 42, array: [1, 2, 3] },
-      nullValue: null
+      nullValue: null,
     };
-    
+
     const cloned = deepClone(original);
-    
+
     // Should be equal but not the same reference
     expect(cloned).toEqual(original);
     expect(cloned).not.toBe(original);
     expect(cloned.nested).not.toBe(original.nested);
     expect(cloned.nested.array).not.toBe(original.nested.array);
-    
+
     // Modifying clone shouldn't affect original
     cloned.nested.value = 99;
     expect(original.nested.value).toBe(42);
@@ -62,7 +62,7 @@ describe("JSON-DOC Utilities", () => {
     expect(content.id).toBeTruthy();
     expect(content.children).toBeDefined();
     expect(Array.isArray(content.children)).toBe(true);
-    
+
     // Check that it has various block types
     const blockTypes = new Set();
     const collectBlockTypes = (blocks: any[]) => {
@@ -72,7 +72,7 @@ describe("JSON-DOC Utilities", () => {
       });
     };
     collectBlockTypes(content.children);
-    
+
     // Should have multiple block types
     expect(blockTypes.size).toBeGreaterThan(5);
     expect(blockTypes.has("paragraph")).toBe(true);

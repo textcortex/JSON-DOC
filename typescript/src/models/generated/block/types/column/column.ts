@@ -1,5 +1,5 @@
 export type ColumnBlock = BlockBase & {
-  type: 'column';
+  type: "column";
   column: {};
   children?: Block[];
 };

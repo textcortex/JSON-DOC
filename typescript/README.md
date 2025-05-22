@@ -21,13 +21,13 @@ npm install jsondoc
 ### Basic React Rendering
 
 ```tsx
-import React from 'react';
-import { JsonDocRenderer } from 'jsondoc';
-import * as fs from 'fs';
-import * as JSON5 from 'json5';
+import React from "react";
+import { JsonDocRenderer } from "jsondoc";
+import * as fs from "fs";
+import * as JSON5 from "json5";
 
 // Load JSON-DOC data (with comment support)
-const pageData = JSON5.parse(fs.readFileSync('document.json', 'utf-8'));
+const pageData = JSON5.parse(fs.readFileSync("document.json", "utf-8"));
 
 // Render the document
 function App() {
@@ -42,8 +42,8 @@ function App() {
 ### Individual Block Rendering
 
 ```tsx
-import React from 'react';
-import { BlockRenderer } from 'jsondoc';
+import React from "react";
+import { BlockRenderer } from "jsondoc";
 
 function MyComponent({ block }) {
   return (
@@ -67,12 +67,14 @@ npm run view ../schema/page/ex1_success.json
 ```
 
 This will:
+
 1. Start a local server at `http://localhost:3000`
 2. Automatically open your browser
 3. Render the JSON-DOC file with full styling
 4. Support all block types including nested structures
 
 The viewer includes:
+
 - **Live rendering** of all supported block types
 - **Notion-like styling** with responsive design
 - **Automatic browser opening** for convenience
@@ -94,6 +96,7 @@ The renderer supports all major JSON-DOC block types:
 ### Rich Text Features
 
 Rich text content supports:
+
 - **Formatting**: Bold, italic, strikethrough, underline, code
 - **Colors**: All Notion color options
 - **Links**: External links with proper `target="_blank"`
@@ -135,8 +138,9 @@ npm test
 ```
 
 The tests verify:
+
 - ✅ JSON loading and parsing functionality
-- ✅ Deep cloning of complex objects  
+- ✅ Deep cloning of complex objects
 - ✅ Loading of the comprehensive example file (47 blocks, 16 types)
 - ✅ Block type enumeration and structure validation
 

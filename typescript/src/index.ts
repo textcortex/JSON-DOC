@@ -11,12 +11,6 @@ export {
 } from "./utils/json";
 
 // Export React renderer components
-export {
-  JsonDocRenderer,
-  BlockRenderer,
-} from "./renderer";
+export { JsonDocRenderer, BlockRenderer } from "./renderer";
 
-export type {
-  JsonDocRendererProps,
-  BlockRendererProps,
-} from "./renderer";
+export type { JsonDocRendererProps, BlockRendererProps } from "./renderer";

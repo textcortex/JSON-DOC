@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-const fs = require('fs');
-const path = require('path');
-const http = require('http');
-const JSON5 = require('json5');
+const fs = require("fs");
+const path = require("path");
+const http = require("http");
+const JSON5 = require("json5");
 
 const PORT = 3000;
 
@@ -11,7 +11,7 @@ const PORT = 3000;
 const filePath = process.argv[2];
 
 if (!filePath) {
-  console.error('Usage: npm run view <path-to-json-doc-file>');
+  console.error("Usage: npm run view <path-to-json-doc-file>");
   process.exit(1);
 }
 
@@ -23,10 +23,12 @@ if (!fs.existsSync(filePath)) {
 // Load the JSON-DOC file
 let pageData;
 try {
-  const fileContent = fs.readFileSync(filePath, 'utf-8');
+  const fileContent = fs.readFileSync(filePath, "utf-8");
   pageData = JSON5.parse(fileContent);
   console.log(`Loaded JSON-DOC file: ${filePath}`);
-  console.log(`Page title: ${pageData.properties?.title?.title?.[0]?.plain_text || 'Untitled'}`);
+  console.log(
+    `Page title: ${pageData.properties?.title?.title?.[0]?.plain_text || "Untitled"}`,
+  );
   console.log(`Blocks: ${pageData.children?.length || 0}`);
 } catch (error) {
   console.error(`Error reading file: ${error.message}`);
@@ -34,27 +36,53 @@ try {
 }
 
 // Read the CSS file
-const cssPath = path.join(__dirname, '../src/renderer/styles.css');
-const cssContent = fs.existsSync(cssPath) ? fs.readFileSync(cssPath, 'utf-8') : '';
+const cssPath = path.join(__dirname, "../src/renderer/styles.css");
+const cssContent = fs.existsSync(cssPath)
+  ? fs.readFileSync(cssPath, "utf-8")
+  : "";
 
 // Read utility files
-const blockMappingPath = path.join(__dirname, '../src/renderer/utils/blockMapping.js');
-const listCounterPath = path.join(__dirname, '../src/renderer/utils/listCounter.js');
-const richTextRendererPath = path.join(__dirname, '../src/renderer/utils/richTextRenderer.js');
-const blockRendererFactoryPath = path.join(__dirname, '../src/renderer/blockRendererFactory.js');
+const blockMappingPath = path.join(
+  __dirname,
+  "../src/renderer/utils/blockMapping.js",
+);
+const listCounterPath = path.join(
+  __dirname,
+  "../src/renderer/utils/listCounter.js",
+);
+const richTextRendererPath = path.join(
+  __dirname,
+  "../src/renderer/utils/richTextRenderer.js",
+);
+const blockRendererFactoryPath = path.join(
+  __dirname,
+  "../src/renderer/blockRendererFactory.js",
+);
 
-let blockMappingCode = '';
-let listCounterCode = '';
-let richTextRendererCode = '';
-let blockRendererFactoryCode = '';
+let blockMappingCode = "";
+let listCounterCode = "";
+let richTextRendererCode = "";
+let blockRendererFactoryCode = "";
 
 try {
-  blockMappingCode = fs.readFileSync(blockMappingPath, 'utf-8').replace(/export /g, '').replace(/import [^;]+;/g, '');
-  listCounterCode = fs.readFileSync(listCounterPath, 'utf-8').replace(/export /g, '').replace(/import [^;]+;/g, '');
-  richTextRendererCode = fs.readFileSync(richTextRendererPath, 'utf-8').replace(/export /g, '').replace(/import [^;]+;/g, '');
-  blockRendererFactoryCode = fs.readFileSync(blockRendererFactoryPath, 'utf-8').replace(/export /g, '').replace(/import [^;]+;/g, '');
+  blockMappingCode = fs
+    .readFileSync(blockMappingPath, "utf-8")
+    .replace(/export /g, "")
+    .replace(/import [^;]+;/g, "");
+  listCounterCode = fs
+    .readFileSync(listCounterPath, "utf-8")
+    .replace(/export /g, "")
+    .replace(/import [^;]+;/g, "");
+  richTextRendererCode = fs
+    .readFileSync(richTextRendererPath, "utf-8")
+    .replace(/export /g, "")
+    .replace(/import [^;]+;/g, "");
+  blockRendererFactoryCode = fs
+    .readFileSync(blockRendererFactoryPath, "utf-8")
+    .replace(/export /g, "")
+    .replace(/import [^;]+;/g, "");
 } catch (error) {
-  console.error('Error reading utility files:', error.message);
+  console.error("Error reading utility files:", error.message);
   process.exit(1);
 }
 
@@ -65,7 +93,7 @@ const htmlTemplate = `
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JSON-DOC Viewer - ${pageData.properties?.title?.title?.[0]?.plain_text || 'Untitled'}</title>
+  <title>JSON-DOC Viewer - ${pageData.properties?.title?.title?.[0]?.plain_text || "Untitled"}</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
   <style>
     body {
@@ -170,16 +198,16 @@ const htmlTemplate = `
 
 // Create HTTP server
 const server = http.createServer((req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
-  if (req.url === '/') {
-    res.writeHead(200, { 'Content-Type': 'text/html' });
+  if (req.url === "/") {
+    res.writeHead(200, { "Content-Type": "text/html" });
     res.end(htmlTemplate);
   } else {
-    res.writeHead(404, { 'Content-Type': 'text/plain' });
-    res.end('Not Found');
+    res.writeHead(404, { "Content-Type": "text/plain" });
+    res.end("Not Found");
   }
 });
 
@@ -187,28 +215,34 @@ const server = http.createServer((req, res) => {
 server.listen(PORT, () => {
   const url = `http://localhost:${PORT}`;
   console.log(`\nJSON-DOC Viewer started at ${url}`);
-  console.log('Press Ctrl+C to stop the server\n');
+  console.log("Press Ctrl+C to stop the server\n");
 
   // Try to open browser automatically
   const open = (url) => {
-    const { exec } = require('child_process');
-    const start = process.platform === 'darwin' ? 'open' :
-                  process.platform === 'win32' ? 'start' : 'xdg-open';
+    const { exec } = require("child_process");
+    const start =
+      process.platform === "darwin"
+        ? "open"
+        : process.platform === "win32"
+          ? "start"
+          : "xdg-open";
     exec(`${start} ${url}`);
   };
 
   try {
     open(url);
   } catch (err) {
-    console.log('Could not automatically open browser. Please visit the URL manually.');
+    console.log(
+      "Could not automatically open browser. Please visit the URL manually.",
+    );
   }
 });
 
 // Handle Ctrl+C
-process.on('SIGINT', () => {
-  console.log('\nShutting down JSON-DOC Viewer...');
+process.on("SIGINT", () => {
+  console.log("\nShutting down JSON-DOC Viewer...");
   server.close(() => {
-    console.log('Server stopped.');
+    console.log("Server stopped.");
     process.exit(0);
   });
 });

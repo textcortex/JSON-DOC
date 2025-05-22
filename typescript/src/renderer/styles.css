@@ -1,7 +1,9 @@
 /* JSON-DOC Renderer Styles */
 
 .json-doc-renderer {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
+    "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
   line-height: 1.5;
   color: #37352f;
   background-color: #ffffff;
@@ -144,7 +146,8 @@
 }
 
 .notion-code-block .line-numbers {
-  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  font-family:
+    "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
   font-size: 14px;
   line-height: 1.4;
   white-space: pre;
@@ -250,7 +253,7 @@
 }
 
 .notion-image-placeholder::before {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 0;
@@ -261,7 +264,7 @@
 }
 
 .notion-image-placeholder::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 20px;
   right: 30px;
@@ -346,7 +349,8 @@
   color: #eb5757;
   border-radius: 3px;
   padding: 0.2em 0.4em;
-  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  font-family:
+    "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
   font-size: 85%;
 }
 
@@ -421,11 +425,11 @@
   .json-doc-page {
     padding: 48px 24px 30vh;
   }
-  
+
   .json-doc-page-title {
     font-size: 32px;
   }
-  
+
   .notion-column-list {
     flex-direction: column;
     gap: 8px;

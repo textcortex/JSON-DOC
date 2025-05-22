@@ -1,6 +1,6 @@
-import React from 'react';
-import { RichTextRenderer } from '../RichTextRenderer';
-import { BlockRenderer } from '../BlockRenderer';
+import React from "react";
+import { RichTextRenderer } from "../RichTextRenderer";
+import { BlockRenderer } from "../BlockRenderer";
 
 interface HeadingBlockRendererProps {
   block: any;
@@ -8,10 +8,10 @@ interface HeadingBlockRendererProps {
   depth?: number;
 }
 
-export const HeadingBlockRenderer: React.FC<HeadingBlockRendererProps> = ({ 
-  block, 
+export const HeadingBlockRenderer: React.FC<HeadingBlockRendererProps> = ({
+  block,
   level,
-  depth = 0 
+  depth = 0,
 }) => {
   const getHeadingData = () => {
     switch (level) {
@@ -27,10 +27,13 @@ export const HeadingBlockRenderer: React.FC<HeadingBlockRendererProps> = ({
   };
 
   const headingData = getHeadingData();
-  const blockClassName = level === 1 ? 'notion-header-block' : 'notion-sub_header-block';
+  const blockClassName =
+    level === 1 ? "notion-header-block" : "notion-sub_header-block";
 
   const renderHeading = () => {
-    const content = <RichTextRenderer richText={headingData?.rich_text || []} />;
+    const content = (
+      <RichTextRenderer richText={headingData?.rich_text || []} />
+    );
     switch (level) {
       case 1:
         return <h2 className="notranslate">{content}</h2>;
@@ -44,16 +47,24 @@ export const HeadingBlockRenderer: React.FC<HeadingBlockRendererProps> = ({
   };
 
   return (
-    <div className={`notion-selectable ${blockClassName}`} data-block-id={block.id}>
-      <div>
-        {renderHeading()}
-      </div>
-      
+    <div
+      className={`notion-selectable ${blockClassName}`}
+      data-block-id={block.id}
+    >
+      <div>{renderHeading()}</div>
+
       {/* Render children blocks recursively */}
       {block.children && block.children.length > 0 && (
-        <div className="notion-block-children" style={{ marginLeft: `${depth * 24}px` }}>
+        <div
+          className="notion-block-children"
+          style={{ marginLeft: `${depth * 24}px` }}
+        >
           {block.children.map((child: any, index: number) => (
-            <BlockRenderer key={child.id || index} block={child} depth={depth + 1} />
+            <BlockRenderer
+              key={child.id || index}
+              block={child}
+              depth={depth + 1}
+            />
           ))}
         </div>
       )}
