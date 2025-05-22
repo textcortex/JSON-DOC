@@ -143,3 +143,13 @@ Note that certain block types do not map 1 to 1 to HTML elements, such as table 
 Now, MAKE SURE THAT ALL THE ELEMENTS ARE RENDERED CORRECTLY. DO NOT INTRODUCE ANY REGRESSIONS.
 
 Also, as a final touch, if you see any way to improve on the visual spacing and such, do it. Use the screenshots in the /screenshots directory as a reference for the current implementation.
+
+---
+
+Round 4:
+
+I still get errors like `Unsupported block type:`. I want to streamline taking renders of the page. Write a script that will automatically take renders of the page and save them to the /screenshots directory. Make sure that the screenshot is divided vertically into 16x9 aspect ratio portions, so that it's processed nicely in the context. Once these images are saved, read them back and use them as a reference for the current implementation.
+
+Also, enumerated list is not implemented properly. There are numerous issues. Infer from the images what needs to be fixed, and then fix them.
+
+DO NOT TAKE ANY SHORTCUTS. TAKING SHORTCUTS WILL BE PENALIZED HEAVILY.
