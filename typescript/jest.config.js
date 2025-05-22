@@ -6,4 +6,8 @@ module.exports = {
   transform: {
     "^.+\\.tsx?$": ["ts-jest", { tsconfig: "tsconfig.json" }],
   },
+  moduleNameMapper: {
+    "\\.(css|less|scss|sass)$": "identity-obj-proxy",
+  },
+  transformIgnorePatterns: ["node_modules/(?!(.*\\.mjs$))"],
 };

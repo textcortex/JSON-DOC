@@ -19,3 +19,4 @@ Note that we use uv for running python. There are example json-doc files and tes
 
 For a correct ts implementation, similar tests and checks need to be implemented. Make sure to use up-to-date typescript tooling and conventions. This library is supposed to be installed universally, keep that in mind. Do not use obscure or non-general tooling for packaging and distribution. Follow today's best practices
 ```
+
