@@ -396,3 +396,30 @@ Claude round 6 output:
 Round 7:
 
 When I run `npm run view ../schema/page/ex1_success.json`, I see an empty page. It still says it has processed 47 blocks though.
+
+
+---
+
+Round 8:
+
+YOU TOOK A SHORTCUT. THIS IS UNNACCEPTABLE!
+
+Why do you create 2 versions of the viewer? You just included a shitton of rendering logic inside the template. THIS IS NOT ACCEPTABLE!
+
+- KEEP ONLY ONE VERSION OF THE VIEWER.
+- IT SHOULD NOT HAVE UNNECESSARY RENDERING LOGIC INSIDE THE TEMPLATE.
+- ANY UTILITY FUNCTIONS SHOULD BE IN A SEPARATE FILE.
+- RENDERING LOGIC SHOULD BE ELEGANT AND NOT HARD-CODED.
+- THERE SHOULD BE A FUNCTION THAT MAPS A JSON-DOC BLOCK TYPE TO A COMPONENT, BASED ON A MAPPING. DO NOT MANUALLY WRITE LOGIC LIKE A SWITCH-CASE STATEMENT FOR EACH BLOCK TYPE.
+
+Tables do not fill the width of the page, so they look too cramped/compact.
+
+Equations don't get rendered. Install KaTeX to render them.
+
+TOGGLE ELEMENT IS STILL NOT INSIDE THE TABLE CELL, WHEREAS IN THE ORIGINAL, IT IS. WHY????
+
+Make sure to read all the pages, and compare with the original in /reference_screenshots/notion_reference.png more thoroughly. Split Notion page into 16x9 portions, and compare each portion one by one!!!
+
+DO NOT TAKE ANY SHORTCUTS. TAKING SHORTCUTS WILL BE PENALIZED HEAVILY.
+
+TOWARDS FINISHING, MAKE SURE TO COME BACK TO MY INITIAL INSTRUCTIONS AND SEE IF YOU FOLLOWED THEM PROPERLY.
