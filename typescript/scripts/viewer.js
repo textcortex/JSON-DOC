@@ -186,8 +186,11 @@ const htmlTemplate = `
       });
     }
 
+    // Global state for list numbering
+    const listCounters = new Map();
+    
     // Block Renderer
-    function BlockRenderer({ block, depth = 0 }) {
+    function BlockRenderer({ block, depth = 0, listIndex = null, parentType = null }) {
       const commonProps = { block, depth };
 
       // Render children helper
@@ -197,13 +200,26 @@ const htmlTemplate = `
         return h('div', {
           className: 'notion-block-children',
           style: { marginLeft: \`\${depth * 24}px\` }
-        }, block.children.map((child, index) =>
-          h(BlockRenderer, {
+        }, block.children.map((child, index) => {
+          // Calculate list index for numbered lists
+          let childListIndex = null;
+          if (child?.type === 'numbered_list_item') {
+            const listId = block.id || 'default';
+            if (!listCounters.has(listId)) {
+              listCounters.set(listId, 0);
+            }
+            listCounters.set(listId, listCounters.get(listId) + 1);
+            childListIndex = listCounters.get(listId);
+          }
+          
+          return h(BlockRenderer, {
             key: child.id || index,
             block: child,
-            depth: depth + 1
-          })
-        ));
+            depth: depth + 1,
+            listIndex: childListIndex,
+            parentType: block?.type
+          });
+        }));
       }
 
       // Paragraph block
@@ -300,6 +316,17 @@ const htmlTemplate = `
 
       if (block?.type === 'numbered_list_item') {
         const listData = block.numbered_list_item;
+        
+        // Calculate proper list number
+        let listNumber = 1;
+        if (listIndex !== null) {
+          listNumber = listIndex;
+        } else {
+          // Fallback: count previous numbered_list_item siblings
+          const parent = arguments[0]?.parent; // This would need to be passed from parent
+          listNumber = 1; // Default fallback
+        }
+        
         return h('div', {
           className: 'notion-selectable notion-numbered_list-block',
           'data-block-id': block.id
@@ -308,7 +335,7 @@ const htmlTemplate = `
             h('div', {
               key: 'number',
               className: 'notion-list-item-box-left'
-            }, h('span', { className: 'pseudoBefore' }, '1.')),
+            }, h('span', { className: 'pseudoBefore' }, \`\${listNumber}.\`)),
             h('div', { key: 'text' }, [
               h('div', { key: 'inner' }, [
                 h('div', {
@@ -471,32 +498,28 @@ const htmlTemplate = `
                   className: 'notion-table-content'
                 }, [
                   h('table', { key: 'table' }, [
-                    h('tbody', { key: 'tbody' },
-                      block.children?.map((child, index) => {
+                    tableData?.has_column_header && h('thead', { key: 'thead' },
+                      block.children?.slice(0, 1).map((child, index) => {
                         if (child?.type === 'table_row') {
-                          const rowData = child.table_row;
-                          const isHeader = index === 0 && tableData?.has_column_header;
-
-                          return h('tr', {
+                          return h(BlockRenderer, {
                             key: child.id || index,
-                            className: 'notion-table-row'
-                          }, rowData?.cells?.map((cell, cellIndex) => {
-                            const CellTag = isHeader ? 'th' : 'td';
-                            return h(CellTag, {
-                              key: cellIndex,
-                              scope: isHeader ? 'col' : undefined
-                            }, [
-                              h('div', {
-                                key: 'cell',
-                                className: 'notion-table-cell'
-                              }, [
-                                h('div', {
-                                  key: 'text',
-                                  className: 'notion-table-cell-text notranslate'
-                                }, h(RichTextRenderer, { richText: cell || [] }))
-                              ])
-                            ]);
-                          }));
+                            block: child,
+                            depth: depth + 1,
+                            parentType: 'table-header'
+                          });
+                        }
+                        return null;
+                      }).filter(Boolean)
+                    ),
+                    h('tbody', { key: 'tbody' },
+                      block.children?.slice(tableData?.has_column_header ? 1 : 0).map((child, index) => {
+                        if (child?.type === 'table_row') {
+                          return h(BlockRenderer, {
+                            key: child.id || index,
+                            block: child,
+                            depth: depth + 1,
+                            parentType: 'table-body'
+                          });
                         }
                         return null;
                       }).filter(Boolean)
@@ -505,8 +528,7 @@ const htmlTemplate = `
                 ])
               ])
             ])
-          ]),
-          renderChildren()
+          ])
         ]);
       }
 
@@ -637,6 +659,44 @@ const htmlTemplate = `
         ]);
       }
 
+      // Column block (individual column)
+      if (block?.type === 'column') {
+        return h('div', {
+          className: 'notion-column',
+          'data-block-id': block.id,
+          style: { flex: 1, minWidth: 0 }
+        }, [
+          renderChildren()
+        ]);
+      }
+      
+      // Table row block
+      if (block?.type === 'table_row') {
+        const rowData = block.table_row;
+        const isHeader = parentType === 'table-header';
+        
+        return h('tr', {
+          className: 'notion-table-row',
+          'data-block-id': block.id
+        }, rowData?.cells?.map((cell, cellIndex) => {
+          const CellTag = isHeader ? 'th' : 'td';
+          return h(CellTag, {
+            key: cellIndex,
+            scope: isHeader ? 'col' : undefined
+          }, [
+            h('div', {
+              key: 'cell',
+              className: 'notion-table-cell'
+            }, [
+              h('div', {
+                key: 'text',
+                className: 'notion-table-cell-text notranslate'
+              }, h(RichTextRenderer, { richText: cell || [] }))
+            ])
+          ]);
+        }));
+      }
+
       // Toggle block
       if (block?.type === 'toggle') {
         const toggleData = block.toggle;
@@ -722,13 +782,26 @@ const htmlTemplate = `
           page.children && page.children.length > 0 && h('div', {
             key: 'content',
             className: 'json-doc-page-content'
-          }, page.children.map((block, index) =>
-            h(BlockRenderer, {
+          }, page.children.map((block, index) => {
+            // Reset list counter for numbered lists at page level
+            let listIndex = null;
+            if (block?.type === 'numbered_list_item') {
+              const listId = 'page-level';
+              if (!listCounters.has(listId)) {
+                listCounters.set(listId, 0);
+              }
+              listCounters.set(listId, listCounters.get(listId) + 1);
+              listIndex = listCounters.get(listId);
+            }
+            
+            return h(BlockRenderer, {
               key: block.id || index,
               block,
-              depth: 0
-            })
-          ))
+              depth: 0,
+              listIndex,
+              parentType: 'page'
+            });
+          }))
         ])
       ]);
     }
