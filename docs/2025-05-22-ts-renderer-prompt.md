@@ -153,3 +153,15 @@ I still get errors like `Unsupported block type:`. I want to streamline taking r
 Also, enumerated list is not implemented properly. There are numerous issues. Infer from the images what needs to be fixed, and then fix them.
 
 DO NOT TAKE ANY SHORTCUTS. TAKING SHORTCUTS WILL BE PENALIZED HEAVILY.
+
+---
+
+Round 5:
+
+Ok great, the red errors are indeed gone. But there are still some rendering issues, in bulleted lists, enumerated lists and tables.
+
+I took a screenshot of the browser of the corresponding Notion page (that corresponds to ex1_success.json). It is saved in /typescript/reference_screenshots/notion_reference.png. You may need to divide it vertically like before, before you read it.
+
+Make sure that there are no unnecessary line breaks, the columns are rendered correctly, and fix numerous other issues. Compare the screenshot you take with the reference screenshot, and fix the issues.
+
+DO NOT TAKE ANY SHORTCUTS. TAKING SHORTCUTS WILL BE PENALIZED HEAVILY.
