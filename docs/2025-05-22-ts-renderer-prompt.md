@@ -35,3 +35,111 @@ For your test, you will be making sure that /schema/page/ex1_success.json is ren
 Look at README and CLAUDE.md files for more information. The Python implementation is the single source of truth for the JSON-DOC format. The TypeScript implementation was generated from the Python implementation, so it might contain some errors. If you encounter any errors or inconsistencies, fix them.
 
 TAKING SHORTCUTS WILL BE PENALIZED HEAVILY.
+
+---
+
+Round 2:
+
+npm run test gives error. DO NOT BREAK EXISTING FUNCTIONALITY.
+
+Also, add a script to directly view a json-doc file in the terminal. I don't know how it should work, maybe should start a server and open the file in the browser. Up to you.
+
+Make sure the tests pass. Implement this and add instructions to the README file.
+
+---
+
+Round 3:
+
+JSON-DOC Viewer
+File: ex1_success.json • Blocks: 47
+
+🐞
+Test document
+This is heading 1
+Lorem ipsum dolor sit amet
+Top level paragraph
+Subparagraph level 1
+Subparagraph level 2
+Subparagraph level 3
+Subparagraph level 4
+Subparagraph level 5
+Subparagraph level 6
+This is heading 2
+Unsupported block type: table
+Unsupported block type: table_row
+Unsupported block type: table_row
+Unsupported block type: table_row
+New line
+javascript
+This is a code block
+Intersecting blocks example
+This paragraph has some bold items and links at the same time.
+Here are two paragraphs that are
+Bulleted list examples
+Here is a bulleted list
+Item 1
+Item 2
+I break the list here
+I continue here
+Enumerated list examples
+Here is an enumerated list
+Item 1 (1
+Item 2 (2)
+I break the list here
+I continue here (3)
+The index continues from the previous (4)
+6. I can’t set (6) as the item label
+TODO examples
+Unsupported block type: to_do
+Unsupported block type: to_do
+Code blocks
+bash
+This is a code block
+This is a new line
+Equations
+This is an \int_0^1\sin(x)\,dx inline equation. Below is a block equation:
+Unsupported block type: equation
+Image blocks
+Unsupported block type: image
+Quotes
+Here is a quote
+Some formatted text inside the quote
+Divider
+Here is a divider:
+Columns
+Below is a 2 column example
+Unsupported block type: column_list
+Unsupported block type: column
+First column
+Unsupported block type: to_do
+Unsupported block type: column
+Second column
+Unsupported block type: table
+Unsupported block type: table_row
+Unsupported block type: table_row
+Unsupported block type: table_row
+Below is a 4 column example
+Unsupported block type: column_list
+Unsupported block type: column
+Column 1
+A list
+Unsupported block type: column
+Column 2
+Unsupported block type: equation
+Unsupported block type: column
+Column 3
+heading in column
+Unsupported block type: column
+Column 4
+Unsupported block type: toggle
+asdfasdfafd
+
+I have included above the text I copied and pasted from the browser. As you can see, I get Unsupported block type errors for some block types.
+
+I have also included screenshots of the page in /screenshots directory. So it is a good start, but there is still a lot done.
+
+Note that certain block types do not map 1 to 1 to HTML elements, such as table elements. They are not isomorphic. To understand why, you can take a look at the HTML to JSON-DOC converter in the Python implementation. Or you can just compare an HTML table to a JSON-DOC table example in the /schema directory.
+
+Now, MAKE SURE THAT ALL THE ELEMENTS ARE RENDERED CORRECTLY. DO NOT INTRODUCE ANY REGRESSIONS.
+
+Also, as a final touch, if you see any way to improve on the visual spacing and such, do it. Use the screenshots in the /screenshots directory as a reference for the current implementation.

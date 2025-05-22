@@ -20,12 +20,3 @@ Note that we use uv for running python. There are example json-doc files and tes
 For a correct ts implementation, similar tests and checks need to be implemented. Make sure to use up-to-date typescript tooling and conventions. This library is supposed to be installed universally, keep that in mind. Do not use obscure or non-general tooling for packaging and distribution. Follow today's best practices
 ```
 
----
-
-Round 2:
-
-npm run test gives error. DO NOT BREAK EXISTING FUNCTIONALITY.
-
-Also, add a script to directly view a json-doc file in the terminal. I don't know how it should work, maybe should start a server and open the file in the browser. Up to you.
-
-Make sure the tests pass. Implement this and add instructions to the README file.
