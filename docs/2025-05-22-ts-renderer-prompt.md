@@ -4,7 +4,7 @@ author: "Onur <onur@textcortex.com>"
 date: "2025-05-21"
 ---
 
-We have previously implemented a TypeScript renderer for JSON-DOC, a new JSON based file format for documents. The excerpt below shows our initial intentions.
+We have previously implemented a TypeScript parser for JSON-DOC, a new JSON based file format for documents. The excerpt below shows our initial intentions.
 
 ---
 
