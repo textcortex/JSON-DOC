@@ -59,6 +59,14 @@ def clean_html(raw_html: str) -> str:
     soup = BeautifulSoup(raw_html, "lxml")
     prune_top_level(soup)
     clean_node(soup)
+
+    # If there are html/body tags that were added by BeautifulSoup, remove them
+    # but keep their contents
+    if soup.html:
+        soup.html.unwrap()
+    if soup.body:
+        soup.body.unwrap()
+
     # Pretty formatting keeps the tree readable yet compact
     return soup.prettify(formatter="minimal")
 
