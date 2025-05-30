@@ -124,3 +124,7 @@ The TypeScript implementation is in progress, following similar architecture to 
    - Loading JSON-DOC files into typed objects
    - Validating JSON-DOC files against schemas
    - Converting between JSON-DOC and other formats
+
+
+# Code generation guidelines
+- don's assume things, if some things are clear, ask for clarification

@@ -22,25 +22,12 @@ export const ListItemBlockRenderer: React.FC<ListItemBlockRendererProps> = ({
       : "notion-numbered_list-block";
 
   return (
-    <div
+    <li
       className={`notion-selectable ${blockClassName}`}
       data-block-id={block.id}
     >
-      <div>
-        <div className="notion-list-item-box-left">
-          {type === "bulleted" ? (
-            <div className="pseudoBefore">•</div>
-          ) : (
-            <span className="pseudoBefore">1.</span>
-          )}
-        </div>
-        <div>
-          <div>
-            <div className="notranslate">
-              <RichTextRenderer richText={listData?.rich_text || []} />
-            </div>
-          </div>
-        </div>
+      <div className="notranslate">
+        <RichTextRenderer richText={listData?.rich_text || []} />
       </div>
 
       {/* Render children blocks recursively */}
@@ -58,6 +45,6 @@ export const ListItemBlockRenderer: React.FC<ListItemBlockRendererProps> = ({
           ))}
         </div>
       )}
-    </div>
+    </li>
   );
 };

@@ -31,6 +31,14 @@ from jsondoc.models.block.types.numbered_list_item import (
     NumberedListItem,
     NumberedListItemBlock,
 )
+from jsondoc.models.block.types.unordered_list import (
+    UnorderedList,
+    UnorderedListBlock,
+)
+from jsondoc.models.block.types.ordered_list import (
+    OrderedList,
+    OrderedListBlock,
+)
 from jsondoc.models.block.types.paragraph import Paragraph, ParagraphBlock
 from jsondoc.models.block.types.quote import Quote, QuoteBlock
 from jsondoc.models.block.types.rich_text.base import RichTextBase
@@ -202,6 +210,46 @@ def create_numbered_list_item_block(
         created_time=created_time,
         numbered_list_item=NumberedListItem(rich_text=rich_text),
         has_children=False,
+    )
+
+
+def create_unordered_list_block(
+    children: List[BlockBase] | None = None,
+    id: str | None = None,
+    created_time=None,
+    typeid: bool = False,
+) -> UnorderedListBlock:
+    if id is None:
+        id = generate_block_id(typeid=typeid)
+    if created_time is None:
+        created_time = get_current_time()
+
+    return UnorderedListBlock(
+        id=id,
+        created_time=created_time,
+        unordered_list=UnorderedList(),
+        has_children=children is not None and len(children) > 0,
+        children=children or [],
+    )
+
+
+def create_ordered_list_block(
+    children: List[BlockBase] | None = None,
+    id: str | None = None,
+    created_time=None,
+    typeid: bool = False,
+) -> OrderedListBlock:
+    if id is None:
+        id = generate_block_id(typeid=typeid)
+    if created_time is None:
+        created_time = get_current_time()
+
+    return OrderedListBlock(
+        id=id,
+        created_time=created_time,
+        ordered_list=OrderedList(),
+        has_children=children is not None and len(children) > 0,
+        children=children or [],
     )
 
 

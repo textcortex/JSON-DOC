@@ -11,6 +11,8 @@ import { ToDoBlockRenderer } from "./blocks/ToDoBlockRenderer";
 import { ToggleBlockRenderer } from "./blocks/ToggleBlockRenderer";
 import { ColumnListBlockRenderer } from "./blocks/ColumnListBlockRenderer";
 import { EquationBlockRenderer } from "./blocks/EquationBlockRenderer";
+import { UnorderedListBlockRenderer } from "./blocks/UnorderedListBlockRenderer";
+import { OrderedListBlockRenderer } from "./blocks/OrderedListBlockRenderer";
 
 interface BlockRendererProps {
   block: any;
@@ -39,7 +41,15 @@ export const BlockRenderer: React.FC<BlockRendererProps> = ({
     return <HeadingBlockRenderer {...commonProps} level={3} />;
   }
 
-  // List blocks
+  // List container blocks
+  if (block?.type === "unordered_list") {
+    return <UnorderedListBlockRenderer {...commonProps} />;
+  }
+  if (block?.type === "ordered_list") {
+    return <OrderedListBlockRenderer {...commonProps} />;
+  }
+
+  // List item blocks
   if (block?.type === "bulleted_list_item") {
     return <ListItemBlockRenderer {...commonProps} type="bulleted" />;
   }

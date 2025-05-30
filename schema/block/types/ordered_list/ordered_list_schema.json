@@ -1,0 +1,28 @@
+// Ordered list container block
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "OrderedListBlock",
+  "customBasePath": "jsondoc.models.block.base.BlockBase",
+  "type": "object",
+  "allOf": [{ "$ref": "/block/base/base_schema.json" }],
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "ordered_list",
+      "default": "ordered_list"
+    },
+    "ordered_list": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "children": {
+      "type": "array",
+      "items": {
+        "$ref": "/block/block_schema.json"
+      }
+    }
+  },
+  "required": ["type", "ordered_list"],
+  "unevaluatedProperties": false
+}

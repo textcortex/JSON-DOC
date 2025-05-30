@@ -1,9 +1,7 @@
-/* JSON-DOC Renderer Styles */
-
-.json-doc-renderer {
+JSON-DOC Renderer Styles .json-doc-renderer {
   font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
-    "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji",
+    Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
   line-height: 1.5;
   color: #37352f;
   background-color: #ffffff;
@@ -96,38 +94,29 @@
   padding: 3px 2px;
 }
 
+/* List Container Blocks */
+.notion-unordered_list-block,
+.notion-ordered_list-block {
+  margin: 2px 0;
+  padding-left: 0;
+}
+
+.notion-unordered_list-block {
+  list-style-type: disc;
+  padding-left: 1.5em;
+}
+
+.notion-ordered_list-block {
+  list-style-type: decimal;
+  padding-left: 1.5em;
+}
+
 /* List Items - Match Notion spacing exactly */
 .notion-bulleted_list-block,
 .notion-numbered_list-block {
-  display: block;
   margin: 0;
-  padding: 0;
-  line-height: 1.5;
-}
-
-.notion-list-content {
-  display: flex;
-  align-items: flex-start;
-  min-height: 1.5em;
   padding: 1px 0;
-}
-
-.notion-list-item-marker {
-  flex-shrink: 0;
-  width: 1.5em;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  padding-right: 0.5em;
-  user-select: none;
-  font-size: inherit;
-  line-height: inherit;
-}
-
-.notion-list-item-text {
-  flex: 1;
-  min-width: 0;
-  line-height: inherit;
+  line-height: 1.5;
 }
 
 .notion-checkbox {

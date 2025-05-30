@@ -25,6 +25,8 @@ from jsondoc.convert.utils import (
     create_h3_block,
     create_image_block,
     create_numbered_list_item_block,
+    create_unordered_list_block,
+    create_ordered_list_block,
     create_page,
     create_paragraph_block,
     create_quote_block,
@@ -756,15 +758,29 @@ class HtmlToJsonDocConverter(object):
             )
         )
 
-    def convert_list(self, el, convert_as_inline):
+    def convert_ul(self, el, convert_as_inline):
         """
-        This is applied to <ul> and <ol> tags. We simply return None, because
-        there is no need for a container block for list items in JSON-DOC.
+        This is applied to <ul> tags. Create an unordered_list container block.
+        Children will be processed and added to this container.
         """
-        return None
+        if convert_as_inline:
+            return ConvertOutput(main_object=create_rich_text())
 
-    convert_ul = convert_list
-    convert_ol = convert_list
+        return ConvertOutput(
+            main_object=create_unordered_list_block(typeid=self.options.typeid)
+        )
+
+    def convert_ol(self, el, convert_as_inline):
+        """
+        This is applied to <ol> tags. Create an ordered_list container block.
+        Children will be processed and added to this container.
+        """
+        if convert_as_inline:
+            return ConvertOutput(main_object=create_rich_text())
+
+        return ConvertOutput(
+            main_object=create_ordered_list_block(typeid=self.options.typeid)
+        )
 
     def convert_li(self, el, convert_as_inline):
         parent = el.parent
