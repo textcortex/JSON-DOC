@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Comprehensive HTML QA Page</title>
+</head>
+<body>
+  <header>
+    <h1>HTML QA Test Page</h1>
+    <nav>
+      <ul>
+        <li><a href="#text">Text</a></li>
+        <li><a href="#lists-tables">Lists & Tables</a></li>
+        <li><a href="#media">Media</a></li>
+        <li><a href="#code">Code</a></li>
+        <li><a href="#form">Forms</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="text">
+    <h2>Text Elements</h2>
+    <p>This is a <strong>paragraph</strong> with <em>emphasis</em>, <u>underline</u>, and <code>inline code</code>.</p>
+    <blockquote>“This is a blockquote for testing.”</blockquote>
+    <hr/>
+  </section>
+
+  <section id="lists-tables">
+    <h2>Lists & Tables</h2>
+
+    <h3>Unordered List</h3>
+    <ul>
+      <li>Apple</li>
+      <li>Banana</li>
+      <li>Cherry</li>
+    </ul>
+
+    <h3>Ordered List</h3>
+    <ol>
+      <li>Alpha</li>
+      <li>Beta</li>
+      <li>Gamma</li>
+    </ol>
+
+    <h3>Table</h3>
+    <table border="1">
+      <thead>
+        <tr><th>Name</th><th>Role</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Alice</td><td>Developer</td></tr>
+        <tr><td>Bob</td><td>Designer</td></tr>
+      </tbody>
+    </table>
+    <hr/>
+  </section>
+
+
+
+  <section id="media">
+    <h2>Images</h2>
+  
+    <img 
+      src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=400" 
+      alt="Person coding on laptop" 
+      width="300" 
+    />
+    <br/><br/>
+  
+    <img 
+      src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400" 
+      alt="Office desk with computer" 
+      width="300" 
+    />
+    <br/><br/>
+  
+    <img 
+      src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=400" 
+      alt="Coffee and notebook" 
+      width="300" 
+    />
+    <hr/>
+  </section>
+  
+
+  <section id="code">
+    <h2>Code Blocks</h2>
+
+    <h3>JavaScript</h3>
+    <pre><code>
+function greet(name) {
+  console.log("Hello, " + name);
+}
+greet("World");
+    </code></pre>
+
+    <h3>Python</h3>
+    <pre><code>
+def greet(name):
+    print(f"Hello, {name}")
+
+greet("World")
+    </code></pre>
+
+    <h3>HTML</h3>
+    <pre><code>
+&lt;div class="container"&gt;
+  &lt;p&gt;Hello World&lt;/p&gt;
+&lt;/div&gt;
+    </code></pre>
+    <hr/>
+  </section>
+
+  <section id="form">
+    <h2>Form Elements</h2>
+    <form>
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" /><br/><br/>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" /><br/><br/>
+
+      <label>Gender:</label>
+      <input type="radio" name="gender" value="male" /> Male
+      <input type="radio" name="gender" value="female" /> Female<br/><br/>
+
+      <label>Interests:</label>
+      <input type="checkbox" name="interest" value="code" /> Coding
+      <input type="checkbox" name="interest" value="design" /> Design<br/><br/>
+
+      <label for="bio">Bio:</label><br/>
+      <textarea id="bio" name="bio"></textarea><br/><br/>
+
+      <label for="lang">Language:</label>
+      <select id="lang" name="lang">
+        <option value="js">JavaScript</option>
+        <option value="py">Python</option>
+        <option value="ts">TypeScript</option>
+      </select><br/><br/>
+
+      <button type="submit">Submit</button>
+      <input type="reset" value="Reset" />
+    </form>
+  </section>
+
+  <footer>
+    <p>© 2025 HTML QA Page</p>
+  </footer>
+</body>
+</html>
