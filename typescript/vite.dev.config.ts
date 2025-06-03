@@ -5,7 +5,7 @@ import { resolve } from "path";
 // Development-specific Vite config
 export default defineConfig({
   plugins: [react()],
-  root: "src/dev",
+  root: "src/examples",
   resolve: {
     alias: {
       "@": resolve(__dirname, "./src"),

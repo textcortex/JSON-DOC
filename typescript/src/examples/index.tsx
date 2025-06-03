@@ -7,21 +7,21 @@ import testPage from "./testJsonDocs/test_document_2.json";
 import { loadSchema, validateAgainstSchema } from "../validation/validator";
 
 const App = () => {
-  async function main() {
-    const schema = await loadSchema("./testJsonDocs/test_document_2.json");
+  // async function main() {
+  //   const schema = await loadSchema("./testJsonDocs/test_document_2.json");
 
-    try {
-      const isValid = validateAgainstSchema(testPage, schema);
-      console.log("isvlaid: ", isValid);
-      console.log("schema:  ", schema);
-    } catch (error) {
-      console.log("error validating schema: ", error);
-    }
-  }
+  //   try {
+  //     const isValid = validateAgainstSchema(testPage, schema);
+  //     console.log("isvlaid: ", isValid);
+  //     console.log("schema:  ", schema);
+  //   } catch (error) {
+  //     console.log("error validating schema: ", error);
+  //   }
+  // }
 
-  useEffect(() => {
-    main();
-  }, []);
+  // useEffect(() => {
+  //   main();
+  // }, []);
 
   return (
     <div style={{ padding: "20px", maxWidth: "800px", margin: "0 auto" }}>

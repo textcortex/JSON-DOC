@@ -2,13 +2,15 @@
   "name": "jsondoc",
   "version": "0.1.0",
   "description": "JSON-DOC TypeScript implementation",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "scripts": {
     "clean": "rm -rf dist",
-    "build": "tsc",
+    "build": "tsup",
+    "dev": "tsup --watch",
     "build:vite": "vite build",
-    "dev": "vite --config vite.dev.config.ts",
+    "dev:example": "vite --config vite.dev.config.ts",
     "preview": "vite preview --config vite.dev.config.ts",
     "generate-types": "ts-node scripts/generate-types.ts",
     "test": "jest",
@@ -40,6 +42,7 @@
     "react": "^19.1.0",
     "ts-jest": "^29.3.4",
     "ts-node": "^10.9.2",
+    "tsup": "^8.5.0",
     "typescript": "^5.8.3",
     "vite": "^6.3.5"
   },
@@ -57,5 +60,13 @@
   },
   "files": [
     "dist/src"
-  ]
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/textcortex/JSON-DOC.git"
+  },
+  "bugs": {
+    "url": "https://github.com/textcortex/JSON-DOC/issues"
+  },
+  "homepage": "https://github.com/textcortex/JSON-DOC#readme"
 }
