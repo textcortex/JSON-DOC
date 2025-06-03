@@ -45,9 +45,9 @@
   "children": [
     {
       "object": "block",
-      "id": "8b8329c4-0761-43a7-9470-cd32f5619d3e",
+      "id": "026ad4b3-068c-49a7-a036-c734f8ede2d7",
       "type": "heading_1",
-      "created_time": "2025-05-30T20:51:30.012185Z",
+      "created_time": "2025-06-02T15:20:59.534143Z",
       "has_children": false,
       "heading_1": {
         "rich_text": [
@@ -62,17 +62,17 @@
     },
     {
       "object": "block",
-      "id": "d1d8ad12-cc8a-4d92-b87c-1dd590c5d87a",
+      "id": "34dae149-f120-4644-b867-264e4142ceef",
       "type": "unordered_list",
-      "created_time": "2025-05-30T20:51:30.013473Z",
+      "created_time": "2025-06-02T15:20:59.535391Z",
       "has_children": true,
       "unordered_list": {},
       "children": [
         {
           "object": "block",
-          "id": "74cfcaac-1739-4674-bb30-f8a4bd24460b",
+          "id": "4b66544c-a084-4e99-8336-735687929f16",
           "type": "bulleted_list_item",
-          "created_time": "2025-05-30T20:51:30.013278Z",
+          "created_time": "2025-06-02T15:20:59.535160Z",
           "has_children": false,
           "bulleted_list_item": {
             "rich_text": [
@@ -88,9 +88,9 @@
         },
         {
           "object": "block",
-          "id": "acadddff-6f6f-4ca8-948a-04e623e670be",
+          "id": "e55439da-b02d-4483-b6b3-d8216f16ec61",
           "type": "bulleted_list_item",
-          "created_time": "2025-05-30T20:51:30.013349Z",
+          "created_time": "2025-06-02T15:20:59.535230Z",
           "has_children": false,
           "bulleted_list_item": {
             "rich_text": [
@@ -109,9 +109,9 @@
         },
         {
           "object": "block",
-          "id": "e230691d-3f75-44ca-ba0f-65d177f4d587",
+          "id": "834fac7e-1b57-47f3-99e3-2811db0ace32",
           "type": "bulleted_list_item",
-          "created_time": "2025-05-30T20:51:30.013389Z",
+          "created_time": "2025-06-02T15:20:59.535274Z",
           "has_children": false,
           "bulleted_list_item": {
             "rich_text": [
@@ -127,9 +127,30 @@
         },
         {
           "object": "block",
-          "id": "f07327e6-36a7-479f-9fd7-a8d9c3da66e8",
+          "id": "596289db-3b11-4352-9815-920ec4cd7097",
           "type": "bulleted_list_item",
-          "created_time": "2025-05-30T20:51:30.013424Z",
+          "created_time": "2025-06-02T15:20:59.535315Z",
+          "has_children": false,
+          "bulleted_list_item": {
+            "rich_text": [
+              {
+                "type": "text",
+                "text": {
+                  "content": "Multi-Column",
+                  "link": { "url": "#multi-column" }
+                },
+                "annotations": {},
+                "plain_text": "Multi-Column",
+                "href": "#multi-column"
+              }
+            ]
+          }
+        },
+        {
+          "object": "block",
+          "id": "2188f7cb-edc1-422f-9114-8701b9cd989d",
+          "type": "bulleted_list_item",
+          "created_time": "2025-06-02T15:20:59.535347Z",
           "has_children": false,
           "bulleted_list_item": {
             "rich_text": [
@@ -145,9 +166,9 @@
         },
         {
           "object": "block",
-          "id": "a5021551-6c8a-4713-978b-04d92711eeaa",
+          "id": "692ae263-8898-4e32-8d85-0ec168d1d9f7",
           "type": "bulleted_list_item",
-          "created_time": "2025-05-30T20:51:30.013456Z",
+          "created_time": "2025-06-02T15:20:59.535377Z",
           "has_children": false,
           "bulleted_list_item": {
             "rich_text": [
@@ -165,9 +186,9 @@
     },
     {
       "object": "block",
-      "id": "90f619b9-1bd4-44c5-b661-ba4c4edcfb25",
+      "id": "1f1c61e7-e4d1-4b11-81cd-3e9f8fdd371e",
       "type": "heading_2",
-      "created_time": "2025-05-30T20:51:30.013585Z",
+      "created_time": "2025-06-02T15:20:59.535555Z",
       "has_children": false,
       "heading_2": {
         "rich_text": [
@@ -182,9 +203,9 @@
     },
     {
       "object": "block",
-      "id": "2534ff1c-db5e-4b5e-8864-7ea7027d966d",
+      "id": "33fa8590-a4ff-4db2-8d13-e587741aa495",
       "type": "paragraph",
-      "created_time": "2025-05-30T20:51:30.013823Z",
+      "created_time": "2025-06-02T15:20:59.535994Z",
       "has_children": false,
       "paragraph": {
         "rich_text": [
@@ -247,34 +268,34 @@
     },
     {
       "object": "block",
-      "id": "9a97b6d6-6ddc-4a95-8a78-c2d51956ad71",
+      "id": "93866e62-95e3-45dd-b0ec-23cf8db9fd24",
       "type": "quote",
-      "created_time": "2025-05-30T20:51:30.013889Z",
+      "created_time": "2025-06-02T15:20:59.536081Z",
       "has_children": false,
       "quote": {
         "rich_text": [
           {
             "type": "text",
-            "text": { "content": "\u201cThis is a blockquote for testing.\u201d" },
+            "text": { "content": "\"This is a blockquote for testing.\"" },
             "annotations": {},
-            "plain_text": "\u201cThis is a blockquote for testing.\u201d"
+            "plain_text": "\"This is a blockquote for testing.\""
           }
         ]
       }
     },
     {
       "object": "block",
-      "id": "64b3f656-fe19-4e6c-9a4f-77bc0f16158e",
+      "id": "5525f86f-76a2-4a65-b607-08f8b4848d36",
       "type": "divider",
-      "created_time": "2025-05-30T20:51:30.013937Z",
+      "created_time": "2025-06-02T15:20:59.536130Z",
       "has_children": false,
       "divider": {}
     },
     {
       "object": "block",
-      "id": "6fa0dda3-c1dd-42dd-9de7-657c3d8695d2",
+      "id": "29b88ddf-a907-4259-98dc-5feac25553fd",
       "type": "heading_2",
-      "created_time": "2025-05-30T20:51:30.013969Z",
+      "created_time": "2025-06-02T15:20:59.536171Z",
       "has_children": false,
       "heading_2": {
         "rich_text": [
@@ -289,9 +310,9 @@
     },
     {
       "object": "block",
-      "id": "d09ea56b-d16a-4b44-9927-278326b27e66",
+      "id": "746a6771-7234-40a9-8bf7-16249f400ff0",
       "type": "heading_3",
-      "created_time": "2025-05-30T20:51:30.014000Z",
+      "created_time": "2025-06-02T15:20:59.536205Z",
       "has_children": false,
       "heading_3": {
         "rich_text": [
@@ -306,17 +327,17 @@
     },
     {
       "object": "block",
-      "id": "513f6ae7-bf1b-43ea-b0af-c662e7fac3b4",
+      "id": "a614ceec-5d39-4619-b64a-565b4a42892b",
       "type": "unordered_list",
-      "created_time": "2025-05-30T20:51:30.014127Z",
+      "created_time": "2025-06-02T15:20:59.536330Z",
       "has_children": true,
       "unordered_list": {},
       "children": [
         {
           "object": "block",
-          "id": "b2aebcd0-19e5-46fd-baa0-abb428427d08",
+          "id": "564201a0-1bdc-4312-8235-e19b2af794a9",
           "type": "bulleted_list_item",
-          "created_time": "2025-05-30T20:51:30.014057Z",
+          "created_time": "2025-06-02T15:20:59.536257Z",
           "has_children": false,
           "bulleted_list_item": {
             "rich_text": [
@@ -331,9 +352,9 @@
         },
         {
           "object": "block",
-          "id": "d7ccceb7-5456-4656-a3c5-1408dad3b22d",
+          "id": "3aaadb89-ccdb-4098-9d8f-32061b4b179c",
           "type": "bulleted_list_item",
-          "created_time": "2025-05-30T20:51:30.014084Z",
+          "created_time": "2025-06-02T15:20:59.536286Z",
           "has_children": false,
           "bulleted_list_item": {
             "rich_text": [
@@ -348,9 +369,9 @@
         },
         {
           "object": "block",
-          "id": "e335344e-5631-4d17-9512-f585ad532b53",
+          "id": "35a670f2-1ef5-4e88-adb8-3d435908e124",
           "type": "bulleted_list_item",
-          "created_time": "2025-05-30T20:51:30.014108Z",
+          "created_time": "2025-06-02T15:20:59.536312Z",
           "has_children": false,
           "bulleted_list_item": {
             "rich_text": [
@@ -367,9 +388,9 @@
     },
     {
       "object": "block",
-      "id": "14ef25af-1043-4f7a-89d9-42af426d2c5c",
+      "id": "e413b638-3517-46f9-8d94-594c27e2bb41",
       "type": "heading_3",
-      "created_time": "2025-05-30T20:51:30.014160Z",
+      "created_time": "2025-06-02T15:20:59.536370Z",
       "has_children": false,
       "heading_3": {
         "rich_text": [
@@ -384,17 +405,17 @@
     },
     {
       "object": "block",
-      "id": "8f17af3f-9e58-4d9f-83c6-a0a76a5d102c",
+      "id": "5a613843-d8dc-4128-ad1e-19ff20b8d951",
       "type": "ordered_list",
-      "created_time": "2025-05-30T20:51:30.014282Z",
+      "created_time": "2025-06-02T15:20:59.536532Z",
       "has_children": true,
       "ordered_list": {},
       "children": [
         {
           "object": "block",
-          "id": "ad009274-793b-4cc0-b8c1-1940d655aadf",
+          "id": "f814a085-ebb6-48d9-8fc5-7edf280f3e14",
           "type": "numbered_list_item",
-          "created_time": "2025-05-30T20:51:30.014198Z",
+          "created_time": "2025-06-02T15:20:59.536443Z",
           "has_children": false,
           "numbered_list_item": {
             "rich_text": [
@@ -409,9 +430,9 @@
         },
         {
           "object": "block",
-          "id": "caee95f8-3fcd-40b4-aef5-0637c69c7932",
+          "id": "f2f4e5fe-fe60-42f0-9baa-dbbd8c57dc10",
           "type": "numbered_list_item",
-          "created_time": "2025-05-30T20:51:30.014238Z",
+          "created_time": "2025-06-02T15:20:59.536487Z",
           "has_children": false,
           "numbered_list_item": {
             "rich_text": [
@@ -426,9 +447,9 @@
         },
         {
           "object": "block",
-          "id": "1ce7f86f-5785-483f-bc37-f8aa036dfa29",
+          "id": "190349d0-60d1-474a-939d-5f77c9dc4cc4",
           "type": "numbered_list_item",
-          "created_time": "2025-05-30T20:51:30.014263Z",
+          "created_time": "2025-06-02T15:20:59.536513Z",
           "has_children": false,
           "numbered_list_item": {
             "rich_text": [
@@ -445,9 +466,9 @@
     },
     {
       "object": "block",
-      "id": "0cb372db-e7b8-4084-bfcd-9bbb039cb2a8",
+      "id": "6381f055-80ca-4d1b-9c2f-27def89529a9",
       "type": "heading_3",
-      "created_time": "2025-05-30T20:51:30.014329Z",
+      "created_time": "2025-06-02T15:20:59.536583Z",
       "has_children": false,
       "heading_3": {
         "rich_text": [
@@ -462,16 +483,16 @@
     },
     {
       "object": "block",
-      "id": "e0cbaf93-89c5-4011-bb79-c0aeb85db758",
+      "id": "72ab92c4-8ab8-4b78-8f1b-15269e7c9f33",
       "type": "table",
-      "created_time": "2025-05-30T20:51:30.014621Z",
+      "created_time": "2025-06-02T15:20:59.536874Z",
       "table": { "has_column_header": true, "has_row_header": false },
       "children": [
         {
           "object": "block",
-          "id": "f8bf69c2-4199-4bbe-a73c-d072934672cb",
+          "id": "09987e5b-2010-49da-8f89-0df66f809955",
           "type": "table_row",
-          "created_time": "2025-05-30T20:51:30.014432Z",
+          "created_time": "2025-06-02T15:20:59.536692Z",
           "has_children": false,
           "table_row": {
             "cells": [
@@ -496,9 +517,9 @@
         },
         {
           "object": "block",
-          "id": "ca6cdd8e-2ee6-44f3-8339-dbc6b4b45564",
+          "id": "e64938b1-2966-4729-ad2e-4cb6765cab9d",
           "type": "table_row",
-          "created_time": "2025-05-30T20:51:30.014522Z",
+          "created_time": "2025-06-02T15:20:59.536777Z",
           "has_children": false,
           "table_row": {
             "cells": [
@@ -523,9 +544,9 @@
         },
         {
           "object": "block",
-          "id": "8fcf1f9c-9db9-4e42-91ac-b6bf66952f03",
+          "id": "af08d8f5-7bf1-4183-9d56-58cd1eae1108",
           "type": "table_row",
-          "created_time": "2025-05-30T20:51:30.014587Z",
+          "created_time": "2025-06-02T15:20:59.536840Z",
           "has_children": false,
           "table_row": {
             "cells": [
@@ -552,17 +573,17 @@
     },
     {
       "object": "block",
-      "id": "0ff72f38-9022-422f-9b84-e1945863e706",
+      "id": "585889a4-e5b8-462d-ac65-9583161ac543",
       "type": "divider",
-      "created_time": "2025-05-30T20:51:30.014659Z",
+      "created_time": "2025-06-02T15:20:59.536915Z",
       "has_children": false,
       "divider": {}
     },
     {
       "object": "block",
-      "id": "31d275bd-a627-42eb-9ad7-2fe538d40af9",
+      "id": "6f7f7550-174c-4287-9124-b5143747114e",
       "type": "heading_2",
-      "created_time": "2025-05-30T20:51:30.014684Z",
+      "created_time": "2025-06-02T15:20:59.536941Z",
       "has_children": false,
       "heading_2": {
         "rich_text": [
@@ -577,9 +598,9 @@
     },
     {
       "object": "block",
-      "id": "4a45caa8-6f5b-48c3-ac48-d255f597a9e9",
+      "id": "0e141978-6b48-425f-8e65-7951c6f64077",
       "type": "image",
-      "created_time": "2025-05-30T20:51:30.014712Z",
+      "created_time": "2025-06-02T15:20:59.536985Z",
       "image": {
         "type": "external",
         "external": {
@@ -589,9 +610,26 @@
     },
     {
       "object": "block",
-      "id": "a5a8a4e7-087c-423a-ae66-4ddd27470165",
+      "id": "e333ac45-76cc-4e94-b7b7-dbe7ce6400d8",
+      "type": "paragraph",
+      "created_time": "2025-06-02T15:20:59.537025Z",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Person coding on laptop" },
+            "annotations": {},
+            "plain_text": "Person coding on laptop"
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "7e896df2-88a7-48d8-a75e-8172ad68e88d",
       "type": "image",
-      "created_time": "2025-05-30T20:51:30.014772Z",
+      "created_time": "2025-06-02T15:20:59.537062Z",
       "image": {
         "type": "external",
         "external": {
@@ -601,9 +639,26 @@
     },
     {
       "object": "block",
-      "id": "2405954d-9220-4c96-a9b3-472893a1f64a",
+      "id": "6d83f023-0f10-4bca-a3aa-13d17e7a5c77",
+      "type": "paragraph",
+      "created_time": "2025-06-02T15:20:59.537085Z",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Office desk with computer" },
+            "annotations": {},
+            "plain_text": "Office desk with computer"
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "ed8a3fff-c914-4277-84c4-cc8161e5fd2d",
       "type": "image",
-      "created_time": "2025-05-30T20:51:30.014837Z",
+      "created_time": "2025-06-02T15:20:59.537120Z",
       "image": {
         "type": "external",
         "external": {
@@ -613,17 +668,313 @@
     },
     {
       "object": "block",
-      "id": "fff6ab50-5efb-4bca-a0e4-683f2b7a2a5c",
+      "id": "45cf8e9e-c869-41e3-9d24-47f8dc0a6fa1",
+      "type": "paragraph",
+      "created_time": "2025-06-02T15:20:59.537145Z",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Coffee and notebook" },
+            "annotations": {},
+            "plain_text": "Coffee and notebook"
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "3b360430-d3f1-465c-b4a3-07ddc161b1c9",
       "type": "divider",
-      "created_time": "2025-05-30T20:51:30.014851Z",
+      "created_time": "2025-06-02T15:20:59.537179Z",
       "has_children": false,
       "divider": {}
     },
     {
       "object": "block",
-      "id": "807bcc7c-6876-4c14-b5cb-8f1e46534498",
+      "id": "bb0b2836-d5eb-4ad0-8ef1-ee83a87a4083",
       "type": "heading_2",
-      "created_time": "2025-05-30T20:51:30.014881Z",
+      "created_time": "2025-06-02T15:20:59.537212Z",
+      "has_children": false,
+      "heading_2": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Multi-Column Content" },
+            "annotations": {},
+            "plain_text": "Multi-Column Content"
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "600f1a9c-4426-437d-a825-2acfb72cda7d",
+      "type": "heading_3",
+      "created_time": "2025-06-02T15:20:59.537243Z",
+      "has_children": false,
+      "heading_3": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Flexbox Columns" },
+            "annotations": {},
+            "plain_text": "Flexbox Columns"
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "a8c4b992-c10c-4fc6-8471-6c6f26eabb95",
+      "type": "paragraph",
+      "created_time": "2025-06-02T15:20:59.537289Z",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Column 1: Web Development" },
+            "annotations": {},
+            "plain_text": "Column 1: Web Development"
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "fcd1a94c-7a7f-49de-9e2a-443f2eb8f247",
+      "type": "paragraph",
+      "created_time": "2025-06-02T15:20:59.537331Z",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Web development is the work involved in developing a website for the Internet or an intranet. Web development can range from developing a simple single static page of plain text to complex web applications, electronic businesses, and social network services."
+            },
+            "annotations": {},
+            "plain_text": "Web development is the work involved in developing a website for the Internet or an intranet. Web development can range from developing a simple single static page of plain text to complex web applications, electronic businesses, and social network services."
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "a7d98ba6-6941-4ad7-bfbe-ac3bcc454a40",
+      "type": "paragraph",
+      "created_time": "2025-06-02T15:20:59.537370Z",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Column 2: UI Design" },
+            "annotations": {},
+            "plain_text": "Column 2: UI Design"
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "69dc2e2e-8570-4128-a04a-1c7808a754b3",
+      "type": "paragraph",
+      "created_time": "2025-06-02T15:20:59.537407Z",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "User interface design is the design of user interfaces for machines and software, such as computers, home appliances, mobile devices, and other electronic devices, with the focus on maximizing usability and the user experience."
+            },
+            "annotations": {},
+            "plain_text": "User interface design is the design of user interfaces for machines and software, such as computers, home appliances, mobile devices, and other electronic devices, with the focus on maximizing usability and the user experience."
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "bc333d8d-c3d4-4a65-acbb-052ca88a7a59",
+      "type": "paragraph",
+      "created_time": "2025-06-02T15:20:59.537446Z",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Column 3: UX Research" },
+            "annotations": {},
+            "plain_text": "Column 3: UX Research"
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "bce09f19-f768-4b7a-bdc8-fb343637923d",
+      "type": "paragraph",
+      "created_time": "2025-06-02T15:20:59.537485Z",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "User experience research is the systematic investigation of users and their requirements, in order to add context and insight into the process of designing the user experience. UX researchers adopt various methods to uncover problems and design opportunities."
+            },
+            "annotations": {},
+            "plain_text": "User experience research is the systematic investigation of users and their requirements, in order to add context and insight into the process of designing the user experience. UX researchers adopt various methods to uncover problems and design opportunities."
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "d563eea1-2542-477e-bf85-895740fcf195",
+      "type": "heading_3",
+      "created_time": "2025-06-02T15:20:59.537530Z",
+      "has_children": false,
+      "heading_3": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "CSS Multi-Column Layout" },
+            "annotations": {},
+            "plain_text": "CSS Multi-Column Layout"
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "fc37d007-f347-48a0-8cc5-72840465341e",
+      "type": "paragraph",
+      "created_time": "2025-06-02T15:20:59.537562Z",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "The Evolution of Web Technologies" },
+            "annotations": {},
+            "plain_text": "The Evolution of Web Technologies"
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "34c9877f-817e-4b1b-8b32-fdcc7ac8c61c",
+      "type": "paragraph",
+      "created_time": "2025-06-02T15:20:59.537597Z",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "The World Wide Web has evolved significantly since its inception in the early 1990s. What began as a simple system for sharing text documents has transformed into a complex ecosystem supporting rich media, real-time communication, and sophisticated applications."
+            },
+            "annotations": {},
+            "plain_text": "The World Wide Web has evolved significantly since its inception in the early 1990s. What began as a simple system for sharing text documents has transformed into a complex ecosystem supporting rich media, real-time communication, and sophisticated applications."
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "b5797b1b-997a-4431-a9f8-072c23820d62",
+      "type": "paragraph",
+      "created_time": "2025-06-02T15:20:59.537632Z",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "HTML5 introduced native support for video and audio elements, eliminating the need for plugins like Flash. CSS3 brought responsive design capabilities, allowing websites to adapt to different screen sizes. JavaScript frameworks like React, Angular, and Vue have revolutionized front-end development."
+            },
+            "annotations": {},
+            "plain_text": "HTML5 introduced native support for video and audio elements, eliminating the need for plugins like Flash. CSS3 brought responsive design capabilities, allowing websites to adapt to different screen sizes. JavaScript frameworks like React, Angular, and Vue have revolutionized front-end development."
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "11f34bde-bb44-4bf7-be1d-bdcd01aadcea",
+      "type": "paragraph",
+      "created_time": "2025-06-02T15:20:59.537664Z",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "WebAssembly is enabling high-performance applications to run in browsers. Progressive Web Apps combine the best of web and mobile apps. Meanwhile, technologies like WebRTC facilitate peer-to-peer communication directly in browsers without plugins."
+            },
+            "annotations": {},
+            "plain_text": "WebAssembly is enabling high-performance applications to run in browsers. Progressive Web Apps combine the best of web and mobile apps. Meanwhile, technologies like WebRTC facilitate peer-to-peer communication directly in browsers without plugins."
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "21162fcc-0c30-4d9c-be6e-6d324397d516",
+      "type": "paragraph",
+      "created_time": "2025-06-02T15:20:59.537699Z",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "The adoption of HTTP/2 and HTTP/3 has improved performance through multiplexing and reduced latency. Content delivery networks distribute resources globally for faster access. Serverless architectures abstract infrastructure management, allowing developers to focus on code."
+            },
+            "annotations": {},
+            "plain_text": "The adoption of HTTP/2 and HTTP/3 has improved performance through multiplexing and reduced latency. Content delivery networks distribute resources globally for faster access. Serverless architectures abstract infrastructure management, allowing developers to focus on code."
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "d0dbb79c-0bd9-42b8-b481-a364d6c7af51",
+      "type": "paragraph",
+      "created_time": "2025-06-02T15:20:59.537732Z",
+      "has_children": false,
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "As web technologies continue to evolve, we're seeing increased emphasis on accessibility, privacy, and security. The future web promises even greater capabilities with technologies like augmented reality, machine learning integration, and improved offline functionality."
+            },
+            "annotations": {},
+            "plain_text": "As web technologies continue to evolve, we're seeing increased emphasis on accessibility, privacy, and security. The future web promises even greater capabilities with technologies like augmented reality, machine learning integration, and improved offline functionality."
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "76f55743-7850-4cb6-bc59-92c9b6fc1714",
+      "type": "divider",
+      "created_time": "2025-06-02T15:20:59.537759Z",
+      "has_children": false,
+      "divider": {}
+    },
+    {
+      "object": "block",
+      "id": "2a700c5f-9438-44c6-99b6-c58d2bf14903",
+      "type": "heading_2",
+      "created_time": "2025-06-02T15:20:59.537789Z",
       "has_children": false,
       "heading_2": {
         "rich_text": [
@@ -638,9 +989,9 @@
     },
     {
       "object": "block",
-      "id": "f812b85c-9b78-4d94-b73a-d2787b11d51a",
+      "id": "7df299b0-7b88-4021-849a-a7e246175d69",
       "type": "heading_3",
-      "created_time": "2025-05-30T20:51:30.014907Z",
+      "created_time": "2025-06-02T15:20:59.537815Z",
       "has_children": false,
       "heading_3": {
         "rich_text": [
@@ -655,9 +1006,9 @@
     },
     {
       "object": "block",
-      "id": "412a4843-9b7b-4179-a9af-df49c050b4c9",
+      "id": "c2277727-dd9b-4a06-9afc-aaac164903d5",
       "type": "code",
-      "created_time": "2025-05-30T20:51:30.014952Z",
+      "created_time": "2025-06-02T15:20:59.537861Z",
       "has_children": false,
       "code": {
         "rich_text": [
@@ -674,9 +1025,9 @@
     },
     {
       "object": "block",
-      "id": "3e811405-0c10-4d83-90cc-31d7a03eed14",
+      "id": "911dd110-c587-4736-ab77-0f7caf8e973a",
       "type": "heading_3",
-      "created_time": "2025-05-30T20:51:30.015153Z",
+      "created_time": "2025-06-02T15:20:59.538054Z",
       "has_children": false,
       "heading_3": {
         "rich_text": [
@@ -691,9 +1042,9 @@
     },
     {
       "object": "block",
-      "id": "1bf21745-ca81-45c1-8d0b-3bf61aef0072",
+      "id": "d09e9be1-499c-4eb9-acdf-6beee0ff3c06",
       "type": "code",
-      "created_time": "2025-05-30T20:51:30.015210Z",
+      "created_time": "2025-06-02T15:20:59.538101Z",
       "has_children": false,
       "code": {
         "rich_text": [
@@ -710,9 +1061,9 @@
     },
     {
       "object": "block",
-      "id": "6a6a5a7d-81b4-44b1-88a3-d64cea506dd7",
+      "id": "470ebc95-cd81-4941-a5f1-f096dd593e8e",
       "type": "heading_3",
-      "created_time": "2025-05-30T20:51:30.015268Z",
+      "created_time": "2025-06-02T15:20:59.538151Z",
       "has_children": false,
       "heading_3": {
         "rich_text": [
@@ -727,9 +1078,9 @@
     },
     {
       "object": "block",
-      "id": "4e40ae56-6efb-4952-bbb7-47a8d28db8f0",
+      "id": "ed5ccbb5-3caf-4ac1-8f09-9f6483930a12",
       "type": "code",
-      "created_time": "2025-05-30T20:51:30.015313Z",
+      "created_time": "2025-06-02T15:20:59.538195Z",
       "has_children": false,
       "code": {
         "rich_text": [
@@ -746,17 +1097,17 @@
     },
     {
       "object": "block",
-      "id": "bbc52bab-6543-4254-bc34-8911cffefe13",
+      "id": "7b630b74-7445-4907-8983-befce6f73707",
       "type": "divider",
-      "created_time": "2025-05-30T20:51:30.015348Z",
+      "created_time": "2025-06-02T15:20:59.538230Z",
       "has_children": false,
       "divider": {}
     },
     {
       "object": "block",
-      "id": "a7f9fba3-f00d-4462-8630-a786c468e064",
+      "id": "d48296b2-6b2e-4bb9-ad65-ca5069ef5d08",
       "type": "heading_2",
-      "created_time": "2025-05-30T20:51:30.015378Z",
+      "created_time": "2025-06-02T15:20:59.538269Z",
       "has_children": false,
       "heading_2": {
         "rich_text": [
@@ -771,9 +1122,9 @@
     },
     {
       "object": "block",
-      "id": "93be5019-1379-4145-86ab-abb148296cbf",
+      "id": "0e3c3c0a-5d95-46db-93f3-beb9778dc042",
       "type": "paragraph",
-      "created_time": "2025-05-30T20:51:30.015790Z",
+      "created_time": "2025-06-02T15:20:59.538737Z",
       "has_children": false,
       "paragraph": {
         "rich_text": [
@@ -788,9 +1139,9 @@
     },
     {
       "object": "block",
-      "id": "7144b029-742f-4cce-a32b-fb0a3e2d0742",
+      "id": "460f0648-91f8-4c59-9613-2333641afacd",
       "type": "paragraph",
-      "created_time": "2025-05-30T20:51:30.015813Z",
+      "created_time": "2025-06-02T15:20:59.538766Z",
       "has_children": false,
       "paragraph": {
         "rich_text": [
@@ -805,9 +1156,9 @@
     },
     {
       "object": "block",
-      "id": "0ad21b45-1335-4f71-a954-f6d06d6aa4fe",
+      "id": "af41dace-7627-4788-a823-9944b73f874d",
       "type": "paragraph",
-      "created_time": "2025-05-30T20:51:30.015830Z",
+      "created_time": "2025-06-02T15:20:59.538783Z",
       "has_children": false,
       "paragraph": {
         "rich_text": [
@@ -822,9 +1173,9 @@
     },
     {
       "object": "block",
-      "id": "2fb57b4a-d406-40ba-a3d0-1cf42c49027a",
+      "id": "4a7a54a9-942a-4b00-91a8-74416872395e",
       "type": "paragraph",
-      "created_time": "2025-05-30T20:51:30.015846Z",
+      "created_time": "2025-06-02T15:20:59.538798Z",
       "has_children": false,
       "paragraph": {
         "rich_text": [
@@ -839,9 +1190,9 @@
     },
     {
       "object": "block",
-      "id": "9b1224ca-907c-4932-98c1-115d7ff33679",
+      "id": "8809fca5-b7fd-40c8-9340-b4eaa9a483d2",
       "type": "paragraph",
-      "created_time": "2025-05-30T20:51:30.015860Z",
+      "created_time": "2025-06-02T15:20:59.538812Z",
       "has_children": false,
       "paragraph": {
         "rich_text": [
@@ -856,9 +1207,9 @@
     },
     {
       "object": "block",
-      "id": "1e4edc99-a8d4-44ab-8e75-15c2d9567ca6",
+      "id": "c1c55595-e3f5-4426-800e-aaa13a45b354",
       "type": "paragraph",
-      "created_time": "2025-05-30T20:51:30.015880Z",
+      "created_time": "2025-06-02T15:20:59.538829Z",
       "has_children": false,
       "paragraph": {
         "rich_text": [
@@ -873,9 +1224,9 @@
     },
     {
       "object": "block",
-      "id": "696d9ae1-3ae5-41b5-a8fd-6d33382260a4",
+      "id": "74627872-6805-45ac-9f5b-bf9cb6229750",
       "type": "paragraph",
-      "created_time": "2025-05-30T20:51:30.015893Z",
+      "created_time": "2025-06-02T15:20:59.538845Z",
       "has_children": false,
       "paragraph": {
         "rich_text": [
@@ -890,9 +1241,9 @@
     },
     {
       "object": "block",
-      "id": "8986a5f6-79b6-4488-baac-4540d9b34f2b",
+      "id": "c3b8af60-ba61-4c37-b0ff-f3026aa74def",
       "type": "paragraph",
-      "created_time": "2025-05-30T20:51:30.015554Z",
+      "created_time": "2025-06-02T15:20:59.538478Z",
       "has_children": false,
       "paragraph": {
         "rich_text": [

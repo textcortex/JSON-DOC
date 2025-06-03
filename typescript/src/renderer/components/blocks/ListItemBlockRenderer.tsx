@@ -22,13 +22,10 @@ export const ListItemBlockRenderer: React.FC<ListItemBlockRendererProps> = ({
       : "notion-numbered_list-block";
 
   return (
-    <li
-      className={`notion-selectable ${blockClassName}`}
-      data-block-id={block.id}
-    >
-      <div className="notranslate">
-        <RichTextRenderer richText={listData?.rich_text || []} />
-      </div>
+    <li className={`notion-selectable ${blockClassName}`} data-block-id={block.id}>
+      {/* <div className="notranslate"> */}
+      <RichTextRenderer richText={listData?.rich_text || []} />
+      {/* </div> */}
 
       {/* Render children blocks recursively */}
       {block.children && block.children.length > 0 && (
