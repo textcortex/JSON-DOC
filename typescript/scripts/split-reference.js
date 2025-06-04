@@ -48,7 +48,7 @@ async function splitReference() {
   const segments = Math.ceil(height / segmentHeight);
 
   console.log(
-    `Creating ${segments} segments with 16:9 aspect ratio (${segmentWidth}x${segmentHeight})`,
+    `Creating ${segments} segments with 16:9 aspect ratio (${segmentWidth}x${segmentHeight})`
   );
 
   for (let i = 0; i < segments; i++) {
@@ -56,12 +56,12 @@ async function splitReference() {
     const actualHeight = Math.min(segmentHeight, height - startY);
 
     console.log(
-      `Creating segment ${i + 1}/${segments} (y: ${startY}, height: ${actualHeight})`,
+      `Creating segment ${i + 1}/${segments} (y: ${startY}, height: ${actualHeight})`
     );
 
     const outputPath = path.join(
       splitDir,
-      `reference_segment_${String(i + 1).padStart(2, "0")}.png`,
+      `reference_segment_${String(i + 1).padStart(2, "0")}.png`
     );
 
     // Use imagemagick convert to crop the image

@@ -34,7 +34,12 @@ import {
   isExternalFile,
   isFileFile,
 } from "../models/generated";
-import { deepClone, getNestedValue, loadJson, setNestedValue } from "../utils/json";
+import {
+  deepClone,
+  getNestedValue,
+  loadJson,
+  setNestedValue,
+} from "../utils/json";
 
 // Block type to factory function mapping
 const BLOCK_TYPE_FACTORIES: Record<BlockType, (obj: any) => Block> = {
@@ -64,10 +69,11 @@ const RICH_TEXT_FACTORIES: Record<RichTextType, (obj: any) => RichText> = {
 };
 
 // File type to factory function mapping
-const FILE_FACTORIES: Record<FileType, (obj: any) => ExternalFile | FileFile> = {
-  [FileType.File]: createFileFile,
-  [FileType.External]: createExternalFile,
-};
+const FILE_FACTORIES: Record<FileType, (obj: any) => ExternalFile | FileFile> =
+  {
+    [FileType.File]: createFileFile,
+    [FileType.External]: createExternalFile,
+  };
 
 // Other rich text fields in specific block types
 const OTHER_RICH_TEXT_FIELDS: Partial<Record<BlockType, string[]>> = {
@@ -177,7 +183,9 @@ export function loadBlock(obj: any): Block {
       if (!val) continue;
 
       if (!Array.isArray(val)) {
-        throw new Error(`Field ${rtField} must be a list: ${JSON.stringify(val)}`);
+        throw new Error(
+          `Field ${rtField} must be a list: ${JSON.stringify(val)}`
+        );
       }
 
       const newVal = val.map((richText: any) => loadRichText(richText));
@@ -194,7 +202,9 @@ export function loadBlock(obj: any): Block {
       if (!val) continue;
 
       if (!Array.isArray(val)) {
-        throw new Error(`Field ${rtField} must be a list: ${JSON.stringify(val)}`);
+        throw new Error(
+          `Field ${rtField} must be a list: ${JSON.stringify(val)}`
+        );
       }
 
       const newVal: RichText[][] = [];

@@ -33,7 +33,7 @@ export function renderRichText(richText, createElement) {
           element = createElement(
             "code",
             { key, className: "notion-inline-code" },
-            content,
+            content
           );
         }
         if (annotations.color && annotations.color !== "default") {
@@ -43,7 +43,7 @@ export function renderRichText(richText, createElement) {
               key,
               className: `notion-text-color-${annotations.color}`,
             },
-            element,
+            element
           );
         }
       }
@@ -59,7 +59,7 @@ export function renderRichText(richText, createElement) {
             target: "_blank",
             rel: "noopener noreferrer",
           },
-          element,
+          element
         );
       }
 

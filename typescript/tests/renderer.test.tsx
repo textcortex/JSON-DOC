@@ -29,7 +29,7 @@ describe("JsonDocRenderer", () => {
 
     console.log(
       "Successfully rendered JSON-DOC page with title:",
-      pageData.properties?.title?.title?.[0]?.plain_text,
+      pageData.properties?.title?.title?.[0]?.plain_text
     );
   });
 
@@ -96,7 +96,7 @@ if (require.main === module) {
     console.log("✓ Loaded example data successfully");
     console.log(
       "Page title:",
-      pageData.properties?.title?.title?.[0]?.plain_text,
+      pageData.properties?.title?.title?.[0]?.plain_text
     );
     console.log("Number of children:", pageData.children?.length || 0);
 

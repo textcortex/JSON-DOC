@@ -7,7 +7,7 @@ const { exec, spawn } = require("child_process");
 // Check if we have puppeteer installed
 const puppeteerPath = path.join(
   __dirname,
-  "../node_modules/puppeteer/package.json",
+  "../node_modules/puppeteer/package.json"
 );
 if (!fs.existsSync(puppeteerPath)) {
   console.log("Installing puppeteer for screenshots...");
@@ -22,7 +22,7 @@ if (!fs.existsSync(puppeteerPath)) {
       console.log("Puppeteer installed, restarting script...");
       // Restart this script
       spawn(process.argv[0], process.argv.slice(1), { stdio: "inherit" });
-    },
+    }
   );
   return;
 }
@@ -58,7 +58,7 @@ async function takeScreenshots() {
   let viewerContent = fs.readFileSync(viewerScript, "utf-8");
   viewerContent = viewerContent.replace(
     /const PORT = [^;]+;/,
-    `const PORT = ${PORT};`,
+    `const PORT = ${PORT};`
   );
 
   // Write temporary viewer script
@@ -136,7 +136,7 @@ async function takeScreenshots() {
     const segments = Math.ceil(fullHeight / segmentHeight);
 
     console.log(
-      `Creating ${segments} screenshot segments with 16:9 aspect ratio (${viewportWidth}x${segmentHeight})`,
+      `Creating ${segments} screenshot segments with 16:9 aspect ratio (${viewportWidth}x${segmentHeight})`
     );
 
     for (let i = 0; i < segments; i++) {
@@ -144,12 +144,12 @@ async function takeScreenshots() {
       const actualHeight = Math.min(segmentHeight, fullHeight - startY);
 
       console.log(
-        `Capturing segment ${i + 1}/${segments} (y: ${startY}, height: ${actualHeight})`,
+        `Capturing segment ${i + 1}/${segments} (y: ${startY}, height: ${actualHeight})`
       );
 
       const screenshotPath = path.join(
         SCREENSHOT_DIR,
-        `page_segment_${String(i + 1).padStart(2, "0")}.png`,
+        `page_segment_${String(i + 1).padStart(2, "0")}.png`
       );
 
       await page.screenshot({

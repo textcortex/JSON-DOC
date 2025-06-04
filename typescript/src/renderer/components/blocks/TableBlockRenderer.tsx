@@ -50,7 +50,7 @@ export const TableBlockRenderer: React.FC<TableBlockRendererProps> = ({
                                   </div>
                                 </CellTag>
                               );
-                            },
+                            }
                           )}
                         </tr>
                       );

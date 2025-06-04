@@ -235,21 +235,20 @@ The renderer uses Notion-inspired CSS classes for styling:
 
 MIT
 
-
 ## Tooling
-- followed this for ts config setup: https://www.totaltypescript.com/tsconfig-cheat-sheet
-- 
 
+- followed this for ts config setup: https://www.totaltypescript.com/tsconfig-cheat-sheet
+-
 
 ## Todos
 
-- [x] setup eslint 
+- [x] setup eslint
 - [x] improve tsconfig
 - [ ] setup lint staged and husky
-- [ ] setup prettier 
+- [ ] setup prettier
 - [ ] standardize styling (css)
 - [ ] fix styling for elements
-  - [ ] headings 
+  - [ ] headings
   - [ ] paragraph
   - [ ] code
   - [ ] table

@@ -33,7 +33,7 @@ export const ColumnListBlockRenderer: React.FC<
                       block={columnChild}
                       depth={depth + 1}
                     />
-                  ),
+                  )
                 )}
               </div>
             );

@@ -7,7 +7,10 @@ interface JsonDocRendererProps {
   className?: string;
 }
 
-export const JsonDocRenderer = ({ page, className = "" }: JsonDocRendererProps) => {
+export const JsonDocRenderer = ({
+  page,
+  className = "",
+}: JsonDocRendererProps) => {
   return (
     <div className={`json-doc-renderer ${className}`}>
       <div className="json-doc-page">

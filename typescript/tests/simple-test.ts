@@ -12,7 +12,7 @@ try {
   console.log("✓ Loaded example data successfully");
   console.log(
     "Page title:",
-    pageData.properties?.title?.title?.[0]?.plain_text,
+    pageData.properties?.title?.title?.[0]?.plain_text
   );
   console.log("Number of children:", pageData.children?.length || 0);
 
@@ -42,18 +42,18 @@ try {
   console.log("\nFirst few blocks:");
   pageData.children?.slice(0, 5).forEach((block: any, index: number) => {
     console.log(
-      `  ${index + 1}. ${block.type} (${block.id?.substring(0, 8)}...)`,
+      `  ${index + 1}. ${block.type} (${block.id?.substring(0, 8)}...)`
     );
     if (block[block.type]?.rich_text?.[0]?.plain_text) {
       const text = block[block.type].rich_text[0].plain_text;
       console.log(
-        `     Text: "${text.length > 50 ? text.substring(0, 50) + "..." : text}"`,
+        `     Text: "${text.length > 50 ? text.substring(0, 50) + "..." : text}"`
       );
     }
   });
 
   console.log(
-    "\n✅ All tests passed! The React renderer should work with this data.",
+    "\n✅ All tests passed! The React renderer should work with this data."
   );
 } catch (error) {
   console.error("✗ Test failed:", error);

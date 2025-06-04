@@ -303,7 +303,10 @@ async function extractEnumValues(
 
     return [];
   } catch (error) {
-    console.error(`Error extracting enum values from ${schemaFilePath}:`, error);
+    console.error(
+      `Error extracting enum values from ${schemaFilePath}:`,
+      error
+    );
     return [];
   }
 }
@@ -414,7 +417,9 @@ function generateEnum(
       // Convert snake_case to PascalCase
       enumKey = value
         .split("_")
-        .map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
+        .map(
+          (part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase()
+        )
         .join("");
     }
 
@@ -454,7 +459,9 @@ function generateTypeGuards(typeMap: Record<string, string[]>): string {
         // For BlockType, use values like 'paragraph', 'to_do', etc.
         const pascalCaseValue = value
           .split("_")
-          .map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
+          .map(
+            (part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase()
+          )
           .join("");
 
         enumKey = pascalCaseValue;
@@ -525,7 +532,9 @@ async function generateEssentialTypes(outputDir: string): Promise<void> {
   const allRichTextTypes = [
     ...new Set([...richTextTypes, ...richTextTypesFromConditionals]),
   ];
-  const allFileTypes = [...new Set([...fileTypes, ...fileTypesFromConditionals])];
+  const allFileTypes = [
+    ...new Set([...fileTypes, ...fileTypesFromConditionals]),
+  ];
 
   // Extract enum values for parent types from schemas if available
   // For now, we'll hardcode them as they're not explicitly defined in schemas

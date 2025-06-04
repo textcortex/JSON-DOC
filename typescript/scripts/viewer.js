@@ -27,7 +27,7 @@ try {
   pageData = JSON5.parse(fileContent);
   console.log(`Loaded JSON-DOC file: ${filePath}`);
   console.log(
-    `Page title: ${pageData.properties?.title?.title?.[0]?.plain_text || "Untitled"}`,
+    `Page title: ${pageData.properties?.title?.title?.[0]?.plain_text || "Untitled"}`
   );
   console.log(`Blocks: ${pageData.children?.length || 0}`);
 } catch (error) {
@@ -44,19 +44,19 @@ const cssContent = fs.existsSync(cssPath)
 // Read utility files
 const blockMappingPath = path.join(
   __dirname,
-  "../src/renderer/utils/blockMapping.js",
+  "../src/renderer/utils/blockMapping.js"
 );
 const listCounterPath = path.join(
   __dirname,
-  "../src/renderer/utils/listCounter.js",
+  "../src/renderer/utils/listCounter.js"
 );
 const richTextRendererPath = path.join(
   __dirname,
-  "../src/renderer/utils/richTextRenderer.js",
+  "../src/renderer/utils/richTextRenderer.js"
 );
 const blockRendererFactoryPath = path.join(
   __dirname,
-  "../src/renderer/blockRendererFactory.js",
+  "../src/renderer/blockRendererFactory.js"
 );
 
 let blockMappingCode = "";
@@ -233,7 +233,7 @@ server.listen(PORT, () => {
     open(url);
   } catch (err) {
     console.log(
-      "Could not automatically open browser. Please visit the URL manually.",
+      "Could not automatically open browser. Please visit the URL manually."
     );
   }
 });
