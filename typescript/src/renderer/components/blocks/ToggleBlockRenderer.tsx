@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import { RichTextRenderer } from "../RichTextRenderer";
 import { BlockRenderer } from "../BlockRenderer";
 
@@ -19,10 +20,7 @@ export const ToggleBlockRenderer: React.FC<ToggleBlockRendererProps> = ({
   };
 
   return (
-    <div
-      className="notion-selectable notion-toggle-block"
-      data-block-id={block.id}
-    >
+    <div className="notion-selectable notion-toggle-block" data-block-id={block.id}>
       <div>
         <div className="notion-list-item-box-left">
           <div

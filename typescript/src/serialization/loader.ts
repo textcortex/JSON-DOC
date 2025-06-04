@@ -32,13 +32,7 @@ import {
   isExternalFile,
   isFileFile,
 } from "../models/generated";
-
-import {
-  deepClone,
-  getNestedValue,
-  loadJson,
-  setNestedValue,
-} from "../utils/json";
+import { deepClone, getNestedValue, loadJson, setNestedValue } from "../utils/json";
 
 // Block type to factory function mapping
 const BLOCK_TYPE_FACTORIES: Record<BlockType, (obj: any) => Block> = {
@@ -68,11 +62,10 @@ const RICH_TEXT_FACTORIES: Record<RichTextType, (obj: any) => RichText> = {
 };
 
 // File type to factory function mapping
-const FILE_FACTORIES: Record<FileType, (obj: any) => ExternalFile | FileFile> =
-  {
-    [FileType.File]: createFileFile,
-    [FileType.External]: createExternalFile,
-  };
+const FILE_FACTORIES: Record<FileType, (obj: any) => ExternalFile | FileFile> = {
+  [FileType.File]: createFileFile,
+  [FileType.External]: createExternalFile,
+};
 
 // Other rich text fields in specific block types
 const OTHER_RICH_TEXT_FIELDS: Partial<Record<BlockType, string[]>> = {
@@ -163,13 +156,13 @@ export function loadBlock(obj: any): Block {
     // Must be a list
     if (!Array.isArray(objField.rich_text)) {
       throw new Error(
-        `Rich text field must be a list: ${JSON.stringify(objField.rich_text)}`,
+        `Rich text field must be a list: ${JSON.stringify(objField.rich_text)}`
       );
     }
 
     // Load rich text field
     objField.rich_text = objField.rich_text.map((richText: any) =>
-      loadRichText(richText),
+      loadRichText(richText)
     );
   }
 
@@ -182,9 +175,7 @@ export function loadBlock(obj: any): Block {
       if (!val) continue;
 
       if (!Array.isArray(val)) {
-        throw new Error(
-          `Field ${rtField} must be a list: ${JSON.stringify(val)}`,
-        );
+        throw new Error(`Field ${rtField} must be a list: ${JSON.stringify(val)}`);
       }
 
       const newVal = val.map((richText: any) => loadRichText(richText));
@@ -201,9 +192,7 @@ export function loadBlock(obj: any): Block {
       if (!val) continue;
 
       if (!Array.isArray(val)) {
-        throw new Error(
-          `Field ${rtField} must be a list: ${JSON.stringify(val)}`,
-        );
+        throw new Error(`Field ${rtField} must be a list: ${JSON.stringify(val)}`);
       }
 
       const newVal: RichText[][] = [];
@@ -273,7 +262,7 @@ export function loadJsonDoc(obj: any): Page | Block | Block[] {
     return loadBlock(obj);
   } else {
     throw new Error(
-      `Invalid object type: ${objectType}. Must be either 'page' or 'block'`,
+      `Invalid object type: ${objectType}. Must be either 'page' or 'block'`
     );
   }
 }
@@ -286,7 +275,7 @@ export function loadJsonDoc(obj: any): Page | Block | Block[] {
  */
 export function jsonDocDumpJson(
   obj: Block | Block[] | Page,
-  indent?: number,
+  indent?: number
 ): string {
   if (Array.isArray(obj)) {
     // Serialize array of blocks

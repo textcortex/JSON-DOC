@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
-import { JsonDocRenderer } from "../renderer/JsonDocRenderer";
-// import testPage from "./testJsonDocs/test_document.json";
-import testPage from "./testJsonDocs/test_document_2.json";
 
+import { JsonDocRenderer } from "../renderer/JsonDocRenderer";
 import { loadSchema, validateAgainstSchema } from "../validation/validator";
+
+import testPage from "./testJsonDocs/test_document.json";
+// import testPage from "./testJsonDocs/test_document_2.json";
 
 const App = () => {
   // async function main() {

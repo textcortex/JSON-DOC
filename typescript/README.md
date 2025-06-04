@@ -243,7 +243,9 @@ MIT
 
 ## Todos
 
-- [ ] setup eslint 
+- [x] setup eslint 
+- [x] improve tsconfig
+- [ ] setup lint staged and husky
 - [ ] setup prettier 
 - [ ] standardize styling (css)
 - [ ] fix styling for elements
