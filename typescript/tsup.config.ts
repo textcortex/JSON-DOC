@@ -8,4 +8,13 @@ export default defineConfig({
   sourcemap: true,
   clean: true,
   external: ["react", "react-dom"],
+  onSuccess: "tsc --noEmit",
+  esbuildOptions(options) {
+    options.alias = {
+      "@": "./src",
+      "@components": "./src/components",
+      "@utils": "./src/utils",
+      "@types": "./src/types",
+    };
+  },
 });

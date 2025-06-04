@@ -234,3 +234,24 @@ The renderer uses Notion-inspired CSS classes for styling:
 ## License
 
 MIT
+
+
+## Tooling
+- followed this for ts config setup: https://www.totaltypescript.com/tsconfig-cheat-sheet
+- 
+
+
+## Todos
+
+- [ ] setup eslint 
+- [ ] setup prettier 
+- [ ] standardize styling (css)
+- [ ] fix styling for elements
+  - [ ] headings 
+  - [ ] paragraph
+  - [ ] code
+  - [ ] table
+  - [ ] todo?
+  - [ ] equation
+  - [ ] image
+  - [ ] blockquote

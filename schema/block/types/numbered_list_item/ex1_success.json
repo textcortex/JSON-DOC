@@ -24,7 +24,7 @@
       {
         "type": "text",
         "text": {
-          "content": "Item 1 (1",
+          "content": "Item 1 (1)",
           "link": null
         },
         "annotations": {
@@ -35,7 +35,7 @@
           "code": false,
           "color": "default"
         },
-        "plain_text": "Item 1 (1",
+        "plain_text": "Item 1 (1)",
         "href": null
       }
     ],

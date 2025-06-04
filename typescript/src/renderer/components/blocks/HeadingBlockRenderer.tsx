@@ -31,9 +31,7 @@ export const HeadingBlockRenderer: React.FC<HeadingBlockRendererProps> = ({
     level === 1 ? "notion-header-block" : "notion-sub_header-block";
 
   const renderHeading = () => {
-    const content = (
-      <RichTextRenderer richText={headingData?.rich_text || []} />
-    );
+    const content = <RichTextRenderer richText={headingData?.rich_text || []} />;
     switch (level) {
       case 1:
         return <h2 className="notranslate">{content}</h2>;
@@ -47,10 +45,7 @@ export const HeadingBlockRenderer: React.FC<HeadingBlockRendererProps> = ({
   };
 
   return (
-    <div
-      className={`notion-selectable ${blockClassName}`}
-      data-block-id={block.id}
-    >
+    <div className={`notion-selectable ${blockClassName}`} data-block-id={block.id}>
       <div>{renderHeading()}</div>
 
       {/* Render children blocks recursively */}
