@@ -257,3 +257,8 @@ MIT
   - [ ] equation
   - [ ] image
   - [ ] blockquote
+- fix ts and eslint errors in these dirs and remove from ignore list of ts and eslint
+  ```
+      "**/generated/**",
+      "src/serialization/**",
+  ```

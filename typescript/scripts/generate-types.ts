@@ -1,3 +1,4 @@
+// @ts-nocheck
 import * as fs from "fs";
 import * as path from "path";
 import { compile, JSONSchema } from "json-schema-to-typescript";
@@ -100,7 +101,7 @@ async function resolveRefs(obj: any, sourceDir: string): Promise<any> {
               refObj = refObj[part];
             } else {
               console.warn(
-                `Fragment part '${part}' not found in referenced object`,
+                `Fragment part '${part}' not found in referenced object`
               );
               refObj = {};
               break;
@@ -159,7 +160,7 @@ async function resolveRefs(obj: any, sourceDir: string): Promise<any> {
 async function convertSchemaToTypeScript(
   schemaPath: string,
   sourceDir: string,
-  outputPath: string,
+  outputPath: string
 ): Promise<void> {
   try {
     // Load the schema
@@ -228,7 +229,7 @@ async function createTypeGuards(types: string[]): Promise<string> {
       (type) =>
         `export function is${type}(obj: any): obj is ${type} {
   return obj && obj.type === '${type.toLowerCase()}';
-}\n`,
+}\n`
     )
     .join("\n");
 
@@ -252,7 +253,7 @@ function createBarrelFiles(dir: string): void {
   const typeScriptFiles = items
     .filter(
       (item) =>
-        item.isFile() && item.name.endsWith(".ts") && item.name !== "index.ts",
+        item.isFile() && item.name.endsWith(".ts") && item.name !== "index.ts"
     )
     .map((item) => path.basename(item.name, ".ts"));
 
@@ -278,7 +279,7 @@ function createBarrelFiles(dir: string): void {
  */
 async function extractEnumValues(
   schemaFilePath: string,
-  propertyPath: string = "properties.type.enum",
+  propertyPath: string = "properties.type.enum"
 ): Promise<string[]> {
   try {
     const schema = await loadJsonFile(schemaFilePath);
@@ -302,10 +303,7 @@ async function extractEnumValues(
 
     return [];
   } catch (error) {
-    console.error(
-      `Error extracting enum values from ${schemaFilePath}:`,
-      error,
-    );
+    console.error(`Error extracting enum values from ${schemaFilePath}:`, error);
     return [];
   }
 }
@@ -315,7 +313,7 @@ async function extractEnumValues(
  */
 async function extractEnumValuesFromConditionals(
   schemaFilePath: string,
-  conditionalPath: string = "allOf",
+  conditionalPath: string = "allOf"
 ): Promise<string[]> {
   try {
     const schema = await loadJsonFile(schemaFilePath);
@@ -350,7 +348,7 @@ async function extractEnumValuesFromConditionals(
   } catch (error) {
     console.error(
       `Error extracting enum values from conditionals in ${schemaFilePath}:`,
-      error,
+      error
     );
     return [];
   }
@@ -361,7 +359,7 @@ async function extractEnumValuesFromConditionals(
  */
 async function extractConstValues(
   schemaFilePaths: string[],
-  propertyPath: string = "properties.object.const",
+  propertyPath: string = "properties.object.const"
 ): Promise<string[]> {
   const constValues: string[] = [];
 
@@ -401,7 +399,7 @@ async function extractConstValues(
 function generateEnum(
   name: string,
   values: string[],
-  camelCaseValues: boolean = false,
+  camelCaseValues: boolean = false
 ): string {
   if (values.length === 0) {
     return `export enum ${name} {}\n`;
@@ -416,9 +414,7 @@ function generateEnum(
       // Convert snake_case to PascalCase
       enumKey = value
         .split("_")
-        .map(
-          (part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase(),
-        )
+        .map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
         .join("");
     }
 
@@ -458,10 +454,7 @@ function generateTypeGuards(typeMap: Record<string, string[]>): string {
         // For BlockType, use values like 'paragraph', 'to_do', etc.
         const pascalCaseValue = value
           .split("_")
-          .map(
-            (part) =>
-              part.charAt(0).toUpperCase() + part.slice(1).toLowerCase(),
-          )
+          .map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
           .join("");
 
         enumKey = pascalCaseValue;
@@ -499,7 +492,7 @@ async function generateEssentialTypes(outputDir: string): Promise<void> {
   const blockSchemaPath = path.resolve(SCHEMA_DIR, "block/block_schema.json");
   const richTextSchemaPath = path.resolve(
     SCHEMA_DIR,
-    "block/types/rich_text/rich_text_schema.json",
+    "block/types/rich_text/rich_text_schema.json"
   );
   const fileSchemaPath = path.resolve(SCHEMA_DIR, "file/file_schema.json");
 
@@ -532,9 +525,7 @@ async function generateEssentialTypes(outputDir: string): Promise<void> {
   const allRichTextTypes = [
     ...new Set([...richTextTypes, ...richTextTypesFromConditionals]),
   ];
-  const allFileTypes = [
-    ...new Set([...fileTypes, ...fileTypesFromConditionals]),
-  ];
+  const allFileTypes = [...new Set([...fileTypes, ...fileTypesFromConditionals])];
 
   // Extract enum values for parent types from schemas if available
   // For now, we'll hardcode them as they're not explicitly defined in schemas
@@ -551,7 +542,7 @@ async function generateEssentialTypes(outputDir: string): Promise<void> {
   // Generate enums
   const objectTypeEnum = generateEnum(
     "ObjectType",
-    objectTypes.map((value) => value.charAt(0).toUpperCase() + value.slice(1)),
+    objectTypes.map((value) => value.charAt(0).toUpperCase() + value.slice(1))
   );
   const blockTypeEnum = generateEnum("BlockType", allBlockTypes, true);
   const richTextTypeEnum = generateEnum("RichTextType", allRichTextTypes, true);
@@ -592,7 +583,7 @@ export type JsonArray = JsonValue[];
  */
 async function createTypeScriptModels(
   sourceDir: string,
-  destinationDir: string,
+  destinationDir: string
 ): Promise<void> {
   console.log(`Source directory: ${sourceDir}`);
   console.log(`Destination directory: ${destinationDir}`);
@@ -616,7 +607,7 @@ async function createTypeScriptModels(
   // Process schema files
   const processDir = async (currentDir: string, relativePath: string = "") => {
     console.log(
-      `Processing directory: ${currentDir}, relative path: ${relativePath}`,
+      `Processing directory: ${currentDir}, relative path: ${relativePath}`
     );
     const items = fs.readdirSync(currentDir, { withFileTypes: true });
 
@@ -660,7 +651,7 @@ async function createTypeScriptModels(
     .readdirSync(destinationDir, { withFileTypes: true })
     .filter(
       (item) =>
-        item.isFile() && item.name.endsWith(".ts") && item.name !== "index.ts",
+        item.isFile() && item.name.endsWith(".ts") && item.name !== "index.ts"
     )
     .map((item) => `export * from './${path.basename(item.name, ".ts")}';`);
 

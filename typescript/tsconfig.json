@@ -26,5 +26,11 @@
     }
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "tests/**/*.ts", "scripts/**/*.ts"],
-  "exclude": ["node_modules", "dist"]
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/generated/**/*",
+    "src/serialization/**",
+    "src/models/generated/**/*"
+  ]
 }

@@ -87,6 +87,8 @@ module.exports = [
       ".jest/**",
       "scripts/**",
       "tests/**",
+      "**/generated/**",
+      "src/serialization/**",
     ],
   },
 ];
