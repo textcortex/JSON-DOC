@@ -2,17 +2,19 @@ import React from "react";
 
 import { BlockRenderer } from "../BlockRenderer";
 
-interface ColumnListBlockRendererProps {
+interface ColumnListBlockRendererProps extends React.HTMLAttributes<HTMLDivElement> {
   block: any;
   depth?: number;
+  components?: React.ComponentProps<typeof BlockRenderer>['components'];
 }
 
 export const ColumnListBlockRenderer: React.FC<
   ColumnListBlockRendererProps
-> = ({ block, depth = 0 }) => {
+> = ({ block, depth = 0, className, components, ...props }) => {
   return (
     <div
-      className="notion-selectable notion-column_list-block"
+      {...props}
+      className={`notion-selectable notion-column_list-block${className ? ` ${className}` : ''}`}
       data-block-id={block.id}
     >
       <div
@@ -33,6 +35,7 @@ export const ColumnListBlockRenderer: React.FC<
                       key={columnChild.id || columnIndex}
                       block={columnChild}
                       depth={depth + 1}
+                      components={components}
                     />
                   )
                 )}
@@ -56,6 +59,7 @@ export const ColumnListBlockRenderer: React.FC<
                 key={child.id || index}
                 block={child}
                 depth={depth + 1}
+                components={components}
               />
             ))}
         </div>

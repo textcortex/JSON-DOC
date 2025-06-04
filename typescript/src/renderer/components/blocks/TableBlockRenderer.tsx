@@ -3,20 +3,25 @@ import React from "react";
 import { RichTextRenderer } from "../RichTextRenderer";
 import { BlockRenderer } from "../BlockRenderer";
 
-interface TableBlockRendererProps {
+interface TableBlockRendererProps extends React.HTMLAttributes<HTMLDivElement> {
   block: any;
   depth?: number;
+  components?: React.ComponentProps<typeof BlockRenderer>['components'];
 }
 
 export const TableBlockRenderer: React.FC<TableBlockRendererProps> = ({
   block,
   depth = 0,
+  className,
+  components,
+  ...props
 }) => {
   const tableData = block.table;
 
   return (
     <div
-      className="notion-selectable notion-table-block"
+      {...props}
+      className={`notion-selectable notion-table-block${className ? ` ${className}` : ''}`}
       data-block-id={block.id}
     >
       <div>
@@ -78,6 +83,7 @@ export const TableBlockRenderer: React.FC<TableBlockRendererProps> = ({
                 key={child.id || index}
                 block={child}
                 depth={depth + 1}
+                components={components}
               />
             ))}
         </div>

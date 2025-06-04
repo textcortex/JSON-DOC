@@ -3,18 +3,26 @@ import React from "react";
 import { RichTextRenderer } from "../RichTextRenderer";
 import { BlockRenderer } from "../BlockRenderer";
 
-interface ParagraphBlockRendererProps {
+interface ParagraphBlockRendererProps
+  extends React.HTMLAttributes<HTMLDivElement> {
   block: any;
   depth?: number;
+  components?: React.ComponentProps<typeof BlockRenderer>["components"];
 }
 
 export const ParagraphBlockRenderer: React.FC<ParagraphBlockRendererProps> = ({
   block,
   depth = 0,
+  className,
+  components,
+  ...props
 }) => {
+  console.log("block.paragraph: ", block.paragraph);
+  console.log("block children:", block.children);
   return (
     <div
-      className="notion-selectable notion-text-block"
+      {...props}
+      className={`notion-selectable notion-text-block ${className || ""}`.trim()}
       data-block-id={block.id}
     >
       <div>
@@ -36,6 +44,7 @@ export const ParagraphBlockRenderer: React.FC<ParagraphBlockRendererProps> = ({
               key={child.id || index}
               block={child}
               depth={depth + 1}
+              components={components}
             />
           ))}
         </div>

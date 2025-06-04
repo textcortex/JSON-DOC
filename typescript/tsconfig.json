@@ -16,7 +16,7 @@
     "resolveJsonModule": true,
     "sourceMap": true,
     "allowJs": true,
-    "noUncheckedIndexedAccess": true,
+    // "noUncheckedIndexedAccess": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],

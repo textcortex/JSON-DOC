@@ -3,16 +3,20 @@ import React from "react";
 import { RichTextRenderer } from "../RichTextRenderer";
 import { BlockRenderer } from "../BlockRenderer";
 
-interface ListItemBlockRendererProps {
+interface ListItemBlockRendererProps extends React.HTMLAttributes<HTMLLIElement> {
   block: any;
   type: "bulleted" | "numbered";
   depth?: number;
+  components?: React.ComponentProps<typeof BlockRenderer>['components'];
 }
 
 export const ListItemBlockRenderer: React.FC<ListItemBlockRendererProps> = ({
   block,
   type,
   depth = 0,
+  className,
+  components,
+  ...props
 }) => {
   const listData =
     type === "bulleted" ? block.bulleted_list_item : block.numbered_list_item;
@@ -24,7 +28,8 @@ export const ListItemBlockRenderer: React.FC<ListItemBlockRendererProps> = ({
 
   return (
     <li
-      className={`notion-selectable ${blockClassName}`}
+      {...props}
+      className={`notion-selectable ${blockClassName} ${className || ''}`.trim()}
       data-block-id={block.id}
     >
       <RichTextRenderer richText={listData?.rich_text || []} />
@@ -40,6 +45,7 @@ export const ListItemBlockRenderer: React.FC<ListItemBlockRendererProps> = ({
               key={child.id || index}
               block={child}
               depth={depth + 1}
+              components={components}
             />
           ))}
         </div>

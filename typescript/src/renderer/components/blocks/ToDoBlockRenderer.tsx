@@ -3,21 +3,26 @@ import React from "react";
 import { RichTextRenderer } from "../RichTextRenderer";
 import { BlockRenderer } from "../BlockRenderer";
 
-interface ToDoBlockRendererProps {
+interface ToDoBlockRendererProps extends React.HTMLAttributes<HTMLDivElement> {
   block: any;
   depth?: number;
+  components?: React.ComponentProps<typeof BlockRenderer>['components'];
 }
 
 export const ToDoBlockRenderer: React.FC<ToDoBlockRendererProps> = ({
   block,
   depth = 0,
+  className,
+  components,
+  ...props
 }) => {
   const todoData = block.to_do;
   const isChecked = todoData?.checked || false;
 
   return (
     <div
-      className="notion-selectable notion-to_do-block"
+      {...props}
+      className={`notion-selectable notion-to_do-block ${className || ''}`.trim()}
       data-block-id={block.id}
     >
       <div>
@@ -81,6 +86,7 @@ export const ToDoBlockRenderer: React.FC<ToDoBlockRendererProps> = ({
               key={child.id || index}
               block={child}
               depth={depth + 1}
+              components={components}
             />
           ))}
         </div>

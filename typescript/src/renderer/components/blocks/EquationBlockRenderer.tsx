@@ -2,20 +2,25 @@ import React from "react";
 
 import { BlockRenderer } from "../BlockRenderer";
 
-interface EquationBlockRendererProps {
+interface EquationBlockRendererProps extends React.HTMLAttributes<HTMLDivElement> {
   block: any;
   depth?: number;
+  components?: React.ComponentProps<typeof BlockRenderer>['components'];
 }
 
 export const EquationBlockRenderer: React.FC<EquationBlockRendererProps> = ({
   block,
   depth = 0,
+  className,
+  components,
+  ...props
 }) => {
   const equationData = block.equation;
 
   return (
     <div
-      className="notion-selectable notion-equation-block"
+      {...props}
+      className={`notion-selectable notion-equation-block${className ? ` ${className}` : ''}`}
       data-block-id={block.id}
     >
       <div>
@@ -37,6 +42,7 @@ export const EquationBlockRenderer: React.FC<EquationBlockRendererProps> = ({
               key={child.id || index}
               block={child}
               depth={depth + 1}
+              components={components}
             />
           ))}
         </div>

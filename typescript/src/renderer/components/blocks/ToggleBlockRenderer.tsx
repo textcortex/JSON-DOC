@@ -3,14 +3,18 @@ import React, { useState } from "react";
 import { RichTextRenderer } from "../RichTextRenderer";
 import { BlockRenderer } from "../BlockRenderer";
 
-interface ToggleBlockRendererProps {
+interface ToggleBlockRendererProps extends React.HTMLAttributes<HTMLDivElement> {
   block: any;
   depth?: number;
+  components?: React.ComponentProps<typeof BlockRenderer>['components'];
 }
 
 export const ToggleBlockRenderer: React.FC<ToggleBlockRendererProps> = ({
   block,
   depth = 0,
+  className,
+  components,
+  ...props
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleData = block.toggle;
@@ -21,7 +25,8 @@ export const ToggleBlockRenderer: React.FC<ToggleBlockRendererProps> = ({
 
   return (
     <div
-      className="notion-selectable notion-toggle-block"
+      {...props}
+      className={`notion-selectable notion-toggle-block${className ? ` ${className}` : ''}`}
       data-block-id={block.id}
     >
       <div>
@@ -76,6 +81,7 @@ export const ToggleBlockRenderer: React.FC<ToggleBlockRendererProps> = ({
               key={child.id || index}
               block={child}
               depth={depth + 1}
+              components={components}
             />
           ))}
         </div>

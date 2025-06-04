@@ -6,11 +6,13 @@ import "./styles.css";
 interface JsonDocRendererProps {
   page: any;
   className?: string;
+  components?: React.ComponentProps<typeof BlockRenderer>['components'];
 }
 
 export const JsonDocRenderer = ({
   page,
   className = "",
+  components,
 }: JsonDocRendererProps) => {
   return (
     <div className={`json-doc-renderer ${className}`}>
@@ -33,7 +35,7 @@ export const JsonDocRenderer = ({
         {page.children && page.children.length > 0 && (
           <div className="json-doc-page-content">
             {page.children.map((block: any, index: number) => (
-              <BlockRenderer key={block.id || index} block={block} depth={0} />
+              <BlockRenderer key={block.id || index} block={block} depth={0} components={components} />
             ))}
           </div>
         )}

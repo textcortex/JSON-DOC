@@ -3,20 +3,25 @@ import React from "react";
 import { RichTextRenderer } from "../RichTextRenderer";
 import { BlockRenderer } from "../BlockRenderer";
 
-interface CodeBlockRendererProps {
+interface CodeBlockRendererProps extends React.HTMLAttributes<HTMLDivElement> {
   block: any;
   depth?: number;
+  components?: React.ComponentProps<typeof BlockRenderer>['components'];
 }
 
 export const CodeBlockRenderer: React.FC<CodeBlockRendererProps> = ({
   block,
   depth = 0,
+  className,
+  components,
+  ...props
 }) => {
   const codeData = block.code;
 
   return (
     <div
-      className="notion-selectable notion-code-block"
+      {...props}
+      className={`notion-selectable notion-code-block ${className || ''}`.trim()}
       data-block-id={block.id}
     >
       <div>
@@ -47,6 +52,7 @@ export const CodeBlockRenderer: React.FC<CodeBlockRendererProps> = ({
               key={child.id || index}
               block={child}
               depth={depth + 1}
+              components={components}
             />
           ))}
         </div>
