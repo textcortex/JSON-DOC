@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
 
 import { JsonDocRenderer } from "../renderer/JsonDocRenderer";
-import { loadSchema, validateAgainstSchema } from "../validation/validator";
 
 import testPage from "./testJsonDocs/test_document.json";
 // import testPage from "./testJsonDocs/test_document_2.json";
