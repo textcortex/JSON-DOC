@@ -1,0 +1,298 @@
+:root {
+  --rc-drag-handle-size: 12px;
+  --rc-drag-handle-mobile-size: 24px;
+  --rc-drag-handle-bg-colour: #0003;
+  --rc-drag-bar-size: 6px;
+  --rc-border-color: #fff0;
+  --rc-focus-color: #08f;
+  --drag-handle-offset: -6px;
+  --drag-handle-short-side: 6px;
+  --drag-handle-long-side: 48px;
+  --drag-handle-corner: 20px;
+  --drag-handle-border: 20px;
+  --drag-handle-color: #0009;
+  --drag-handle-opacity: 0.8;
+  --crop-mask-color: #fff;
+  --crop-mask-opacity: 0.8;
+  --corner-handle-svg: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='none'%3E%3Cpath fill='%23000' stroke='%23fff' d='M15 .5A2.5 2.5 0 0 0 12.5 3v9.5H3a2.5 2.5 0 0 0 0 5h12a2.5 2.5 0 0 0 2.5-2.5V3A2.5 2.5 0 0 0 15 .5z'/%3E%3C/svg%3E");
+  --cardinal-handle-visibility: visible;
+}
+.ReactCrop {
+  cursor: crosshair;
+  display: inline-block;
+  max-width: 100%;
+  position: relative;
+}
+.ReactCrop *,
+.ReactCrop :after,
+.ReactCrop :before {
+  box-sizing: border-box;
+}
+.ReactCrop--disabled,
+.ReactCrop--locked {
+  cursor: inherit;
+}
+.ReactCrop__child-wrapper {
+  max-height: inherit;
+  overflow: visible;
+}
+.ReactCrop__child-wrapper img,
+.ReactCrop__child-wrapper video {
+  display: block;
+  max-height: inherit;
+  max-width: 100%;
+  transform-origin: center;
+  transition: transform 0.2s ease-out;
+  vertical-align: bottom;
+}
+.ReactCrop:not(.ReactCrop--disabled) .ReactCrop__child-wrapper > img,
+.ReactCrop:not(.ReactCrop--disabled) .ReactCrop__child-wrapper > video,
+.ReactCrop:not(.ReactCrop--disabled) .ReactCrop__crop-selection {
+  touch-action: none;
+}
+.ReactCrop__crop-mask {
+  bottom: 0;
+  left: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.ReactCrop__crop-mask > rect {
+  fill: var(--crop-mask-color);
+  fill-opacity: var(--crop-mask-opacity);
+}
+.ReactCrop__crop-selection {
+  box-shadow:
+    inset 0 0 0 1px #0000001a,
+    0 0 0 1px #ffffff80;
+  cursor: move;
+  left: 0;
+  position: absolute;
+  top: 0;
+  transform: translateZ(0);
+}
+.ReactCrop--disabled .ReactCrop__crop-selection {
+  cursor: inherit;
+}
+.ReactCrop--circular-crop .ReactCrop__crop-selection {
+  border-radius: 50%;
+}
+.ReactCrop--circular-crop .ReactCrop__crop-selection:after {
+  border: 1px solid var(--rc-border-color);
+  bottom: -1px;
+  content: "";
+  left: -1px;
+  opacity: 0.3;
+  pointer-events: none;
+  position: absolute;
+  right: -1px;
+  top: -1px;
+}
+.ReactCrop__crop-selection:not(
+    .ReactCrop--no-animate .ReactCrop__crop-selection
+  ) {
+  animation-iteration-count: infinite;
+  animation-play-state: running;
+  animation-timing-function: linear;
+  background-position:
+    0 0,
+    0 100%,
+    0 0,
+    100% 0;
+  background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+  background-size:
+    10px 1px,
+    10px 1px,
+    1px 10px,
+    1px 10px;
+  color: #fff;
+}
+.ReactCrop__crop-selection:focus {
+  outline: 2px solid var(--rc-focus-color);
+  outline-offset: -1px;
+}
+.ReactCrop--invisible-crop .ReactCrop__crop-mask,
+.ReactCrop--invisible-crop .ReactCrop__crop-selection {
+  display: none;
+}
+.ReactCrop__rule-of-thirds-hz:after,
+.ReactCrop__rule-of-thirds-hz:before,
+.ReactCrop__rule-of-thirds-vt:after,
+.ReactCrop__rule-of-thirds-vt:before {
+  background-color: #fff6;
+  content: "";
+  display: block;
+  position: absolute;
+}
+.ReactCrop__rule-of-thirds-vt:after,
+.ReactCrop__rule-of-thirds-vt:before {
+  height: 100%;
+  width: 1px;
+}
+.ReactCrop__rule-of-thirds-vt:before {
+  left: 33.3333333333%;
+}
+.ReactCrop__rule-of-thirds-vt:after {
+  left: 66.6666666667%;
+}
+.ReactCrop__rule-of-thirds-hz:after,
+.ReactCrop__rule-of-thirds-hz:before {
+  height: 1px;
+  width: 100%;
+}
+.ReactCrop__rule-of-thirds-hz:before {
+  top: 33.3333333333%;
+}
+.ReactCrop__rule-of-thirds-hz:after {
+  top: 66.6666666667%;
+}
+.ReactCrop__drag-handle {
+  background-color: var(--drag-handle-color);
+  border-radius: var(--drag-handle-border);
+  height: var(--drag-handle-short-side);
+  opacity: var(--drag-handle-opacity);
+  position: absolute;
+  width: var(--drag-handle-short-side);
+}
+.ReactCrop__drag-handle:focus {
+  background: var(--rc-focus-color);
+}
+.ReactCrop__disabled .ReactCrop__drag-handle {
+  cursor: inherit;
+}
+.ReactCrop__drag-handle.ord-e,
+.ReactCrop__drag-handle.ord-n,
+.ReactCrop__drag-handle.ord-s,
+.ReactCrop__drag-handle.ord-w {
+  border: 1px solid #fff;
+  visibility: var(--cardinal-handle-visibility);
+}
+.ReactCrop .ord-n {
+  cursor: n-resize;
+  top: var(--drag-handle-offset);
+  transform: translate(-50%, -50%);
+}
+.ReactCrop .ord-n,
+.ReactCrop .ord-s {
+  height: var(--drag-handle-short-side);
+  left: 50%;
+  min-width: 20px;
+  width: var(--drag-handle-long-side);
+}
+.ReactCrop .ord-s {
+  bottom: var(--drag-handle-offset);
+  cursor: s-resize;
+  transform: translate(-50%, 50%);
+}
+.ReactCrop .ord-e {
+  cursor: e-resize;
+  right: var(--drag-handle-offset);
+  transform: translate(50%, -50%);
+}
+.ReactCrop .ord-e,
+.ReactCrop .ord-w {
+  height: var(--drag-handle-long-side);
+  min-height: 20px;
+  top: 50%;
+  width: var(--drag-handle-short-side);
+}
+.ReactCrop .ord-w {
+  cursor: w-resize;
+  left: var(--drag-handle-offset);
+  transform: translate(-50%, -50%);
+}
+.ReactCrop .ord-ne {
+  cursor: ne-resize;
+  top: 0;
+  transform: translate(10px, -10px) rotate(270deg);
+}
+.ReactCrop .ord-ne,
+.ReactCrop .ord-se {
+  background-color: initial;
+  background-image: var(--corner-handle-svg);
+  background-size: contain;
+  border-radius: 0;
+  height: 20px;
+  opacity: 0.5;
+  right: 0;
+  width: 20px;
+}
+.ReactCrop .ord-se {
+  bottom: 0;
+  cursor: se-resize;
+  transform: translate(10px, 10px);
+}
+.ReactCrop .ord-nw {
+  cursor: nw-resize;
+  top: 0;
+  transform: translate(-10px, -10px) rotate(180deg);
+}
+.ReactCrop .ord-nw,
+.ReactCrop .ord-sw {
+  background-color: initial;
+  background-image: var(--corner-handle-svg);
+  background-size: contain;
+  border-radius: 0;
+  height: 20px;
+  left: 0;
+  opacity: 0.5;
+  width: 20px;
+}
+.ReactCrop .ord-sw {
+  bottom: 0;
+  cursor: sw-resize;
+  transform: translate(-10px, 10px) rotate(90deg);
+}
+.ReactCrop__drag-bar {
+  position: absolute;
+}
+.ReactCrop__drag-bar.ord-n {
+  height: var(--rc-drag-bar-size);
+  left: 0;
+  top: 0;
+  transform: translateY(-50%);
+  width: 100%;
+}
+.ReactCrop__drag-bar.ord-e {
+  height: 100%;
+  right: 0;
+  top: 0;
+  transform: translate(50%);
+  width: var(--rc-drag-bar-size);
+}
+.ReactCrop__drag-bar.ord-s {
+  bottom: 0;
+  height: var(--rc-drag-bar-size);
+  left: 0;
+  transform: translateY(50%);
+  width: 100%;
+}
+.ReactCrop__drag-bar.ord-w {
+  height: 100%;
+  left: 0;
+  top: 0;
+  transform: translate(-50%);
+  width: var(--rc-drag-bar-size);
+}
+.ReactCrop--fixed-aspect .ReactCrop__drag-bar,
+.ReactCrop--fixed-aspect .ReactCrop__drag-handle.ord-e,
+.ReactCrop--fixed-aspect .ReactCrop__drag-handle.ord-n,
+.ReactCrop--fixed-aspect .ReactCrop__drag-handle.ord-s,
+.ReactCrop--fixed-aspect .ReactCrop__drag-handle.ord-w,
+.ReactCrop--new-crop .ReactCrop__drag-bar,
+.ReactCrop--new-crop .ReactCrop__drag-handle {
+  display: none;
+}
+@media (pointer: coarse) {
+  .ReactCrop .ord-e,
+  .ReactCrop .ord-n,
+  .ReactCrop .ord-s,
+  .ReactCrop .ord-w {
+    display: none;
+  }
+  .ReactCrop__drag-handle {
+    height: var(--rc-drag-handle-mobile-size);
+    width: var(--rc-drag-handle-mobile-size);
+  }
+}

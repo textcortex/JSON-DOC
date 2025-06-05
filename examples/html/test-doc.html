@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Comprehensive HTML QA Page</title>
+  <style>
+    /* CSS for multi-column layout */
+    .multi-column-section {
+      margin: 20px 0;
+    }
+    .column-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    .column {
+      flex: 1;
+      min-width: 250px;
+      padding: 15px;
+      background-color: #f5f5f5;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    /* CSS for newspaper-style columns */
+    .newspaper-columns {
+      column-count: 3;
+      column-gap: 20px;
+      column-rule: 1px solid #ddd;
+      margin: 20px 0;
+      padding: 15px;
+      background-color: #fff8e1;
+      border-radius: 5px;
+    }
+
+    @media (max-width: 768px) {
+      .newspaper-columns {
+        column-count: 2;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .newspaper-columns {
+        column-count: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>HTML QA Test Page</h1>
+    <nav>
+      <ul>
+        <li><a href="#text">Text</a></li>
+        <li><a href="#lists-tables">Lists & Tables</a></li>
+        <li><a href="#media">Media</a></li>
+        <li><a href="#multi-column">Multi-Column</a></li>
+        <li><a href="#code">Code</a></li>
+        <li><a href="#form">Forms</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="text">
+    <h2>Text Elements</h2>
+    <p>This is a <strong>paragraph</strong> with <em>emphasis</em>, <u>underline</u>, and <code>inline code</code>.</p>
+    <blockquote>"This is a blockquote for testing."</blockquote>
+    <hr/>
+  </section>
+
+  <section id="lists-tables">
+    <h2>Lists & Tables</h2>
+
+    <h3>Unordered List</h3>
+    <ul>
+      <li>Apple</li>
+      <li>Banana</li>
+      <li>Cherry</li>
+    </ul>
+
+    <h3>Ordered List</h3>
+    <ol>
+      <li>Alpha</li>
+      <li>Beta</li>
+      <li>Gamma</li>
+    </ol>
+
+    <h3>Table</h3>
+    <table border="1">
+      <thead>
+        <tr><th>Name</th><th>Role</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Alice</td><td>Developer</td></tr>
+        <tr><td>Bob</td><td>Designer</td></tr>
+      </tbody>
+    </table>
+    <hr/>
+  </section>
+
+  <section id="media">
+    <h2>Images</h2>
+
+    <div class="column-container">
+      <div class="column">
+        <img
+          src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=400"
+          alt="Person coding on laptop"
+          style="width: 100%; height: auto; border-radius: 5px;"
+        />
+        <p style="margin-top: 10px; font-size: 14px; color: #666;">Person coding on laptop</p>
+      </div>
+      
+      <div class="column">
+        <img
+          src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400"
+          alt="Office desk with computer"
+          style="width: 100%; height: auto; border-radius: 5px;"
+        />
+        <p style="margin-top: 10px; font-size: 14px; color: #666;">Office desk with computer</p>
+      </div>
+      
+      <div class="column">
+        <img
+          src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=400"
+          alt="Coffee and notebook"
+          style="width: 100%; height: auto; border-radius: 5px;"
+        />
+        <p style="margin-top: 10px; font-size: 14px; color: #666;">Coffee and notebook</p>
+      </div>
+    </div>
+    <hr/>
+  </section>
+
+  <!-- New Multi-Column Section -->
+  <section id="multi-column">
+    <h2>Multi-Column Content</h2>
+
+    <h3>Flexbox Columns</h3>
+    <div class="multi-column-section">
+      <div class="column-container">
+        <div class="column">
+          <h4>Column 1: Web Development</h4>
+          <p>Web development is the work involved in developing a website for the Internet or an intranet. Web development can range from developing a simple single static page of plain text to complex web applications, electronic businesses, and social network services.</p>
+        </div>
+        <div class="column">
+          <h4>Column 2: UI Design</h4>
+          <p>User interface design is the design of user interfaces for machines and software, such as computers, home appliances, mobile devices, and other electronic devices, with the focus on maximizing usability and the user experience.</p>
+        </div>
+        <div class="column">
+          <h4>Column 3: UX Research</h4>
+          <p>User experience research is the systematic investigation of users and their requirements, in order to add context and insight into the process of designing the user experience. UX researchers adopt various methods to uncover problems and design opportunities.</p>
+        </div>
+      </div>
+    </div>
+
+    <h3>CSS Multi-Column Layout</h3>
+    <div class="newspaper-columns">
+      <h4>The Evolution of Web Technologies</h4>
+      <p>The World Wide Web has evolved significantly since its inception in the early 1990s. What began as a simple system for sharing text documents has transformed into a complex ecosystem supporting rich media, real-time communication, and sophisticated applications.</p>
+
+      <p>HTML5 introduced native support for video and audio elements, eliminating the need for plugins like Flash. CSS3 brought responsive design capabilities, allowing websites to adapt to different screen sizes. JavaScript frameworks like React, Angular, and Vue have revolutionized front-end development.</p>
+
+      <p>WebAssembly is enabling high-performance applications to run in browsers. Progressive Web Apps combine the best of web and mobile apps. Meanwhile, technologies like WebRTC facilitate peer-to-peer communication directly in browsers without plugins.</p>
+
+      <p>The adoption of HTTP/2 and HTTP/3 has improved performance through multiplexing and reduced latency. Content delivery networks distribute resources globally for faster access. Serverless architectures abstract infrastructure management, allowing developers to focus on code.</p>
+
+      <p>As web technologies continue to evolve, we're seeing increased emphasis on accessibility, privacy, and security. The future web promises even greater capabilities with technologies like augmented reality, machine learning integration, and improved offline functionality.</p>
+    </div>
+    <hr/>
+  </section>
+
+  <section id="code">
+    <h2>Code Blocks</h2>
+
+    <h3>JavaScript</h3>
+    <pre><code>
+function greet(name) {
+  console.log("Hello, " + name);
+}
+greet("World");
+    </code></pre>
+
+    <h3>Python</h3>
+    <pre><code>
+def greet(name):
+    print(f"Hello, {name}")
+
+greet("World")
+    </code></pre>
+
+    <h3>HTML</h3>
+    <pre><code>
+&lt;div class="container"&gt;
+  &lt;p&gt;Hello World&lt;/p&gt;
+&lt;/div&gt;
+    </code></pre>
+    <hr/>
+  </section>
+
+  <section id="form">
+    <h2>Form Elements</h2>
+    <form>
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" /><br/><br/>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" /><br/><br/>
+
+      <label>Gender:</label>
+      <input type="radio" name="gender" value="male" /> Male
+      <input type="radio" name="gender" value="female" /> Female<br/><br/>
+
+      <label>Interests:</label>
+      <input type="checkbox" name="interest" value="code" /> Coding
+      <input type="checkbox" name="interest" value="design" /> Design<br/><br/>
+
+      <label for="bio">Bio:</label><br/>
+      <textarea id="bio" name="bio"></textarea><br/><br/>
+
+      <label for="lang">Language:</label>
+      <select id="lang" name="lang">
+        <option value="js">JavaScript</option>
+        <option value="py">Python</option>
+        <option value="ts">TypeScript</option>
+      </select><br/><br/>
+
+      <button type="submit">Submit</button>
+      <input type="reset" value="Reset" />
+    </form>
+  </section>
+
+  <footer>
+    <p>© 2025 HTML QA Page</p>
+  </footer>
+</body>
+</html>

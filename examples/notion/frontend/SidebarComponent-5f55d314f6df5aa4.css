@@ -1,0 +1,17 @@
+.nds-shimmer-text {
+  -webkit-text-fill-color: #0000;
+  animation: nds-shimmer-text 1.5s linear infinite;
+  background-clip: text;
+  -webkit-background-clip: text;
+  background-repeat: repeat;
+  background-size: 200% 100%;
+  user-select: none;
+}
+@keyframes nds-shimmer-text {
+  0% {
+    background-position: 200% 50%;
+  }
+  to {
+    background-position: 0 50%;
+  }
+}
