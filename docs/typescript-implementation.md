@@ -131,4 +131,4 @@ While we strive to keep the API similar between the Python and TypeScript implem
 
 ## Development
 
-If you want to contribute to the TypeScript implementation, see the [README.md](../ts/README.md) file in the `ts` directory for development instructions.
+If you want to contribute to the TypeScript implementation, see the [README.md](../typescript/README.md) file in the `typescript` directory for development instructions.
