@@ -12,8 +12,6 @@
         "to_do",
         "bulleted_list_item",
         "numbered_list_item",
-        "unordered_list",
-        "ordered_list",
         "code",
         "column",
         "column_list",
@@ -84,38 +82,6 @@
         "allOf": [
           {
             "$ref": "/block/types/numbered_list_item/numbered_list_item_schema.json"
-          }
-        ],
-        "unevaluatedProperties": false
-      }
-    },
-    {
-      "if": {
-        "properties": { "type": { "const": "unordered_list" } }
-      },
-      "then": {
-        "properties": {
-          "type": { "const": "unordered_list" }
-        },
-        "allOf": [
-          {
-            "$ref": "/block/types/unordered_list/unordered_list_schema.json"
-          }
-        ],
-        "unevaluatedProperties": false
-      }
-    },
-    {
-      "if": {
-        "properties": { "type": { "const": "ordered_list" } }
-      },
-      "then": {
-        "properties": {
-          "type": { "const": "ordered_list" }
-        },
-        "allOf": [
-          {
-            "$ref": "/block/types/ordered_list/ordered_list_schema.json"
           }
         ],
         "unevaluatedProperties": false

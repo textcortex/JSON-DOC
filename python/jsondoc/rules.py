@@ -11,8 +11,6 @@ from jsondoc.models.block.types.heading_2 import Heading2Block
 from jsondoc.models.block.types.heading_3 import Heading3Block
 from jsondoc.models.block.types.image import ImageBlock
 from jsondoc.models.block.types.numbered_list_item import NumberedListItemBlock
-from jsondoc.models.block.types.unordered_list import UnorderedListBlock
-from jsondoc.models.block.types.ordered_list import OrderedListBlock
 from jsondoc.models.block.types.paragraph import ParagraphBlock
 from jsondoc.models.block.types.quote import QuoteBlock
 from jsondoc.models.block.types.table import TableBlock
@@ -35,8 +33,6 @@ ALL_BLOCK_TYPES = [
     Heading3Block,
     ImageBlock,
     NumberedListItemBlock,
-    UnorderedListBlock,
-    OrderedListBlock,
     ParagraphBlock,
     QuoteBlock,
     TableBlock,
@@ -57,8 +53,6 @@ ALLOWED_CHILDREN_BLOCK_TYPES = {
     Heading3Block: [],
     ImageBlock: [],
     NumberedListItemBlock: ALL_BLOCK_TYPES,
-    UnorderedListBlock: [BulletedListItemBlock],
-    OrderedListBlock: [NumberedListItemBlock],
     ParagraphBlock: ALL_BLOCK_TYPES,
     QuoteBlock: ALL_BLOCK_TYPES,
     TableBlock: [TableRowBlock],
