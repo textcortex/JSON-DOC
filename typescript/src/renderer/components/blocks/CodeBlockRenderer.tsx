@@ -6,7 +6,7 @@ import { BlockRenderer } from "../BlockRenderer";
 interface CodeBlockRendererProps extends React.HTMLAttributes<HTMLDivElement> {
   block: any;
   depth?: number;
-  components?: React.ComponentProps<typeof BlockRenderer>['components'];
+  components?: React.ComponentProps<typeof BlockRenderer>["components"];
 }
 
 export const CodeBlockRenderer: React.FC<CodeBlockRendererProps> = ({
@@ -21,7 +21,7 @@ export const CodeBlockRenderer: React.FC<CodeBlockRendererProps> = ({
   return (
     <div
       {...props}
-      className={`notion-selectable notion-code-block ${className || ''}`.trim()}
+      className={`notion-selectable notion-code-block ${className || ""}`.trim()}
       data-block-id={block.id}
     >
       <div>

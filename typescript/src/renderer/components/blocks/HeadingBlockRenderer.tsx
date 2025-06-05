@@ -3,11 +3,12 @@ import React from "react";
 import { RichTextRenderer } from "../RichTextRenderer";
 import { BlockRenderer } from "../BlockRenderer";
 
-interface HeadingBlockRendererProps extends React.HTMLAttributes<HTMLDivElement> {
+interface HeadingBlockRendererProps
+  extends React.HTMLAttributes<HTMLDivElement> {
   block: any;
   level: 1 | 2 | 3;
   depth?: number;
-  components?: React.ComponentProps<typeof BlockRenderer>['components'];
+  components?: React.ComponentProps<typeof BlockRenderer>["components"];
 }
 
 export const HeadingBlockRenderer: React.FC<HeadingBlockRendererProps> = ({
@@ -54,7 +55,7 @@ export const HeadingBlockRenderer: React.FC<HeadingBlockRendererProps> = ({
   return (
     <div
       {...props}
-      className={`notion-selectable ${blockClassName} ${className || ''}`.trim()}
+      className={`notion-selectable ${blockClassName} ${className || ""}`.trim()}
       data-block-id={block.id}
     >
       <div>{renderHeading()}</div>

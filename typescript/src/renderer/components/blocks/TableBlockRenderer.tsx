@@ -6,7 +6,7 @@ import { BlockRenderer } from "../BlockRenderer";
 interface TableBlockRendererProps extends React.HTMLAttributes<HTMLDivElement> {
   block: any;
   depth?: number;
-  components?: React.ComponentProps<typeof BlockRenderer>['components'];
+  components?: React.ComponentProps<typeof BlockRenderer>["components"];
 }
 
 export const TableBlockRenderer: React.FC<TableBlockRendererProps> = ({
@@ -21,7 +21,7 @@ export const TableBlockRenderer: React.FC<TableBlockRendererProps> = ({
   return (
     <div
       {...props}
-      className={`notion-selectable notion-table-block${className ? ` ${className}` : ''}`}
+      className={`notion-selectable notion-table-block${className ? ` ${className}` : ""}`}
       data-block-id={block.id}
     >
       <div>

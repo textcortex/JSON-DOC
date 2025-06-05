@@ -16,7 +16,7 @@ The project consists of:
 
 - `/schema/`: JSON schemas defining the structure of JSON-DOC files
 - `/python/`: Python implementation
-- `/ts/`: TypeScript implementation (in progress)
+- `/typescript/`: TypeScript implementation
 - `/docs/`: Documentation
 - `/examples/`: Example files showing the format
 - `/tests/`: Tests for both implementations
@@ -53,15 +53,15 @@ ruff format .
 
 ```bash
 # Set up development environment
-cd /Users/onur/tc/JSON-DOC/ts
+cd /Users/onur/tc/JSON-DOC/typescript
 npm install
 
 # Build TypeScript
-cd /Users/onur/tc/JSON-DOC/ts
+cd /Users/onur/tc/JSON-DOC/typescript
 npm run build
 
 # Run tests
-cd /Users/onur/tc/JSON-DOC/ts
+cd /Users/onur/tc/JSON-DOC/typescript
 npm test
 ```
 

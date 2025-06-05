@@ -6,7 +6,7 @@ import { BlockRenderer } from "../BlockRenderer";
 interface ImageBlockRendererProps extends React.HTMLAttributes<HTMLDivElement> {
   block: any;
   depth?: number;
-  components?: React.ComponentProps<typeof BlockRenderer>['components'];
+  components?: React.ComponentProps<typeof BlockRenderer>["components"];
 }
 
 export const ImageBlockRenderer: React.FC<ImageBlockRendererProps> = ({
@@ -32,7 +32,7 @@ export const ImageBlockRenderer: React.FC<ImageBlockRendererProps> = ({
   return (
     <div
       {...props}
-      className={`notion-selectable notion-image-block${className ? ` ${className}` : ''}`}
+      className={`notion-selectable notion-image-block${className ? ` ${className}` : ""}`}
       data-block-id={block.id}
     >
       <div>

@@ -2,10 +2,11 @@ import React from "react";
 
 import { BlockRenderer } from "../BlockRenderer";
 
-interface EquationBlockRendererProps extends React.HTMLAttributes<HTMLDivElement> {
+interface EquationBlockRendererProps
+  extends React.HTMLAttributes<HTMLDivElement> {
   block: any;
   depth?: number;
-  components?: React.ComponentProps<typeof BlockRenderer>['components'];
+  components?: React.ComponentProps<typeof BlockRenderer>["components"];
 }
 
 export const EquationBlockRenderer: React.FC<EquationBlockRendererProps> = ({
@@ -20,7 +21,7 @@ export const EquationBlockRenderer: React.FC<EquationBlockRendererProps> = ({
   return (
     <div
       {...props}
-      className={`notion-selectable notion-equation-block${className ? ` ${className}` : ''}`}
+      className={`notion-selectable notion-equation-block${className ? ` ${className}` : ""}`}
       data-block-id={block.id}
     >
       <div>

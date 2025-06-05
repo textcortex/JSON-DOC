@@ -13,7 +13,7 @@ permissions:
   contents: write
 
 jobs:
-  build:
+  build-python:
     runs-on: ubuntu-latest
 
     steps:
@@ -46,3 +46,34 @@ jobs:
         working-directory: ./python
         run: |
           uv run convert_jsondoc --help
+
+  build-typescript:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        working-directory: ./typescript
+        run: npm ci
+
+      - name: Generate types
+        working-directory: ./typescript
+        run: npm run generate-types
+
+      - name: Build
+        working-directory: ./typescript
+        run: npm run build
+
+      - name: Run tests
+        working-directory: ./typescript
+        run: npm test
+
+      - name: Check linting
+        working-directory: ./typescript
+        run: npm run lint:check

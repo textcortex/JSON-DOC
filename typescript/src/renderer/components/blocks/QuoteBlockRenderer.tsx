@@ -6,7 +6,7 @@ import { BlockRenderer } from "../BlockRenderer";
 interface QuoteBlockRendererProps extends React.HTMLAttributes<HTMLDivElement> {
   block: any;
   depth?: number;
-  components?: React.ComponentProps<typeof BlockRenderer>['components'];
+  components?: React.ComponentProps<typeof BlockRenderer>["components"];
 }
 
 export const QuoteBlockRenderer: React.FC<QuoteBlockRendererProps> = ({
@@ -21,7 +21,7 @@ export const QuoteBlockRenderer: React.FC<QuoteBlockRendererProps> = ({
   return (
     <div
       {...props}
-      className={`notion-selectable notion-quote-block ${className || ''}`.trim()}
+      className={`notion-selectable notion-quote-block ${className || ""}`.trim()}
       data-block-id={block.id}
     >
       <blockquote>
