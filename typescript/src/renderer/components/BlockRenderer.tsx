@@ -17,23 +17,47 @@ import { OrderedListBlockRenderer } from "./blocks/OrderedListBlockRenderer";
 
 // Component override types for all block types
 export type BlockComponents = {
-  paragraph?: React.ComponentType<React.ComponentProps<typeof ParagraphBlockRenderer>>;
-  heading_1?: React.ComponentType<React.ComponentProps<typeof HeadingBlockRenderer>>;
-  heading_2?: React.ComponentType<React.ComponentProps<typeof HeadingBlockRenderer>>;
-  heading_3?: React.ComponentType<React.ComponentProps<typeof HeadingBlockRenderer>>;
-  bulleted_list_item?: React.ComponentType<React.ComponentProps<typeof ListItemBlockRenderer>>;
-  numbered_list_item?: React.ComponentType<React.ComponentProps<typeof ListItemBlockRenderer>>;
-  unordered_list?: React.ComponentType<React.ComponentProps<typeof UnorderedListBlockRenderer>>;
-  ordered_list?: React.ComponentType<React.ComponentProps<typeof OrderedListBlockRenderer>>;
+  paragraph?: React.ComponentType<
+    React.ComponentProps<typeof ParagraphBlockRenderer>
+  >;
+  heading_1?: React.ComponentType<
+    React.ComponentProps<typeof HeadingBlockRenderer>
+  >;
+  heading_2?: React.ComponentType<
+    React.ComponentProps<typeof HeadingBlockRenderer>
+  >;
+  heading_3?: React.ComponentType<
+    React.ComponentProps<typeof HeadingBlockRenderer>
+  >;
+  bulleted_list_item?: React.ComponentType<
+    React.ComponentProps<typeof ListItemBlockRenderer>
+  >;
+  numbered_list_item?: React.ComponentType<
+    React.ComponentProps<typeof ListItemBlockRenderer>
+  >;
+  unordered_list?: React.ComponentType<
+    React.ComponentProps<typeof UnorderedListBlockRenderer>
+  >;
+  ordered_list?: React.ComponentType<
+    React.ComponentProps<typeof OrderedListBlockRenderer>
+  >;
   code?: React.ComponentType<React.ComponentProps<typeof CodeBlockRenderer>>;
   image?: React.ComponentType<React.ComponentProps<typeof ImageBlockRenderer>>;
   table?: React.ComponentType<React.ComponentProps<typeof TableBlockRenderer>>;
   quote?: React.ComponentType<React.ComponentProps<typeof QuoteBlockRenderer>>;
-  divider?: React.ComponentType<React.ComponentProps<typeof DividerBlockRenderer>>;
+  divider?: React.ComponentType<
+    React.ComponentProps<typeof DividerBlockRenderer>
+  >;
   to_do?: React.ComponentType<React.ComponentProps<typeof ToDoBlockRenderer>>;
-  toggle?: React.ComponentType<React.ComponentProps<typeof ToggleBlockRenderer>>;
-  column_list?: React.ComponentType<React.ComponentProps<typeof ColumnListBlockRenderer>>;
-  equation?: React.ComponentType<React.ComponentProps<typeof EquationBlockRenderer>>;
+  toggle?: React.ComponentType<
+    React.ComponentProps<typeof ToggleBlockRenderer>
+  >;
+  column_list?: React.ComponentType<
+    React.ComponentProps<typeof ColumnListBlockRenderer>
+  >;
+  equation?: React.ComponentType<
+    React.ComponentProps<typeof EquationBlockRenderer>
+  >;
 };
 
 interface BlockRendererProps {
@@ -71,21 +95,25 @@ export const BlockRenderer: React.FC<BlockRendererProps> = ({
 
   // List container blocks
   if (block?.type === "unordered_list") {
-    const UnorderedListComponent = components?.unordered_list || UnorderedListBlockRenderer;
+    const UnorderedListComponent =
+      components?.unordered_list || UnorderedListBlockRenderer;
     return <UnorderedListComponent {...commonProps} />;
   }
   if (block?.type === "ordered_list") {
-    const OrderedListComponent = components?.ordered_list || OrderedListBlockRenderer;
+    const OrderedListComponent =
+      components?.ordered_list || OrderedListBlockRenderer;
     return <OrderedListComponent {...commonProps} />;
   }
 
   // List item blocks
   if (block?.type === "bulleted_list_item") {
-    const BulletedListItemComponent = components?.bulleted_list_item || ListItemBlockRenderer;
+    const BulletedListItemComponent =
+      components?.bulleted_list_item || ListItemBlockRenderer;
     return <BulletedListItemComponent {...commonProps} type="bulleted" />;
   }
   if (block?.type === "numbered_list_item") {
-    const NumberedListItemComponent = components?.numbered_list_item || ListItemBlockRenderer;
+    const NumberedListItemComponent =
+      components?.numbered_list_item || ListItemBlockRenderer;
     return <NumberedListItemComponent {...commonProps} type="numbered" />;
   }
 
@@ -133,7 +161,8 @@ export const BlockRenderer: React.FC<BlockRendererProps> = ({
 
   // Column list and column blocks
   if (block?.type === "column_list") {
-    const ColumnListComponent = components?.column_list || ColumnListBlockRenderer;
+    const ColumnListComponent =
+      components?.column_list || ColumnListBlockRenderer;
     return <ColumnListComponent {...commonProps} />;
   }
 

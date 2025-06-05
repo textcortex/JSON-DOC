@@ -2,10 +2,11 @@ import React from "react";
 
 import { BlockRenderer } from "../BlockRenderer";
 
-interface DividerBlockRendererProps extends React.HTMLAttributes<HTMLDivElement> {
+interface DividerBlockRendererProps
+  extends React.HTMLAttributes<HTMLDivElement> {
   block: any;
   depth?: number;
-  components?: React.ComponentProps<typeof BlockRenderer>['components'];
+  components?: React.ComponentProps<typeof BlockRenderer>["components"];
 }
 
 export const DividerBlockRenderer: React.FC<DividerBlockRendererProps> = ({
@@ -18,7 +19,7 @@ export const DividerBlockRenderer: React.FC<DividerBlockRendererProps> = ({
   return (
     <div
       {...props}
-      className={`notion-selectable notion-divider-block${className ? ` ${className}` : ''}`}
+      className={`notion-selectable notion-divider-block${className ? ` ${className}` : ""}`}
       data-block-id={block.id}
     >
       <div className="notion-cursor-default">

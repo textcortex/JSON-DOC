@@ -6,7 +6,7 @@ import { BlockRenderer } from "../BlockRenderer";
 interface ToDoBlockRendererProps extends React.HTMLAttributes<HTMLDivElement> {
   block: any;
   depth?: number;
-  components?: React.ComponentProps<typeof BlockRenderer>['components'];
+  components?: React.ComponentProps<typeof BlockRenderer>["components"];
 }
 
 export const ToDoBlockRenderer: React.FC<ToDoBlockRendererProps> = ({
@@ -22,7 +22,7 @@ export const ToDoBlockRenderer: React.FC<ToDoBlockRendererProps> = ({
   return (
     <div
       {...props}
-      className={`notion-selectable notion-to_do-block ${className || ''}`.trim()}
+      className={`notion-selectable notion-to_do-block ${className || ""}`.trim()}
       data-block-id={block.id}
     >
       <div>
