@@ -40,6 +40,12 @@ jobs:
         run: |
           uv pip install --system toml
 
+      - name: Copy root README to Python directory
+        run: |
+          # Copy the root README to the Python directory for packaging
+          cp README.md python/README.md
+          echo "Root README copied to python/README.md"
+
       - name: Extract version from tag and update pyproject.toml
         working-directory: ./python
         run: |
