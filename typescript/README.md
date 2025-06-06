@@ -261,6 +261,8 @@ MIT
       "**/generated/**",
       "src/serialization/**",
   ```
+- [] add counter for numbered lists
 - [] setup up bumpp: https://www.npmjs.com/package/bumpp
 - [] migrate test runner to vitest
 - [] move vite app to typescript root examples dir
+- [] setup monorepo tooling

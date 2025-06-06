@@ -15,7 +15,8 @@ const App = () => {
         padding: "20px",
         maxWidth: "800px",
         margin: "0 auto",
-        background: "black",
+        background: "oklch(20.5% 0 0)",
+        color: "oklch(90% 0 0)",
       }}
     >
       <h1>JSON-DOC Renderer Development</h1>
