@@ -1,21 +1,23 @@
+import "./styles/index.css";
 import React from "react";
 
 import { BlockRenderer } from "./components/BlockRenderer";
-import "./styles.css";
 
 interface JsonDocRendererProps {
   page: any;
   className?: string;
   components?: React.ComponentProps<typeof BlockRenderer>["components"];
+  theme?: "light" | "dark";
 }
 
 export const JsonDocRenderer = ({
   page,
   className = "",
   components,
+  theme = "light",
 }: JsonDocRendererProps) => {
   return (
-    <div className={`json-doc-renderer ${className}`}>
+    <div className={`json-doc-renderer jsondoc-theme-${theme} ${className}`}>
       <div className="json-doc-page">
         {/* Page icon */}
         {page.icon && (

@@ -1,0 +1,49 @@
+/* Base Layout and Page Styles */
+
+.json-doc-page {
+  max-width: var(--jsondoc-page-max-width);
+  margin: 0 auto;
+  padding: var(--jsondoc-page-padding-desktop)
+    var(--jsondoc-page-padding-desktop) var(--jsondoc-page-bottom-padding);
+  color: var(--jsondoc-text-primary);
+  font-family: var(--jsondoc-font-family-sans);
+}
+
+.json-doc-page-icon {
+  font-size: var(--jsondoc-font-size-page-icon);
+  line-height: var(--jsondoc-line-height-tight);
+  margin-bottom: 0.1em;
+}
+
+.json-doc-page-title {
+  font-size: var(--jsondoc-font-size-page-title);
+  line-height: var(--jsondoc-line-height-normal);
+  font-weight: var(--jsondoc-font-weight-bold);
+  margin: 0 0 var(--jsondoc-spacing-xs);
+  padding: var(--jsondoc-spacing-sm) 0px;
+}
+
+.json-doc-page-content {
+  margin-top: var(--jsondoc-spacing-lg);
+}
+
+/* Base Block Styles */
+.notion-selectable {
+  position: relative;
+  margin: 0;
+  padding: var(--jsondoc-spacing-sm) 0px;
+}
+
+.notion-block-children {
+  margin-top: 0;
+}
+
+.notion-selectable + .notion-selectable {
+  margin-top: 0;
+}
+
+.notranslate {
+  min-height: 1em;
+  white-space: pre-wrap;
+  word-break: break-word;
+}

@@ -1,0 +1,122 @@
+/* JSON-DOC CSS Design Tokens */
+:root {
+  /* Colors */
+  --jsondoc-text-primary: #37352f;
+  --jsondoc-text-secondary: rgba(55, 53, 47, 0.65);
+  --jsondoc-text-muted: rgba(55, 53, 47, 0.45);
+  --jsondoc-border-light: rgba(55, 53, 47, 0.16);
+  --jsondoc-border-medium: rgb(233, 233, 231);
+
+  /* Background Colors */
+  --jsondoc-bg-code: rgb(247, 246, 243);
+  --jsondoc-bg-inline-code: rgba(135, 131, 120, 0.15);
+  --jsondoc-bg-unsupported: rgba(255, 0, 0, 0.1);
+
+  /* Text Colors */
+  --jsondoc-color-gray: rgba(120, 119, 116, 1);
+  --jsondoc-color-brown: rgba(159, 107, 83, 1);
+  --jsondoc-color-orange: rgba(217, 115, 13, 1);
+  --jsondoc-color-yellow: rgba(203, 145, 47, 1);
+  --jsondoc-color-green: rgba(68, 131, 97, 1);
+  --jsondoc-color-blue: rgba(51, 126, 169, 1);
+  --jsondoc-color-purple: rgba(144, 101, 176, 1);
+  --jsondoc-color-pink: rgba(193, 76, 138, 1);
+  --jsondoc-color-red: rgba(212, 76, 71, 1);
+
+  /* Accent Colors */
+  --jsondoc-accent-inline-code: #eb5757;
+  --jsondoc-accent-checkbox: #0f7b0f;
+  --jsondoc-accent-error: #d32f2f;
+
+  /* Typography */
+  --jsondoc-font-family-sans:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
+    "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+  --jsondoc-font-family-mono:
+    "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  --jsondoc-font-family-serif: "Times New Roman", serif;
+
+  /* Font Sizes */
+  --jsondoc-font-size-page-title: 40px;
+  --jsondoc-font-size-page-icon: 78px;
+  --jsondoc-font-size-h1: clamp(1.5rem, 4vw, 1.875rem);
+  --jsondoc-font-size-h2: clamp(1.25rem, 3vw, 1.5rem);
+  --jsondoc-font-size-h3: clamp(1.125rem, 2.5vw, 1.25rem);
+  --jsondoc-font-size-body: 1rem;
+  --jsondoc-font-size-caption: 14px;
+  --jsondoc-font-size-code: 14px;
+  --jsondoc-font-size-code-language: 12px;
+  --jsondoc-font-size-inline-code: 85%;
+  --jsondoc-font-size-equation: 1.2rem;
+
+  /* Font Weights */
+  --jsondoc-font-weight-normal: 400;
+  --jsondoc-font-weight-medium: 500;
+  --jsondoc-font-weight-semibold: 600;
+  --jsondoc-font-weight-bold: 700;
+
+  /* Line Heights */
+  --jsondoc-line-height-tight: 1.1;
+  --jsondoc-line-height-normal: 1.2;
+  --jsondoc-line-height-relaxed: 1.3;
+  --jsondoc-line-height-loose: 1.4;
+  --jsondoc-line-height-very-loose: 1.5;
+
+  /* Spacing */
+  --jsondoc-spacing-xs: 2px;
+  --jsondoc-spacing-sm: 4px;
+  --jsondoc-spacing-md: 8px;
+  --jsondoc-spacing-lg: 16px;
+  --jsondoc-spacing-xl: 24px;
+  --jsondoc-spacing-2xl: 48px;
+  --jsondoc-spacing-3xl: 96px;
+
+  /* Border Radius */
+  --jsondoc-radius-sm: 3px;
+  --jsondoc-radius-md: 8px;
+
+  /* Shadows */
+  --jsondoc-shadow-glow: 0 0 20px rgba(241, 196, 15, 0.3);
+
+  /* Layout */
+  --jsondoc-page-max-width: 100%;
+  --jsondoc-page-padding-desktop: var(--jsondoc-spacing-3xl);
+  --jsondoc-page-padding-mobile: var(--jsondoc-spacing-xl);
+  --jsondoc-page-bottom-padding: 30vh;
+  --jsondoc-column-gap: var(--jsondoc-spacing-lg);
+
+  /* Interactive Elements */
+  --jsondoc-checkbox-size: 14px;
+  --jsondoc-toggle-checkbox-size: 16px;
+  --jsondoc-icon-size: 16px;
+
+  /* Transitions */
+  --jsondoc-transition-fast: 0.2s ease;
+
+  /* Z-Index Scale */
+  --jsondoc-z-base: 1;
+  --jsondoc-z-elevated: 10;
+  --jsondoc-z-overlay: 100;
+  --jsondoc-z-modal: 1000;
+}
+
+/* Theme Override Classes */
+.jsondoc-theme-light {
+  --jsondoc-text-primary: #37352f;
+  --jsondoc-text-secondary: rgba(55, 53, 47, 0.65);
+  --jsondoc-text-muted: rgba(55, 53, 47, 0.45);
+  --jsondoc-border-light: rgba(55, 53, 47, 0.16);
+  --jsondoc-border-medium: rgb(233, 233, 231);
+  --jsondoc-bg-code: rgb(247, 246, 243);
+  --jsondoc-bg-inline-code: rgba(135, 131, 120, 0.15);
+}
+
+.jsondoc-theme-dark {
+  --jsondoc-text-primary: #ffffff;
+  --jsondoc-text-secondary: rgba(255, 255, 255, 0.65);
+  --jsondoc-text-muted: rgba(255, 255, 255, 0.45);
+  --jsondoc-border-light: rgba(255, 255, 255, 0.16);
+  --jsondoc-border-medium: rgba(255, 255, 255, 0.2);
+  --jsondoc-bg-code: rgba(255, 255, 255, 0.05);
+  --jsondoc-bg-inline-code: rgba(255, 255, 255, 0.1);
+}

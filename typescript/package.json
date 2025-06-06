@@ -20,7 +20,6 @@
     "check": "tsc --noEmit",
     "lint": "eslint src --ext .ts,.tsx",
     "lint:fix": "eslint src --ext .ts,.tsx --fix",
-    "lint:check": "eslint src --ext .ts,.tsx --max-warnings 0",
     "prepare": "husky"
   },
   "keywords": [

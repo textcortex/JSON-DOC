@@ -6,32 +6,22 @@ import { HeadingBlockRenderer } from "@/renderer/components/blocks/HeadingBlockR
 
 import { JsonDocRenderer } from "../renderer/JsonDocRenderer";
 
-// import testPage from "./testJsonDocs/test_document.json";
 import testPage from "./testJsonDocs/ex1_success.json";
-// import testPage from "./testJsonDocs/test_document_2.json";
 
 const App = () => {
-  // async function main() {
-  //   const schema = await loadSchema("./testJsonDocs/test_document_2.json");
-
-  //   try {
-  //     const isValid = validateAgainstSchema(testPage, schema);
-  //     console.log("isvlaid: ", isValid);
-  //     console.log("schema:  ", schema);
-  //   } catch (error) {
-  //     console.log("error validating schema: ", error);
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   main();
-  // }, []);
-
   return (
-    <div style={{ padding: "20px", maxWidth: "800px", margin: "0 auto" }}>
+    <div
+      style={{
+        padding: "20px",
+        maxWidth: "800px",
+        margin: "0 auto",
+        background: "black",
+      }}
+    >
       <h1>JSON-DOC Renderer Development</h1>
       <JsonDocRenderer
         page={testPage}
+        theme="dark"
         components={{
           heading_1: (props) => {
             return <HeadingBlockRenderer {...props} />;

@@ -1,0 +1,44 @@
+/* List Styles */
+
+/* List Container Blocks */
+.notion-unordered_list-block,
+.notion-ordered_list-block {
+  margin: var(--jsondoc-spacing-xs) 0;
+  padding-left: 0;
+}
+
+.notion-unordered_list-block {
+  list-style-type: disc;
+  padding-left: 1.5em;
+}
+
+.notion-ordered_list-block {
+  list-style-type: decimal;
+  padding-left: 1.5em;
+}
+
+/* List Items */
+.notion-bulleted_list-block,
+.notion-numbered_list-block {
+  margin: 0;
+  padding: 1px 0;
+  line-height: var(--jsondoc-line-height-very-loose);
+  text-indent: var(--jsondoc-spacing-lg);
+  list-style-type: none;
+}
+
+.notion-bulleted_list-block::before {
+  content: "•";
+  margin: 0px;
+  padding: 0px;
+  text-indent: 0px;
+  font-size: var(--jsondoc-font-size-h3);
+  margin-right: var(--jsondoc-spacing-sm);
+}
+
+.notion-checkbox {
+  width: var(--jsondoc-checkbox-size);
+  height: var(--jsondoc-checkbox-size);
+  margin: 0;
+  cursor: pointer;
+}
