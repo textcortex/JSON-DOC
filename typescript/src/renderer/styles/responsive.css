@@ -2,7 +2,8 @@
 
 @media (max-width: 768px) {
   .json-doc-page {
-    padding: var(--jsondoc-spacing-2xl) var(--jsondoc-spacing-xl) var(--jsondoc-page-bottom-padding);
+    padding: var(--jsondoc-spacing-2xl) var(--jsondoc-spacing-xl)
+      var(--jsondoc-page-bottom-padding);
   }
 
   .json-doc-page-title {
@@ -17,7 +18,8 @@
 
 @media (max-width: 480px) {
   .json-doc-page {
-    padding: var(--jsondoc-spacing-xl) var(--jsondoc-spacing-lg) var(--jsondoc-page-bottom-padding);
+    padding: var(--jsondoc-spacing-xl) var(--jsondoc-spacing-lg)
+      var(--jsondoc-page-bottom-padding);
   }
 
   .json-doc-page-title {
