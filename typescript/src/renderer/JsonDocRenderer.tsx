@@ -3,8 +3,6 @@ import React from "react";
 
 import { BlockRenderer } from "./components/BlockRenderer";
 
-var lpl = 1;
-
 interface JsonDocRendererProps {
   page: any;
   className?: string;
