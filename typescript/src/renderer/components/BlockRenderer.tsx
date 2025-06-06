@@ -12,8 +12,6 @@ import { ToDoBlockRenderer } from "./blocks/ToDoBlockRenderer";
 import { ToggleBlockRenderer } from "./blocks/ToggleBlockRenderer";
 import { ColumnListBlockRenderer } from "./blocks/ColumnListBlockRenderer";
 import { EquationBlockRenderer } from "./blocks/EquationBlockRenderer";
-import { UnorderedListBlockRenderer } from "./blocks/UnorderedListBlockRenderer";
-import { OrderedListBlockRenderer } from "./blocks/OrderedListBlockRenderer";
 
 // Component override types for all block types
 export type BlockComponents = {
@@ -34,12 +32,6 @@ export type BlockComponents = {
   >;
   numbered_list_item?: React.ComponentType<
     React.ComponentProps<typeof ListItemBlockRenderer>
-  >;
-  unordered_list?: React.ComponentType<
-    React.ComponentProps<typeof UnorderedListBlockRenderer>
-  >;
-  ordered_list?: React.ComponentType<
-    React.ComponentProps<typeof OrderedListBlockRenderer>
   >;
   code?: React.ComponentType<React.ComponentProps<typeof CodeBlockRenderer>>;
   image?: React.ComponentType<React.ComponentProps<typeof ImageBlockRenderer>>;
@@ -91,18 +83,6 @@ export const BlockRenderer: React.FC<BlockRendererProps> = ({
   if (block?.type === "heading_3") {
     const HeadingComponent = components?.heading_3 || HeadingBlockRenderer;
     return <HeadingComponent {...commonProps} level={3} />;
-  }
-
-  // List container blocks
-  if (block?.type === "unordered_list") {
-    const UnorderedListComponent =
-      components?.unordered_list || UnorderedListBlockRenderer;
-    return <UnorderedListComponent {...commonProps} />;
-  }
-  if (block?.type === "ordered_list") {
-    const OrderedListComponent =
-      components?.ordered_list || OrderedListBlockRenderer;
-    return <OrderedListComponent {...commonProps} />;
   }
 
   // List item blocks

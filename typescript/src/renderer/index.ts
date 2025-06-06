@@ -15,8 +15,6 @@ export { ToDoBlockRenderer } from "./components/blocks/ToDoBlockRenderer";
 export { ToggleBlockRenderer } from "./components/blocks/ToggleBlockRenderer";
 export { ColumnListBlockRenderer } from "./components/blocks/ColumnListBlockRenderer";
 export { EquationBlockRenderer } from "./components/blocks/EquationBlockRenderer";
-export { UnorderedListBlockRenderer } from "./components/blocks/UnorderedListBlockRenderer";
-export { OrderedListBlockRenderer } from "./components/blocks/OrderedListBlockRenderer";
 
 // Export types
 export type { BlockComponents } from "./components/BlockRenderer";

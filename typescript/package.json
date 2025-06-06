@@ -8,7 +8,8 @@
   "scripts": {
     "clean": "rm -rf dist",
     "build": "tsup",
-    "dev": "concurrently \"tsup --watch\" \"npm run lint:watch\" \"npm run type-check:watch\"",
+    "build:watch": "tsup --watch",
+    "dev": "concurrently \"npm run build:watch\" \"npm run lint:watch\" \"npm run type-check:watch\"",
     "type-check:watch": "tsc --noEmit --watch --pretty",
     "lint:watch": "eslint src --ext .ts,.tsx --cache",
     "dev:example": "vite --config vite.dev.config.ts",
