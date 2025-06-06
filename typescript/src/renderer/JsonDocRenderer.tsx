@@ -4,10 +4,6 @@ import React from "react";
 import { BlockRenderer } from "./components/BlockRenderer";
 
 var a = 1;
-var a = 1;
-var a = 1;
-var a = 1;
-var a = 1;
 
 interface JsonDocRendererProps {
   page: any;
