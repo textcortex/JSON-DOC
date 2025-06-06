@@ -3,7 +3,7 @@ import React from "react";
 
 import { BlockRenderer } from "./components/BlockRenderer";
 
-var b = 1;
+var k = 1;
 
 interface JsonDocRendererProps {
   page: any;
