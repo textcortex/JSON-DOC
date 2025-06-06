@@ -244,20 +244,23 @@ MIT
 
 - [x] setup eslint
 - [x] improve tsconfig
-- [ ] setup lint staged and husky
-- [ ] setup prettier
-- [ ] standardize styling (css)
-- [ ] fix styling for elements
-  - [ ] headings
-  - [ ] paragraph
-  - [ ] code
-  - [ ] table
+- [x] setup lint staged and husky
+- [x] setup prettier
+- [x] standardize styling (css)
+- [x] fix styling for elements
+  - [x] headings
+  - [x] paragraph
+  - [x] code
+  - [x] table
   - [ ] todo?
-  - [ ] equation
+  - [x] equation
   - [ ] image
-  - [ ] blockquote
-- fix ts and eslint errors in these dirs and remove from ignore list of ts and eslint
+  - [x] blockquote
+- [] fix ts and eslint errors in these dirs and remove from ignore list of ts and eslint
   ```
       "**/generated/**",
       "src/serialization/**",
   ```
+- [] setup up bumpp: https://www.npmjs.com/package/bumpp
+- [] migrate test runner to vitest
+- [] move vite app to typescript root examples dir
