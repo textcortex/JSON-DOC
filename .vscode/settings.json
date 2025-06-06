@@ -8,5 +8,6 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },
+  "eslint.codeActionsOnSave.rules": ["!no-var"],
   "eslint.useFlatConfig": true
 }
