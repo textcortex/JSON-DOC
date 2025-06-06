@@ -42,7 +42,6 @@ module.exports = [
     },
     rules: {
       "no-var": ["warn"],
-      "prefer-const": "warn",
       // TypeScript rules
       "@typescript-eslint/explicit-function-return-type": "off",
       "@typescript-eslint/explicit-module-boundary-types": "off",
