@@ -1,0 +1,141 @@
+/* Block Component Styles */
+
+/* Code Block */
+.notion-code-block {
+  background: var(--jsondoc-bg-code);
+  border-radius: var(--jsondoc-radius-sm);
+  padding: var(--jsondoc-spacing-lg);
+  margin: var(--jsondoc-spacing-sm) 0;
+}
+
+.notion-code-block .line-numbers {
+  font-family: var(--jsondoc-font-family-mono);
+  font-size: var(--jsondoc-font-size-code);
+  line-height: var(--jsondoc-line-height-loose);
+  white-space: pre;
+  overflow-x: auto;
+}
+
+.notion-code-block-content {
+  padding: var(--jsondoc-spacing-lg);
+}
+
+.notion-code-block-language {
+  color: var(--jsondoc-text-muted);
+  font-size: var(--jsondoc-font-size-code);
+}
+
+.notion-inline-code {
+  background: var(--jsondoc-bg-inline-code);
+  color: var(--jsondoc-accent-inline-code);
+  border-radius: var(--jsondoc-radius-sm);
+  padding: 0.2em 0.4em;
+  font-family: var(--jsondoc-font-family-mono);
+  font-size: var(--jsondoc-font-size-inline-code);
+}
+
+/* Quote Block */
+.notion-quote-block {
+  padding: var(--jsondoc-spacing-sm) var(--jsondoc-spacing-xs);
+}
+
+.notion-quote-block blockquote {
+  margin: 0;
+  padding-left: 14px;
+  border-left: 3px solid currentColor;
+  font-size: var(--jsondoc-font-size-body);
+  line-height: var(--jsondoc-line-height-very-loose);
+}
+
+/* Divider Block */
+.notion-divider-block {
+  padding: 6px var(--jsondoc-spacing-xs);
+}
+
+.notion-divider-block [role="separator"] {
+  border-top: 1px solid var(--jsondoc-border-light);
+  margin: 0;
+}
+
+/* To-do Block */
+.notion-to_do-block {
+  display: flex;
+  align-items: flex-start;
+  padding: 1px var(--jsondoc-spacing-xs);
+  margin: 0;
+}
+
+.notion-to_do-block .checkboxSquare,
+.notion-to_do-block .check {
+  width: var(--jsondoc-toggle-checkbox-size);
+  height: var(--jsondoc-toggle-checkbox-size);
+  cursor: pointer;
+}
+
+.notion-to_do-block .check {
+  color: var(--jsondoc-accent-checkbox);
+}
+
+.pseudoHover.pseudoActive {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Toggle Block */
+.notion-toggle-block {
+  display: flex;
+  align-items: flex-start;
+  padding: var(--jsondoc-spacing-sm) var(--jsondoc-spacing-xs);
+}
+
+.notion-toggle-block .arrowCaretDownFillSmall {
+  width: var(--jsondoc-icon-size);
+  height: var(--jsondoc-icon-size);
+  color: var(--jsondoc-text-muted);
+}
+
+.notion-toggle-content {
+  display: flex;
+  align-items: center;
+  gap: var(--jsondoc-spacing-md);
+}
+
+.notion-toggle-arrow {
+  color: var(--jsondoc-text-muted);
+  font-size: 12px;
+  transition: transform var(--jsondoc-transition-fast);
+}
+
+.notion-toggle-text {
+  flex: 1;
+}
+
+/* Equation Block */
+.notion-equation-block {
+  padding: var(--jsondoc-spacing-sm) var(--jsondoc-spacing-xs);
+  margin: var(--jsondoc-spacing-sm) 0;
+}
+
+.notion-equation-display {
+  text-align: center;
+  padding: var(--jsondoc-spacing-lg);
+  background: var(--jsondoc-bg-code);
+  border-radius: var(--jsondoc-radius-sm);
+}
+
+.notion-equation-content {
+  font-family: var(--jsondoc-font-family-serif);
+  font-size: var(--jsondoc-font-size-equation);
+}
+
+/* Unsupported Block */
+.notion-unsupported-block {
+  padding: var(--jsondoc-spacing-md);
+  background: var(--jsondoc-bg-unsupported);
+  border: 1px solid rgba(255, 0, 0, 0.3);
+  border-radius: var(--jsondoc-radius-sm);
+  color: var(--jsondoc-accent-error);
+  font-style: italic;
+}

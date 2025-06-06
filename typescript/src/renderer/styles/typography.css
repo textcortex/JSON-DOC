@@ -1,0 +1,88 @@
+/* Heading Blocks */
+.notion-header-block,
+.notion-sub_header-block {
+  margin: 0px;
+}
+
+.notion-header-block:first-child,
+.notion-sub_header-block:first-child {
+  margin-top: 0;
+}
+
+.notion-header-block h2 {
+  font-size: var(--jsondoc-font-size-h1);
+  margin: 0;
+  font-weight: var(--jsondoc-font-weight-semibold);
+  line-height: var(--jsondoc-line-height-relaxed);
+}
+
+.notion-sub_header-block h3 {
+  font-size: var(--jsondoc-font-size-h2);
+  margin: 0;
+  font-weight: var(--jsondoc-font-weight-semibold);
+  line-height: var(--jsondoc-line-height-relaxed);
+}
+
+.notion-sub_header-block h4 {
+  font-size: var(--jsondoc-font-size-h3);
+  margin: 0;
+  font-weight: var(--jsondoc-font-weight-semibold);
+  line-height: var(--jsondoc-line-height-relaxed);
+}
+
+.notion-link {
+  color: inherit;
+  word-wrap: break-word;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: var(--jsondoc-text-muted);
+  transition: text-decoration-color var(--jsondoc-transition-fast);
+}
+
+.notion-link:hover {
+  text-decoration-color: var(--jsondoc-text-primary);
+}
+
+.notion-equation {
+  background: var(--jsondoc-bg-inline-code);
+  border-radius: var(--jsondoc-radius-sm);
+  padding: 0.2em 0.4em;
+  font-family: var(--jsondoc-font-family-serif);
+}
+
+/* Text Colors */
+.notion-text-color-gray {
+  color: var(--jsondoc-color-gray);
+}
+
+.notion-text-color-brown {
+  color: var(--jsondoc-color-brown);
+}
+
+.notion-text-color-orange {
+  color: var(--jsondoc-color-orange);
+}
+
+.notion-text-color-yellow {
+  color: var(--jsondoc-color-yellow);
+}
+
+.notion-text-color-green {
+  color: var(--jsondoc-color-green);
+}
+
+.notion-text-color-blue {
+  color: var(--jsondoc-color-blue);
+}
+
+.notion-text-color-purple {
+  color: var(--jsondoc-color-purple);
+}
+
+.notion-text-color-pink {
+  color: var(--jsondoc-color-pink);
+}
+
+.notion-text-color-red {
+  color: var(--jsondoc-color-red);
+}

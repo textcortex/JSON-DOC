@@ -76,4 +76,4 @@ jobs:
 
       - name: Check linting
         working-directory: ./typescript
-        run: npm run lint:check
+        run: npm run lint

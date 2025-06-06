@@ -26,13 +26,11 @@ export const CodeBlockRenderer: React.FC<CodeBlockRendererProps> = ({
     >
       <div>
         <div role="figure">
-          <div>
-            <div>
-              <div>{codeData?.language || "Plain Text"}</div>
-            </div>
+          <div className="notion-code-block-language">
+            {codeData?.language || "Plain Text"}
           </div>
           <div>
-            <div className="line-numbers notion-code-block">
+            <div className="line-numbers notion-code-block-content">
               <div className="notranslate">
                 <RichTextRenderer richText={codeData?.rich_text || []} />
               </div>

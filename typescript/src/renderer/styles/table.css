@@ -1,0 +1,21 @@
+/* Table Styles */
+
+.notion-table-block {
+  margin: var(--jsondoc-spacing-sm) 0;
+  width: 100%;
+}
+
+.notion-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  table-layout: fixed;
+}
+
+.notion-table-row th,
+.notion-table-row td {
+  border: 1px solid var(--jsondoc-border-medium);
+  padding: 6px var(--jsondoc-spacing-md);
+  vertical-align: top;
+  word-wrap: break-word;
+}

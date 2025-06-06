@@ -1,0 +1,30 @@
+/* Responsive Design */
+
+@media (max-width: 768px) {
+  .json-doc-page {
+    padding: var(--jsondoc-spacing-2xl) var(--jsondoc-spacing-xl) var(--jsondoc-page-bottom-padding);
+  }
+
+  .json-doc-page-title {
+    font-size: 32px;
+  }
+
+  .notion-column-list {
+    flex-direction: column;
+    gap: var(--jsondoc-spacing-md);
+  }
+}
+
+@media (max-width: 480px) {
+  .json-doc-page {
+    padding: var(--jsondoc-spacing-xl) var(--jsondoc-spacing-lg) var(--jsondoc-page-bottom-padding);
+  }
+
+  .json-doc-page-title {
+    font-size: 28px;
+  }
+
+  .json-doc-page-icon {
+    font-size: 60px;
+  }
+}

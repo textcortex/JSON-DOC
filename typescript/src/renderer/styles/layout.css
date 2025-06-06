@@ -1,0 +1,17 @@
+/* Layout Components */
+
+/* Column Layout */
+.notion-column_list-block {
+  margin: var(--jsondoc-spacing-sm) 0;
+}
+
+.notion-column-list {
+  display: flex;
+  gap: var(--jsondoc-column-gap);
+  width: 100%;
+}
+
+.notion-column {
+  flex: 1;
+  min-width: 0;
+}
