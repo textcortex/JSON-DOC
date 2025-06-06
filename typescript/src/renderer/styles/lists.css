@@ -28,17 +28,73 @@
   align-items: flex-start;
 }
 
-/* Counter for numbered lists */
+/* 
+
+   Numbered List Counter System
+ 
+   CSS counters automatically number list items:
+   - counter-increment: Adds 1 to 'list-number' counter for each numbered list item
+   - counter-reset: Resets 'list-number' to 0 when starting a new sequence
+ 
+   Counter resets in two scenarios:
+   1. :first-child - First numbered list in any container
+   2. After non-list content - When numbered list follows paragraph, code, etc.
+ 
+   Example HTML structure:
+   <div class="page-content">
+     <li class="notion-numbered_list-block">Item 1</li> ← :first-child reset
+     <li class="notion-numbered_list-block">Item 2</li> ← Continue sequence
+     <p class="notion-paragraph-block">Text</p>  ← Non-list content
+     <li class="notion-numbered_list-block">Item 1</li> ← Adjacent sibling reset
+     <li class="notion-numbered_list-block">Item 2</li> ← Continue sequence
+   </div> 
+   
+*/
+
+/* Increment counter for each numbered list item */
 .notion-numbered_list-block {
   counter-increment: list-number 1;
 }
 
-/* Reset counter for first numbered list item or when starting a new sequence */
+/* 
+   Reset counter when starting a new numbered list sequence
+   
+   Selector: .notion-numbered_list-block:first-child
+   Targets: Numbered list items that are the very first element in their container
+ 
+   Example HTML structure:
+   <div class="page-content">
+     <li class="notion-numbered_list-block">Item 1</li> ← :first-child - Reset counter here
+     <li class="notion-numbered_list-block">Item 2</li> ← Continue sequence  
+     <li class="notion-numbered_list-block">Item 3</li> ← Continue sequence
+   </div> 
+   
+*/
 .notion-numbered_list-block:first-child {
   counter-reset: list-number 0;
 }
 
-/* Alternative: Reset when previous sibling is not a numbered list */
+/* 
+   Reset counter when numbered list follows non-list content
+   
+   Selector: *:not(.notion-numbered_list-block) + .notion-numbered_list-block
+
+   Breakdown:
+   - *:not(.notion-numbered_list-block) = Any element that is NOT a numbered list item
+   - + = Adjacent sibling combinator (immediately followed by)
+   - .notion-numbered_list-block = A numbered list item
+
+   Example HTML structure:
+   <div class="page-content">
+     <p class="notion-paragraph-block">Some text</p>
+     <li class="notion-numbered_list-block">Item 1</li> ← Reset counter here (follows paragraph)
+     <li class="notion-numbered_list-block">Item 2</li> ← Continue sequence
+     <pre class="notion-code-block">Code</pre>
+     <li class="notion-numbered_list-block">Item 1</li> ← Reset counter here (follows code)
+     <li class="notion-numbered_list-block">Item 2</li> ← Continue sequence
+   </div> 
+   
+*/
 *:not(.notion-numbered_list-block) + .notion-numbered_list-block {
   counter-reset: list-number 0;
 }
@@ -53,6 +109,15 @@
   line-height: var(--jsondoc-line-height-tight);
 }
 
+/* 
+   Display the counter value as visible numbers
+   
+   counter(list-number): Reads current value of 'list-number' counter and displays it
+   counter(list-number) returns "1", "2", "3", etc.
+   Combined with ". " to create "1. ", "2. ", "3. " format
+   min-width + text-align: right ensures consistent alignment regardless of digit count 
+   
+*/
 .notion-numbered_list-block::before {
   content: counter(list-number) ". ";
   font-size: var(--jsondoc-font-size-body);
