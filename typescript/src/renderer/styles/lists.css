@@ -23,8 +23,24 @@
   margin: 0;
   padding: 1px 0;
   line-height: var(--jsondoc-line-height-very-loose);
-  text-indent: var(--jsondoc-spacing-lg);
   list-style-type: none;
+  display: flex;
+  align-items: flex-start;
+}
+
+/* Counter for numbered lists */
+.notion-numbered_list-block {
+  counter-increment: list-number 1;
+}
+
+/* Reset counter for first numbered list item or when starting a new sequence */
+.notion-numbered_list-block:first-child {
+  counter-reset: list-number 0;
+}
+
+/* Alternative: Reset when previous sibling is not a numbered list */
+*:not(.notion-numbered_list-block) + .notion-numbered_list-block {
+  counter-reset: list-number 0;
 }
 
 .notion-bulleted_list-block::before {
@@ -34,6 +50,15 @@
   text-indent: 0px;
   font-size: var(--jsondoc-font-size-h3);
   margin-right: var(--jsondoc-spacing-sm);
+  line-height: var(--jsondoc-line-height-tight);
+}
+
+.notion-numbered_list-block::before {
+  content: counter(list-number) ". ";
+  font-size: var(--jsondoc-font-size-body);
+  margin-right: var(--jsondoc-spacing-sm);
+  min-width: 2em;
+  text-align: right;
 }
 
 .notion-checkbox {
