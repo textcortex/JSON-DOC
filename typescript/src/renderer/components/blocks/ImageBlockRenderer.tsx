@@ -35,39 +35,27 @@ export const ImageBlockRenderer: React.FC<ImageBlockRendererProps> = ({
       className={`notion-selectable notion-image-block${className ? ` ${className}` : ""}`}
       data-block-id={block.id}
     >
-      <div>
-        <div className="notion-selectable-container">
-          <div>
+      <div className="notion-selectable-container">
+        <div role="figure">
+          <div className="notion-cursor-default">
             <div>
-              <div role="figure">
-                <div>
-                  <div className="notion-cursor-default">
-                    <div>
-                      <div>
-                        <div>
-                          {imageUrl && (
-                            <img
-                              alt=""
-                              src={imageUrl}
-                              style={{ maxWidth: "100%", height: "auto" }}
-                            />
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                {/* Caption */}
-                {imageData?.caption && imageData.caption.length > 0 && (
-                  <div>
-                    <div className="notranslate">
-                      <RichTextRenderer richText={imageData.caption} />
-                    </div>
-                  </div>
-                )}
-              </div>
+              {imageUrl && (
+                <img
+                  alt=""
+                  src={imageUrl}
+                  style={{ maxWidth: "100%", height: "auto" }}
+                />
+              )}
             </div>
           </div>
+          {/* Caption */}
+          {imageData?.caption && imageData.caption.length > 0 && (
+            <div>
+              <div className="notranslate">
+                <RichTextRenderer richText={imageData.caption} />
+              </div>
+            </div>
+          )}
         </div>
       </div>
 

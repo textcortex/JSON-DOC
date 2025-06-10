@@ -3,8 +3,8 @@
 .json-doc-page {
   max-width: var(--jsondoc-page-max-width);
   margin: 0 auto;
-  padding: var(--jsondoc-page-padding-desktop)
-    var(--jsondoc-page-padding-desktop) var(--jsondoc-page-bottom-padding);
+  /* padding: var(--jsondoc-page-padding-desktop)
+    var(--jsondoc-page-padding-desktop) var(--jsondoc-page-bottom-padding); */
   color: var(--jsondoc-text-primary);
   font-family: var(--jsondoc-font-family-sans);
 }
