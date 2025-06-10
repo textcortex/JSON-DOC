@@ -8,6 +8,7 @@ interface JsonDocRendererProps {
   className?: string;
   components?: React.ComponentProps<typeof BlockRenderer>["components"];
   theme?: "light" | "dark";
+  resolveImageUrl?: (url: string) => Promise<string>;
 }
 
 export const JsonDocRenderer = ({
@@ -15,6 +16,7 @@ export const JsonDocRenderer = ({
   className = "",
   components,
   theme = "light",
+  resolveImageUrl,
 }: JsonDocRendererProps) => {
   return (
     <div className={`json-doc-renderer jsondoc-theme-${theme} ${className}`}>
@@ -42,6 +44,7 @@ export const JsonDocRenderer = ({
                 block={block}
                 depth={0}
                 components={components}
+                resolveImageUrl={resolveImageUrl}
               />
             ))}
           </div>

@@ -2,6 +2,88 @@
 
 .notion-image-block {
   padding: var(--jsondoc-spacing-sm) var(--jsondoc-spacing-xs);
+  margin: var(--jsondoc-spacing-md) 0;
+}
+
+.notion-image-block figure,
+.notion-image-block [role="figure"] {
+  margin: 0;
+  padding: 0;
+}
+
+.notion-image-block img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--jsondoc-radius-sm);
+  box-shadow:
+    rgba(15, 15, 15, 0.1) 0px 0px 0px 1px,
+    rgba(15, 15, 15, 0.1) 0px 2px 4px;
+}
+
+/* Image Block Loading States */
+.image-loading-placeholder {
+  width: 100%;
+  height: 300px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.image-loading-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.image-loading-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(107, 114, 128, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-loading-text {
+  color: #9ca3af;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Image Block Error State */
+.image-error-placeholder {
+  width: 100%;
+  height: 300px;
+  background-color: #fef2f2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  border: 1px solid #fecaca;
+}
+
+.image-error-text {
+  color: #dc2626;
+  font-size: 14px;
 }
 
 .notion-image-placeholder {
@@ -38,7 +120,12 @@
 }
 
 .notion-image-caption {
-  color: var(--jsondoc-text-primary);
+  color: var(--jsondoc-text-muted);
   font-size: var(--jsondoc-font-size-caption);
+  line-height: var(--jsondoc-line-height-relaxed);
+  text-align: center;
   margin-top: var(--jsondoc-spacing-md);
+  margin-bottom: var(--jsondoc-spacing-sm);
+  font-style: italic;
+  max-width: 100%;
 }

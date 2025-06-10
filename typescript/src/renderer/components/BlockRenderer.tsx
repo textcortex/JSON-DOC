@@ -56,12 +56,14 @@ interface BlockRendererProps {
   block: any;
   depth?: number;
   components?: BlockComponents;
+  resolveImageUrl?: (url: string) => Promise<string>;
 }
 
 export const BlockRenderer: React.FC<BlockRendererProps> = ({
   block,
   depth = 0,
   components,
+  resolveImageUrl,
 }) => {
   const commonProps = { block, depth, components };
 
@@ -106,7 +108,9 @@ export const BlockRenderer: React.FC<BlockRendererProps> = ({
   // Image block
   if (block?.type === "image") {
     const ImageComponent = components?.image || ImageBlockRenderer;
-    return <ImageComponent {...commonProps} />;
+    return (
+      <ImageComponent {...commonProps} resolveImageUrl={resolveImageUrl} />
+    );
   }
 
   // Table blocks
