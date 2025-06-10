@@ -1,6 +1,6 @@
 {
   "name": "@textcortex/jsondoc",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "JSON-DOC TypeScript implementation",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -42,6 +42,7 @@
     "@vitejs/plugin-react": "^4.5.0",
     "ajv": "^8.17.1",
     "ajv-formats": "^3.0.1",
+    "bumpp": "^10.1.1",
     "concurrently": "^9.1.2",
     "eslint": "^9.28.0",
     "eslint-import-resolver-typescript": "^4.4.2",
