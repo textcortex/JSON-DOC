@@ -1,5 +1,6 @@
 import { defineConfig } from "bumpp";
 
 export default defineConfig({
-  // ...options
+  commit: false,
+  tag: "typescript-v%s",
 });
