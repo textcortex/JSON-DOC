@@ -107,6 +107,7 @@
   font-size: var(--jsondoc-font-size-h3);
   margin-right: var(--jsondoc-spacing-sm);
   line-height: var(--jsondoc-line-height-tight);
+  margin-left: 1em;
 }
 
 /* 
