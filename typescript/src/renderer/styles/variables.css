@@ -43,7 +43,7 @@
   --jsondoc-font-size-h2: clamp(1.25rem, 3vw, 1.5rem);
   --jsondoc-font-size-h3: clamp(1.125rem, 2.5vw, 1.25rem);
   --jsondoc-font-size-body: 1rem;
-  --jsondoc-font-size-caption: 14px;
+  --jsondoc-font-size-caption: 12px;
   --jsondoc-font-size-code: 14px;
   --jsondoc-font-size-code-language: 12px;
   --jsondoc-font-size-inline-code: 85%;

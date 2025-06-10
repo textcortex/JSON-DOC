@@ -98,7 +98,7 @@ jobs:
         working-directory: ./typescript
         run: npm ci
 
-      - name: Extract version from tag and update package.json
+      - name: Extract version from tag and update npm version
         working-directory: ./typescript
         run: |
           # Get the version from the tag (remove 'typescript-v' prefix)
