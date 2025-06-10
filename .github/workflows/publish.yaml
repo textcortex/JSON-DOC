@@ -98,20 +98,6 @@ jobs:
         working-directory: ./typescript
         run: npm ci
 
-      - name: Extract version from tag and update npm version
-        working-directory: ./typescript
-        run: |
-          # Get the version from the tag (remove 'typescript-v' prefix)
-          TAG_VERSION=${GITHUB_REF#refs/tags/typescript-v}
-          echo "Tag version: $TAG_VERSION"
-
-          # Update package.json with the version from the tag
-          npm version $TAG_VERSION --no-git-tag-version
-          echo "Version updated in package.json to: $TAG_VERSION"
-
-          # Verify the change
-          cat package.json | grep '"version"'
-
       - name: Generate types and build package
         working-directory: ./typescript
         run: |
