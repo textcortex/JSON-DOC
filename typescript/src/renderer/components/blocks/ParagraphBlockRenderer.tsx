@@ -23,7 +23,7 @@ export const ParagraphBlockRenderer: React.FC<ParagraphBlockRendererProps> = ({
       className={`notion-selectable notion-text-block ${className || ""}`.trim()}
       data-block-id={block.id}
     >
-      {block.paragraph?.rich_text && (
+      {block.paragraph?.rich_text.length > 0 && (
         <div className="notranslate">
           <RichTextRenderer richText={block.paragraph?.rich_text || []} />
         </div>
