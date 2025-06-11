@@ -7,6 +7,8 @@ interface EquationBlockRendererProps
   block: any;
   depth?: number;
   components?: React.ComponentProps<typeof BlockRenderer>["components"];
+  devMode?: boolean;
+  resolveImageUrl?: (url: string) => Promise<string>;
 }
 
 export const EquationBlockRenderer: React.FC<EquationBlockRendererProps> = ({
@@ -14,6 +16,8 @@ export const EquationBlockRenderer: React.FC<EquationBlockRendererProps> = ({
   depth = 0,
   className,
   components,
+  devMode,
+  resolveImageUrl,
   ...props
 }) => {
   const equationData = block.equation;
@@ -44,6 +48,8 @@ export const EquationBlockRenderer: React.FC<EquationBlockRendererProps> = ({
               block={child}
               depth={depth + 1}
               components={components}
+              devMode={devMode}
+              resolveImageUrl={resolveImageUrl}
             />
           ))}
         </div>

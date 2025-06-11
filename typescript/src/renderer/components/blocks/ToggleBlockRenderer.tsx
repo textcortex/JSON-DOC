@@ -8,6 +8,8 @@ interface ToggleBlockRendererProps
   block: any;
   depth?: number;
   components?: React.ComponentProps<typeof BlockRenderer>["components"];
+  devMode?: boolean;
+  resolveImageUrl?: (url: string) => Promise<string>;
 }
 
 export const ToggleBlockRenderer: React.FC<ToggleBlockRendererProps> = ({
@@ -15,6 +17,8 @@ export const ToggleBlockRenderer: React.FC<ToggleBlockRendererProps> = ({
   depth = 0,
   className,
   components,
+  devMode,
+  resolveImageUrl,
   ...props
 }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -83,6 +87,8 @@ export const ToggleBlockRenderer: React.FC<ToggleBlockRendererProps> = ({
               block={child}
               depth={depth + 1}
               components={components}
+              devMode={devMode}
+              resolveImageUrl={resolveImageUrl}
             />
           ))}
         </div>

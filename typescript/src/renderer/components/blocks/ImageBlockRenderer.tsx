@@ -26,6 +26,7 @@ interface ImageBlockRendererProps extends React.HTMLAttributes<HTMLDivElement> {
   depth?: number;
   components?: React.ComponentProps<typeof BlockRenderer>["components"];
   resolveImageUrl?: (url: string) => Promise<string>;
+  devMode?: boolean;
 }
 
 export const ImageBlockRenderer: React.FC<ImageBlockRendererProps> = ({
@@ -34,6 +35,7 @@ export const ImageBlockRenderer: React.FC<ImageBlockRendererProps> = ({
   className,
   components,
   resolveImageUrl,
+  devMode,
   ...props
 }) => {
   const imageData = block.image;
@@ -155,6 +157,8 @@ export const ImageBlockRenderer: React.FC<ImageBlockRendererProps> = ({
               block={child}
               depth={depth + 1}
               components={components}
+              devMode={devMode}
+              resolveImageUrl={resolveImageUrl}
             />
           ))}
         </div>
