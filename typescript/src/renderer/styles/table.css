@@ -5,17 +5,41 @@
   width: 100%;
 }
 
-.notion-table {
+.notion-scroller.horizontal {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+}
+
+.notion-table-content {
+  min-width: 100%;
+  width: max-content;
+}
+
+.notion-table-content table {
   width: 100%;
   border-collapse: collapse;
   border-spacing: 0;
-  table-layout: fixed;
+  table-layout: auto;
+  min-width: 600px;
 }
 
 .notion-table-row th,
 .notion-table-row td {
   border: 1px solid var(--jsondoc-border-medium);
-  padding: 6px var(--jsondoc-spacing-md);
+  padding: 8px 12px;
   vertical-align: top;
-  word-wrap: break-word;
+  white-space: nowrap;
+  min-width: 120px;
+}
+
+.notion-table-row th {
+  background-color: var(--jsondoc-bg-code);
+  font-weight: var(--jsondoc-font-weight-semibold);
+}
+
+.notion-table-cell-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 300px;
 }

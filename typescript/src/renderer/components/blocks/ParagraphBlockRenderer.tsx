@@ -23,9 +23,11 @@ export const ParagraphBlockRenderer: React.FC<ParagraphBlockRendererProps> = ({
       className={`notion-selectable notion-text-block ${className || ""}`.trim()}
       data-block-id={block.id}
     >
-      <div className="notranslate">
-        <RichTextRenderer richText={block.paragraph?.rich_text || []} />
-      </div>
+      {block.paragraph?.rich_text.length > 0 && (
+        <div className="notranslate">
+          <RichTextRenderer richText={block.paragraph?.rich_text || []} />
+        </div>
+      )}
 
       {/* Render children blocks recursively */}
       {block.children && block.children.length > 0 && (

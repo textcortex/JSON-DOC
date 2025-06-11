@@ -16,6 +16,9 @@ export { ToggleBlockRenderer } from "./components/blocks/ToggleBlockRenderer";
 export { ColumnListBlockRenderer } from "./components/blocks/ColumnListBlockRenderer";
 export { EquationBlockRenderer } from "./components/blocks/EquationBlockRenderer";
 
+// Export context
+export { RendererProvider, useRenderer } from "./context";
+
 // Export types
 export type { BlockComponents } from "./components/BlockRenderer";
 export type { JsonDocRendererProps, BlockRendererProps } from "./types";

@@ -6,7 +6,7 @@ import { HeadingBlockRenderer } from "@/renderer/components/blocks/HeadingBlockR
 
 import { JsonDocRenderer } from "../renderer/JsonDocRenderer";
 
-import testPage from "./testJsonDocs/ex1_success.json";
+import testPage from "./testJsonDocs/test_document.json";
 
 const App = () => {
   return (
@@ -23,12 +23,12 @@ const App = () => {
       <JsonDocRenderer
         page={testPage}
         theme="dark"
+        devMode={true}
         components={{
           heading_1: (props) => {
             return <HeadingBlockRenderer {...props} />;
           },
           paragraph: (props) => <ParagraphBlockRenderer {...props} />,
-          // paragraph: (props) =>
         }}
       />
     </div>

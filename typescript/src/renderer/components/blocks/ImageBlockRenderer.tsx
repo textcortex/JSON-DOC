@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
+import { useRenderer } from "../../context/RendererContext";
 import { RichTextRenderer } from "../RichTextRenderer";
 import { BlockRenderer } from "../BlockRenderer";
 
@@ -25,7 +26,6 @@ interface ImageBlockRendererProps extends React.HTMLAttributes<HTMLDivElement> {
   block: any;
   depth?: number;
   components?: React.ComponentProps<typeof BlockRenderer>["components"];
-  resolveImageUrl?: (url: string) => Promise<string>;
 }
 
 export const ImageBlockRenderer: React.FC<ImageBlockRendererProps> = ({
@@ -33,13 +33,14 @@ export const ImageBlockRenderer: React.FC<ImageBlockRendererProps> = ({
   depth = 0,
   className,
   components,
-  resolveImageUrl,
   ...props
 }) => {
+  const { resolveImageUrl } = useRenderer();
   const imageData = block.image;
   const [url, setUrl] = useState<string>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [hasError, setHasError] = useState<boolean>(false);
+  const [showFullCaption, setShowFullCaption] = useState<boolean>(false);
   const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
 
   const getImageUrl = () => {
@@ -95,13 +96,7 @@ export const ImageBlockRenderer: React.FC<ImageBlockRendererProps> = ({
         <div role="figure">
           <div className="notion-cursor-default" ref={ref}>
             {imageUrl && (
-              <div
-                style={{
-                  position: "relative",
-                  width: "100%",
-                  maxWidth: "600px",
-                }}
-              >
+              <div className="notion-image-container">
                 {(isLoading || (!url && resolveImageUrl)) && !hasError && (
                   <div className="image-loading-placeholder">
                     <div className="image-loading-content">
@@ -131,7 +126,17 @@ export const ImageBlockRenderer: React.FC<ImageBlockRendererProps> = ({
           {imageData?.caption && imageData.caption.length > 0 && (
             <figcaption className="notion-image-caption">
               <div className="notranslate">
-                <RichTextRenderer richText={imageData.caption} />
+                <div
+                  className={`caption-content ${!showFullCaption ? "caption-truncated" : "caption-expanded"}`}
+                >
+                  <RichTextRenderer richText={imageData.caption} />
+                </div>
+                <button
+                  className="caption-toggle-btn"
+                  onClick={() => setShowFullCaption(!showFullCaption)}
+                >
+                  {showFullCaption ? "less" : "more"}
+                </button>
               </div>
             </figcaption>
           )}

@@ -1,5 +1,8 @@
 import React from "react";
 
+import { useRenderer } from "../context/RendererContext";
+
+import { DevWrapper } from "./dev/DevWrapper";
 import { ParagraphBlockRenderer } from "./blocks/ParagraphBlockRenderer";
 import { HeadingBlockRenderer } from "./blocks/HeadingBlockRenderer";
 import { ListItemBlockRenderer } from "./blocks/ListItemBlockRenderer";
@@ -56,104 +59,113 @@ interface BlockRendererProps {
   block: any;
   depth?: number;
   components?: BlockComponents;
-  resolveImageUrl?: (url: string) => Promise<string>;
 }
 
 export const BlockRenderer: React.FC<BlockRendererProps> = ({
   block,
   depth = 0,
   components,
-  resolveImageUrl,
 }) => {
+  const { devMode = false } = useRenderer();
   const commonProps = { block, depth, components };
+
+  // Helper function to wrap component with DevWrapper if devMode is enabled
+  const wrapWithDev = (component: React.ReactElement) => {
+    if (devMode) {
+      return <DevWrapper block={block}>{component}</DevWrapper>;
+    }
+    return component;
+  };
 
   // Paragraph block
   if (block?.type === "paragraph") {
     const ParagraphComponent = components?.paragraph || ParagraphBlockRenderer;
-    return <ParagraphComponent {...commonProps} />;
+    return wrapWithDev(<ParagraphComponent {...commonProps} />);
   }
 
   // Heading blocks
   if (block?.type === "heading_1") {
     const HeadingComponent = components?.heading_1 || HeadingBlockRenderer;
-    return <HeadingComponent {...commonProps} level={1} />;
+    return wrapWithDev(<HeadingComponent {...commonProps} level={1} />);
   }
   if (block?.type === "heading_2") {
     const HeadingComponent = components?.heading_2 || HeadingBlockRenderer;
-    return <HeadingComponent {...commonProps} level={2} />;
+    return wrapWithDev(<HeadingComponent {...commonProps} level={2} />);
   }
   if (block?.type === "heading_3") {
     const HeadingComponent = components?.heading_3 || HeadingBlockRenderer;
-    return <HeadingComponent {...commonProps} level={3} />;
+    return wrapWithDev(<HeadingComponent {...commonProps} level={3} />);
   }
 
   // List item blocks
   if (block?.type === "bulleted_list_item") {
     const BulletedListItemComponent =
       components?.bulleted_list_item || ListItemBlockRenderer;
-    return <BulletedListItemComponent {...commonProps} type="bulleted" />;
+    return wrapWithDev(
+      <BulletedListItemComponent {...commonProps} type="bulleted" />
+    );
   }
   if (block?.type === "numbered_list_item") {
     const NumberedListItemComponent =
       components?.numbered_list_item || ListItemBlockRenderer;
-    return <NumberedListItemComponent {...commonProps} type="numbered" />;
+    return wrapWithDev(
+      <NumberedListItemComponent {...commonProps} type="numbered" />
+    );
   }
 
   // Code block
   if (block?.type === "code") {
     const CodeComponent = components?.code || CodeBlockRenderer;
-    return <CodeComponent {...commonProps} />;
+    return wrapWithDev(<CodeComponent {...commonProps} />);
   }
 
   // Image block
   if (block?.type === "image") {
     const ImageComponent = components?.image || ImageBlockRenderer;
-    return (
-      <ImageComponent {...commonProps} resolveImageUrl={resolveImageUrl} />
-    );
+    return wrapWithDev(<ImageComponent {...commonProps} />);
   }
 
   // Table blocks
   if (block?.type === "table") {
     const TableComponent = components?.table || TableBlockRenderer;
-    return <TableComponent {...commonProps} />;
+    return wrapWithDev(<TableComponent {...commonProps} />);
   }
 
   // Quote block
   if (block?.type === "quote") {
     const QuoteComponent = components?.quote || QuoteBlockRenderer;
-    return <QuoteComponent {...commonProps} />;
+    return wrapWithDev(<QuoteComponent {...commonProps} />);
   }
 
   // Divider block
   if (block?.type === "divider") {
     const DividerComponent = components?.divider || DividerBlockRenderer;
-    return <DividerComponent {...commonProps} />;
+    return wrapWithDev(<DividerComponent {...commonProps} />);
   }
 
   // To-do block
   if (block?.type === "to_do") {
     const ToDoComponent = components?.to_do || ToDoBlockRenderer;
-    return <ToDoComponent {...commonProps} />;
+    return wrapWithDev(<ToDoComponent {...commonProps} />);
   }
 
   // Toggle block
   if (block?.type === "toggle") {
     const ToggleComponent = components?.toggle || ToggleBlockRenderer;
-    return <ToggleComponent {...commonProps} />;
+    return wrapWithDev(<ToggleComponent {...commonProps} />);
   }
 
   // Column list and column blocks
   if (block?.type === "column_list") {
     const ColumnListComponent =
       components?.column_list || ColumnListBlockRenderer;
-    return <ColumnListComponent {...commonProps} />;
+    return wrapWithDev(<ColumnListComponent {...commonProps} />);
   }
 
   // Equation block
   if (block?.type === "equation") {
     const EquationComponent = components?.equation || EquationBlockRenderer;
-    return <EquationComponent {...commonProps} />;
+    return wrapWithDev(<EquationComponent {...commonProps} />);
   }
 
   // Fallback for unsupported block types

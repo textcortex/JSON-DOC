@@ -102,7 +102,7 @@
 
 /* Theme Override Classes */
 .jsondoc-theme-light {
-  --jsondoc-text-primary: #37352f;
+  --jsondoc-text-primary: #121414;
   --jsondoc-text-secondary: rgba(55, 53, 47, 0.65);
   --jsondoc-text-muted: rgba(55, 53, 47, 0.45);
   --jsondoc-border-light: rgba(55, 53, 47, 0.16);

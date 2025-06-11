@@ -30,13 +30,17 @@
   line-height: var(--jsondoc-line-height-relaxed);
 }
 
-.notion-link {
+.notion-link a {
   color: inherit;
   word-wrap: break-word;
   cursor: pointer;
   text-decoration: underline;
   text-decoration-color: var(--jsondoc-text-muted);
   transition: text-decoration-color var(--jsondoc-transition-fast);
+}
+
+.notion-text-block div {
+  color: var(--jsondoc-text-primary);
 }
 
 .notion-link:hover {
