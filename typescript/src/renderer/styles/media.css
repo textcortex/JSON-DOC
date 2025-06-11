@@ -129,3 +129,48 @@
   font-style: italic;
   max-width: 100%;
 }
+
+/* Image container styles */
+.notion-image-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Image Caption */
+.caption-content {
+  transition: all 0.2s ease;
+}
+
+.caption-truncated {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.caption-expanded {
+  overflow: visible;
+  text-overflow: unset;
+  white-space: normal;
+  display: block;
+}
+
+button.caption-toggle-btn {
+  background: none;
+  border: none;
+  color: var(--jsondoc-text-muted);
+  cursor: pointer;
+  font-size: 0.875rem;
+  margin-top: 4px;
+  padding: 2px 4px;
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+.caption-toggle-btn:hover {
+  color: var(--jsondoc-text-muted);
+}

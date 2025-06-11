@@ -40,6 +40,7 @@ export const ImageBlockRenderer: React.FC<ImageBlockRendererProps> = ({
   const [url, setUrl] = useState<string>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [hasError, setHasError] = useState<boolean>(false);
+  const [showFullCaption, setShowFullCaption] = useState<boolean>(false);
   const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
 
   const getImageUrl = () => {
@@ -95,13 +96,7 @@ export const ImageBlockRenderer: React.FC<ImageBlockRendererProps> = ({
         <div role="figure">
           <div className="notion-cursor-default" ref={ref}>
             {imageUrl && (
-              <div
-                style={{
-                  position: "relative",
-                  width: "100%",
-                  maxWidth: "600px",
-                }}
-              >
+              <div className="notion-image-container">
                 {(isLoading || (!url && resolveImageUrl)) && !hasError && (
                   <div className="image-loading-placeholder">
                     <div className="image-loading-content">
@@ -131,7 +126,17 @@ export const ImageBlockRenderer: React.FC<ImageBlockRendererProps> = ({
           {imageData?.caption && imageData.caption.length > 0 && (
             <figcaption className="notion-image-caption">
               <div className="notranslate">
-                <RichTextRenderer richText={imageData.caption} />
+                <div
+                  className={`caption-content ${!showFullCaption ? "caption-truncated" : "caption-expanded"}`}
+                >
+                  <RichTextRenderer richText={imageData.caption} />
+                </div>
+                <button
+                  className="caption-toggle-btn"
+                  onClick={() => setShowFullCaption(!showFullCaption)}
+                >
+                  {showFullCaption ? "less" : "more"}
+                </button>
               </div>
             </figcaption>
           )}
