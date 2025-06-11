@@ -2,6 +2,7 @@ import "./styles/index.css";
 import React from "react";
 
 import { BlockRenderer } from "./components/BlockRenderer";
+import { PageDelimiter } from "./components/PageDelimiter";
 import { RendererProvider } from "./context/RendererContext";
 
 interface JsonDocRendererProps {
@@ -42,14 +43,31 @@ export const JsonDocRenderer = ({
           {/* Page children blocks */}
           {page.children && page.children.length > 0 && (
             <div className="json-doc-page-content">
-              {page.children.map((block: any, index: number) => (
-                <BlockRenderer
-                  key={block.id || index}
-                  block={block}
-                  depth={0}
-                  components={components}
-                />
-              ))}
+              {page.children.map((block: any, index: number) => {
+                const currentPageNum = block.metadata?.origin?.page_num;
+                const nextPageNum =
+                  index < page.children.length - 1
+                    ? page.children[index + 1]?.metadata?.origin?.page_num
+                    : null;
+
+                // Show delimiter after the last block of each page
+                const showPageDelimiter =
+                  currentPageNum && 
+                  (nextPageNum !== currentPageNum || index === page.children.length - 1);
+
+                return (
+                  <React.Fragment key={block.id || index}>
+                    <BlockRenderer
+                      block={block}
+                      depth={0}
+                      components={components}
+                    />
+                    {showPageDelimiter && (
+                      <PageDelimiter pageNumber={currentPageNum} />
+                    )}
+                  </React.Fragment>
+                );
+              })}
             </div>
           )}
         </div>

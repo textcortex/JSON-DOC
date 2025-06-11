@@ -1,5 +1,47 @@
 /* Layout Components */
 
+/* Page Delimiter */
+.jsondoc-page-delimiter {
+  margin: var(--jsondoc-spacing-xl) 0;
+  margin-bottom: var(--jsondoc-spacing-3xl);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.jsondoc-page-delimiter-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--jsondoc-border-light);
+  z-index: var(--jsondoc-z-base);
+}
+
+.jsondoc-page-number {
+  background: white;
+  padding: var(--jsondoc-spacing-xs) var(--jsondoc-spacing-md);
+  color: var(--jsondoc-text-muted);
+  font-size: var(--jsondoc-font-size-caption);
+  font-weight: var(--jsondoc-font-weight-normal);
+  border-radius: var(--jsondoc-radius-sm);
+  position: relative;
+  z-index: var(--jsondoc-z-elevated);
+  display: inline-block;
+}
+
+/* Dark theme support for page delimiter */
+.jsondoc-theme-dark .jsondoc-page-number {
+  background: var(--jsondoc-bg-code);
+  color: var(--jsondoc-text-muted);
+}
+
+.jsondoc-theme-dark .jsondoc-page-delimiter-line {
+  background: var(--jsondoc-border-light);
+}
+
 /* Column Layout */
 .notion-column_list-block {
   margin: var(--jsondoc-spacing-sm) 0;
