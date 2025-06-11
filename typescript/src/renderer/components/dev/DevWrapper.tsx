@@ -13,11 +13,11 @@ export const DevWrapper: React.FC<DevWrapperProps> = ({ block, children }) => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
 
-  const handleClick = (e: React.MouseEvent) => {
+  const handleBadgeClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     if (!showJson) {
-      setPosition({ x: e.clientX, y: e.clientY });
+      setPosition({ x: e.clientX, y: e.clientY + 20 });
       setShowJson(true);
     }
   };
@@ -27,10 +27,8 @@ export const DevWrapper: React.FC<DevWrapperProps> = ({ block, children }) => {
       className="dev-block-wrapper"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      onClick={handleClick}
       style={{
         position: "relative",
-        cursor: "pointer",
         outline: isHovered ? "2px dashed #60a5fa" : "none",
         outlineOffset: "2px",
         transition: "outline 0.2s ease",
@@ -39,6 +37,7 @@ export const DevWrapper: React.FC<DevWrapperProps> = ({ block, children }) => {
       {children}
       {isHovered && (
         <div
+          onClick={handleBadgeClick}
           style={{
             position: "absolute",
             top: "4px",
@@ -51,7 +50,8 @@ export const DevWrapper: React.FC<DevWrapperProps> = ({ block, children }) => {
             fontFamily: "monospace",
             fontWeight: "bold",
             zIndex: 10,
-            pointerEvents: "none",
+            cursor: "pointer",
+            pointerEvents: "auto",
           }}
         >
           {block.type || "unknown"}
