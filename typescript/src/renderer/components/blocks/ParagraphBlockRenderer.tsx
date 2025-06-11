@@ -8,8 +8,6 @@ interface ParagraphBlockRendererProps
   block: any;
   depth?: number;
   components?: React.ComponentProps<typeof BlockRenderer>["components"];
-  devMode?: boolean;
-  resolveImageUrl?: (url: string) => Promise<string>;
 }
 
 export const ParagraphBlockRenderer: React.FC<ParagraphBlockRendererProps> = ({
@@ -17,8 +15,6 @@ export const ParagraphBlockRenderer: React.FC<ParagraphBlockRendererProps> = ({
   depth = 0,
   className,
   components,
-  devMode,
-  resolveImageUrl,
   ...props
 }) => {
   return (
@@ -45,8 +41,6 @@ export const ParagraphBlockRenderer: React.FC<ParagraphBlockRendererProps> = ({
               block={child}
               depth={depth + 1}
               components={components}
-              devMode={devMode}
-              resolveImageUrl={resolveImageUrl}
             />
           ))}
         </div>

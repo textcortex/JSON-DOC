@@ -9,8 +9,6 @@ interface ListItemBlockRendererProps
   type: "bulleted" | "numbered";
   depth?: number;
   components?: React.ComponentProps<typeof BlockRenderer>["components"];
-  devMode?: boolean;
-  resolveImageUrl?: (url: string) => Promise<string>;
 }
 
 export const ListItemBlockRenderer: React.FC<ListItemBlockRendererProps> = ({
@@ -19,8 +17,6 @@ export const ListItemBlockRenderer: React.FC<ListItemBlockRendererProps> = ({
   depth = 0,
   className,
   components,
-  devMode,
-  resolveImageUrl,
   ...props
 }) => {
   const listData =
@@ -51,8 +47,6 @@ export const ListItemBlockRenderer: React.FC<ListItemBlockRendererProps> = ({
               block={child}
               depth={depth + 1}
               components={components}
-              devMode={devMode}
-              resolveImageUrl={resolveImageUrl}
             />
           ))}
         </div>

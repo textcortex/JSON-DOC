@@ -1,5 +1,7 @@
 import React from "react";
 
+import { useRenderer } from "../context/RendererContext";
+
 import { DevWrapper } from "./dev/DevWrapper";
 import { ParagraphBlockRenderer } from "./blocks/ParagraphBlockRenderer";
 import { HeadingBlockRenderer } from "./blocks/HeadingBlockRenderer";
@@ -57,18 +59,15 @@ interface BlockRendererProps {
   block: any;
   depth?: number;
   components?: BlockComponents;
-  resolveImageUrl?: (url: string) => Promise<string>;
-  devMode?: boolean;
 }
 
 export const BlockRenderer: React.FC<BlockRendererProps> = ({
   block,
   depth = 0,
   components,
-  resolveImageUrl,
-  devMode = false,
 }) => {
-  const commonProps = { block, depth, components, devMode };
+  const { devMode = false } = useRenderer();
+  const commonProps = { block, depth, components };
 
   // Helper function to wrap component with DevWrapper if devMode is enabled
   const wrapWithDev = (component: React.ReactElement) => {
@@ -123,9 +122,7 @@ export const BlockRenderer: React.FC<BlockRendererProps> = ({
   // Image block
   if (block?.type === "image") {
     const ImageComponent = components?.image || ImageBlockRenderer;
-    return wrapWithDev(
-      <ImageComponent {...commonProps} resolveImageUrl={resolveImageUrl} />
-    );
+    return wrapWithDev(<ImageComponent {...commonProps} />);
   }
 
   // Table blocks

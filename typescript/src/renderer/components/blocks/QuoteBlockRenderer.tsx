@@ -7,8 +7,6 @@ interface QuoteBlockRendererProps extends React.HTMLAttributes<HTMLDivElement> {
   block: any;
   depth?: number;
   components?: React.ComponentProps<typeof BlockRenderer>["components"];
-  devMode?: boolean;
-  resolveImageUrl?: (url: string) => Promise<string>;
 }
 
 export const QuoteBlockRenderer: React.FC<QuoteBlockRendererProps> = ({
@@ -16,8 +14,6 @@ export const QuoteBlockRenderer: React.FC<QuoteBlockRendererProps> = ({
   depth = 0,
   className,
   components,
-  devMode,
-  resolveImageUrl,
   ...props
 }) => {
   const quoteData = block.quote;
@@ -48,8 +44,6 @@ export const QuoteBlockRenderer: React.FC<QuoteBlockRendererProps> = ({
               block={child}
               depth={depth + 1}
               components={components}
-              devMode={devMode}
-              resolveImageUrl={resolveImageUrl}
             />
           ))}
         </div>

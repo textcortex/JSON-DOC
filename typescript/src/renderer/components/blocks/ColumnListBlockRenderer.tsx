@@ -7,8 +7,6 @@ interface ColumnListBlockRendererProps
   block: any;
   depth?: number;
   components?: React.ComponentProps<typeof BlockRenderer>["components"];
-  devMode?: boolean;
-  resolveImageUrl?: (url: string) => Promise<string>;
 }
 
 export const ColumnListBlockRenderer: React.FC<
@@ -18,8 +16,6 @@ export const ColumnListBlockRenderer: React.FC<
   depth = 0,
   className,
   components,
-  devMode,
-  resolveImageUrl,
   ...props
 }) => {
   return (
@@ -47,8 +43,6 @@ export const ColumnListBlockRenderer: React.FC<
                       block={columnChild}
                       depth={depth + 1}
                       components={components}
-                      devMode={devMode}
-                      resolveImageUrl={resolveImageUrl}
                     />
                   )
                 )}
@@ -73,8 +67,6 @@ export const ColumnListBlockRenderer: React.FC<
                 block={child}
                 depth={depth + 1}
                 components={components}
-                devMode={devMode}
-                resolveImageUrl={resolveImageUrl}
               />
             ))}
         </div>

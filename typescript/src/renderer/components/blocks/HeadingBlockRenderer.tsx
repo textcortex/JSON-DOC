@@ -9,8 +9,6 @@ interface HeadingBlockRendererProps
   level: 1 | 2 | 3;
   depth?: number;
   components?: React.ComponentProps<typeof BlockRenderer>["components"];
-  devMode?: boolean;
-  resolveImageUrl?: (url: string) => Promise<string>;
 }
 
 export const HeadingBlockRenderer: React.FC<HeadingBlockRendererProps> = ({
@@ -19,8 +17,6 @@ export const HeadingBlockRenderer: React.FC<HeadingBlockRendererProps> = ({
   depth = 0,
   className,
   components,
-  devMode,
-  resolveImageUrl,
   ...props
 }) => {
   const getHeadingData = () => {
@@ -76,8 +72,6 @@ export const HeadingBlockRenderer: React.FC<HeadingBlockRendererProps> = ({
               block={child}
               depth={depth + 1}
               components={components}
-              devMode={devMode}
-              resolveImageUrl={resolveImageUrl}
             />
           ))}
         </div>

@@ -7,8 +7,6 @@ interface CodeBlockRendererProps extends React.HTMLAttributes<HTMLDivElement> {
   block: any;
   depth?: number;
   components?: React.ComponentProps<typeof BlockRenderer>["components"];
-  devMode?: boolean;
-  resolveImageUrl?: (url: string) => Promise<string>;
 }
 
 export const CodeBlockRenderer: React.FC<CodeBlockRendererProps> = ({
@@ -16,8 +14,6 @@ export const CodeBlockRenderer: React.FC<CodeBlockRendererProps> = ({
   depth = 0,
   className,
   components,
-  devMode,
-  resolveImageUrl,
   ...props
 }) => {
   const codeData = block.code;
@@ -55,8 +51,6 @@ export const CodeBlockRenderer: React.FC<CodeBlockRendererProps> = ({
               block={child}
               depth={depth + 1}
               components={components}
-              devMode={devMode}
-              resolveImageUrl={resolveImageUrl}
             />
           ))}
         </div>

@@ -7,8 +7,6 @@ interface ToDoBlockRendererProps extends React.HTMLAttributes<HTMLDivElement> {
   block: any;
   depth?: number;
   components?: React.ComponentProps<typeof BlockRenderer>["components"];
-  devMode?: boolean;
-  resolveImageUrl?: (url: string) => Promise<string>;
 }
 
 export const ToDoBlockRenderer: React.FC<ToDoBlockRendererProps> = ({
@@ -16,8 +14,6 @@ export const ToDoBlockRenderer: React.FC<ToDoBlockRendererProps> = ({
   depth = 0,
   className,
   components,
-  devMode,
-  resolveImageUrl,
   ...props
 }) => {
   const todoData = block.to_do;
@@ -91,8 +87,6 @@ export const ToDoBlockRenderer: React.FC<ToDoBlockRendererProps> = ({
               block={child}
               depth={depth + 1}
               components={components}
-              devMode={devMode}
-              resolveImageUrl={resolveImageUrl}
             />
           ))}
         </div>

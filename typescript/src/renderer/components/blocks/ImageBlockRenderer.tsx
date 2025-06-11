@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
+import { useRenderer } from "../../context/RendererContext";
 import { RichTextRenderer } from "../RichTextRenderer";
 import { BlockRenderer } from "../BlockRenderer";
 
@@ -25,8 +26,6 @@ interface ImageBlockRendererProps extends React.HTMLAttributes<HTMLDivElement> {
   block: any;
   depth?: number;
   components?: React.ComponentProps<typeof BlockRenderer>["components"];
-  resolveImageUrl?: (url: string) => Promise<string>;
-  devMode?: boolean;
 }
 
 export const ImageBlockRenderer: React.FC<ImageBlockRendererProps> = ({
@@ -34,10 +33,9 @@ export const ImageBlockRenderer: React.FC<ImageBlockRendererProps> = ({
   depth = 0,
   className,
   components,
-  resolveImageUrl,
-  devMode,
   ...props
 }) => {
+  const { resolveImageUrl } = useRenderer();
   const imageData = block.image;
   const [url, setUrl] = useState<string>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -157,8 +155,6 @@ export const ImageBlockRenderer: React.FC<ImageBlockRendererProps> = ({
               block={child}
               depth={depth + 1}
               components={components}
-              devMode={devMode}
-              resolveImageUrl={resolveImageUrl}
             />
           ))}
         </div>
