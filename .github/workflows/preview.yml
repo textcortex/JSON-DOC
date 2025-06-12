@@ -58,4 +58,4 @@ jobs:
     
       - name: Publish preview
         # working-directory: ./typescript
-        run: npx pkg-pr-new publish ./textcortex-jsondoc-0.2.0-alpha.2.tgz
+        run: npx pkg-pr-new publish --pkg typescript
