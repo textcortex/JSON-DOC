@@ -40,10 +40,22 @@ jobs:
         run: |
           npm pack
 
-      - name: List files
+     
+
+      - name: List files in typescript dir
+        working-directory: ./typescript
         run: |
             ls -la 
-          
+
+      - name: Mv tgz to root
+        working-directory: ./typescript
+        run: |
+            mv *.tgz ../
+        
+      - name: List files in root
+        run: |
+            ls -la 
+    
       - name: Publish preview
         # working-directory: ./typescript
         run: npx pkg-pr-new publish typescript
