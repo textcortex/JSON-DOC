@@ -38,8 +38,10 @@ jobs:
       - name: Prepare package for publishing
         working-directory: ./typescript
         run: |
-          npm pack 
+          npm pack
+          mv *.tgz ../
+          ls -la *tgz 
           
       - name: Publish preview
-        working-directory: ./typescript
+        # working-directory: ./typescript
         run: npx pkg-pr-new publish typescript
