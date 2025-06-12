@@ -11,13 +11,7 @@ interface ColumnListBlockRendererProps
 
 export const ColumnListBlockRenderer: React.FC<
   ColumnListBlockRendererProps
-> = ({
-  block,
-  depth = 0,
-  className,
-  components,
-  ...props
-}) => {
+> = ({ block, depth = 0, className, components, ...props }) => {
   return (
     <div
       {...props}

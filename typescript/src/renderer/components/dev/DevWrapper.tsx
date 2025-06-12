@@ -58,14 +58,16 @@ export const DevWrapper: React.FC<DevWrapperProps> = ({ block, children }) => {
         </div>
       )}
       {showJson && (
-        <DevPortal 
+        <DevPortal
           onBackdropClick={(e) => {
             // Don't close if clicking on resize handles (they extend outside the popup)
             const target = e.target as HTMLElement;
-            if (target.hasAttribute?.('data-resize-handle') || 
-                target.style?.cursor?.includes('resize') || 
-                target.style?.zIndex === '10' || 
-                target.style?.zIndex === '11') {
+            if (
+              target.hasAttribute?.("data-resize-handle") ||
+              target.style?.cursor?.includes("resize") ||
+              target.style?.zIndex === "10" ||
+              target.style?.zIndex === "11"
+            ) {
               return;
             }
             setShowJson(false);

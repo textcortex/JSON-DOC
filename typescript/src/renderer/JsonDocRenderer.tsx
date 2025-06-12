@@ -53,8 +53,9 @@ export const JsonDocRenderer = ({
 
             // Show delimiter after the last block of each page
             const showPageDelimiter =
-              currentPageNum && 
-              (nextPageNum !== currentPageNum || index === page.children.length - 1);
+              currentPageNum &&
+              (nextPageNum !== currentPageNum ||
+                index === page.children.length - 1);
 
             return (
               <React.Fragment key={block.id || index}>
@@ -79,9 +80,7 @@ export const JsonDocRenderer = ({
       <div className={`json-doc-renderer jsondoc-theme-${theme} ${className}`}>
         {viewJson ? (
           <div className="flex h-screen">
-            <div className="w-1/2 overflow-y-auto">
-              {renderedContent}
-            </div>
+            <div className="w-1/2 overflow-y-auto">{renderedContent}</div>
             <JsonViewPanel data={page} />
           </div>
         ) : (
