@@ -47,15 +47,18 @@ jobs:
         run: |
             ls -la 
 
-      - name: Mv tgz to root
-        working-directory: ./typescript
-        run: |
-            mv *.tgz ../
+      - name: Create git symlink
+        run: ln -s ../.git typescript/.git
+
+    #   - name: Mv tgz to root
+    #     working-directory: ./typescript
+    #     run: |
+    #         mv *.tgz ../
         
       - name: List files in root
         run: |
             ls -la 
     
       - name: Publish preview
-        # working-directory: ./typescript
-        run: npx pkg-pr-new publish --pkg typescript
+        working-directory: ./typescript
+        run: npx pkg-pr-new publish
