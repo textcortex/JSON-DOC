@@ -42,4 +42,5 @@ jobs:
           npm pack --dry-run
 
       - name: Publish preview
-        run: npx pkg-pr-new publish ./typescript
+        working-directory: ./
+        run: npx pkg-pr-new publish typescript
