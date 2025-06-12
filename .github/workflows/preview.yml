@@ -34,5 +34,7 @@ jobs:
       - name: Run tests
         working-directory: ./typescript
         run: npm test
-          
-      - run: npx pkg-pr-new publish --npm . --no-comments
+
+      - name: Publish preview
+        working-directory: ./typescript
+        run: npx pkg-pr-new publish --npm ./typescript
