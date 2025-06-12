@@ -40,6 +40,9 @@ jobs:
         run: |
           npm pack
 
+      - name: List files
+        run: |
+            ls -la 
           
       - name: Publish preview
         # working-directory: ./typescript
