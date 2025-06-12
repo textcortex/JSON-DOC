@@ -4,14 +4,14 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --clearScreen false",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "preinstall": "npx only-allow pnpm"
   },
   "dependencies": {
-    "@textcortex/jsondoc": "0.2.0-alpha.1",
+    "@textcortex/jsondoc": "link:/Users/abrehamgezahegn/Documents/projects/textcortex/JSON-DOC/typescript",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },

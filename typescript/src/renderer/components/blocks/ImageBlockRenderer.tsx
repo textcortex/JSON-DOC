@@ -124,8 +124,8 @@ export const ImageBlockRenderer: React.FC<ImageBlockRendererProps> = ({
           </div>
           {/* Caption */}
           {imageData?.caption && imageData.caption.length > 0 && (
-            <figcaption className="notion-image-caption">
-              <div className="notranslate">
+            <div className="notranslate">
+              <figcaption className="notion-image-caption">
                 <div
                   className={`caption-content ${!showFullCaption ? "caption-truncated" : "caption-expanded"}`}
                 >
@@ -135,14 +135,13 @@ export const ImageBlockRenderer: React.FC<ImageBlockRendererProps> = ({
                   className="caption-toggle-btn"
                   onClick={() => setShowFullCaption(!showFullCaption)}
                 >
-                  {showFullCaption ? "less" : "more"}
+                  {showFullCaption ? "Show less" : "Show more"}
                 </button>
-              </div>
-            </figcaption>
+              </figcaption>
+            </div>
           )}
         </div>
       </div>
-
       {/* Render children blocks recursively */}
       {block.children && block.children.length > 0 && (
         <div
