@@ -37,4 +37,4 @@ jobs:
 
       - name: Publish preview
         working-directory: ./typescript
-        run: npx pkg-pr-new publish --npm ./typescript
+        run: npx pkg-pr-new publish --npm .
