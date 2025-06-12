@@ -40,7 +40,8 @@ jobs:
         run: |
           ls -la dist/
           npm pack --dry-run
+          
 
       - name: Publish preview
-        working-directory: ./
+        working-directory: ./typescript
         run: npx pkg-pr-new publish typescript
