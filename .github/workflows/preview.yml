@@ -36,5 +36,4 @@ jobs:
         run: npm test
 
       - name: Publish preview
-        working-directory: ./typescript
-        run: npx pkg-pr-new publish --npm .
+        run: npx pkg-pr-new publish --npm ./typescript
