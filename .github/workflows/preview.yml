@@ -39,8 +39,7 @@ jobs:
         working-directory: ./typescript
         run: |
           npm pack
-          mv *.tgz ../
-          ls -la *tgz 
+
           
       - name: Publish preview
         # working-directory: ./typescript
