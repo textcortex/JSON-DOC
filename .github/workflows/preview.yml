@@ -34,6 +34,12 @@ jobs:
       - name: Run tests
         working-directory: ./typescript
         run: npm test
+  
+      - name: Prepare package for publishing
+        working-directory: ./typescript
+        run: |
+          ls -la dist/
+          npm pack --dry-run
 
       - name: Publish preview
-        run: npx pkg-pr-new publish --npm ./typescript
+        run: npx pkg-pr-new publish ./typescript
