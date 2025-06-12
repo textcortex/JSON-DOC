@@ -254,7 +254,7 @@ MIT
   - [x] table
   - [ ] todo?
   - [x] equation
-  - [ ] image
+  - [x] image
   - [x] blockquote
 - [] fix ts and eslint errors in these dirs and remove from ignore list of ts and eslint
   ```
@@ -262,7 +262,7 @@ MIT
       "src/serialization/**",
   ```
 - [x] add counter for numbered lists
-- [] setup up bumpp: https://www.npmjs.com/package/bumpp
+- [x] setup up bumpp: https://www.npmjs.com/package/bumpp
 - [] migrate test runner to vitest
-- [] move vite app to typescript root examples dir
+- [x] move vite app to typescript root examples dir
 - [] setup monorepo tooling

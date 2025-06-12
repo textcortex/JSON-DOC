@@ -128,6 +128,8 @@
   margin-bottom: var(--jsondoc-spacing-sm);
   font-style: italic;
   max-width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Image container styles */
@@ -145,11 +147,10 @@
 
 .caption-truncated {
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
+  word-break: break-word;
 }
 
 .caption-expanded {
@@ -169,6 +170,7 @@ button.caption-toggle-btn {
   padding: 2px 4px;
   text-decoration: underline;
   transition: color 0.2s ease;
+  margin-left: auto;
 }
 
 .caption-toggle-btn:hover {

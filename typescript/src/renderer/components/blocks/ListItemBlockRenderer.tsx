@@ -4,7 +4,7 @@ import { RichTextRenderer } from "../RichTextRenderer";
 import { BlockRenderer } from "../BlockRenderer";
 
 interface ListItemBlockRendererProps
-  extends React.HTMLAttributes<HTMLLIElement> {
+  extends React.HTMLAttributes<HTMLDivElement> {
   block: any;
   type: "bulleted" | "numbered";
   depth?: number;
@@ -28,12 +28,16 @@ export const ListItemBlockRenderer: React.FC<ListItemBlockRendererProps> = ({
       : "notion-numbered_list-block";
 
   return (
-    <li
+    <div
       {...props}
       className={`notion-selectable ${blockClassName} ${className || ""}`.trim()}
       data-block-id={block.id}
     >
-      <RichTextRenderer richText={listData?.rich_text || []} />
+      {/* <div className="notion-list-item-box-left" /> */}
+      {type === "bulleted" && <div className="notion-list-item-box-left" />}
+      <div>
+        <RichTextRenderer richText={listData?.rich_text || []} />
+      </div>
 
       {/* Render children blocks recursively */}
       {block.children && block.children.length > 0 && (
@@ -51,6 +55,6 @@ export const ListItemBlockRenderer: React.FC<ListItemBlockRendererProps> = ({
           ))}
         </div>
       )}
-    </li>
+    </div>
   );
 };

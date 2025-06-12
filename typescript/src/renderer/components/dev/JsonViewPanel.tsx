@@ -5,9 +5,9 @@ interface JsonViewPanelProps {
   title?: string;
 }
 
-export const JsonViewPanel: React.FC<JsonViewPanelProps> = ({ 
-  data, 
-  title = "Raw JSON Data" 
+export const JsonViewPanel: React.FC<JsonViewPanelProps> = ({
+  data,
+  title = "Raw JSON Data",
 }) => {
   return (
     <div className="w-1/2 overflow-y-auto bg-gray-50 dark:bg-gray-900">
@@ -16,7 +16,7 @@ export const JsonViewPanel: React.FC<JsonViewPanelProps> = ({
           {title}
         </h4>
         <pre className="text-xs text-gray-700 dark:text-gray-300 whitespace-pre-wrap break-words bg-white dark:bg-gray-800 p-4 rounded-md border border-gray-200 dark:border-gray-700 overflow-x-auto">
-          {data ? JSON.stringify(data, null, 2) : 'No data available'}
+          {data ? JSON.stringify(data, null, 2) : "No data available"}
         </pre>
       </div>
     </div>

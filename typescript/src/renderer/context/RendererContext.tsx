@@ -1,4 +1,4 @@
-import React, { createContext, useContext, ReactNode } from 'react';
+import React, { createContext, useContext, ReactNode } from "react";
 
 interface RendererContextValue {
   devMode?: boolean;
@@ -16,9 +16,9 @@ interface RendererProviderProps {
   value: RendererContextValue;
 }
 
-export const RendererProvider: React.FC<RendererProviderProps> = ({ 
-  children, 
-  value 
+export const RendererProvider: React.FC<RendererProviderProps> = ({
+  children,
+  value,
 }) => {
   return (
     <RendererContext.Provider value={value}>
@@ -26,3 +26,4 @@ export const RendererProvider: React.FC<RendererProviderProps> = ({
     </RendererContext.Provider>
   );
 };
+//

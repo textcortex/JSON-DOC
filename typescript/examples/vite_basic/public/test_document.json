@@ -62,127 +62,117 @@
     },
     {
       "object": "block",
-      "id": "34dae149-f120-4644-b867-264e4142ceef",
-      "type": "unordered_list",
-      "created_time": "2025-06-02T15:20:59.535391Z",
-      "has_children": true,
-      "unordered_list": {},
-      "children": [
-        {
-          "object": "block",
-          "id": "4b66544c-a084-4e99-8336-735687929f16",
-          "type": "bulleted_list_item",
-          "created_time": "2025-06-02T15:20:59.535160Z",
-          "has_children": false,
-          "bulleted_list_item": {
-            "rich_text": [
-              {
-                "type": "text",
-                "text": { "content": "Text", "link": { "url": "#text" } },
-                "annotations": {},
-                "plain_text": "Text",
-                "href": "#text"
-              }
-            ]
+      "id": "4b66544c-a084-4e99-8336-735687929f16",
+      "type": "bulleted_list_item",
+      "created_time": "2025-06-02T15:20:59.535160Z",
+      "has_children": false,
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Text", "link": { "url": "#text" } },
+            "annotations": {},
+            "plain_text": "Text",
+            "href": "#text"
           }
-        },
-        {
-          "object": "block",
-          "id": "e55439da-b02d-4483-b6b3-d8216f16ec61",
-          "type": "bulleted_list_item",
-          "created_time": "2025-06-02T15:20:59.535230Z",
-          "has_children": false,
-          "bulleted_list_item": {
-            "rich_text": [
-              {
-                "type": "text",
-                "text": {
-                  "content": "Lists & Tables",
-                  "link": { "url": "#lists-tables" }
-                },
-                "annotations": {},
-                "plain_text": "Lists & Tables",
-                "href": "#lists-tables"
-              }
-            ]
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "e55439da-b02d-4483-b6b3-d8216f16ec61",
+      "type": "bulleted_list_item",
+      "created_time": "2025-06-02T15:20:59.535230Z",
+      "has_children": false,
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Lists & Tables",
+              "link": { "url": "#lists-tables" }
+            },
+            "annotations": {},
+            "plain_text": "Lists & Tables",
+            "href": "#lists-tables"
           }
-        },
-        {
-          "object": "block",
-          "id": "834fac7e-1b57-47f3-99e3-2811db0ace32",
-          "type": "bulleted_list_item",
-          "created_time": "2025-06-02T15:20:59.535274Z",
-          "has_children": false,
-          "bulleted_list_item": {
-            "rich_text": [
-              {
-                "type": "text",
-                "text": { "content": "Media", "link": { "url": "#media" } },
-                "annotations": {},
-                "plain_text": "Media",
-                "href": "#media"
-              }
-            ]
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "834fac7e-1b57-47f3-99e3-2811db0ace32",
+      "type": "bulleted_list_item",
+      "created_time": "2025-06-02T15:20:59.535274Z",
+      "has_children": false,
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Media", "link": { "url": "#media" } },
+            "annotations": {},
+            "plain_text": "Media",
+            "href": "#media"
           }
-        },
-        {
-          "object": "block",
-          "id": "596289db-3b11-4352-9815-920ec4cd7097",
-          "type": "bulleted_list_item",
-          "created_time": "2025-06-02T15:20:59.535315Z",
-          "has_children": false,
-          "bulleted_list_item": {
-            "rich_text": [
-              {
-                "type": "text",
-                "text": {
-                  "content": "Multi-Column",
-                  "link": { "url": "#multi-column" }
-                },
-                "annotations": {},
-                "plain_text": "Multi-Column",
-                "href": "#multi-column"
-              }
-            ]
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "596289db-3b11-4352-9815-920ec4cd7097",
+      "type": "bulleted_list_item",
+      "created_time": "2025-06-02T15:20:59.535315Z",
+      "has_children": false,
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Multi-Column",
+              "link": { "url": "#multi-column" }
+            },
+            "annotations": {},
+            "plain_text": "Multi-Column",
+            "href": "#multi-column"
           }
-        },
-        {
-          "object": "block",
-          "id": "2188f7cb-edc1-422f-9114-8701b9cd989d",
-          "type": "bulleted_list_item",
-          "created_time": "2025-06-02T15:20:59.535347Z",
-          "has_children": false,
-          "bulleted_list_item": {
-            "rich_text": [
-              {
-                "type": "text",
-                "text": { "content": "Code", "link": { "url": "#code" } },
-                "annotations": {},
-                "plain_text": "Code",
-                "href": "#code"
-              }
-            ]
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "2188f7cb-edc1-422f-9114-8701b9cd989d",
+      "type": "bulleted_list_item",
+      "created_time": "2025-06-02T15:20:59.535347Z",
+      "has_children": false,
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Code", "link": { "url": "#code" } },
+            "annotations": {},
+            "plain_text": "Code",
+            "href": "#code"
           }
-        },
-        {
-          "object": "block",
-          "id": "692ae263-8898-4e32-8d85-0ec168d1d9f7",
-          "type": "bulleted_list_item",
-          "created_time": "2025-06-02T15:20:59.535377Z",
-          "has_children": false,
-          "bulleted_list_item": {
-            "rich_text": [
-              {
-                "type": "text",
-                "text": { "content": "Forms", "link": { "url": "#form" } },
-                "annotations": {},
-                "plain_text": "Forms",
-                "href": "#form"
-              }
-            ]
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "692ae263-8898-4e32-8d85-0ec168d1d9f7",
+      "type": "bulleted_list_item",
+      "created_time": "2025-06-02T15:20:59.535377Z",
+      "has_children": false,
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Forms", "link": { "url": "#form" } },
+            "annotations": {},
+            "plain_text": "Forms",
+            "href": "#form"
           }
-        }
-      ]
+        ]
+      }
     },
     {
       "object": "block",
@@ -327,64 +317,54 @@
     },
     {
       "object": "block",
-      "id": "a614ceec-5d39-4619-b64a-565b4a42892b",
-      "type": "unordered_list",
-      "created_time": "2025-06-02T15:20:59.536330Z",
-      "has_children": true,
-      "unordered_list": {},
-      "children": [
-        {
-          "object": "block",
-          "id": "564201a0-1bdc-4312-8235-e19b2af794a9",
-          "type": "bulleted_list_item",
-          "created_time": "2025-06-02T15:20:59.536257Z",
-          "has_children": false,
-          "bulleted_list_item": {
-            "rich_text": [
-              {
-                "type": "text",
-                "text": { "content": "Apple" },
-                "annotations": {},
-                "plain_text": "Apple"
-              }
-            ]
+      "id": "564201a0-1bdc-4312-8235-e19b2af794a9",
+      "type": "bulleted_list_item",
+      "created_time": "2025-06-02T15:20:59.536257Z",
+      "has_children": false,
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Apple" },
+            "annotations": {},
+            "plain_text": "Apple"
           }
-        },
-        {
-          "object": "block",
-          "id": "3aaadb89-ccdb-4098-9d8f-32061b4b179c",
-          "type": "bulleted_list_item",
-          "created_time": "2025-06-02T15:20:59.536286Z",
-          "has_children": false,
-          "bulleted_list_item": {
-            "rich_text": [
-              {
-                "type": "text",
-                "text": { "content": "Banana" },
-                "annotations": {},
-                "plain_text": "Banana"
-              }
-            ]
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "3aaadb89-ccdb-4098-9d8f-32061b4b179c",
+      "type": "bulleted_list_item",
+      "created_time": "2025-06-02T15:20:59.536286Z",
+      "has_children": false,
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Banana" },
+            "annotations": {},
+            "plain_text": "Banana"
           }
-        },
-        {
-          "object": "block",
-          "id": "35a670f2-1ef5-4e88-adb8-3d435908e124",
-          "type": "bulleted_list_item",
-          "created_time": "2025-06-02T15:20:59.536312Z",
-          "has_children": false,
-          "bulleted_list_item": {
-            "rich_text": [
-              {
-                "type": "text",
-                "text": { "content": "Cherry" },
-                "annotations": {},
-                "plain_text": "Cherry"
-              }
-            ]
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "35a670f2-1ef5-4e88-adb8-3d435908e124",
+      "type": "bulleted_list_item",
+      "created_time": "2025-06-02T15:20:59.536312Z",
+      "has_children": false,
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Cherry" },
+            "annotations": {},
+            "plain_text": "Cherry"
           }
-        }
-      ]
+        ]
+      }
     },
     {
       "object": "block",
@@ -405,64 +385,99 @@
     },
     {
       "object": "block",
-      "id": "5a613843-d8dc-4128-ad1e-19ff20b8d951",
-      "type": "ordered_list",
-      "created_time": "2025-06-02T15:20:59.536532Z",
-      "has_children": true,
-      "ordered_list": {},
-      "children": [
-        {
-          "object": "block",
-          "id": "f814a085-ebb6-48d9-8fc5-7edf280f3e14",
-          "type": "numbered_list_item",
-          "created_time": "2025-06-02T15:20:59.536443Z",
-          "has_children": false,
-          "numbered_list_item": {
-            "rich_text": [
-              {
-                "type": "text",
-                "text": { "content": "Alpha" },
-                "annotations": {},
-                "plain_text": "Alpha"
-              }
-            ]
+      "id": "f814a085-ebb6-48d9-8fc5-7edf280f3e14",
+      "type": "numbered_list_item",
+      "created_time": "2025-06-02T15:20:59.536443Z",
+      "has_children": false,
+      "numbered_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Here is a quote\nSome ",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Here is a quote\nSome ",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": "formatted text",
+              "link": null
+            },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "formatted text",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": " inside the quote",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": " inside the quote",
+            "href": null
           }
-        },
-        {
-          "object": "block",
-          "id": "f2f4e5fe-fe60-42f0-9baa-dbbd8c57dc10",
-          "type": "numbered_list_item",
-          "created_time": "2025-06-02T15:20:59.536487Z",
-          "has_children": false,
-          "numbered_list_item": {
-            "rich_text": [
-              {
-                "type": "text",
-                "text": { "content": "Beta" },
-                "annotations": {},
-                "plain_text": "Beta"
-              }
-            ]
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "f2f4e5fe-fe60-42f0-9baa-dbbd8c57dc10",
+      "type": "numbered_list_item",
+      "created_time": "2025-06-02T15:20:59.536487Z",
+      "has_children": false,
+      "numbered_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Beta" },
+            "annotations": {},
+            "plain_text": "Beta"
           }
-        },
-        {
-          "object": "block",
-          "id": "190349d0-60d1-474a-939d-5f77c9dc4cc4",
-          "type": "numbered_list_item",
-          "created_time": "2025-06-02T15:20:59.536513Z",
-          "has_children": false,
-          "numbered_list_item": {
-            "rich_text": [
-              {
-                "type": "text",
-                "text": { "content": "Gamma" },
-                "annotations": {},
-                "plain_text": "Gamma"
-              }
-            ]
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "190349d0-60d1-474a-939d-5f77c9dc4cc4",
+      "type": "numbered_list_item",
+      "created_time": "2025-06-02T15:20:59.536513Z",
+      "has_children": false,
+      "numbered_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Gamma" },
+            "annotations": {},
+            "plain_text": "Gamma"
           }
-        }
-      ]
+        ]
+      }
     },
     {
       "object": "block",
@@ -605,7 +620,17 @@
         "type": "external",
         "external": {
           "url": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=400"
-        }
+        },
+        "caption": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Image /page/1/Figure/3 description: The image shows a diagram of the Ultihash Ocean Tier architecture. The diagram is divided into three tiers: Tier 1 Cloud Hyperscaler, GPU Cloud, and Tier 2 Cloud e.g. EU provider. The Tier 1 Cloud Hyperscaler includes Google Cloud, AWS, and Azure. The GPU Cloud includes Lambda, Nebius, Salad, and RunPod. The Tier 2 Cloud e.g. EU provider includes OVHcloud, Hetzner, and GCore. The diagram also shows the Ultihash Ocean Tier, which includes 10 TiB Freemium, Ultihash self-hosted, and Ultihash serverless. The diagram also shows the benefits of the Ultihash Ocean Tier, which include zero-effort data access across clouds, no manual migration, smart orchestration of data placement, 10x lower latency, and 50% lower egress fees. The diagram also shows that the Ultihash Ocean Tier is Kubernetes-native object storage, has high throughput read performance, lossless deduplication cuts TCO by up to 60%, and is S3-compatible, deployable on-prem or cloud."
+            },
+            "annotations": {},
+            "plain_text": "Image /page/1/Figure/3 description: The image shows a diagram of the Ultihash Ocean Tier architecture. The diagram is divided into three tiers: Tier 1 Cloud Hyperscaler, GPU Cloud, and Tier 2 Cloud e.g. EU provider. The Tier 1 Cloud Hyperscaler includes Google Cloud, AWS, and Azure. The GPU Cloud includes Lambda, Nebius, Salad, and RunPod. The Tier 2 Cloud e.g. EU provider includes OVHcloud, Hetzner, and GCore. The diagram also shows the Ultihash Ocean Tier, which includes 10 TiB Freemium, Ultihash self-hosted, and Ultihash serverless. The diagram also shows the benefits of the Ultihash Ocean Tier, which include zero-effort data access across clouds, no manual migration, smart orchestration of data placement, 10x lower latency, and 50% lower egress fees. The diagram also shows that the Ultihash Ocean Tier is Kubernetes-native object storage, has high throughput read performance, lossless deduplication cuts TCO by up to 60%, and is S3-compatible, deployable on-prem or cloud."
+          }
+        ]
       }
     },
     {

@@ -1,0 +1,64 @@
+name: Publish preview from PR
+on: 
+  pull_request:
+    paths:
+      - 'typescript/**'
+      - '!typescript/**/*.md'  # Exclude markdown files using ! prefix
+      - '!typescript/README.md'
+
+jobs:
+  publish-to-pkg-pr:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          registry-url: 'https://registry.npmjs.org'
+      
+      - name: Install dependencies
+        working-directory: ./typescript
+        run: npm ci
+
+      - name: Generate types and build package
+        working-directory: ./typescript
+        run: |
+          npm run generate-types
+          npm run build
+
+      - name: Run tests
+        working-directory: ./typescript
+        run: npm test
+  
+      - name: Prepare package for publishing
+        working-directory: ./typescript
+        run: |
+          npm pack
+
+     
+
+      - name: List files in typescript dir
+        working-directory: ./typescript
+        run: |
+            ls -la 
+
+      - name: Create git symlink
+        run: ln -s ../.git typescript/.git
+
+    #   - name: Mv tgz to root
+    #     working-directory: ./typescript
+    #     run: |
+    #         mv *.tgz ../
+        
+      - name: List files in root
+        run: |
+            ls -la 
+    
+      - name: Publish preview
+        working-directory: ./typescript
+        run: npx pkg-pr-new publish
