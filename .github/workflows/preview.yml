@@ -1,4 +1,4 @@
-name: Publish from PR
+name: Publish preview from PR
 on: 
   pull_request:
     paths:
