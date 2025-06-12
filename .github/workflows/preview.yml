@@ -35,4 +35,4 @@ jobs:
         working-directory: ./typescript
         run: npm test
           
-      - run: npx pkg-pr-new publish --npm .
+      - run: npx pkg-pr-new publish --npm . --no-comments
