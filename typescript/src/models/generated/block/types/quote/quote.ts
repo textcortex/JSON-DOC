@@ -1,3 +1,6 @@
+import type { BlockBase } from "../../base";
+import type { Block } from "../..";
+
 export type QuoteBlock = BlockBase & {
   type: "quote";
   quote: {
@@ -27,11 +30,3 @@ export type QuoteBlock = BlockBase & {
   };
   children?: Block[];
 };
-/**
- * Reference to block.base.BlockBase
- */
-export type BlockBase = BlockBase;
-/**
- * Reference to jsondoc.models.block.base.BlockBase
- */
-export type Block = BlockBase;

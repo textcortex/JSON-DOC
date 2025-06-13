@@ -1,31 +1,30 @@
 import React from "react";
 
+import {
+  Heading1Block,
+  Heading2Block,
+  Heading3Block,
+} from "@/models/generated";
+
 import { RichTextRenderer } from "../RichTextRenderer";
-import { BlockRenderer } from "../BlockRenderer";
 
 interface HeadingBlockRendererProps
   extends React.HTMLAttributes<HTMLDivElement> {
-  block: any;
-  level: 1 | 2 | 3;
-  depth?: number;
-  components?: React.ComponentProps<typeof BlockRenderer>["components"];
+  block: Heading1Block | Heading2Block | Heading3Block;
 }
 
 export const HeadingBlockRenderer: React.FC<HeadingBlockRendererProps> = ({
   block,
-  level,
-  depth = 0,
   className,
-  components,
   ...props
 }) => {
   const getHeadingData = () => {
-    switch (level) {
-      case 1:
+    switch (block.type) {
+      case "heading_1":
         return block.heading_1;
-      case 2:
+      case "heading_2":
         return block.heading_2;
-      case 3:
+      case "heading_3":
         return block.heading_3;
       default:
         return null;
@@ -34,18 +33,20 @@ export const HeadingBlockRenderer: React.FC<HeadingBlockRendererProps> = ({
 
   const headingData = getHeadingData();
   const blockClassName =
-    level === 1 ? "notion-header-block" : "notion-sub_header-block";
+    block.type === "heading_1"
+      ? "notion-header-block"
+      : "notion-sub_header-block";
 
   const renderHeading = () => {
     const content = (
       <RichTextRenderer richText={headingData?.rich_text || []} />
     );
-    switch (level) {
-      case 1:
+    switch (block.type) {
+      case "heading_1":
         return <h2 className="notranslate">{content}</h2>;
-      case 2:
+      case "heading_2":
         return <h3 className="notranslate">{content}</h3>;
-      case 3:
+      case "heading_3":
         return <h4 className="notranslate">{content}</h4>;
       default:
         return <h2 className="notranslate">{content}</h2>;
@@ -59,23 +60,6 @@ export const HeadingBlockRenderer: React.FC<HeadingBlockRendererProps> = ({
       data-block-id={block.id}
     >
       <div>{renderHeading()}</div>
-
-      {/* Render children blocks recursively */}
-      {block.children && block.children.length > 0 && (
-        <div
-          className="notion-block-children"
-          style={{ marginLeft: `${depth * 24}px` }}
-        >
-          {block.children.map((child: any, index: number) => (
-            <BlockRenderer
-              key={child.id || index}
-              block={child}
-              depth={depth + 1}
-              components={components}
-            />
-          ))}
-        </div>
-      )}
     </div>
   );
 };

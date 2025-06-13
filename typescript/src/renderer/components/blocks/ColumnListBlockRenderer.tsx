@@ -1,10 +1,12 @@
 import React from "react";
 
+import { ColumnListBlock } from "@/models/generated";
+
 import { BlockRenderer } from "../BlockRenderer";
 
 interface ColumnListBlockRendererProps
   extends React.HTMLAttributes<HTMLDivElement> {
-  block: any;
+  block: ColumnListBlock;
   depth?: number;
   components?: React.ComponentProps<typeof BlockRenderer>["components"];
 }
@@ -22,7 +24,7 @@ export const ColumnListBlockRenderer: React.FC<
         className="notion-column-list"
         style={{ display: "flex", gap: "16px" }}
       >
-        {block.children?.map((child: any, index: number) => {
+        {block.children?.map((child, index: number) => {
           if (child?.type === "column") {
             return (
               <div

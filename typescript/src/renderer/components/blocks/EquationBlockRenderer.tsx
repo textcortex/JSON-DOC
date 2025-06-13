@@ -1,19 +1,16 @@
 import React from "react";
 
-import { BlockRenderer } from "../BlockRenderer";
+import { EquationBlock } from "@/models/generated";
 
 interface EquationBlockRendererProps
   extends React.HTMLAttributes<HTMLDivElement> {
-  block: any;
+  block: EquationBlock;
   depth?: number;
-  components?: React.ComponentProps<typeof BlockRenderer>["components"];
 }
 
 export const EquationBlockRenderer: React.FC<EquationBlockRendererProps> = ({
   block,
-  depth = 0,
   className,
-  components,
   ...props
 }) => {
   const equationData = block.equation;
@@ -31,23 +28,6 @@ export const EquationBlockRenderer: React.FC<EquationBlockRendererProps> = ({
           </div>
         </div>
       </div>
-
-      {/* Render children blocks recursively */}
-      {block.children && block.children.length > 0 && (
-        <div
-          className="notion-block-children"
-          style={{ marginLeft: `${depth * 24}px` }}
-        >
-          {block.children.map((child: any, index: number) => (
-            <BlockRenderer
-              key={child.id || index}
-              block={child}
-              depth={depth + 1}
-              components={components}
-            />
-          ))}
-        </div>
-      )}
     </div>
   );
 };

@@ -256,13 +256,15 @@ MIT
   - [x] equation
   - [x] image
   - [x] blockquote
-- [] fix ts and eslint errors in these dirs and remove from ignore list of ts and eslint
+- [x] fix ts and eslint errors in these dirs and remove from ignore list of ts and eslint
   ```
       "**/generated/**",
       "src/serialization/**",
   ```
+
 - [x] add counter for numbered lists
 - [x] setup up bumpp: https://www.npmjs.com/package/bumpp
 - [] migrate test runner to vitest
 - [x] move vite app to typescript root examples dir
 - [] setup monorepo tooling
+- [] fix model generation for Image and RichText, then type renderers
