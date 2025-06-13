@@ -1,10 +1,12 @@
 import React from "react";
 
+import { ToDoBlock } from "@/models/generated";
+
 import { RichTextRenderer } from "../RichTextRenderer";
 import { BlockRenderer } from "../BlockRenderer";
 
 interface ToDoBlockRendererProps extends React.HTMLAttributes<HTMLDivElement> {
-  block: any;
+  block: ToDoBlock;
   depth?: number;
   components?: React.ComponentProps<typeof BlockRenderer>["components"];
 }

@@ -1,10 +1,12 @@
 import React from "react";
 
+import { QuoteBlock } from "@/models/generated";
+
 import { RichTextRenderer } from "../RichTextRenderer";
 import { BlockRenderer } from "../BlockRenderer";
 
 interface QuoteBlockRendererProps extends React.HTMLAttributes<HTMLDivElement> {
-  block: any;
+  block: QuoteBlock;
   depth?: number;
   components?: React.ComponentProps<typeof BlockRenderer>["components"];
 }

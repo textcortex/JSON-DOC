@@ -1,10 +1,12 @@
 import React from "react";
 
+import { TableBlock } from "@/models/generated";
+
 import { RichTextRenderer } from "../RichTextRenderer";
 import { BlockRenderer } from "../BlockRenderer";
 
 interface TableBlockRendererProps extends React.HTMLAttributes<HTMLDivElement> {
-  block: any;
+  block: TableBlock;
   depth?: number;
   components?: React.ComponentProps<typeof BlockRenderer>["components"];
 }

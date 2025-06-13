@@ -1,11 +1,13 @@
 import React from "react";
 
+import { ParagraphBlock } from "@/models/generated";
+
 import { RichTextRenderer } from "../RichTextRenderer";
 import { BlockRenderer } from "../BlockRenderer";
 
 interface ParagraphBlockRendererProps
   extends React.HTMLAttributes<HTMLDivElement> {
-  block: any;
+  block: ParagraphBlock;
   depth?: number;
   components?: React.ComponentProps<typeof BlockRenderer>["components"];
 }

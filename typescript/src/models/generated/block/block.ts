@@ -1,6 +1,6 @@
-export type Block = {
-  [k: string]: unknown;
-} & {
+import type { BlockBase } from "./base";
+
+export type Block = BlockBase & {
   type:
     | "paragraph"
     | "to_do"

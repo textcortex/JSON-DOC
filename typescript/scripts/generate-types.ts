@@ -128,17 +128,19 @@ async function resolveRefs(obj: any, sourceDir: string): Promise<any> {
           customTypePath = [...refTokens, title].join(".");
         }
 
-        // Create a simplified reference object
-        return {
-          type: "object",
-          title,
-          properties: {},
-          additionalProperties: false,
-          // Add metadata for TypeScript generator
-          // These will be processed by json-schema-to-typescript
-          description: `Reference to ${customTypePath}`,
-          tsType: customTypePath.split(".").pop(),
-        };
+        // For external references, just return a simple type reference
+        // This prevents inlining the entire interface definition
+        if (title) {
+          return {
+            type: "object",
+            title: title,
+            // Mark as external reference to prevent inlining
+            "x-external-ref": true,
+          };
+        }
+
+        // Fallback: return the resolved object if no title
+        return refObj || {};
       } catch (error) {
         console.error(`Error resolving reference ${ref}:`, error);
         return {};
@@ -198,8 +200,14 @@ async function convertSchemaToTypeScript(
     const outputDir = path.dirname(outputPath);
     await mkdir(outputDir, { recursive: true });
 
+    // Post-process to fix external references
+    const processedTypeScript = await postProcessTypeScript(
+      typeScript,
+      outputPath
+    );
+
     // Write the TypeScript interface to file
-    await writeFile(outputPath, typeScript);
+    await writeFile(outputPath, processedTypeScript);
     console.log(`Generated: ${outputPath}`);
   } catch (error) {
     console.error(`Error converting schema ${schemaPath}:`, error);
@@ -272,6 +280,76 @@ function createBarrelFiles(dir: string): void {
   for (const subDir of directories) {
     createBarrelFiles(path.join(dir, subDir));
   }
+}
+
+/**
+ * Post-process generated TypeScript to fix external references
+ */
+async function postProcessTypeScript(
+  typeScript: string,
+  outputPath: string
+): Promise<string> {
+  let processed = typeScript;
+
+  // Calculate the correct import path for each interface based on current output path
+  const getImportPath = (interfaceName: string): string => {
+    const outputDir = path.dirname(outputPath);
+    const modelsGenerated = path.resolve(__dirname, "../src/models/generated");
+
+    // Define the actual locations of each interface
+    const interfaceLocations: Record<string, string> = {
+      BlockBase: path.join(modelsGenerated, "block/base"),
+      Block: path.join(modelsGenerated, "block"),
+      RichText: path.join(modelsGenerated, "block/types/rich_text"),
+      File: path.join(modelsGenerated, "file"),
+      ColumnBlock: path.join(modelsGenerated, "block/types/column"),
+      TableRowBlock: path.join(modelsGenerated, "block/types/table_row"),
+      FileExternal: path.join(modelsGenerated, "file/external"),
+      RichTextText: path.join(modelsGenerated, "block/types/rich_text/text"),
+    };
+
+    const targetPath = interfaceLocations[interfaceName];
+    if (!targetPath) return "";
+
+    const relativePath = path.relative(outputDir, targetPath);
+    return relativePath.startsWith(".")
+      ? relativePath.replace(/\\/g, "/")
+      : `./${relativePath.replace(/\\/g, "/")}`;
+  };
+
+  // Find empty interface definitions and replace with imports
+  const emptyInterfaceRegex = /export interface (\w+) \{\}\s*/g;
+  const imports: string[] = [];
+
+  processed = processed.replace(emptyInterfaceRegex, (match, interfaceName) => {
+    const importPath = getImportPath(interfaceName);
+    if (importPath) {
+      imports.push(`import type { ${interfaceName} } from '${importPath}';`);
+      return ""; // Remove the empty interface
+    }
+    return match; // Keep if not in our external interfaces map
+  });
+
+  // Add imports at the top if any were found
+  if (imports.length > 0) {
+    processed = imports.join("\n") + "\n\n" + processed;
+  }
+
+  // Fix Block type to extend BlockBase if this is the block.ts file
+  if (outputPath.endsWith("block/block.ts")) {
+    // Add import for BlockBase if not already present
+    if (!processed.includes("import type { BlockBase }")) {
+      processed = `import type { BlockBase } from './base';\n\n` + processed;
+    }
+
+    // Replace the Block type definition to extend BlockBase
+    processed = processed.replace(
+      /export type Block = \{[^}]*\} & \{/,
+      "export type Block = BlockBase & {"
+    );
+  }
+
+  return processed;
 }
 
 /**

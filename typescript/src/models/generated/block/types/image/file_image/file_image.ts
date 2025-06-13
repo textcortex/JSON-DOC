@@ -3,7 +3,5 @@ export type FileImage = FileFile & {
     [k: string]: unknown;
   }[];
 };
-/**
- * Reference to file.file.FileFile
- */
-export type FileFile = FileFile;
+
+export interface FileFile {}

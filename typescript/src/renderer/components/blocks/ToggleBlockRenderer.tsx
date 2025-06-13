@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 
+import { ToggleBlock } from "@/models/generated";
+
 import { RichTextRenderer } from "../RichTextRenderer";
 import { BlockRenderer } from "../BlockRenderer";
 
 interface ToggleBlockRendererProps
   extends React.HTMLAttributes<HTMLDivElement> {
-  block: any;
+  block: ToggleBlock;
   depth?: number;
   components?: React.ComponentProps<typeof BlockRenderer>["components"];
 }

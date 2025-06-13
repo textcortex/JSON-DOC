@@ -1,5 +1,7 @@
 import React from "react";
 
+// import { RichText } from "@/models/generated";
+
 interface RichTextRendererProps {
   richText: any[];
 }
@@ -13,7 +15,7 @@ export const RichTextRenderer: React.FC<RichTextRendererProps> = ({
 
   return (
     <>
-      {richText.map((item: any, index: number) => {
+      {richText.map((item, index: number) => {
         const key = `rich-text-${index}`;
 
         if (item?.type === "text") {

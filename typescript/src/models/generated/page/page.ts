@@ -1,11 +1,5 @@
-/**
- * Reference to block.types.rich_text.text.RichTextText
- */
-export type RichTextText = RichTextText;
-/**
- * Reference to jsondoc.models.block.base.BlockBase
- */
-export type Block = BlockBase;
+import type { RichTextText } from "../block/types/rich_text/text";
+import type { Block } from "../block";
 
 export interface Page {
   object: "page";
