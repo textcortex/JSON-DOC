@@ -1,3 +1,6 @@
+import type { BlockBase } from "../../base";
+import type { Block } from "../..";
+
 export type BulletedListItemBlock = BlockBase & {
   type: "bulleted_list_item";
   bulleted_list_item: {
@@ -27,11 +30,3 @@ export type BulletedListItemBlock = BlockBase & {
   };
   children?: Block[];
 };
-/**
- * Reference to block.base.BlockBase
- */
-export type BlockBase = BlockBase;
-/**
- * Reference to jsondoc.models.block.base.BlockBase
- */
-export type Block = BlockBase;

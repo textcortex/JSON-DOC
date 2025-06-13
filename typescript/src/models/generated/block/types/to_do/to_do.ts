@@ -1,3 +1,6 @@
+import type { BlockBase } from "../../base";
+import type { Block } from "../..";
+
 export type ToDoBlock = BlockBase & {
   type: "to_do";
   to_do: {
@@ -28,11 +31,3 @@ export type ToDoBlock = BlockBase & {
   };
   children?: Block[];
 };
-/**
- * Reference to block.base.BlockBase
- */
-export type BlockBase = BlockBase;
-/**
- * Reference to jsondoc.models.block.base.BlockBase
- */
-export type Block = BlockBase;

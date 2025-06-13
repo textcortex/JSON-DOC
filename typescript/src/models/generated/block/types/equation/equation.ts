@@ -1,10 +1,8 @@
-export type EquationBlock = BlockBase & {
+import type { Block } from "../../block";
+
+export type EquationBlock = Block & {
   type: "equation";
   equation: {
     expression: string;
   };
 };
-/**
- * Reference to block.base.BlockBase
- */
-export type BlockBase = BlockBase;

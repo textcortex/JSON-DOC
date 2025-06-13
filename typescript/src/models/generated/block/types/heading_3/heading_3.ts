@@ -1,3 +1,5 @@
+import type { BlockBase } from "../../base";
+
 export type Heading3Block = BlockBase & {
   type: "heading_3";
   heading_3: {
@@ -27,7 +29,3 @@ export type Heading3Block = BlockBase & {
     is_toggleable?: boolean;
   };
 };
-/**
- * Reference to block.base.BlockBase
- */
-export type BlockBase = BlockBase;

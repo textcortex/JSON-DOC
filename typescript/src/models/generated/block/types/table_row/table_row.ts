@@ -1,3 +1,5 @@
+import type { BlockBase } from "../../base";
+
 export type TableRowBlock = BlockBase & {
   type: "table_row";
   table_row: {
@@ -6,7 +8,3 @@ export type TableRowBlock = BlockBase & {
     }[][];
   };
 };
-/**
- * Reference to block.base.BlockBase
- */
-export type BlockBase = BlockBase;

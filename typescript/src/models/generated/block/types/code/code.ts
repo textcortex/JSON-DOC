@@ -1,3 +1,5 @@
+import type { BlockBase } from "../../base";
+
 export type CodeBlock = BlockBase & {
   type: "code";
   code: {
@@ -82,7 +84,3 @@ export type CodeBlock = BlockBase & {
       | "java/c/c++/c#";
   };
 };
-/**
- * Reference to block.base.BlockBase
- */
-export type BlockBase = BlockBase;
