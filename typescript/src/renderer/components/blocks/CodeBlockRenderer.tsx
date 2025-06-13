@@ -1,19 +1,16 @@
 import React from "react";
 
+import { CodeBlock } from "@/models/generated";
+
 import { RichTextRenderer } from "../RichTextRenderer";
-import { BlockRenderer } from "../BlockRenderer";
 
 interface CodeBlockRendererProps extends React.HTMLAttributes<HTMLDivElement> {
-  block: any;
-  depth?: number;
-  components?: React.ComponentProps<typeof BlockRenderer>["components"];
+  block: CodeBlock;
 }
 
 export const CodeBlockRenderer: React.FC<CodeBlockRendererProps> = ({
   block,
-  depth = 0,
   className,
-  components,
   ...props
 }) => {
   const codeData = block.code;
@@ -39,22 +36,7 @@ export const CodeBlockRenderer: React.FC<CodeBlockRendererProps> = ({
         </div>
       </div>
 
-      {/* Render children blocks recursively */}
-      {block.children && block.children.length > 0 && (
-        <div
-          className="notion-block-children"
-          style={{ marginLeft: `${depth * 24}px` }}
-        >
-          {block.children.map((child: any, index: number) => (
-            <BlockRenderer
-              key={child.id || index}
-              block={child}
-              depth={depth + 1}
-              components={components}
-            />
-          ))}
-        </div>
-      )}
+      {/* code block can't have children */}
     </div>
   );
 };

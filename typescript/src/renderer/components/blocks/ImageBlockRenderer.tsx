@@ -122,7 +122,6 @@ export const ImageBlockRenderer: React.FC<ImageBlockRendererProps> = ({
               </div>
             )}
           </div>
-          {/* Caption */}
           {imageData?.caption && imageData.caption.length > 0 && (
             <div className="notranslate">
               <figcaption className="notion-image-caption">
@@ -135,7 +134,7 @@ export const ImageBlockRenderer: React.FC<ImageBlockRendererProps> = ({
                   className="caption-toggle-btn"
                   onClick={() => setShowFullCaption(!showFullCaption)}
                 >
-                  {showFullCaption ? "Show less" : "Show more"}
+                  {showFullCaption ? "Show less" : "Show  more"}
                 </button>
               </figcaption>
             </div>
