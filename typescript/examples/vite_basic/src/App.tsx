@@ -43,7 +43,7 @@ const App = () => {
           devMode={true}
           components={{
             page_delimiter: (props) => {
-              return <PageDelimiter {...props} pageNumber={99} />;
+              return <PageDelimiter {...props} />;
             },
           }}
         />
