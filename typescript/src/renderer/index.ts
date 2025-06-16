@@ -9,15 +9,13 @@ export { CodeBlockRenderer } from "./components/blocks/CodeBlockRenderer";
 export { ImageBlockRenderer } from "./components/blocks/ImageBlockRenderer";
 export { TableBlockRenderer } from "./components/blocks/TableBlockRenderer";
 export { JsonDocRenderer } from "./JsonDocRenderer";
+export { PageDelimiter } from "./components/PageDelimiter";
 export { QuoteBlockRenderer } from "./components/blocks/QuoteBlockRenderer";
 export { DividerBlockRenderer } from "./components/blocks/DividerBlockRenderer";
 export { ToDoBlockRenderer } from "./components/blocks/ToDoBlockRenderer";
 export { ToggleBlockRenderer } from "./components/blocks/ToggleBlockRenderer";
 export { ColumnListBlockRenderer } from "./components/blocks/ColumnListBlockRenderer";
 export { EquationBlockRenderer } from "./components/blocks/EquationBlockRenderer";
-
-// Export context
-export { RendererProvider, useRenderer } from "./context";
 
 // Export types
 export type { BlockComponents } from "./components/BlockRenderer";

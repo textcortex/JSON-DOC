@@ -1,4 +1,4 @@
-import { JsonDocRenderer } from "@textcortex/jsondoc";
+import { JsonDocRenderer, PageDelimiter } from "@textcortex/jsondoc";
 import "@textcortex/jsondoc/dist/index.css";
 import { useState, useEffect } from "react";
 
@@ -37,7 +37,16 @@ const App = () => {
     >
       <div>
         <h1>JSON-DOC Renderer Development</h1>
-        <JsonDocRenderer page={testPage} theme="dark" devMode={true} />
+        <JsonDocRenderer
+          page={testPage}
+          theme="dark"
+          devMode={true}
+          components={{
+            page_delimiter: (props) => {
+              return <PageDelimiter {...props} pageNumber={99} />;
+            },
+          }}
+        />
       </div>
     </div>
   );
