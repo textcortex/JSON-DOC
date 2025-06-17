@@ -12,7 +12,11 @@ import { RendererProvider } from "./context/RendererContext";
 interface JsonDocRendererProps {
   page: Page;
   className?: string;
-  components?: React.ComponentProps<typeof BlockRenderer>["components"];
+  components?: React.ComponentProps<typeof BlockRenderer>["components"] & {
+    page_delimiter: React.ComponentType<{
+      pageNumber: number;
+    }>;
+  };
   theme?: "light" | "dark";
   resolveImageUrl?: (url: string) => Promise<string>;
   devMode?: boolean;
@@ -27,6 +31,7 @@ export const JsonDocRenderer = ({
   resolveImageUrl,
   devMode = false,
   viewJson = false,
+  // PageDelimiterComponent = PageDelimiter,
 }: JsonDocRendererProps) => {
   console.log("page: ", page);
 
@@ -47,7 +52,6 @@ export const JsonDocRenderer = ({
   // return null;
   const renderedContent = (
     <div className="json-doc-page">
-      hello
       {/* Page icon */}
       {page.icon && (
         <div className="json-doc-page-icon">
@@ -83,8 +87,12 @@ export const JsonDocRenderer = ({
                   depth={0}
                   components={components}
                 />
-                {showPageDelimiter && (
+
+                {showPageDelimiter && !components?.page_delimiter && (
                   <PageDelimiter pageNumber={currentPageNum} />
+                )}
+                {showPageDelimiter && components?.page_delimiter && (
+                  <components.page_delimiter pageNumber={currentPageNum} />
                 )}
               </React.Fragment>
             );
@@ -96,7 +104,6 @@ export const JsonDocRenderer = ({
 
   return (
     <RendererProvider value={{ devMode, resolveImageUrl }}>
-      hello and hello
       <div className={`json-doc-renderer jsondoc-theme-${theme} ${className}`}>
         {viewJson ? (
           <div className="flex h-screen">

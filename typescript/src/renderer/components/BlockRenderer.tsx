@@ -2,7 +2,6 @@ import React from "react";
 
 import {
   Block,
-  BlockBase,
   Heading1Block,
   Heading2Block,
   Heading3Block,
