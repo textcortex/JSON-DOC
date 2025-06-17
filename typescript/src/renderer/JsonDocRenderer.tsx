@@ -1,5 +1,5 @@
 import "./styles/index.css";
-import React, { useEffect } from "react";
+import React from "react";
 
 import { Page } from "@/models/generated";
 // import { validateAgainstSchema } from "@/validation/validator";
@@ -8,6 +8,9 @@ import { BlockRenderer } from "./components/BlockRenderer";
 import { PageDelimiter } from "./components/PageDelimiter";
 import { JsonViewPanel } from "./components/dev/JsonViewPanel";
 import { RendererProvider } from "./context/RendererContext";
+import { HighlightNavigation } from "./components/HighlightNavigation";
+import { useHighlights } from "./hooks/useHighlights";
+import { Backref } from "./utils/highlightUtils";
 
 interface JsonDocRendererProps {
   page: Page;
@@ -21,6 +24,7 @@ interface JsonDocRendererProps {
   resolveImageUrl?: (url: string) => Promise<string>;
   devMode?: boolean;
   viewJson?: boolean;
+  backrefs?: Backref[];
 }
 
 export const JsonDocRenderer = ({
@@ -31,23 +35,15 @@ export const JsonDocRenderer = ({
   resolveImageUrl,
   devMode = false,
   viewJson = false,
-  // PageDelimiterComponent = PageDelimiter,
+  backrefs = [],
 }: JsonDocRendererProps) => {
   console.log("page: ", page);
 
-  const loadAndValidate = async () => {
-    // const response = await fetch("/schema/page/page_schema.json"); // Updated path
-    // const data = await response.json();
-    // console.log("schema: ", data);
-    // validateAgainstSchema(
-    //   page,
-    // )
-  };
-
-  useEffect(() => {
-    console.log("in jsondocrendererrrr");
-    loadAndValidate();
-  }, []);
+  // Use the modular hooks for highlight management
+  const { highlightCount, currentActiveIndex, navigateToHighlight } =
+    useHighlights({
+      backrefs,
+    });
 
   // return null;
   const renderedContent = (
@@ -112,6 +108,14 @@ export const JsonDocRenderer = ({
           </div>
         ) : (
           renderedContent
+        )}
+        {/* Show highlight navigation when there are highlights */}
+        {highlightCount > 0 && (
+          <HighlightNavigation
+            highlightCount={highlightCount}
+            onNavigate={navigateToHighlight}
+            currentIndex={currentActiveIndex}
+          />
         )}
       </div>
     </RendererProvider>
