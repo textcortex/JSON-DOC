@@ -268,3 +268,4 @@ MIT
 - [x] move vite app to typescript root examples dir
 - [] setup monorepo tooling
 - [] fix model generation for Image and RichText, then type renderers
+- [] use katex or similar package for equations 
