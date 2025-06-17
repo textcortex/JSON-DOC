@@ -42,6 +42,7 @@ export const TableBlockRenderer: React.FC<TableBlockRendererProps> = ({
                         <tr
                           key={child.id || index}
                           className="notion-table-row"
+                          data-block-id={child.id}
                         >
                           {rowData?.cells?.map(
                             (cell: any, cellIndex: number) => {

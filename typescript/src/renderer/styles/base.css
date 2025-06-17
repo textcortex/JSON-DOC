@@ -47,3 +47,73 @@
   white-space: pre-wrap;
   word-break: break-word;
 }
+
+/* Highlighting styles */
+.json-doc-highlight {
+  background-color: var(--jsondoc-color-yellow);
+  color: var(--jsondoc-text-primary);
+  padding: 1px 2px;
+  border-radius: var(--jsondoc-radius-sm);
+  transition: all var(--jsondoc-transition-fast);
+}
+
+/* Active (focused) highlight - more prominent */
+.json-doc-highlight.active {
+  background-color: var(--jsondoc-color-orange);
+  color: var(--jsondoc-text-primary);
+  box-shadow: 0 0 0 2px var(--jsondoc-border-light);
+  transform: scale(1.02);
+}
+
+/* Highlight Navigation Styles */
+.json-doc-highlight-navigation {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: var(--jsondoc-z-modal);
+  background: var(--jsondoc-bg-code);
+  border: 1px solid var(--jsondoc-border-medium);
+  border-radius: var(--jsondoc-radius-sm);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-family: var(--jsondoc-font-family-mono);
+  font-size: var(--jsondoc-font-size-caption);
+}
+
+.highlight-nav-content {
+  display: flex;
+  align-items: center;
+  padding: var(--jsondoc-spacing-sm) var(--jsondoc-spacing-md);
+  gap: var(--jsondoc-spacing-md);
+}
+
+.highlight-nav-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: transparent;
+  border: none;
+  border-radius: var(--jsondoc-radius-sm);
+  color: var(--jsondoc-text-secondary);
+  cursor: pointer;
+  transition: all var(--jsondoc-transition-fast);
+}
+
+.highlight-nav-button:hover {
+  background: var(--jsondoc-bg-inline-code);
+  color: var(--jsondoc-text-primary);
+}
+
+.highlight-nav-button:active {
+  background: var(--jsondoc-border-light);
+}
+
+.highlight-nav-counter {
+  color: var(--jsondoc-text-secondary);
+  font-size: var(--jsondoc-font-size-caption);
+  white-space: nowrap;
+  user-select: none;
+  min-width: 50px;
+  text-align: center;
+}

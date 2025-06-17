@@ -239,16 +239,18 @@ MIT
 
 - followed this for ts config setup: https://www.totaltypescript.com/tsconfig-cheat-sheet
 
-
 ## Release workflow
 
-We using bumpp to bump package.json and lock, create git tag and commit 
-1. Run: 
+We using bumpp to bump package.json and lock, create git tag and commit
+
+1. Run:
+
 ```
  npx bumpp
 ```
 
 2. You should see:
+
 ```
 
 4 Commits since the last version:
@@ -268,15 +270,13 @@ b7b30c1   : Make more typesafe
     from 0.2.0-alpha.3
       to 0.2.0-alpha.4
 ```
+
 You can choose a different version from the list or create new one. But bumpp is smart enough to use appropriate next version.
 
 3. Verify and confirm
 4. Push commit and tag
-5. The new tag will trigger a release on github actions. 
+5. The new tag will trigger a release on github actions.
 6. Go to github and create release using the new tag. Make sure you set the correct previous tag prefixed with `typescript-v`
-
-
-
 
 ## Todos
 
@@ -295,6 +295,7 @@ You can choose a different version from the list or create new one. But bumpp is
   - [x] image
   - [x] blockquote
 - [x] fix ts and eslint errors in these dirs and remove from ignore list of ts and eslint
+
   ```
       "**/generated/**",
       "src/serialization/**",
@@ -306,4 +307,4 @@ You can choose a different version from the list or create new one. But bumpp is
 - [x] move vite app to typescript root examples dir
 - [] setup monorepo tooling
 - [] fix model generation for Image and RichText, then type renderers
-- [] use katex or similar package for equations 
+- [] use katex or similar package for equations
