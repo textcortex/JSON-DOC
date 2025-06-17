@@ -238,7 +238,45 @@ MIT
 ## Tooling
 
 - followed this for ts config setup: https://www.totaltypescript.com/tsconfig-cheat-sheet
--
+
+
+## Release workflow
+
+We using bumpp to bump package.json and lock, create git tag and commit 
+1. Run: 
+```
+ npx bumpp
+```
+
+2. You should see:
+```
+
+4 Commits since the last version:
+
+5217cd1   : update readme
+7a3c03d   : Expose page delimiter
+e2791a4   : Merge branch 'main' of github.com:textcortex/JSON-DOC
+b7b30c1   : Make more typesafe
+
+✔ Current version 0.2.0-alpha.3 ›          next 0.2.0-alpha.4
+
+   files package-lock.json
+         package.json
+  commit chore: release v0.2.0-alpha.4
+     tag typescript-v0.2.0-alpha.4
+
+    from 0.2.0-alpha.3
+      to 0.2.0-alpha.4
+```
+You can choose a different version from the list or create new one. But bumpp is smart enough to use appropriate next version.
+
+3. Verify and confirm
+4. Push commit and tag
+5. The new tag will trigger a release on github actions. 
+6. Go to github and create release using the new tag. Make sure you set the correct previous tag prefixed with `typescript-v`
+
+
+
 
 ## Todos
 
