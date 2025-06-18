@@ -13,7 +13,7 @@ A TypeScript implementation of JSON-DOC, a standardized format for storing struc
 ## Installation
 
 ```bash
-npm install jsondoc
+npm install @textcortex/jsondoc
 ```
 
 ## Usage
@@ -22,7 +22,7 @@ npm install jsondoc
 
 ```tsx
 import React from "react";
-import { JsonDocRenderer } from "jsondoc";
+import { JsonDocRenderer } from "@textcortex/jsondoc";
 import * as fs from "fs";
 import * as JSON5 from "json5";
 
@@ -43,7 +43,7 @@ function App() {
 
 ```tsx
 import React from "react";
-import { BlockRenderer } from "jsondoc";
+import { BlockRenderer } from "@textcortex/jsondoc";
 
 function MyComponent({ block }) {
   return (
@@ -235,13 +235,13 @@ The renderer uses Notion-inspired CSS classes for styling:
 
 MIT
 
-## Tooling
+## Configuration
 
-- followed this for ts config setup: https://www.totaltypescript.com/tsconfig-cheat-sheet
+- TypeScript configuration follows best practices from [Total TypeScript](https://www.totaltypescript.com/tsconfig-cheat-sheet)
 
 ## Release workflow
 
-We using bumpp to bump package.json and lock, create git tag and commit
+We use bumpp to automatically bump package.json and lock files, create git tags and commits
 
 1. Run:
 
@@ -290,7 +290,7 @@ You can choose a different version from the list or create new one. But bumpp is
   - [x] paragraph
   - [x] code
   - [x] table
-  - [ ] todo?
+  - [x] to-do items
   - [x] equation
   - [x] image
   - [x] blockquote
@@ -303,8 +303,8 @@ You can choose a different version from the list or create new one. But bumpp is
 
 - [x] add counter for numbered lists
 - [x] setup up bumpp: https://www.npmjs.com/package/bumpp
-- [] migrate test runner to vitest
+- [ ] migrate test runner to vitest
 - [x] move vite app to typescript root examples dir
-- [] setup monorepo tooling
-- [] fix model generation for Image and RichText, then type renderers
-- [] use katex or similar package for equations
+- [ ] setup monorepo tooling
+- [ ] fix model generation for Image and RichText, then type renderers
+- [ ] use katex or similar package for equations
