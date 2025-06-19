@@ -39,7 +39,7 @@ export const ListItemBlockRenderer: React.FC<ListItemBlockRendererProps> = ({
       {block.type === "bulleted_list_item" && (
         <div className="notion-list-item-box-left" />
       )}
-      <div>
+      <div className="notion-list-content">
         <RichTextRenderer richText={listData?.rich_text || []} />
       </div>
 

@@ -1,0 +1,924 @@
+{
+  "object": "page",
+  "id": "pg_spacing_test_document",
+  "created_time": "2025-06-19T14:04:08.260514Z",
+  "created_by": {
+    "object": "user",
+    "id": "28a08aa3-192b-45e6-b6d3-32b8032d8c7b"
+  },
+  "properties": {
+    "title": {
+      "type": "title",
+      "title": [
+        {
+          "type": "text",
+          "text": {
+            "content": "JSON-DOC Block Spacing Test"
+          },
+          "annotations": {},
+          "plain_text": "JSON-DOC Block Spacing Test"
+        }
+      ]
+    }
+  },
+  "children": [
+    {
+      "object": "block",
+      "id": "blk_heading1_top",
+      "type": "heading_1",
+      "created_time": "2025-06-19T14:04:08.260514Z",
+      "created_by": {
+        "object": "user",
+        "id": "28a08aa3-192b-45e6-b6d3-32b8032d8c7b"
+      },
+      "heading_1": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Heading 1"
+            },
+            "annotations": {},
+            "plain_text": "Heading 1"
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "blk_heading2_top",
+      "type": "heading_2",
+      "created_time": "2025-06-19T14:04:08.260514Z",
+      "created_by": {
+        "object": "user",
+        "id": "28a08aa3-192b-45e6-b6d3-32b8032d8c7b"
+      },
+      "heading_2": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Heading 2"
+            },
+            "annotations": {},
+            "plain_text": "Heading 2"
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "blk_heading3_top",
+      "type": "heading_3",
+      "created_time": "2025-06-19T14:04:08.260514Z",
+      "created_by": {
+        "object": "user",
+        "id": "28a08aa3-192b-45e6-b6d3-32b8032d8c7b"
+      },
+      "heading_3": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Heading 3"
+            },
+            "annotations": {},
+            "plain_text": "Heading 3"
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "blk_heading1_1",
+      "type": "heading_1",
+      "created_time": "2025-06-19T14:04:08.260514Z",
+      "created_by": {
+        "object": "user",
+        "id": "28a08aa3-192b-45e6-b6d3-32b8032d8c7b"
+      },
+      "heading_1": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Heading 1 - Main Title"
+            },
+            "annotations": {},
+            "plain_text": "Heading 1 - Main Title"
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "blk_paragraph_1",
+      "type": "paragraph",
+      "created_time": "2025-06-19T14:04:08.260514Z",
+      "created_by": {
+        "object": "user",
+        "id": "28a08aa3-192b-45e6-b6d3-32b8032d8c7b"
+      },
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "This is a paragraph that comes after Heading 1. It should have proper spacing above and below. The text can be "
+            },
+            "annotations": {},
+            "plain_text": "This is a paragraph that comes after Heading 1. It should have proper spacing above and below. The text can be "
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": "bold"
+            },
+            "annotations": {
+              "bold": true
+            },
+            "plain_text": "bold"
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": ", "
+            },
+            "annotations": {},
+            "plain_text": ", "
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": "italic"
+            },
+            "annotations": {
+              "italic": true
+            },
+            "plain_text": "italic"
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": ", or "
+            },
+            "annotations": {},
+            "plain_text": ", or "
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": "both bold and italic"
+            },
+            "annotations": {
+              "bold": true,
+              "italic": true
+            },
+            "plain_text": "both bold and italic"
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": "."
+            },
+            "annotations": {},
+            "plain_text": "."
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "blk_heading2_1",
+      "type": "heading_2",
+      "created_time": "2025-06-19T14:04:08.260514Z",
+      "created_by": {
+        "object": "user",
+        "id": "28a08aa3-192b-45e6-b6d3-32b8032d8c7b"
+      },
+      "heading_2": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Heading 2 - Secondary Title"
+            },
+            "annotations": {},
+            "plain_text": "Heading 2 - Secondary Title"
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "blk_paragraph_2",
+      "type": "paragraph",
+      "created_time": "2025-06-19T14:04:08.260514Z",
+      "created_by": {
+        "object": "user",
+        "id": "28a08aa3-192b-45e6-b6d3-32b8032d8c7b"
+      },
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Another paragraph after Heading 2. Notice the spacing relationship between headings and paragraphs."
+            },
+            "annotations": {},
+            "plain_text": "Another paragraph after Heading 2. Notice the spacing relationship between headings and paragraphs."
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "blk_heading3_1",
+      "type": "heading_3",
+      "created_time": "2025-06-19T14:04:08.260514Z",
+      "created_by": {
+        "object": "user",
+        "id": "28a08aa3-192b-45e6-b6d3-32b8032d8c7b"
+      },
+      "heading_3": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Heading 3 - Tertiary Title"
+            },
+            "annotations": {},
+            "plain_text": "Heading 3 - Tertiary Title"
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "blk_bulleted_list_1",
+      "type": "bulleted_list_item",
+      "created_time": "2025-06-19T14:04:08.260514Z",
+      "created_by": {
+        "object": "user",
+        "id": "28a08aa3-192b-45e6-b6d3-32b8032d8c7b"
+      },
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "First bulleted list item"
+            },
+            "annotations": {},
+            "plain_text": "First bulleted list item"
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "blk_bulleted_list_2",
+      "type": "bulleted_list_item",
+      "created_time": "2025-06-19T14:04:08.260514Z",
+      "created_by": {
+        "object": "user",
+        "id": "28a08aa3-192b-45e6-b6d3-32b8032d8c7b"
+      },
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Second bulleted list item with "
+            },
+            "annotations": {},
+            "plain_text": "Second bulleted list item with "
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": "bold text"
+            },
+            "annotations": {
+              "bold": true
+            },
+            "plain_text": "bold text"
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "blk_bulleted_list_3",
+      "type": "bulleted_list_item",
+      "created_time": "2025-06-19T14:04:08.260514Z",
+      "created_by": {
+        "object": "user",
+        "id": "28a08aa3-192b-45e6-b6d3-32b8032d8c7b"
+      },
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Third bulleted list item"
+            },
+            "annotations": {},
+            "plain_text": "Third bulleted list item"
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "blk_numbered_list_1",
+      "type": "numbered_list_item",
+      "created_time": "2025-06-19T14:04:08.260514Z",
+      "created_by": {
+        "object": "user",
+        "id": "28a08aa3-192b-45e6-b6d3-32b8032d8c7b"
+      },
+      "numbered_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "First numbered list item"
+            },
+            "annotations": {},
+            "plain_text": "First numbered list item"
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "blk_numbered_list_2",
+      "type": "numbered_list_item",
+      "created_time": "2025-06-19T14:04:08.260514Z",
+      "created_by": {
+        "object": "user",
+        "id": "28a08aa3-192b-45e6-b6d3-32b8032d8c7b"
+      },
+      "numbered_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Second numbered list item"
+            },
+            "annotations": {},
+            "plain_text": "Second numbered list item"
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "blk_numbered_list_3",
+      "type": "numbered_list_item",
+      "created_time": "2025-06-19T14:04:08.260514Z",
+      "created_by": {
+        "object": "user",
+        "id": "28a08aa3-192b-45e6-b6d3-32b8032d8c7b"
+      },
+      "numbered_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Third numbered list item"
+            },
+            "annotations": {},
+            "plain_text": "Third numbered list item"
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "blk_quote_1",
+      "type": "quote",
+      "created_time": "2025-06-19T14:04:08.260514Z",
+      "created_by": {
+        "object": "user",
+        "id": "28a08aa3-192b-45e6-b6d3-32b8032d8c7b"
+      },
+      "quote": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "This is a quote block. It should be visually distinct from paragraphs with proper indentation and styling. Quote blocks are often used for citations or emphasized text."
+            },
+            "annotations": {},
+            "plain_text": "This is a quote block. It should be visually distinct from paragraphs with proper indentation and styling. Quote blocks are often used for citations or emphasized text."
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "blk_code_1",
+      "type": "code",
+      "created_time": "2025-06-19T14:04:08.260514Z",
+      "created_by": {
+        "object": "user",
+        "id": "28a08aa3-192b-45e6-b6d3-32b8032d8c7b"
+      },
+      "code": {
+        "language": "javascript",
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "// This is a code block\nfunction helloWorld() {\n  console.log('Hello, World!');\n  return 'Perfect spacing test';\n}\n\n// Multiple lines to test spacing\nconst result = helloWorld();"
+            },
+            "annotations": {},
+            "plain_text": "// This is a code block\nfunction helloWorld() {\n  console.log('Hello, World!');\n  return 'Perfect spacing test';\n}\n\n// Multiple lines to test spacing\nconst result = helloWorld();"
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "blk_to_do_1",
+      "type": "to_do",
+      "created_time": "2025-06-19T14:04:08.260514Z",
+      "created_by": {
+        "object": "user",
+        "id": "28a08aa3-192b-45e6-b6d3-32b8032d8c7b"
+      },
+      "to_do": {
+        "checked": false,
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Unchecked to-do item"
+            },
+            "annotations": {},
+            "plain_text": "Unchecked to-do item"
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "blk_to_do_2",
+      "type": "to_do",
+      "created_time": "2025-06-19T14:04:08.260514Z",
+      "created_by": {
+        "object": "user",
+        "id": "28a08aa3-192b-45e6-b6d3-32b8032d8c7b"
+      },
+      "to_do": {
+        "checked": true,
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Checked to-do item"
+            },
+            "annotations": {},
+            "plain_text": "Checked to-do item"
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "blk_to_do_3",
+      "type": "to_do",
+      "created_time": "2025-06-19T14:04:08.260514Z",
+      "created_by": {
+        "object": "user",
+        "id": "28a08aa3-192b-45e6-b6d3-32b8032d8c7b"
+      },
+      "to_do": {
+        "checked": false,
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Another to-do with "
+            },
+            "annotations": {},
+            "plain_text": "Another to-do with "
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": "formatted text"
+            },
+            "annotations": {
+              "bold": true,
+              "italic": true
+            },
+            "plain_text": "formatted text"
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "blk_divider_1",
+      "type": "divider",
+      "created_time": "2025-06-19T14:04:08.260514Z",
+      "created_by": {
+        "object": "user",
+        "id": "28a08aa3-192b-45e6-b6d3-32b8032d8c7b"
+      },
+      "divider": {}
+    },
+    {
+      "object": "block",
+      "id": "blk_paragraph_3",
+      "type": "paragraph",
+      "created_time": "2025-06-19T14:04:08.260514Z",
+      "created_by": {
+        "object": "user",
+        "id": "28a08aa3-192b-45e6-b6d3-32b8032d8c7b"
+      },
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "This paragraph comes after a divider. The divider should have proper spacing above and below to separate content sections."
+            },
+            "annotations": {},
+            "plain_text": "This paragraph comes after a divider. The divider should have proper spacing above and below to separate content sections."
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "blk_equation_1",
+      "type": "equation",
+      "created_time": "2025-06-19T14:04:08.260514Z",
+      "created_by": {
+        "object": "user",
+        "id": "28a08aa3-192b-45e6-b6d3-32b8032d8c7b"
+      },
+      "equation": {
+        "expression": "E = mc^2"
+      }
+    },
+    {
+      "object": "block",
+      "id": "blk_table_1",
+      "type": "table",
+      "created_time": "2025-06-19T14:04:08.260514Z",
+      "created_by": {
+        "object": "user",
+        "id": "28a08aa3-192b-45e6-b6d3-32b8032d8c7b"
+      },
+      "table": {
+        "table_width": 3,
+        "has_column_header": true,
+        "has_row_header": false
+      },
+      "children": [
+        {
+          "object": "block",
+          "id": "blk_table_row_1",
+          "type": "table_row",
+          "created_time": "2025-06-19T14:04:08.260514Z",
+          "created_by": {
+            "object": "user",
+            "id": "28a08aa3-192b-45e6-b6d3-32b8032d8c7b"
+          },
+          "table_row": {
+            "cells": [
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "Header 1"
+                  },
+                  "annotations": {
+                    "bold": true
+                  },
+                  "plain_text": "Header 1"
+                }
+              ],
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "Header 2"
+                  },
+                  "annotations": {
+                    "bold": true
+                  },
+                  "plain_text": "Header 2"
+                }
+              ],
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "Header 3"
+                  },
+                  "annotations": {
+                    "bold": true
+                  },
+                  "plain_text": "Header 3"
+                }
+              ]
+            ]
+          }
+        },
+        {
+          "object": "block",
+          "id": "blk_table_row_2",
+          "type": "table_row",
+          "created_time": "2025-06-19T14:04:08.260514Z",
+          "created_by": {
+            "object": "user",
+            "id": "28a08aa3-192b-45e6-b6d3-32b8032d8c7b"
+          },
+          "table_row": {
+            "cells": [
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "Row 1, Col 1"
+                  },
+                  "annotations": {},
+                  "plain_text": "Row 1, Col 1"
+                }
+              ],
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "Row 1, Col 2"
+                  },
+                  "annotations": {},
+                  "plain_text": "Row 1, Col 2"
+                }
+              ],
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "Row 1, Col 3"
+                  },
+                  "annotations": {},
+                  "plain_text": "Row 1, Col 3"
+                }
+              ]
+            ]
+          }
+        },
+        {
+          "object": "block",
+          "id": "blk_table_row_3",
+          "type": "table_row",
+          "created_time": "2025-06-19T14:04:08.260514Z",
+          "created_by": {
+            "object": "user",
+            "id": "28a08aa3-192b-45e6-b6d3-32b8032d8c7b"
+          },
+          "table_row": {
+            "cells": [
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "Row 2, Col 1"
+                  },
+                  "annotations": {},
+                  "plain_text": "Row 2, Col 1"
+                }
+              ],
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "Row 2, Col 2"
+                  },
+                  "annotations": {},
+                  "plain_text": "Row 2, Col 2"
+                }
+              ],
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "Row 2, Col 3"
+                  },
+                  "annotations": {},
+                  "plain_text": "Row 2, Col 3"
+                }
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "object": "block",
+      "id": "blk_toggle_1",
+      "type": "toggle",
+      "created_time": "2025-06-19T14:04:08.260514Z",
+      "created_by": {
+        "object": "user",
+        "id": "28a08aa3-192b-45e6-b6d3-32b8032d8c7b"
+      },
+      "toggle": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Toggle Block - Click to expand"
+            },
+            "annotations": {},
+            "plain_text": "Toggle Block - Click to expand"
+          }
+        ]
+      },
+      "children": [
+        {
+          "object": "block",
+          "id": "blk_toggle_child_1",
+          "type": "paragraph",
+          "created_time": "2025-06-19T14:04:08.260514Z",
+          "created_by": {
+            "object": "user",
+            "id": "28a08aa3-192b-45e6-b6d3-32b8032d8c7b"
+          },
+          "paragraph": {
+            "rich_text": [
+              {
+                "type": "text",
+                "text": {
+                  "content": "This is hidden content inside the toggle block. It should have proper indentation and spacing."
+                },
+                "annotations": {},
+                "plain_text": "This is hidden content inside the toggle block. It should have proper indentation and spacing."
+              }
+            ]
+          }
+        },
+        {
+          "object": "block",
+          "id": "blk_toggle_child_2",
+          "type": "bulleted_list_item",
+          "created_time": "2025-06-19T14:04:08.260514Z",
+          "created_by": {
+            "object": "user",
+            "id": "28a08aa3-192b-45e6-b6d3-32b8032d8c7b"
+          },
+          "bulleted_list_item": {
+            "rich_text": [
+              {
+                "type": "text",
+                "text": {
+                  "content": "Nested list item in toggle"
+                },
+                "annotations": {},
+                "plain_text": "Nested list item in toggle"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "object": "block",
+      "id": "blk_column_list_1",
+      "type": "column_list",
+      "created_time": "2025-06-19T14:04:08.260514Z",
+      "created_by": {
+        "object": "user",
+        "id": "28a08aa3-192b-45e6-b6d3-32b8032d8c7b"
+      },
+      "column_list": {},
+      "children": [
+        {
+          "object": "block",
+          "id": "blk_column_1",
+          "type": "column",
+          "created_time": "2025-06-19T14:04:08.260514Z",
+          "created_by": {
+            "object": "user",
+            "id": "28a08aa3-192b-45e6-b6d3-32b8032d8c7b"
+          },
+          "column": {},
+          "children": [
+            {
+              "object": "block",
+              "id": "blk_column_1_paragraph_1",
+              "type": "paragraph",
+              "created_time": "2025-06-19T14:04:08.260514Z",
+              "created_by": {
+                "object": "user",
+                "id": "28a08aa3-192b-45e6-b6d3-32b8032d8c7b"
+              },
+              "paragraph": {
+                "rich_text": [
+                  {
+                    "type": "text",
+                    "text": {
+                      "content": "This is the first column. Columns should be displayed side by side with proper spacing and alignment."
+                    },
+                    "annotations": {},
+                    "plain_text": "This is the first column. Columns should be displayed side by side with proper spacing and alignment."
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "object": "block",
+          "id": "blk_column_2",
+          "type": "column",
+          "created_time": "2025-06-19T14:04:08.260514Z",
+          "created_by": {
+            "object": "user",
+            "id": "28a08aa3-192b-45e6-b6d3-32b8032d8c7b"
+          },
+          "column": {},
+          "children": [
+            {
+              "object": "block",
+              "id": "blk_column_2_paragraph_1",
+              "type": "paragraph",
+              "created_time": "2025-06-19T14:04:08.260514Z",
+              "created_by": {
+                "object": "user",
+                "id": "28a08aa3-192b-45e6-b6d3-32b8032d8c7b"
+              },
+              "paragraph": {
+                "rich_text": [
+                  {
+                    "type": "text",
+                    "text": {
+                      "content": "This is the second column. The spacing between columns should be consistent and visually appealing."
+                    },
+                    "annotations": {},
+                    "plain_text": "This is the second column. The spacing between columns should be consistent and visually appealing."
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "object": "block",
+      "id": "blk_image_1",
+      "type": "image",
+      "created_time": "2025-06-19T14:04:08.260514Z",
+      "created_by": {
+        "object": "user",
+        "id": "28a08aa3-192b-45e6-b6d3-32b8032d8c7b"
+      },
+      "image": {
+        "type": "external",
+        "external": {
+          "url": "https://images.unsplash.com/photo-1503327431567-3ab5e6e79140?ixlib=rb-4.1.0&q=85&fm=jpg&crop=entropy&cs=srgb&w=4800"
+        },
+        "caption": [
+          {
+            "type": "text",
+            "text": {
+              "content": "This is a sample image with a caption. Image blocks should have proper spacing above and below."
+            },
+            "annotations": {},
+            "plain_text": "This is a sample image with a caption. Image blocks should have proper spacing above and below."
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "blk_paragraph_final",
+      "type": "paragraph",
+      "created_time": "2025-06-19T14:04:08.260514Z",
+      "created_by": {
+        "object": "user",
+        "id": "28a08aa3-192b-45e6-b6d3-32b8032d8c7b"
+      },
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "This is the final paragraph in our spacing test document. It demonstrates how all block types work together with consistent spacing throughout the document."
+            },
+            "annotations": {},
+            "plain_text": "This is the final paragraph in our spacing test document. It demonstrates how all block types work together with consistent spacing throughout the document."
+          }
+        ]
+      }
+    }
+  ]
+}

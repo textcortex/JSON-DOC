@@ -23,10 +23,6 @@
   padding: var(--jsondoc-spacing-sm) 0px;
 }
 
-.json-doc-page-content {
-  margin-top: var(--jsondoc-spacing-lg);
-}
-
 /* Base Block Styles */
 .notion-selectable {
   position: relative;

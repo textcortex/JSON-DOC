@@ -9,7 +9,7 @@ const App = () => {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const response = await fetch("/test_document.json");
+        const response = await fetch("/spacing_test.json");
         const data = await response.json();
         setTestPage(data);
       } catch (error) {
@@ -55,46 +55,60 @@ const App = () => {
   return (
     <div
       style={{
-        padding: "20px",
-        maxWidth: "800px",
-        margin: "0 auto",
         background: "oklch(20.5% 0 0)",
-        color: "oklch(90% 0 0)",
-        display: "flex",
-        justifyContent: "center",
-        width: "100vw",
       }}
     >
-      <div>
-        <h1>JSON-DOC Renderer Development</h1>
+      {/* Floating Dev Mode Button */}
+      <button
+        onClick={() => setDevMode(!devMode)}
+        style={{
+          position: "fixed",
+          top: "20px",
+          right: "20px",
+          zIndex: 1000,
+          padding: "8px 16px",
+          background: devMode ? "oklch(60% 0.2 250)" : "oklch(40% 0.2 250)",
+          color: "white",
+          border: "none",
+          borderRadius: "4px",
+          cursor: "pointer",
+          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)",
+          transition: "all 0.2s ease",
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.transform = "scale(1.05)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = "scale(1)";
+        }}
+      >
+        {devMode ? "Disable" : "Enable"} Dev Mode
+      </button>
 
-        <div style={{ marginBottom: "20px" }}>
-          <button
-            onClick={() => setDevMode(!devMode)}
-            style={{
-              padding: "8px 16px",
-              background: devMode ? "oklch(60% 0.2 250)" : "oklch(40% 0.2 250)",
-              color: "white",
-              border: "none",
-              borderRadius: "4px",
-              cursor: "pointer",
+      <div
+        style={{
+          padding: "20px",
+          maxWidth: "700px",
+          margin: "0 auto",
+          color: "oklch(90% 0 0)",
+          display: "flex",
+          justifyContent: "center",
+          width: "100vw",
+        }}
+      >
+        <div>
+          <JsonDocRenderer
+            page={testPage}
+            theme="dark"
+            devMode={devMode}
+            backrefs={testBackrefs}
+            components={{
+              page_delimiter: (props) => {
+                return <PageDelimiter {...props} />;
+              },
             }}
-          >
-            {devMode ? "Disable" : "Enable"} Dev Mode
-          </button>
+          />
         </div>
-
-        <JsonDocRenderer
-          page={testPage}
-          theme="dark"
-          devMode={devMode}
-          backrefs={testBackrefs}
-          components={{
-            page_delimiter: (props) => {
-              return <PageDelimiter {...props} />;
-            },
-          }}
-        />
       </div>
     </div>
   );

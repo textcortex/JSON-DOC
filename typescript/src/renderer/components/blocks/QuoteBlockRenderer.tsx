@@ -27,10 +27,8 @@ export const QuoteBlockRenderer: React.FC<QuoteBlockRendererProps> = ({
       data-block-id={block.id}
     >
       <blockquote>
-        <div>
-          <div className="notranslate">
-            <RichTextRenderer richText={quoteData?.rich_text || []} />
-          </div>
+        <div className="notranslate">
+          <RichTextRenderer richText={quoteData?.rich_text || []} />
         </div>
       </blockquote>
 

@@ -3,12 +3,7 @@
  */
 
 // Export utility functions
-export {
-  loadJson,
-  getNestedValue,
-  setNestedValue,
-  deepClone,
-} from "./utils/json";
+export { loadJson, deepClone } from "./utils/json";
 
 // Export React renderer components
 export {
