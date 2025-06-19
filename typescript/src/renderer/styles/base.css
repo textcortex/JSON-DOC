@@ -1,10 +1,12 @@
 /* Base Layout and Page Styles */
 
+.json-doc-renderer {
+  max-width: inherit;
+}
 .json-doc-page {
   max-width: var(--jsondoc-page-max-width);
+  max-width: inherit;
   margin: 0 auto;
-  /* padding: var(--jsondoc-page-padding-desktop)
-    var(--jsondoc-page-padding-desktop) var(--jsondoc-page-bottom-padding); */
   color: var(--jsondoc-text-primary);
   font-family: var(--jsondoc-font-family-sans);
 }
@@ -19,17 +21,13 @@
   font-size: var(--jsondoc-font-size-page-title);
   line-height: var(--jsondoc-line-height-normal);
   font-weight: var(--jsondoc-font-weight-bold);
-  margin: 0 0 var(--jsondoc-spacing-xs);
+  margin: 0px 0px var(--jsondoc-spacing-lg) 0px;
   padding: var(--jsondoc-spacing-sm) 0px;
-}
-
-.json-doc-page-content {
-  margin-top: var(--jsondoc-spacing-lg);
 }
 
 /* Base Block Styles */
 .notion-selectable {
-  position: relative;
+  /* position: relative; */
   margin: 0;
   padding: var(--jsondoc-spacing-sm) 0px;
 }

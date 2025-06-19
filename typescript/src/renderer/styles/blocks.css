@@ -36,7 +36,7 @@
 
 /* Quote Block */
 .notion-quote-block {
-  padding: var(--jsondoc-spacing-sm) var(--jsondoc-spacing-xs);
+  padding: var(--jsondoc-spacing-md) var(--jsondoc-spacing-xs);
 }
 
 .notion-quote-block blockquote {
@@ -60,9 +60,10 @@
 /* To-do Block */
 .notion-to_do-block {
   display: flex;
-  align-items: flex-start;
-  padding: 1px var(--jsondoc-spacing-xs);
+  align-items: center;
+  padding: 3px var(--jsondoc-spacing-xs);
   margin: 0;
+  gap: 8px;
 }
 
 .notion-to_do-block .checkboxSquare,
@@ -76,6 +77,10 @@
   color: var(--jsondoc-accent-checkbox);
 }
 
+.notion-to_do-block .checked {
+  text-decoration: line-through;
+}
+
 .pseudoHover.pseudoActive {
   position: relative;
   display: flex;
@@ -85,15 +90,13 @@
 
 /* Toggle Block */
 .notion-toggle-block {
-  display: flex;
-  align-items: flex-start;
   padding: var(--jsondoc-spacing-sm) var(--jsondoc-spacing-xs);
 }
 
-.notion-toggle-block .arrowCaretDownFillSmall {
+.notion-toggle-block svg.arrowCaretDownFillSmall {
   width: var(--jsondoc-icon-size);
   height: var(--jsondoc-icon-size);
-  color: var(--jsondoc-text-muted);
+  fill: var(--jsondoc-text-muted);
 }
 
 .notion-toggle-content {
@@ -112,6 +115,15 @@
   flex: 1;
 }
 
+.notion-toggle-block div[role="button"] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4px;
+}
+.notion-toggle-block div[role="button"]:hover {
+  background-color: var(--jsondoc-bg);
+}
 /* Equation Block */
 .notion-equation-block {
   padding: var(--jsondoc-spacing-sm) var(--jsondoc-spacing-xs);
@@ -121,7 +133,6 @@
 .notion-equation-display {
   text-align: center;
   padding: var(--jsondoc-spacing-lg);
-  background: var(--jsondoc-bg-code);
   border-radius: var(--jsondoc-radius-sm);
 }
 

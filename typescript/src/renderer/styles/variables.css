@@ -11,9 +11,9 @@
   --jsondoc-bg-code: rgb(247, 246, 243);
   --jsondoc-bg-inline-code: rgba(135, 131, 120, 0.15);
   --jsondoc-bg-unsupported: rgba(255, 0, 0, 0.1);
-
-  /* Text Colors */
-  --jsondoc-color-gray: rgba(120, 119, 116, 1);
+  --jsondoc-bg: rgba(55, 53, 47, 0.45);
+  --jsondoc-foreground: #37352f /* Text Colors */
+    --jsondoc-color-gray: rgba(120, 119, 116, 1);
   --jsondoc-color-brown: rgba(159, 107, 83, 1);
   --jsondoc-color-orange: rgba(217, 115, 13, 1);
   --jsondoc-color-yellow: rgba(203, 145, 47, 1);
@@ -109,14 +109,18 @@
   --jsondoc-border-medium: rgb(233, 233, 231);
   --jsondoc-bg-code: rgb(247, 246, 243);
   --jsondoc-bg-inline-code: rgba(135, 131, 120, 0.15);
+  --jsondoc-bg: rgba(255, 255, 255, 0.8);
+  --jsondoc-foreground: #37352f;
 }
 
 .jsondoc-theme-dark {
-  --jsondoc-text-primary: #ffffff;
+  --jsondoc-text-primary: rgba(255, 255, 255, 0.81);
   --jsondoc-text-secondary: rgba(255, 255, 255, 0.65);
   --jsondoc-text-muted: rgba(255, 255, 255, 0.45);
   --jsondoc-border-light: rgba(255, 255, 255, 0.16);
   --jsondoc-border-medium: rgba(255, 255, 255, 0.2);
   --jsondoc-bg-code: rgba(255, 255, 255, 0.05);
   --jsondoc-bg-inline-code: rgba(255, 255, 255, 0.1);
+  --jsondoc-bg: rgba(55, 53, 47, 0.45);
+  --jsondoc-foreground: #37352f;
 }

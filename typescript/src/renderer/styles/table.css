@@ -7,7 +7,6 @@
 
 .notion-scroller.horizontal {
   overflow-x: auto;
-  overflow-y: hidden;
   width: 100%;
 }
 
@@ -21,25 +20,28 @@
   border-collapse: collapse;
   border-spacing: 0;
   table-layout: auto;
-  min-width: 600px;
+  min-width: max-content;
 }
 
 .notion-table-row th,
 .notion-table-row td {
-  border: 1px solid var(--jsondoc-border-medium);
+  border: 1px solid var(--jsondoc-border-light);
   padding: 8px 12px;
   vertical-align: top;
-  white-space: nowrap;
-  min-width: 120px;
+  white-space: normal;
+  min-width: 80px;
+  max-width: 200px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .notion-table-row th {
-  background-color: var(--jsondoc-bg-code);
   font-weight: var(--jsondoc-font-weight-semibold);
+  text-align: left;
 }
 
 .notion-table-cell-text {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 300px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
 }

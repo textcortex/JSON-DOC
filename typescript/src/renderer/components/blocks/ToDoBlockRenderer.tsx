@@ -27,54 +27,11 @@ export const ToDoBlockRenderer: React.FC<ToDoBlockRendererProps> = ({
       className={`notion-selectable notion-to_do-block ${className || ""}`.trim()}
       data-block-id={block.id}
     >
-      <div>
-        <div className="notion-list-item-box-left">
-          <div className="pseudoHover pseudoActive">
-            <div aria-hidden="true">
-              <svg
-                aria-hidden="true"
-                className={isChecked ? "check" : "checkboxSquare"}
-                role="graphics-symbol"
-                viewBox="0 0 16 16"
-                style={{ width: 16, height: 16 }}
-              >
-                {isChecked ? (
-                  <path
-                    d="M13.5 2.5l-7 7-3.5-3.5-1.5 1.5 5 5 8.5-8.5z"
-                    fill="currentColor"
-                  />
-                ) : (
-                  <rect
-                    x="2"
-                    y="2"
-                    width="12"
-                    height="12"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1"
-                  />
-                )}
-              </svg>
-            </div>
-            <input
-              type="checkbox"
-              checked={isChecked}
-              readOnly
-              style={{
-                position: "absolute",
-                opacity: 0,
-                pointerEvents: "none",
-              }}
-            />
-          </div>
-        </div>
-        <div>
-          <div>
-            <div className="notranslate">
-              <RichTextRenderer richText={todoData?.rich_text || []} />
-            </div>
-          </div>
-        </div>
+      <div className="pseudoHover pseudoActive">
+        <input className="check" type="checkbox" checked={isChecked} readOnly />
+      </div>
+      <div className={`notranslate ${isChecked ? 'checked' : ''}`.trim()}>
+        <RichTextRenderer richText={todoData?.rich_text || []} />
       </div>
 
       {/* Render children blocks recursively */}

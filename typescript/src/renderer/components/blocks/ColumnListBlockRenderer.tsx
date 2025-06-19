@@ -22,7 +22,7 @@ export const ColumnListBlockRenderer: React.FC<
     >
       <div
         className="notion-column-list"
-        style={{ display: "flex", gap: "16px" }}
+        style={{ display: "flex", gap: "44px", flexWrap: "nowrap" }}
       >
         {block.children?.map((child, index: number) => {
           if (child?.type === "column") {

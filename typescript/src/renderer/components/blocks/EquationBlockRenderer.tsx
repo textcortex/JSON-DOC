@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import katex from "katex";
 
 import { EquationBlock } from "@/models/generated";
 
@@ -14,6 +15,25 @@ export const EquationBlockRenderer: React.FC<EquationBlockRendererProps> = ({
   ...props
 }) => {
   const equationData = block.equation;
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (containerRef.current && equationData?.expression) {
+      try {
+        katex.render(equationData.expression, containerRef.current, {
+          displayMode: true,
+          throwOnError: false,
+          errorColor: '#cc0000',
+          strict: 'warn'
+        });
+      } catch (error) {
+        console.warn('KaTeX render error:', error);
+        if (containerRef.current) {
+          containerRef.current.textContent = equationData.expression;
+        }
+      }
+    }
+  }, [equationData?.expression]);
 
   return (
     <div
@@ -23,9 +43,10 @@ export const EquationBlockRenderer: React.FC<EquationBlockRendererProps> = ({
     >
       <div>
         <div className="notion-equation-display">
-          <div className="notion-equation-content">
-            {equationData?.expression || ""}
-          </div>
+          <div 
+            className="notion-equation-content"
+            ref={containerRef}
+          />
         </div>
       </div>
     </div>

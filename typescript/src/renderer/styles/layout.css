@@ -3,21 +3,15 @@
 /* Page Delimiter */
 .jsondoc-page-delimiter {
   margin: var(--jsondoc-spacing-xl) 0;
-  margin-bottom: var(--jsondoc-spacing-3xl);
-  position: relative;
+  margin-bottom: var(--jsondoc-spacing-xl);
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
 }
 
 .jsondoc-page-delimiter-line {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
+  width: 100%;
   height: 1px;
   background: var(--jsondoc-border-light);
-  z-index: var(--jsondoc-z-base);
 }
 
 .jsondoc-page-number {
@@ -27,9 +21,7 @@
   font-size: var(--jsondoc-font-size-caption);
   font-weight: var(--jsondoc-font-weight-normal);
   border-radius: var(--jsondoc-radius-sm);
-  position: relative;
-  z-index: var(--jsondoc-z-elevated);
-  display: inline-block;
+  width: fit-content;
 }
 
 /* Dark theme support for page delimiter */

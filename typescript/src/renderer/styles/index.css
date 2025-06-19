@@ -1,5 +1,8 @@
 /* JSON-DOC Renderer Styles */
 
+/* Import KaTeX styles for equations */
+@import "katex/dist/katex.min.css";
+
 /* Import design tokens first */
 @import "./variables.css";
 

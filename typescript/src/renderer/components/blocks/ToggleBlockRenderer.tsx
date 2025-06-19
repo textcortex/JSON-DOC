@@ -32,61 +32,68 @@ export const ToggleBlockRenderer: React.FC<ToggleBlockRendererProps> = ({
       className={`notion-selectable notion-toggle-block${className ? ` ${className}` : ""}`}
       data-block-id={block.id}
     >
-      <div>
-        <div className="notion-list-item-box-left">
-          <div
-            aria-expanded={isOpen}
-            aria-label={isOpen ? "Close" : "Open"}
-            role="button"
-            tabIndex={0}
-            onClick={handleToggle}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                handleToggle();
-              }
+      <div
+        aria-expanded={isOpen}
+        aria-label={isOpen ? "Close" : "Open"}
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            handleToggle();
+          }
+        }}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 4,
+          cursor: "pointer",
+        }}
+      >
+        <div role="button" onClick={handleToggle}>
+          <svg
+            aria-hidden="true"
+            role="graphics-symbol"
+            viewBox="0 0 16 16"
+            className="arrowCaretDownFillSmall"
+            style={{
+              width: "14px",
+              height: "14px",
+              display: "block",
+              flexShrink: 0,
+              transition: "transform 200ms ease-out",
+              transform: isOpen ? "rotate(360deg)" : "rotate(270deg)",
+              userSelect: "none",
             }}
-            style={{ cursor: "pointer" }}
           >
-            <svg
-              aria-hidden="true"
-              className="arrowCaretDownFillSmall"
-              role="graphics-symbol"
-              viewBox="0 0 16 16"
-              style={{
-                width: 16,
-                height: 16,
-                transform: isOpen ? "rotate(90deg)" : "rotate(0deg)",
-                transition: "transform 0.2s ease",
-              }}
-            >
-              <path d="M6 12l6-6H6z" fill="currentColor" />
-            </svg>
-          </div>
+            <path d="M2.835 3.25a.8.8 0 0 0-.69 1.203l5.164 8.854a.8.8 0 0 0 1.382 0l5.165-8.854a.8.8 0 0 0-.691-1.203z"></path>
+          </svg>
         </div>
-        <div>
-          <div>
-            <div className="notranslate">
-              <RichTextRenderer richText={toggleData?.rich_text || []} />
-            </div>
-          </div>
+
+        <div className="notranslate">
+          <RichTextRenderer richText={toggleData?.rich_text || []} />
         </div>
       </div>
 
       {/* Render children blocks recursively when toggle is open */}
       {isOpen && block.children && block.children.length > 0 && (
         <div
-          className="notion-block-children"
-          style={{ marginLeft: `${depth * 24}px` }}
+          style={{
+            marginLeft: 18,
+          }}
         >
-          {block.children.map((child: any, index: number) => (
-            <BlockRenderer
-              key={child.id || index}
-              block={child}
-              depth={depth + 1}
-              components={components}
-            />
-          ))}
+          <div
+            className="notion-block-children"
+            style={{ marginLeft: `${depth * 24}px` }}
+          >
+            {block.children.map((child: any, index: number) => (
+              <BlockRenderer
+                key={child.id || index}
+                block={child}
+                depth={depth + 1}
+                components={components}
+              />
+            ))}
+          </div>
         </div>
       )}
     </div>

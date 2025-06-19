@@ -1,3 +1,8 @@
+.notion-list-content {
+  display: flex;
+  align-items: center;
+}
+
 /* Heading Blocks */
 .notion-header-block,
 .notion-sub_header-block {
@@ -14,6 +19,7 @@
   margin: 0;
   font-weight: var(--jsondoc-font-weight-semibold);
   line-height: var(--jsondoc-line-height-relaxed);
+  margin-top: 32px;
 }
 
 .notion-sub_header-block h3 {
@@ -21,6 +27,7 @@
   margin: 0;
   font-weight: var(--jsondoc-font-weight-semibold);
   line-height: var(--jsondoc-line-height-relaxed);
+  margin-top: 22px;
 }
 
 .notion-sub_header-block h4 {
@@ -28,6 +35,7 @@
   margin: 0;
   font-weight: var(--jsondoc-font-weight-semibold);
   line-height: var(--jsondoc-line-height-relaxed);
+  margin-top: 16px;
 }
 
 .notion-link a {
@@ -39,8 +47,9 @@
   transition: text-decoration-color var(--jsondoc-transition-fast);
 }
 
-.notion-text-block div {
+.notion-text-block {
   color: var(--jsondoc-text-primary);
+  line-height: var(--jsondoc-line-height-very-loose);
 }
 
 .notion-link:hover {
@@ -50,8 +59,6 @@
 .notion-equation {
   background: var(--jsondoc-bg-inline-code);
   border-radius: var(--jsondoc-radius-sm);
-  padding: 0.2em 0.4em;
-  font-family: var(--jsondoc-font-family-serif);
 }
 
 /* Text Colors */
