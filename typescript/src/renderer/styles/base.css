@@ -19,7 +19,7 @@
   font-size: var(--jsondoc-font-size-page-title);
   line-height: var(--jsondoc-line-height-normal);
   font-weight: var(--jsondoc-font-weight-bold);
-  margin: 0 0 var(--jsondoc-spacing-xs);
+  margin: 0px 0px var(--jsondoc-spacing-lg) 0px;
   padding: var(--jsondoc-spacing-sm) 0px;
 }
 

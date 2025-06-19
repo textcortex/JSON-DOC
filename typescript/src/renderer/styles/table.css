@@ -25,7 +25,7 @@
 
 .notion-table-row th,
 .notion-table-row td {
-  border: 1px solid var(--jsondoc-border-medium);
+  border: 1px solid var(--jsondoc-border-light);
   padding: 8px 12px;
   vertical-align: top;
   white-space: normal;
@@ -36,8 +36,8 @@
 }
 
 .notion-table-row th {
-  background-color: var(--jsondoc-bg-code);
   font-weight: var(--jsondoc-font-weight-semibold);
+  text-align: left;
 }
 
 .notion-table-cell-text {

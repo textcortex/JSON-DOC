@@ -37,8 +37,6 @@ export const JsonDocRenderer = ({
   viewJson = false,
   backrefs = [],
 }: JsonDocRendererProps) => {
-  console.log("page: ", page);
-
   // Use the modular hooks for highlight management
   const { highlightCount, currentActiveIndex, navigateToHighlight } =
     useHighlights({
