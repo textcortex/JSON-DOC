@@ -111,6 +111,15 @@
   flex: 1;
 }
 
+.notion-toggle-block div[role="button"] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4px;
+}
+.notion-toggle-block div[role="button"]:hover {
+  background-color: var(--jsondoc-bg);
+}
 /* Equation Block */
 .notion-equation-block {
   padding: var(--jsondoc-spacing-sm) var(--jsondoc-spacing-xs);
@@ -120,7 +129,6 @@
 .notion-equation-display {
   text-align: center;
   padding: var(--jsondoc-spacing-lg);
-  background: var(--jsondoc-bg-code);
   border-radius: var(--jsondoc-radius-sm);
 }
 

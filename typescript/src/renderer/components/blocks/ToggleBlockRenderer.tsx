@@ -35,52 +35,40 @@ export const ToggleBlockRenderer: React.FC<ToggleBlockRendererProps> = ({
       <div
         aria-expanded={isOpen}
         aria-label={isOpen ? "Close" : "Open"}
-        role="button"
         tabIndex={0}
-        onClick={handleToggle}
         onKeyDown={(e) => {
           if (e.key === "Enter" || e.key === " ") {
             e.preventDefault();
             handleToggle();
           }
         }}
-        style={{ cursor: "pointer", display: "flex", alignItems: "center" }}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 4,
+          cursor: "pointer",
+        }}
       >
-        {/* <svg
-          aria-hidden="true"
-          className="arrowCaretDownFillSmall"
-          role="graphics-symbol"
-          viewBox="0 0 16 16"
-          style={{
-            width: 16,
-            height: 16,
-            transform: isOpen ? "rotate(90deg)" : "rotate(0deg)",
-            transition: "transform 0.2s ease",
-          }}
-        >
-          <path d="M6 12l6-6H6z" fill="currentColor" />
-        </svg> */}
+        <div role="button" onClick={handleToggle}>
+          <svg
+            aria-hidden="true"
+            role="graphics-symbol"
+            viewBox="0 0 16 16"
+            className="arrowCaretDownFillSmall"
+            style={{
+              width: "1.2em",
+              height: "1.2em",
+              display: "block",
+              flexShrink: 0,
+              transition: "transform 200ms ease-out",
+              transform: isOpen ? "rotate(360deg)" : "rotate(270deg)",
+              userSelect: "none",
+            }}
+          >
+            <path d="M2.835 3.25a.8.8 0 0 0-.69 1.203l5.164 8.854a.8.8 0 0 0 1.382 0l5.165-8.854a.8.8 0 0 0-.691-1.203z"></path>
+          </svg>
+        </div>
 
-        <svg
-          aria-hidden="true"
-          role="graphics-symbol"
-          viewBox="0 0 16 16"
-          className="arrowCaretDownFillSmall"
-          style={{
-            width: "0.8em",
-            height: "0.8em",
-            display: "block",
-            flexShrink: 0,
-            transition: "transform 200ms ease-out",
-            // transform: "rotateZ(0deg)",
-            opacity: 1,
-            transform: isOpen ? "rotate(360deg)" : "rotate(270deg)",
-            marginRight: 6,
-            // tran: "transform 0.2s ease",
-          }}
-        >
-          <path d="M2.835 3.25a.8.8 0 0 0-.69 1.203l5.164 8.854a.8.8 0 0 0 1.382 0l5.165-8.854a.8.8 0 0 0-.691-1.203z"></path>
-        </svg>
         <div className="notranslate">
           <RichTextRenderer richText={toggleData?.rich_text || []} />
         </div>
