@@ -56,8 +56,8 @@ export const ToggleBlockRenderer: React.FC<ToggleBlockRendererProps> = ({
             viewBox="0 0 16 16"
             className="arrowCaretDownFillSmall"
             style={{
-              width: "1.2em",
-              height: "1.2em",
+              width: "14px",
+              height: "14px",
               display: "block",
               flexShrink: 0,
               transition: "transform 200ms ease-out",

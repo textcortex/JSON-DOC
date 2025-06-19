@@ -718,6 +718,138 @@
               ]
             ]
           }
+        },
+        {
+          "object": "block",
+          "id": "blk_table_row_4",
+          "type": "table_row",
+          "created_time": "2025-06-19T14:04:08.260514Z",
+          "created_by": {
+            "object": "user",
+            "id": "28a08aa3-192b-45e6-b6d3-32b8032d8c7b"
+          },
+          "table_row": {
+            "cells": [
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "This is a very long cell content that should wrap properly within the table cell boundaries and test the word wrapping functionality"
+                  },
+                  "annotations": {},
+                  "plain_text": "This is a very long cell content that should wrap properly within the table cell boundaries and test the word wrapping functionality"
+                }
+              ],
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "Short"
+                  },
+                  "annotations": {},
+                  "plain_text": "Short"
+                }
+              ],
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "Medium length content here"
+                  },
+                  "annotations": {},
+                  "plain_text": "Medium length content here"
+                }
+              ]
+            ]
+          }
+        },
+        {
+          "object": "block",
+          "id": "blk_table_row_5",
+          "type": "table_row",
+          "created_time": "2025-06-19T14:04:08.260514Z",
+          "created_by": {
+            "object": "user",
+            "id": "28a08aa3-192b-45e6-b6d3-32b8032d8c7b"
+          },
+          "table_row": {
+            "cells": [
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "Normal text"
+                  },
+                  "annotations": {},
+                  "plain_text": "Normal text"
+                }
+              ],
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "This column has super long content that would normally cause horizontal overflow in a constrained container but should now wrap properly"
+                  },
+                  "annotations": {},
+                  "plain_text": "This column has super long content that would normally cause horizontal overflow in a constrained container but should now wrap properly"
+                }
+              ],
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "Another cell"
+                  },
+                  "annotations": {},
+                  "plain_text": "Another cell"
+                }
+              ]
+            ]
+          }
+        },
+        {
+          "object": "block",
+          "id": "blk_table_row_6",
+          "type": "table_row",
+          "created_time": "2025-06-19T14:04:08.260514Z",
+          "created_by": {
+            "object": "user",
+            "id": "28a08aa3-192b-45e6-b6d3-32b8032d8c7b"
+          },
+          "table_row": {
+            "cells": [
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "URL Test"
+                  },
+                  "annotations": {},
+                  "plain_text": "URL Test"
+                }
+              ],
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "https://example.com/very-long-url-path/that-might-cause-overflow/if-not-handled-properly"
+                  },
+                  "annotations": {},
+                  "plain_text": "https://example.com/very-long-url-path/that-might-cause-overflow/if-not-handled-properly"
+                }
+              ],
+              [
+                {
+                  "type": "text",
+                  "text": {
+                    "content": "Final column content that has moderate length"
+                  },
+                  "annotations": {},
+                  "plain_text": "Final column content that has moderate length"
+                }
+              ]
+            ]
+          }
         }
       ]
     },
@@ -890,10 +1022,10 @@
           {
             "type": "text",
             "text": {
-              "content": "This is a sample image with a caption. Image blocks should have proper spacing above and below."
+              "content": "This is a sample image with a caption. Image blocks should thiyyy This is a sample image with a caption. Image blocks should thiyyy"
             },
             "annotations": {},
-            "plain_text": "This is a sample image with a caption. Image blocks should have proper spacing above and below."
+            "plain_text": "This is a sample image with a caption. Image blocks should"
           }
         ]
       }

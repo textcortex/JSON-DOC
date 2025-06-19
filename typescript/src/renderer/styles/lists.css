@@ -6,6 +6,7 @@
   line-height: var(--jsondoc-line-height-very-loose);
   list-style-type: none;
   display: flex;
+  margin-bottom: 2px;
 }
 
 /* 
@@ -86,7 +87,7 @@
   text-indent: 0px;
   font-size: var(--jsondoc-font-size-h2);
   line-height: var(--jsondoc-line-height-tight);
-  margin-left: 12px;
+  margin-left: 8px;
   margin-right: 10px;
   margin-bottom: 4px;
 }
@@ -105,7 +106,7 @@
   font-size: var(--jsondoc-font-size-body);
   margin-right: var(--jsondoc-spacing-sm);
   text-align: right;
-  margin-left: 12px;
+  margin-left: 8px;
   margin-right: 10px;
 }
 

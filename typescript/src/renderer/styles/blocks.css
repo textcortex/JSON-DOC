@@ -77,6 +77,10 @@
   color: var(--jsondoc-accent-checkbox);
 }
 
+.notion-to_do-block .checked {
+  text-decoration: line-through;
+}
+
 .pseudoHover.pseudoActive {
   position: relative;
   display: flex;
