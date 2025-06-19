@@ -44,7 +44,7 @@ const App = () => {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const response = await fetch("/test_document.json");
+        const response = await fetch("/spacing_test.json");
         const data = await response.json();
         setTestPage(data);
       } catch (error) {
@@ -80,7 +80,7 @@ const App = () => {
           display: "flex",
           justifyContent: "center",
           paddingTop: 160,
-          background: "rgba(0,0,0,0.3)",
+          // background: "rgba(0,0,0,0.3)",
         }}
       >
         <JsonDocRenderer

@@ -7,8 +7,6 @@
   max-width: var(--jsondoc-page-max-width);
   max-width: inherit;
   margin: 0 auto;
-  /* padding: var(--jsondoc-page-padding-desktop)
-    var(--jsondoc-page-padding-desktop) var(--jsondoc-page-bottom-padding); */
   color: var(--jsondoc-text-primary);
   font-family: var(--jsondoc-font-family-sans);
 }

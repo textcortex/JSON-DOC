@@ -114,7 +114,7 @@
 }
 
 .jsondoc-theme-dark {
-  --jsondoc-text-primary: #ffffff;
+  --jsondoc-text-primary: rgba(255, 255, 255, 0.81);
   --jsondoc-text-secondary: rgba(255, 255, 255, 0.65);
   --jsondoc-text-muted: rgba(255, 255, 255, 0.45);
   --jsondoc-border-light: rgba(255, 255, 255, 0.16);
