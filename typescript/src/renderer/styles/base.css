@@ -1,7 +1,11 @@
 /* Base Layout and Page Styles */
 
+.json-doc-renderer {
+  max-width: inherit;
+}
 .json-doc-page {
   max-width: var(--jsondoc-page-max-width);
+  max-width: inherit;
   margin: 0 auto;
   /* padding: var(--jsondoc-page-padding-desktop)
     var(--jsondoc-page-padding-desktop) var(--jsondoc-page-bottom-padding); */
@@ -25,7 +29,7 @@
 
 /* Base Block Styles */
 .notion-selectable {
-  position: relative;
+  /* position: relative; */
   margin: 0;
   padding: var(--jsondoc-spacing-sm) 0px;
 }
