@@ -40,36 +40,6 @@ jobs:
         run: |
           npm pack
 
-      - name: Check package size and create comment
-        working-directory: ./typescript
-        run: |
-          # Run size-limit to get detailed size analysis
-          SIZE_OUTPUT=$(npm run size 2>&1 || echo "Size check failed")
-          
-          # Get package file info
-          PACKAGE_FILE=$(ls *.tgz | head -1)
-          PACKAGE_SIZE=$(stat -c%s "$PACKAGE_FILE" 2>/dev/null || stat -f%z "$PACKAGE_FILE")
-          PACKAGE_SIZE_KB=$((PACKAGE_SIZE / 1024))
-          
-          # Create comment body
-          cat > /tmp/size_comment.md << EOF
-          ## 📦 Package Size Report
-          
-          **Package:** \`$PACKAGE_FILE\` (${PACKAGE_SIZE_KB} KB compressed)
-          
-          ### Size Limit Analysis:
-          \`\`\`
-          $SIZE_OUTPUT
-          \`\`\`
-          
-          Preview package is ready for testing! 🚀
-          EOF
-          
-          # Post comment to PR
-          gh pr comment --body-file /tmp/size_comment.md
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: List files in typescript dir
         working-directory: ./typescript
         run: |
