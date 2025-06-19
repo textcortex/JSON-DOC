@@ -88,12 +88,12 @@ const App = () => {
       <div
         style={{
           padding: "20px",
-          maxWidth: "700px",
+          maxWidth: "300px",
+          // background: "oklch(20.5% 0 0)",
           margin: "0 auto",
           color: "oklch(90% 0 0)",
           display: "flex",
           justifyContent: "center",
-          width: "100vw",
         }}
       >
         <div>

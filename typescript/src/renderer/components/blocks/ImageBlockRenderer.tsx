@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useInView } from "react-intersection-observer";
 
 import { useRenderer } from "../../context/RendererContext";
@@ -41,7 +41,9 @@ export const ImageBlockRenderer: React.FC<ImageBlockRendererProps> = ({
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [hasError, setHasError] = useState<boolean>(false);
   const [showFullCaption, setShowFullCaption] = useState<boolean>(false);
+  const [needsTruncation, setNeedsTruncation] = useState<boolean>(false);
   const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
+  const captionRef = useRef<HTMLDivElement>(null);
 
   const getImageUrl = () => {
     if (imageData?.type === "external") {
@@ -86,6 +88,14 @@ export const ImageBlockRenderer: React.FC<ImageBlockRendererProps> = ({
     };
   }, [inView, imageUrl, resolveImageUrl]);
 
+  useEffect(() => {
+    if (captionRef.current && imageData?.caption && imageData.caption.length > 0) {
+      const element = captionRef.current;
+      const isOverflowing = element.scrollHeight > element.clientHeight;
+      setNeedsTruncation(isOverflowing);
+    }
+  }, [imageData?.caption]);
+
   return (
     <div
       {...props}
@@ -126,16 +136,30 @@ export const ImageBlockRenderer: React.FC<ImageBlockRendererProps> = ({
             <div className="notranslate">
               <figcaption className="notion-image-caption">
                 <div
+                  ref={captionRef}
                   className={`caption-content ${!showFullCaption ? "caption-truncated" : "caption-expanded"}`}
                 >
                   <RichTextRenderer richText={imageData.caption} />
                 </div>
-                <button
-                  className="caption-toggle-btn"
-                  onClick={() => setShowFullCaption(!showFullCaption)}
-                >
-                  {showFullCaption ? "Show less" : "Show  more"}
-                </button>
+                {needsTruncation && (
+                  <button
+                    className="caption-toggle-btn"
+                    onClick={() => setShowFullCaption(!showFullCaption)}
+                  >
+                    <span className="btn-text">
+                      {showFullCaption ? "Show less" : "Show more"}
+                    </span>
+                    <svg 
+                      className={`btn-icon ${showFullCaption ? 'rotated' : ''}`}
+                      width="12" 
+                      height="12" 
+                      viewBox="0 0 12 12" 
+                      fill="currentColor"
+                    >
+                      <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </button>
+                )}
               </figcaption>
             </div>
           )}
