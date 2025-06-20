@@ -11,6 +11,7 @@ import { RendererProvider } from "./context/RendererContext";
 import { HighlightNavigation } from "./components/HighlightNavigation";
 import { useHighlights } from "./hooks/useHighlights";
 import { Backref } from "./utils/highlightUtils";
+import { GlobalErrorBoundary } from "./components/ErrorBoundary";
 
 interface JsonDocRendererProps {
   page: Page;
@@ -25,6 +26,7 @@ interface JsonDocRendererProps {
   devMode?: boolean;
   viewJson?: boolean;
   backrefs?: Backref[];
+  onError?: (error: Error, errorInfo: React.ErrorInfo) => void;
 }
 
 export const JsonDocRenderer = ({
@@ -36,6 +38,7 @@ export const JsonDocRenderer = ({
   devMode = false,
   viewJson = false,
   backrefs = [],
+  onError,
 }: JsonDocRendererProps) => {
   // Use the modular hooks for highlight management
   const { highlightCount, currentActiveIndex, navigateToHighlight } =
@@ -97,25 +100,29 @@ export const JsonDocRenderer = ({
   );
 
   return (
-    <RendererProvider value={{ devMode, resolveImageUrl }}>
-      <div className={`json-doc-renderer jsondoc-theme-${theme} ${className}`}>
-        {viewJson ? (
-          <div className="flex h-screen">
-            <div className="w-1/2 overflow-y-auto">{renderedContent}</div>
-            <JsonViewPanel data={page} />
+    <div className={`jsondoc-theme-${theme}`}>
+      <GlobalErrorBoundary onError={onError}>
+        <RendererProvider value={{ devMode, resolveImageUrl }}>
+          <div className={`json-doc-renderer  ${className}`}>
+            {viewJson ? (
+              <div className="flex h-screen">
+                <div className="w-1/2 overflow-y-auto">{renderedContent}</div>
+                <JsonViewPanel data={page} />
+              </div>
+            ) : (
+              renderedContent
+            )}
+            {/* Show highlight navigation when there are highlights */}
+            {highlightCount > 0 && (
+              <HighlightNavigation
+                highlightCount={highlightCount}
+                onNavigate={navigateToHighlight}
+                currentIndex={currentActiveIndex}
+              />
+            )}
           </div>
-        ) : (
-          renderedContent
-        )}
-        {/* Show highlight navigation when there are highlights */}
-        {highlightCount > 0 && (
-          <HighlightNavigation
-            highlightCount={highlightCount}
-            onNavigate={navigateToHighlight}
-            currentIndex={currentActiveIndex}
-          />
-        )}
-      </div>
-    </RendererProvider>
+        </RendererProvider>
+      </GlobalErrorBoundary>
+    </div>
   );
 };

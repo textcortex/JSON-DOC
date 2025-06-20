@@ -1,7 +1,7 @@
 /* JSON-DOC Renderer Styles */
 
 /* Import KaTeX styles for equations */
-@import "katex/dist/katex.min.css";
+/* @import "katex/dist/katex.min.css"; */
 
 /* Import design tokens first */
 @import "./variables.css";
@@ -16,6 +16,6 @@
 @import "./table.css";
 @import "./media.css";
 @import "./layout.css";
-
+@import "./error-boundry.css";
 /* Import responsive styles last */
 @import "./responsive.css";

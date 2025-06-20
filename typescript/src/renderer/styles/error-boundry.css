@@ -1,0 +1,79 @@
+/* Error Boundary Styles */
+.json-doc-error-boundary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  width: 100%;
+  /* max-width: 600px; */
+  padding: var(--jsondoc-spacing-xl);
+  background: var(--jsondoc-bg-primary);
+  border: 1px solid var(--jsondoc-border-light);
+  border-radius: var(--jsondoc-radius-md);
+  margin: var(--jsondoc-spacing-lg);
+}
+
+.json-doc-error-content {
+  text-align: center;
+  max-width: 500px;
+}
+
+.json-doc-error-content h2 {
+  color: var(--jsondoc-text-primary);
+  font-size: var(--jsondoc-font-size-xl);
+  font-weight: var(--jsondoc-font-weight-bold);
+  margin: 0 0 var(--jsondoc-spacing-md) 0;
+}
+
+.json-doc-error-content p {
+  color: var(--jsondoc-text-secondary);
+  font-size: var(--jsondoc-font-size-base);
+  margin: 0 0 var(--jsondoc-spacing-lg) 0;
+  line-height: var(--jsondoc-line-height-normal);
+}
+
+.json-doc-error-details {
+  margin: var(--jsondoc-spacing-lg) 0;
+  text-align: left;
+}
+
+.json-doc-error-details summary {
+  color: var(--jsondoc-text-secondary);
+  font-size: var(--jsondoc-font-size-sm);
+  cursor: pointer;
+  margin-bottom: var(--jsondoc-spacing-sm);
+}
+
+.json-doc-error-boundary pre {
+  background: var(--jsondoc-bg-code);
+  color: var(--jsondoc-text-primary);
+  padding: var(--jsondoc-spacing-md);
+  border-radius: var(--jsondoc-radius-sm);
+  font-family: var(--jsondoc-font-family-mono);
+  font-size: var(--jsondoc-font-size-sm);
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 400px;
+}
+
+.json-doc-error-retry-button {
+  background: var(--jsondoc-color-primary);
+  color: var(--jsondoc-text-primary);
+  border: none;
+  padding: var(--jsondoc-spacing-sm) var(--jsondoc-spacing-lg);
+  border-radius: var(--jsondoc-radius-sm);
+  font-size: var(--jsondoc-font-size-base);
+  font-weight: var(--jsondoc-font-weight-medium);
+  cursor: pointer;
+  transition: all var(--jsondoc-transition-fast);
+}
+
+.json-doc-error-retry-button:hover {
+  background: var(--jsondoc-color-primary-hover);
+  transform: translateY(-1px);
+}
+
+.json-doc-error-retry-button:active {
+  transform: translateY(0);
+}
