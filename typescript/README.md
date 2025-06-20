@@ -307,4 +307,44 @@ You can choose a different version from the list or create new one. But bumpp is
 - [x] move vite app to typescript root examples dir
 - [ ] setup monorepo tooling
 - [ ] fix model generation for Image and RichText, then type renderers
-- [ ] use katex or similar package for equations
+- [x] use katex or similar package for equations
+- [x] add error boundry
+- [x] add page title highlighting
+- [ ] validate page prop somehow. not clear how to do yet. we can't use the /schema because it's HUGE and also because it's outside of /typescript. Will need to think about this.
+
+maybe do something like this?
+```
+import type { Page } from "../models/generated/page/page";
+import { isPage } from "../models/generated/essential-types";
+
+export function validatePage(obj: unknown): obj is Page {
+  console.log("isPage(obj) ", isPage(obj));
+  return (
+    isPage(obj) &&
+    typeof (obj as any).id === "string" &&
+    Array.isArray((obj as any).children)
+  );
+}
+
+export function validatePageWithError(obj: unknown): {
+  valid: boolean;
+  error?: string;
+} {
+  if (!isPage(obj)) {
+    return { valid: false, error: "Not a valid page object" };
+  }
+
+  if (typeof (obj as any).id !== "string") {
+    return { valid: false, error: "Page id must be a string" };
+  }
+
+  if (!Array.isArray((obj as any).children)) {
+    return { valid: false, error: "Page children must be an array" };
+  }
+
+  return { valid: true };
+}
+
+```
+
+will require us to write a validator and we won't benefit from the defined schema jsons.

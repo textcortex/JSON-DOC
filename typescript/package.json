@@ -70,6 +70,7 @@
     "ajv": "^8.17.1",
     "ajv-formats": "^3.0.1",
     "katex": "^0.16.22",
+    "react-error-boundary": "^6.0.0",
     "react-intersection-observer": "^9.13.0"
   },
   "peerDependencies": {

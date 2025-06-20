@@ -6,9 +6,16 @@ import DevPanel from "./components/DevPanel";
 // Test backrefs for highlighting
 const testBackrefs: Array<{
   end_idx: number;
-  block_id: string;
   start_idx: number;
+  block_id?: string;
+  page_id?: string;
 }> = [
+  // Test page title highlighting
+  {
+    end_idx: 15,
+    page_id: "pg_01jxm798ddfdvt60gy8nqh0xm7",
+    start_idx: 0,
+  },
   // {
   //   end_idx: 50,
   //   block_id: "blk_table_row_5",

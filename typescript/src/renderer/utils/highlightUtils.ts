@@ -2,6 +2,7 @@ export interface Backref {
   end_idx: number;
   start_idx: number;
   block_id?: string;
+  page_id?: string;
 }
 
 export interface HighlightElement {
@@ -88,9 +89,15 @@ export function highlightTextNode(
 }
 
 /**
- * Processes a single backref and applies highlighting to the target block
+ * Processes a single backref and applies highlighting to the target block or page title
  */
 export function processBackref(backref: Backref): HTMLSpanElement | null {
+  // If page_id is provided, target the page title
+  if (backref.page_id) {
+    return processPageTitleBackref(backref);
+  }
+
+  // Otherwise, handle block highlighting as before
   if (!backref.block_id) {
     return null;
   }
@@ -104,6 +111,36 @@ export function processBackref(backref: Backref): HTMLSpanElement | null {
   }
 
   const textNodes = getTextNodes(blockElement);
+  let currentIndex = 0;
+  let firstSpanForThisBackref: HTMLSpanElement | null = null;
+
+  for (const textNode of textNodes) {
+    const highlightSpan = highlightTextNode(textNode, backref, currentIndex);
+
+    if (highlightSpan && !firstSpanForThisBackref) {
+      firstSpanForThisBackref = highlightSpan;
+    }
+
+    currentIndex += textNode.textContent?.length || 0;
+  }
+
+  return firstSpanForThisBackref;
+}
+
+/**
+ * Processes a backref that targets a page title
+ */
+export function processPageTitleBackref(backref: Backref): HTMLSpanElement | null {
+  // Find the specific page title element using data-page-id
+  const pageTitleElement = document.querySelector(
+    `[data-page-id="${backref.page_id}"]`
+  );
+  
+  if (!pageTitleElement) {
+    return null;
+  }
+
+  const textNodes = getTextNodes(pageTitleElement);
   let currentIndex = 0;
   let firstSpanForThisBackref: HTMLSpanElement | null = null;
 

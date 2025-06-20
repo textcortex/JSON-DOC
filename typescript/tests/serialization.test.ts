@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import * as JSON5 from "json5";
-import { loadJson, deepClone } from "../src";
+import { loadJson, deepClone } from "../src/utils/json";
 
 // Path to the example page JSON file
 const PAGE_PATH = path.resolve(__dirname, "../../schema/page/ex1_success.json");
