@@ -1,4 +1,5 @@
 import React from "react";
+
 import { useHighlightNavigation } from "../hooks/useHighlightNavigation";
 
 interface HighlightNavigationProps {

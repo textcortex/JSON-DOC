@@ -42,7 +42,6 @@ export const ListItemBlockRenderer: React.FC<ListItemBlockRendererProps> = ({
       <div className="notion-list-content">
         <RichTextRenderer richText={listData?.rich_text || []} />
       </div>
-
       {/* Render children blocks recursively */}
       {block.children && block.children.length > 0 && (
         <div
