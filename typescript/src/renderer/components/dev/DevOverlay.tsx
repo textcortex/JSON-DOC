@@ -139,6 +139,14 @@ export const DevOverlay: React.FC<DevOverlayProps> = ({
     setIsResizing(true);
   };
 
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(JSON.stringify(block, null, 2));
+    } catch (err) {
+      console.error('Failed to copy to clipboard:', err);
+    }
+  };
+
   return (
     <div
       ref={overlayRef}
@@ -198,7 +206,38 @@ export const DevOverlay: React.FC<DevOverlayProps> = ({
           </svg>
           Block JSON ({block.type || "unknown"})
         </span>
-        <button
+        <div style={{ display: "flex", gap: "4px" }}>
+          <button
+            onClick={handleCopy}
+            onMouseDown={(e) => e.stopPropagation()}
+            style={{
+              background: "none",
+              border: "none",
+              color: "#ffffff",
+              cursor: "pointer",
+              fontSize: "14px",
+              padding: "4px 8px",
+              borderRadius: "4px",
+              display: "flex",
+              alignItems: "center",
+              gap: "4px",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.background = "#333")}
+            onMouseLeave={(e) => (e.currentTarget.style.background = "none")}
+            title="Copy block JSON to clipboard"
+          >
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              style={{ opacity: 0.8 }}
+            >
+              <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+            </svg>
+            Copy
+          </button>
+          <button
           onClick={onClose}
           onMouseDown={(e) => e.stopPropagation()} // Prevent drag when clicking close button
           style={{
@@ -215,6 +254,7 @@ export const DevOverlay: React.FC<DevOverlayProps> = ({
         >
           ×
         </button>
+        </div>
       </div>
       <pre
         style={{

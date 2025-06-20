@@ -11,9 +11,9 @@
     "preinstall": "npx only-allow pnpm"
   },
   "dependencies": {
+    "@textcortex/jsondoc": "link:/Users/abrehamgezahegn/Documents/projects/textcortex/JSON-DOC/typescript",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "@textcortex/jsondoc": "file:/Users/abrehamgezahegn/Documents/projects/textcortex/JSON-DOC/typescript"
+    "react-dom": "^19.1.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",
