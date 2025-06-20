@@ -13,9 +13,7 @@ interface TableBlockRendererProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export const TableBlockRenderer: React.FC<TableBlockRendererProps> = ({
   block,
-  depth = 0,
   className,
-  components,
   ...props
 }) => {
   const tableData = block.table;
