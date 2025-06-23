@@ -274,7 +274,11 @@ b7b30c1   : Make more typesafe
 You can choose a different version from the list or create new one. But bumpp is smart enough to use appropriate next version.
 
 3. Verify and confirm
-4. Push commit and tag
+4. Push commit and tag 
+
+```
+git push --follow-tags
+```
 5. The new tag will trigger a release on github actions.
 6. Go to github and create release using the new tag. Make sure you set the correct previous tag prefixed with `typescript-v`
 
