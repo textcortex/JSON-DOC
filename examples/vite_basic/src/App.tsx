@@ -1,106 +1,149 @@
 import { JsonDocRenderer, PageDelimiter } from "@textcortex/jsondoc";
 import "@textcortex/jsondoc/dist/index.css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import FileSelector from "./components/FileSelector";
 import DevPanel from "./components/DevPanel";
-
-// Test backrefs for highlighting
-const testBackrefs: Array<{
-  end_idx: number;
-  start_idx: number;
-  block_id?: string;
-  page_id?: string;
-}> = [
-  // Test page title highlighting
-  {
-    end_idx: 15,
-    page_id: "pg_01jxm798ddfdvt60gy8nqh0xm7",
-    start_idx: 0,
-  },
-  // {
-  //   end_idx: 50,
-  //   block_id: "blk_table_row_5",
-  //   start_idx: 0,
-  // },
-  // {
-  //   end_idx: 40,
-  //   block_id: "blk_toggle_1",
-  //   start_idx: 12,
-  // },
-  // {
-  //   end_idx: 80,
-  //   block_id: "bk_01jxwgvydze3bsy2p19cfteqge",
-  //   start_idx: 20,
-  // },
-  // {
-  //   block_id: "bk_01jxwgvyehecbb2bv3jtnm9bzx",
-  //   start_idx: 0,
-  //   end_idx: 70,
-  // },
-  // {
-  //   block_id: "bk_01jxj01879f8cvyq2hqc6p37z2",
-  //   start_idx: 0,
-  //   end_idx: 170,
-  // },
-];
+import { useFileLoader } from "./hooks/useFileLoader";
+import { AVAILABLE_FILES } from "./constants/files";
 
 const App = () => {
-  const [testPage, setTestPage] = useState(null);
-  const [devMode, setDevMode] = useState(false);
   const [theme, setTheme] = useState<"light" | "dark">("dark");
+  const [devMode, setDevMode] = useState(false);
+  const [showBackrefs, setShowBackrefs] = useState(false);
+  const {
+    selectedFile,
+    data: testPage,
+    loading,
+    error,
+    handleFileChange,
+  } = useFileLoader(AVAILABLE_FILES[0]);
 
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        const response = await fetch("/spacing_test.json");
-        const data = await response.json();
-        setTestPage(data);
-      } catch (error) {
-        console.error("Error loading JSON:", error);
-      }
-    };
-    loadData();
-  }, []);
+  // Sample backrefs for real_document.json
+  const sampleBackrefs = [
+    {
+      end_idx: 82,
+      block_id: "bk_01jxyv2pekf4bs9a82ayxsewga",
+      start_idx: 0,
+    },
+    {
+      end_idx: 125,
+      block_id: "bk_01jxyv2pemfj3848ncdbap6xsa",
+      start_idx: 8,
+    },
+    {
+      end_idx: 100,
+      block_id: "bk_01jxyv2pg6f8hbvmc960g8k58m",
+      start_idx: 0,
+    },
+    {
+      end_idx: 30,
+      block_id: "bk_01jxyv2pepepaam6k48t1s5c1q",
+      start_idx: 6,
+    },
+    {
+      end_idx: 20,
+      block_id: "bk_01jxyv2peqfx1vv7xa8zq4ajfx",
+      start_idx: 0,
+    },
+    {
+      end_idx: 200,
+      block_id: "bk_01jxyv2ppcf6xvxsh278d4e2je",
+      start_idx: 30,
+    },
+    {
+      end_idx: 11,
+      block_id: "bk_01jxyv2pesedv9dfz1e6ekbsj8",
+      start_idx: 1,
+    },
+  ];
 
-  if (!testPage) {
-    return <div>Loading...</div>;
+  if (error) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          color: theme === "dark" ? "oklch(90% 0 0)" : "oklch(10% 0 0)",
+          background: theme === "dark" ? "oklch(20.5% 0 0)" : "oklch(95% 0 0)",
+        }}
+      >
+        <div style={{ textAlign: "center" }}>
+          <h2>Error Loading Document</h2>
+          <p>{error}</p>
+        </div>
+      </div>
+    );
   }
+
+  if (!testPage && loading) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          color: theme === "dark" ? "oklch(90% 0 0)" : "oklch(10% 0 0)",
+          background: theme === "dark" ? "oklch(20.5% 0 0)" : "oklch(95% 0 0)",
+        }}
+      >
+        Loading...
+      </div>
+    );
+  }
+
+  console.log("showBackrefs ", sampleBackrefs);
 
   return (
     <div
       style={{
         background: theme === "dark" ? "oklch(20.5% 0 0)" : "oklch(95% 0 0)",
+        minHeight: "100vh",
       }}
     >
+      <FileSelector
+        availableFiles={AVAILABLE_FILES}
+        selectedFile={selectedFile}
+        onFileChange={handleFileChange}
+        loading={loading}
+        theme={theme}
+      />
+
       <DevPanel
         devMode={devMode}
         setDevMode={setDevMode}
         theme={theme}
         setTheme={setTheme}
+        showBackrefs={showBackrefs}
+        setShowBackrefs={setShowBackrefs}
       />
 
       <div
         style={{
           padding: "20px",
-          maxWidth: "500px",
+          maxWidth: "690px",
           margin: "0 auto",
           color: theme === "dark" ? "oklch(90% 0 0)" : "oklch(10% 0 0)",
           display: "flex",
           justifyContent: "center",
           paddingTop: 160,
-          // background: "rgba(0,0,0,0.3)",
         }}
       >
-        <JsonDocRenderer
-          page={testPage}
-          theme={theme}
-          devMode={devMode}
-          backrefs={testBackrefs}
-          components={{
-            page_delimiter: (props) => {
-              return <PageDelimiter {...props} />;
-            },
-          }}
-        />
+        {testPage && (
+          <JsonDocRenderer
+            page={testPage}
+            theme={theme}
+            devMode={devMode}
+            backrefs={showBackrefs ? sampleBackrefs : []}
+            components={{
+              page_delimiter: (props) => {
+                return <PageDelimiter {...props} />;
+              },
+            }}
+          />
+        )}
       </div>
     </div>
   );

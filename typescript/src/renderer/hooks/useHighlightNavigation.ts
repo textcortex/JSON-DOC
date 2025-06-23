@@ -81,45 +81,6 @@ export function useHighlightNavigation({
     [highlightCount, onNavigate, externalCurrentIndex]
   );
 
-  // Keyboard navigation support
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (highlightCount === 0) return;
-
-      // Only handle if no input is focused
-      if (
-        document.activeElement?.tagName === "INPUT" ||
-        document.activeElement?.tagName === "TEXTAREA"
-      ) {
-        return;
-      }
-
-      switch (event.key) {
-        case "ArrowUp":
-        case "k": // Vim-style navigation
-          event.preventDefault();
-          navigatePrevious();
-          break;
-        case "ArrowDown":
-        case "j": // Vim-style navigation
-          event.preventDefault();
-          navigateNext();
-          break;
-        case "Home":
-          event.preventDefault();
-          navigateToIndex(0);
-          break;
-        case "End":
-          event.preventDefault();
-          navigateToIndex(highlightCount - 1);
-          break;
-      }
-    };
-
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [highlightCount, navigatePrevious, navigateNext, navigateToIndex]);
-
   return {
     currentIndex,
     navigatePrevious,

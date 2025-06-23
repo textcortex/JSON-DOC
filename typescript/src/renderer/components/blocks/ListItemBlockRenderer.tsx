@@ -30,23 +30,25 @@ export const ListItemBlockRenderer: React.FC<ListItemBlockRendererProps> = ({
       : "notion-numbered_list-block";
 
   return (
-    <div
-      {...props}
-      className={`notion-selectable ${blockClassName} ${className || ""}`.trim()}
-      data-block-id={block.id}
-    >
-      {/* <div className="notion-list-item-box-left" /> */}
-      {block.type === "bulleted_list_item" && (
-        <div className="notion-list-item-box-left" />
-      )}
-      <div className="notion-list-content">
-        <RichTextRenderer richText={listData?.rich_text || []} />
+    <>
+      <div
+        {...props}
+        className={`notion-selectable ${blockClassName} ${className || ""}`.trim()}
+        data-block-id={block.id}
+      >
+        {/* <div className="notion-list-item-box-left" /> */}
+        {block.type === "bulleted_list_item" && (
+          <div className="notion-list-item-box-left" />
+        )}
+        <div className="notion-list-content">
+          <RichTextRenderer richText={listData?.rich_text || []} />
+        </div>
       </div>
       {/* Render children blocks recursively */}
       {block.children && block.children.length > 0 && (
         <div
           className="notion-block-children"
-          style={{ marginLeft: `${depth * 24}px` }}
+          style={{ marginLeft: `${depth + 1 * 24}px` }}
         >
           {block.children.map((child, index: number) => (
             <BlockRenderer
@@ -58,6 +60,6 @@ export const ListItemBlockRenderer: React.FC<ListItemBlockRendererProps> = ({
           ))}
         </div>
       )}
-    </div>
+    </>
   );
 };
