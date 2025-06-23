@@ -348,3 +348,5 @@ export function validatePageWithError(obj: unknown): {
 ```
 
 will require us to write a validator and we won't benefit from the defined schema jsons.
+
+- [ ] make error boundary catch errors in JsonDocRenderer.tsx body 

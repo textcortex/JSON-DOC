@@ -24,51 +24,6 @@
   "children": [
     {
       "object": "block",
-      "id": "bk_01jxm798e7eantmhjr295qsqm9",
-      "type": "bulleted_list_item",
-      "created_time": "2025-06-13T08:42:43.392470Z",
-      "created_by": {
-        "object": "user",
-        "id": "bcf6c03e-51a1-4f05-97d8-d616405b42a2"
-      },
-      "has_children": false,
-      "metadata": {
-        "origin": {
-          "file_id": "file_01jxm77f69e09ssze1s203bb2c",
-          "page_num": 3
-        }
-      },
-      "bulleted_list_item": {
-        "rich_text": [
-          {
-            "type": "text",
-            "text": {
-              "content": "No manual migration, no permanent duplication \\rightarrow all data under single user namespace"
-            },
-            "annotations": {},
-            "plain_text": "No manual migration, no permanent duplication \\rightarrow all data under single user namespace"
-          },
-          {
-            "type": "text",
-            "text": {
-              "content": "No manual migration, no permanent duplication \\rightarrow all data under single user namespace"
-            },
-            "annotations": {},
-            "plain_text": "No manual migration, no permanent duplication \\rightarrow all data under single user namespace"
-          },
-          {
-            "type": "text",
-            "text": {
-              "content": "No manual migration, no permanent duplication \\rightarrow all data under single user namespace"
-            },
-            "annotations": {},
-            "plain_text": "No manual migration, no permanent duplication \\rightarrow all data under single user namespace"
-          }
-        ]
-      }
-    },
-    {
-      "object": "block",
       "id": "blk_heading1_top",
       "type": "heading_1",
       "created_time": "2025-06-19T14:04:08.260514Z",
@@ -1096,6 +1051,285 @@
           }
         ]
       }
+    },
+    {
+      "object": "block",
+      "id": "bk_01jxm798e7eantmhjr295qsqm9",
+      "type": "bulleted_list_item",
+      "created_time": "2025-06-13T08:42:43.392470Z",
+      "created_by": {
+        "object": "user",
+        "id": "bcf6c03e-51a1-4f05-97d8-d616405b42a2"
+      },
+      "has_children": false,
+      "metadata": {
+        "origin": {
+          "file_id": "file_01jxm77f69e09ssze1s203bb2c",
+          "page_num": 3
+        }
+      },
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "No manual migration, no permanent duplication \\rightarrow all data under single user namespace"
+            },
+            "annotations": {},
+            "plain_text": "No manual migration, no permanent duplication \\rightarrow all data under single user namespace"
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": "No manual migration, no permanent duplication \\rightarrow all data under single user namespace"
+            },
+            "annotations": {},
+            "plain_text": "No manual migration, no permanent duplication \\rightarrow all data under single user namespace"
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": "No manual migration, no permanent duplication \\rightarrow all data under single user namespace"
+            },
+            "annotations": {},
+            "plain_text": "No manual migration, no permanent duplication \\rightarrow all data under single user namespace"
+          }
+        ]
+      }
+    },
+    {
+      "object": "block",
+      "id": "bk_01jxyv2phzfx6vnc47aekpc09y",
+      "type": "bulleted_list_item",
+      "created_time": "2025-06-17T11:41:04.027625Z",
+      "created_by": {
+        "object": "user",
+        "id": "4423b092-7ee6-494b-98d1-6631b63b4f78"
+      },
+      "has_children": true,
+      "metadata": {
+        "origin": {
+          "file_id": "file_01jxyv2atne4tty0rzhrx9ha53",
+          "page_num": 8
+        }
+      },
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "3 Working conditions "
+            },
+            "annotations": {},
+            "plain_text": "3 Working conditions "
+          }
+        ]
+      },
+      "children": [
+        {
+          "object": "block",
+          "id": "bk_01jxyv2phrf5qsk9f668mg023m",
+          "type": "bulleted_list_item",
+          "created_time": "2025-06-17T11:41:04.026912Z",
+          "created_by": {
+            "object": "user",
+            "id": "4423b092-7ee6-494b-98d1-6631b63b4f78"
+          },
+          "has_children": false,
+          "metadata": {
+            "origin": {
+              "file_id": "file_01jxyv2atne4tty0rzhrx9ha53",
+              "page_num": 8
+            }
+          },
+          "bulleted_list_item": {
+            "rich_text": [
+              {
+                "type": "text",
+                "text": {
+                  "content": "3.1 Movement area"
+                },
+                "annotations": {},
+                "plain_text": "3.1 Movement area"
+              }
+            ]
+          }
+        },
+        {
+          "object": "block",
+          "id": "bk_01jxyv2phsfbkt47rr6xb0swz6",
+          "type": "bulleted_list_item",
+          "created_time": "2025-06-17T11:41:04.027030Z",
+          "created_by": {
+            "object": "user",
+            "id": "4423b092-7ee6-494b-98d1-6631b63b4f78"
+          },
+          "has_children": false,
+          "metadata": {
+            "origin": {
+              "file_id": "file_01jxyv2atne4tty0rzhrx9ha53",
+              "page_num": 8
+            }
+          },
+          "bulleted_list_item": {
+            "rich_text": [
+              {
+                "type": "text",
+                "text": {
+                  "content": "3.2 Arrangement of workstations"
+                },
+                "annotations": {},
+                "plain_text": "3.2 Arrangement of workstations"
+              }
+            ]
+          }
+        },
+        {
+          "object": "block",
+          "id": "bk_01jxyv2phtffms969ck2xrpggn",
+          "type": "bulleted_list_item",
+          "created_time": "2025-06-17T11:41:04.027138Z",
+          "created_by": {
+            "object": "user",
+            "id": "4423b092-7ee6-494b-98d1-6631b63b4f78"
+          },
+          "has_children": false,
+          "metadata": {
+            "origin": {
+              "file_id": "file_01jxyv2atne4tty0rzhrx9ha53",
+              "page_num": 8
+            }
+          },
+          "bulleted_list_item": {
+            "rich_text": [
+              {
+                "type": "text",
+                "text": {
+                  "content": "3.3 Equipment"
+                },
+                "annotations": {},
+                "plain_text": "3.3 Equipment"
+              }
+            ]
+          }
+        },
+        {
+          "object": "block",
+          "id": "bk_01jxyv2phvfcpbkn5c0xja9n4p",
+          "type": "bulleted_list_item",
+          "created_time": "2025-06-17T11:41:04.027246Z",
+          "created_by": {
+            "object": "user",
+            "id": "4423b092-7ee6-494b-98d1-6631b63b4f78"
+          },
+          "has_children": false,
+          "metadata": {
+            "origin": {
+              "file_id": "file_01jxyv2atne4tty0rzhrx9ha53",
+              "page_num": 8
+            }
+          },
+          "bulleted_list_item": {
+            "rich_text": [
+              {
+                "type": "text",
+                "text": {
+                  "content": "3.4 Lighting and visual communication"
+                },
+                "annotations": {},
+                "plain_text": "3.4 Lighting and visual communication"
+              }
+            ]
+          }
+        },
+        {
+          "object": "block",
+          "id": "bk_01jxyv2phwfcnr9226peegtbd9",
+          "type": "bulleted_list_item",
+          "created_time": "2025-06-17T11:41:04.027352Z",
+          "created_by": {
+            "object": "user",
+            "id": "4423b092-7ee6-494b-98d1-6631b63b4f78"
+          },
+          "has_children": false,
+          "metadata": {
+            "origin": {
+              "file_id": "file_01jxyv2atne4tty0rzhrx9ha53",
+              "page_num": 8
+            }
+          },
+          "bulleted_list_item": {
+            "rich_text": [
+              {
+                "type": "text",
+                "text": {
+                  "content": "3.5 Room temperature"
+                },
+                "annotations": {},
+                "plain_text": "3.5 Room temperature"
+              }
+            ]
+          }
+        },
+        {
+          "object": "block",
+          "id": "bk_01jxyv2phxfrd8r9n2pqsj14f3",
+          "type": "bulleted_list_item",
+          "created_time": "2025-06-17T11:41:04.027456Z",
+          "created_by": {
+            "object": "user",
+            "id": "4423b092-7ee6-494b-98d1-6631b63b4f78"
+          },
+          "has_children": false,
+          "metadata": {
+            "origin": {
+              "file_id": "file_01jxyv2atne4tty0rzhrx9ha53",
+              "page_num": 8
+            }
+          },
+          "bulleted_list_item": {
+            "rich_text": [
+              {
+                "type": "text",
+                "text": {
+                  "content": "3.6 Ventilation"
+                },
+                "annotations": {},
+                "plain_text": "3.6 Ventilation"
+              }
+            ]
+          }
+        },
+        {
+          "object": "block",
+          "id": "bk_01jxyv2phye54v96zntdrnk809",
+          "type": "bulleted_list_item",
+          "created_time": "2025-06-17T11:41:04.027560Z",
+          "created_by": {
+            "object": "user",
+            "id": "4423b092-7ee6-494b-98d1-6631b63b4f78"
+          },
+          "has_children": false,
+          "metadata": {
+            "origin": {
+              "file_id": "file_01jxyv2atne4tty0rzhrx9ha53",
+              "page_num": 8
+            }
+          },
+          "bulleted_list_item": {
+            "rich_text": [
+              {
+                "type": "text",
+                "text": {
+                  "content": "3.7 Noise"
+                },
+                "annotations": {},
+                "plain_text": "3.7 Noise"
+              }
+            ]
+          }
+        }
+      ]
     }
   ]
 }
