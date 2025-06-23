@@ -9,6 +9,7 @@ import { AVAILABLE_FILES } from "./constants/files";
 const App = () => {
   const [theme, setTheme] = useState<"light" | "dark">("dark");
   const [devMode, setDevMode] = useState(false);
+  const [showBackrefs, setShowBackrefs] = useState(false);
   const {
     selectedFile,
     data: testPage,
@@ -16,6 +17,45 @@ const App = () => {
     error,
     handleFileChange,
   } = useFileLoader(AVAILABLE_FILES[0]);
+
+  // Sample backrefs for real_document.json
+  const sampleBackrefs = [
+    {
+      end_idx: 82,
+      block_id: "bk_01jxyv2pekf4bs9a82ayxsewga",
+      start_idx: 0,
+    },
+    {
+      end_idx: 125,
+      block_id: "bk_01jxyv2pemfj3848ncdbap6xsa",
+      start_idx: 8,
+    },
+    {
+      end_idx: 100,
+      block_id: "bk_01jxyv2pg6f8hbvmc960g8k58m",
+      start_idx: 0,
+    },
+    {
+      end_idx: 30,
+      block_id: "bk_01jxyv2pepepaam6k48t1s5c1q",
+      start_idx: 6,
+    },
+    {
+      end_idx: 20,
+      block_id: "bk_01jxyv2peqfx1vv7xa8zq4ajfx",
+      start_idx: 0,
+    },
+    {
+      end_idx: 200,
+      block_id: "bk_01jxyv2ppcf6xvxsh278d4e2je",
+      start_idx: 30,
+    },
+    {
+      end_idx: 11,
+      block_id: "bk_01jxyv2pesedv9dfz1e6ekbsj8",
+      start_idx: 1,
+    },
+  ];
 
   if (error) {
     return (
@@ -54,6 +94,8 @@ const App = () => {
     );
   }
 
+  console.log("showBackrefs ", sampleBackrefs);
+
   return (
     <div
       style={{
@@ -74,6 +116,8 @@ const App = () => {
         setDevMode={setDevMode}
         theme={theme}
         setTheme={setTheme}
+        showBackrefs={showBackrefs}
+        setShowBackrefs={setShowBackrefs}
       />
 
       <div
@@ -92,7 +136,7 @@ const App = () => {
             page={testPage}
             theme={theme}
             devMode={devMode}
-            backrefs={[]}
+            backrefs={showBackrefs ? sampleBackrefs : []}
             components={{
               page_delimiter: (props) => {
                 return <PageDelimiter {...props} />;
