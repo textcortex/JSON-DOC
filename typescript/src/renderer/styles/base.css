@@ -88,8 +88,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
   background: transparent;
   border: none;
   border-radius: var(--jsondoc-radius-sm);

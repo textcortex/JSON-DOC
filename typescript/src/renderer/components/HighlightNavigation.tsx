@@ -1,4 +1,6 @@
 import React from "react";
+import { ArrowUpIcon } from "@phosphor-icons/react/ArrowUp";
+import { ArrowDownIcon } from "@phosphor-icons/react/ArrowDown";
 
 import { useHighlightNavigation } from "../hooks/useHighlightNavigation";
 
@@ -33,7 +35,7 @@ export const HighlightNavigation: React.FC<HighlightNavigationProps> = ({
           aria-label="Previous highlight"
           title="Previous highlight (↑/k)"
         >
-          up
+          <ArrowUpIcon size={16} />
         </button>
 
         <span className="highlight-nav-counter">
@@ -46,7 +48,7 @@ export const HighlightNavigation: React.FC<HighlightNavigationProps> = ({
           aria-label="Next highlight"
           title="Next highlight (↓/j)"
         >
-          down
+          <ArrowDownIcon size={16} />
         </button>
       </div>
     </div>
