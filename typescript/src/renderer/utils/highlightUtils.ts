@@ -130,12 +130,14 @@ export function processBackref(backref: Backref): HTMLSpanElement | null {
 /**
  * Processes a backref that targets a page title
  */
-export function processPageTitleBackref(backref: Backref): HTMLSpanElement | null {
+export function processPageTitleBackref(
+  backref: Backref
+): HTMLSpanElement | null {
   // Find the specific page title element using data-page-id
   const pageTitleElement = document.querySelector(
     `[data-page-id="${backref.page_id}"]`
   );
-  
+
   if (!pageTitleElement) {
     return null;
   }

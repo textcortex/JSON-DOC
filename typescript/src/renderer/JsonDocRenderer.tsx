@@ -57,7 +57,7 @@ export const JsonDocRenderer = ({
       )}
       {/* Page title */}
       {page.properties?.title && (
-        <h1 className="json-doc-page-title">
+        <h1 className="json-doc-page-title" data-page-id={page.id}>
           {page.properties.title.title?.[0]?.plain_text || "Untitled"}
         </h1>
       )}
@@ -106,7 +106,6 @@ export const JsonDocRenderer = ({
           <div className={`json-doc-renderer  ${className}`}>
             {viewJson ? (
               <div className="flex h-screen">
-                <div className="w-1/2 overflow-y-auto">{renderedContent}</div>
                 <JsonViewPanel data={page} />
               </div>
             ) : (
