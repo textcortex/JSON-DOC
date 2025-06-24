@@ -25,15 +25,16 @@ jobs:
         working-directory: ./typescript
         run: npm ci
 
+      - name: Run tests
+        working-directory: ./typescript
+        run: npm test
+        
       - name: Generate types and build package
         working-directory: ./typescript
         run: |
           npm run generate-types
           npm run build
 
-      - name: Run tests
-        working-directory: ./typescript
-        run: npm test
   
       - name: Prepare package for publishing
         working-directory: ./typescript

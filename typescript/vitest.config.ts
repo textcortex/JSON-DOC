@@ -1,10 +1,10 @@
+/// <reference types="vitest" />
 import { defineConfig } from "vitest/config";
-import path from "path";
-import { fileURLToPath } from "url";
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+import react from "@vitejs/plugin-react";
+import { resolve } from "path";
 
 export default defineConfig({
+  plugins: [react()],
   test: {
     environment: "jsdom",
     setupFiles: ["./tests/setup.ts"],
@@ -13,7 +13,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
+      "@": resolve(__dirname, "./src"),
     },
   },
 });
