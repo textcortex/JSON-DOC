@@ -65,14 +65,14 @@ jobs:
       - name: Generate types
         working-directory: ./typescript
         run: npm run generate-types
+        
+      - name: Run tests
+        working-directory: ./typescript
+        run: npm test
 
       - name: Build
         working-directory: ./typescript
         run: npm run build
-
-      - name: Run tests
-        working-directory: ./typescript
-        run: npm test
 
       - name: Check linting
         working-directory: ./typescript

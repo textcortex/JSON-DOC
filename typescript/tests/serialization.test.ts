@@ -1,7 +1,10 @@
+import "@testing-library/jest-dom";
+
 import * as fs from "fs";
 import * as path from "path";
 import * as JSON5 from "json5";
 import { loadJson, deepClone } from "../src/utils/json";
+import { describe, it, expect } from "vitest";
 
 // Path to the example page JSON file
 const PAGE_PATH = path.resolve(__dirname, "../../schema/page/ex1_success.json");
@@ -19,7 +22,7 @@ describe("JSON-DOC Utilities", () => {
     }
   }
 
-  test("should load JSON correctly", () => {
+  it("should load JSON correctly", () => {
     const testData = { hello: "world", nested: { value: 42 } };
     const jsonString = JSON.stringify(testData);
 
@@ -32,7 +35,7 @@ describe("JSON-DOC Utilities", () => {
     expect(loadedObj).toEqual(testData);
   });
 
-  test("should deep clone objects", () => {
+  it("should deep clone objects", () => {
     const original = {
       hello: "world",
       nested: { value: 42, array: [1, 2, 3] },
@@ -52,7 +55,7 @@ describe("JSON-DOC Utilities", () => {
     expect(original.nested.value).toBe(42);
   });
 
-  test("should load example page from schema", () => {
+  it("should load example page from schema", () => {
     // Load the example page from the schema
     const content = loadJsonFile(PAGE_PATH);
 

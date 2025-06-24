@@ -97,16 +97,15 @@ jobs:
       - name: Install dependencies
         working-directory: ./typescript
         run: npm ci
-
+      - name: Run tests
+        working-directory: ./typescript
+        run: npm test
       - name: Generate types and build package
         working-directory: ./typescript
         run: |
           npm run generate-types
           npm run build
 
-      - name: Run tests
-        working-directory: ./typescript
-        run: npm test
 
       - name: Publish package to NPM
         working-directory: ./typescript

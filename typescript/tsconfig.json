@@ -31,5 +31,5 @@
     "tests/**/*.ts",
     "scripts/**/*.ts"
   ],
-  "exclude": ["node_modules", "dist", "src/serialization/**"]
+  "exclude": ["node_modules", "dist"]
 }
