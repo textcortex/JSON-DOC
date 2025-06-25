@@ -53,7 +53,7 @@ export const JsonDocRenderer = ({
     } catch (_) {
       // console.log("error ", error);
     }
-  }, []);
+  }, [page]);
 
   // return null;
   const renderedContent = (
