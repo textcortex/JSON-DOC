@@ -454,6 +454,59 @@ export const mockBlocks: Record<
       expression: "E = mc^2",
     },
   },
+
+  // Mock unsupported block types for testing fallback behavior
+  unsupported_single: {
+    object: "block",
+    id: "unsupported-1",
+    type: "custom_widget" as any,
+    created_time: "2025-06-24T09:44:12.014249Z",
+    has_children: false,
+  },
+
+  unsupported_with_content: {
+    object: "block",
+    id: "unsupported-2",
+    type: "ai_block" as any,
+    created_time: "2025-06-24T09:44:12.014249Z",
+    has_children: false,
+    // @ts-expect-error
+    ai_block: {
+      prompt: "Generate something amazing",
+    },
+  },
+
+  unsupported_with_children: {
+    object: "block",
+    id: "unsupported-3",
+    type: "template_block" as any,
+    created_time: "2025-06-24T09:44:12.014249Z",
+    has_children: true,
+    template_block: {
+      template_id: "template-123",
+    },
+    children: [
+      {
+        object: "block",
+        id: "h1-1",
+        // @ts-ignore
+        type: "paragraph",
+        created_time: "2025-06-24T09:44:12.014249Z",
+        has_children: false,
+        // @ts-ignore
+        heading_1: {
+          rich_text: [
+            {
+              type: "text",
+              text: { content: "Main Heading" },
+              annotations: {},
+              plain_text: "Main Heading",
+            },
+          ],
+        },
+      },
+    ],
+  },
 };
 
 // Complete page with all block types for comprehensive testing

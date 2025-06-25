@@ -225,8 +225,12 @@ export const BlockRenderer: React.FC<BlockRendererProps> = ({
   // Fallback for unsupported block types
   console.warn("Unsupported block type:", block?.type);
   return (
-    <div className="notion-unsupported-block" data-block-type={block?.type}>
-      <span>Unsupported block type: {block?.type}</span>
+    <div
+      className="notion-unsupported-block"
+      data-block-type={block?.type}
+      role="alert"
+    >
+      <span>Error Unsupported block type: {block?.type}</span>
     </div>
   );
 };

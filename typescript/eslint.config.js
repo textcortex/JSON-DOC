@@ -97,9 +97,7 @@ module.exports = [
       "coverage/**",
       ".jest/**",
       "scripts/**",
-      "tests/**",
       "**/generated/**",
-      "src/serialization/**",
     ],
   },
 ];
