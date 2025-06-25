@@ -23,11 +23,11 @@ export const EquationBlockRenderer: React.FC<EquationBlockRendererProps> = ({
         katex.render(equationData.expression, containerRef.current, {
           displayMode: true,
           throwOnError: false,
-          errorColor: '#cc0000',
-          strict: 'warn'
+          errorColor: "#cc0000",
+          strict: "warn",
         });
       } catch (error) {
-        console.warn('KaTeX render error:', error);
+        console.warn("KaTeX render error:", error);
         if (containerRef.current) {
           containerRef.current.textContent = equationData.expression;
         }
@@ -43,10 +43,7 @@ export const EquationBlockRenderer: React.FC<EquationBlockRendererProps> = ({
     >
       <div>
         <div className="notion-equation-display">
-          <div 
-            className="notion-equation-content"
-            ref={containerRef}
-          />
+          <div className="notion-equation-content" ref={containerRef} />
         </div>
       </div>
     </div>

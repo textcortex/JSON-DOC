@@ -1,6 +1,6 @@
-import type { Block } from "../../block";
+import type { BlockBase } from "../../base";
 
-export type EquationBlock = Block & {
+export type EquationBlock = BlockBase & {
   type: "equation";
   equation: {
     expression: string;

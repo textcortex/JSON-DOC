@@ -89,7 +89,11 @@ export const ImageBlockRenderer: React.FC<ImageBlockRendererProps> = ({
   }, [inView, imageUrl, resolveImageUrl]);
 
   useEffect(() => {
-    if (captionRef.current && imageData?.caption && imageData.caption.length > 0) {
+    if (
+      captionRef.current &&
+      imageData?.caption &&
+      imageData.caption.length > 0
+    ) {
       const element = captionRef.current;
       const isOverflowing = element.scrollHeight > element.clientHeight;
       setNeedsTruncation(isOverflowing);
@@ -149,14 +153,21 @@ export const ImageBlockRenderer: React.FC<ImageBlockRendererProps> = ({
                     <span className="btn-text">
                       {showFullCaption ? "Show less" : "Show more"}
                     </span>
-                    <svg 
-                      className={`btn-icon ${showFullCaption ? 'rotated' : ''}`}
-                      width="12" 
-                      height="12" 
-                      viewBox="0 0 12 12" 
+                    <svg
+                      className={`btn-icon ${showFullCaption ? "rotated" : ""}`}
+                      width="12"
+                      height="12"
+                      viewBox="0 0 12 12"
                       fill="currentColor"
                     >
-                      <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+                      <path
+                        d="M3 4.5L6 7.5L9 4.5"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        fill="none"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
                     </svg>
                   </button>
                 )}

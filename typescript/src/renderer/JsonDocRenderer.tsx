@@ -1,8 +1,8 @@
 import "./styles/index.css";
-import React from "react";
+import React, { useEffect } from "react";
 
 import { Page } from "@/models/generated";
-// import { validateAgainstSchema } from "@/validation/validator";
+import { loadPage } from "@/serialization/loader";
 
 import { BlockRenderer } from "./components/BlockRenderer";
 import { PageDelimiter } from "./components/PageDelimiter";
@@ -45,6 +45,15 @@ export const JsonDocRenderer = ({
     useHighlights({
       backrefs,
     });
+
+  useEffect(() => {
+    try {
+      //TODO: this is not throwing for invalid page object (one that doesn't follow schema)
+      loadPage(page);
+    } catch (_) {
+      // console.log("error ", error);
+    }
+  }, [page]);
 
   // return null;
   const renderedContent = (
@@ -100,10 +109,15 @@ export const JsonDocRenderer = ({
   );
 
   return (
-    <div className={`jsondoc-theme-${theme}`}>
+    <div
+      className={`jsondoc-theme-${theme}`}
+      data-testid="jsondoc-renderer-root"
+    >
       <GlobalErrorBoundary onError={onError}>
         <RendererProvider value={{ devMode, resolveImageUrl }}>
-          <div className={`json-doc-renderer  ${className}`}>
+          <div
+            className={`json-doc-renderer${className ? " " + className : ""}`}
+          >
             {viewJson ? (
               <div className="flex h-screen">
                 <JsonViewPanel data={page} />

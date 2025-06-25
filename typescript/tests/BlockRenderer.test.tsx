@@ -31,6 +31,7 @@ const createPageWithBlocks = (blocks: any[]) => ({
 describe("JsonDocRenderer - All Block Types", () => {
   it("renders page title correctly", () => {
     render(<JsonDocRenderer page={mockPageWithAllBlocks} />);
+
     expect(
       screen.getByText("Test Page with All Block Types")
     ).toBeInTheDocument();
@@ -48,6 +49,8 @@ describe("JsonDocRenderer - All Block Types", () => {
   it("heading_1 renders block", () => {
     const page = createPageWithBlocks([mockBlocks.heading_1]);
     render(<JsonDocRenderer page={page} />);
+
+    screen.debug();
 
     expect(screen.getByText("Main Heading")).toBeInTheDocument();
   });
