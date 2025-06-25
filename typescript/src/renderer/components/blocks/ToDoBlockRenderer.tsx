@@ -30,7 +30,7 @@ export const ToDoBlockRenderer: React.FC<ToDoBlockRendererProps> = ({
       <div className="pseudoHover pseudoActive">
         <input className="check" type="checkbox" checked={isChecked} readOnly />
       </div>
-      <div className={`notranslate ${isChecked ? 'checked' : ''}`.trim()}>
+      <div className={`notranslate ${isChecked ? "checked" : ""}`.trim()}>
         <RichTextRenderer richText={todoData?.rich_text || []} />
       </div>
 

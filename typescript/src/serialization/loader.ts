@@ -12,8 +12,6 @@ import {
   FileFile,
   ObjectType,
   Block,
-  isPage,
-  isBlock,
   ParagraphBlock,
   BulletedListItemBlock,
   NumberedListItemBlock,

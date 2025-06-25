@@ -274,11 +274,12 @@ b7b30c1   : Make more typesafe
 You can choose a different version from the list or create new one. But bumpp is smart enough to use appropriate next version.
 
 3. Verify and confirm
-4. Push commit and tag 
+4. Push commit and tag
 
 ```
 git push --follow-tags
 ```
+
 5. The new tag will trigger a release on github actions.
 6. Go to github and create release using the new tag. Make sure you set the correct previous tag prefixed with `typescript-v`
 
@@ -317,6 +318,7 @@ git push --follow-tags
 - [ ] validate page prop somehow. not clear how to do yet. we can't use the /schema because it's HUGE and also because it's outside of /typescript. Will need to think about this.
 
 maybe do something like this?
+
 ```
 import type { Page } from "../models/generated/page/page";
 import { isPage } from "../models/generated/essential-types";
@@ -353,4 +355,4 @@ export function validatePageWithError(obj: unknown): {
 
 will require us to write a validator and we won't benefit from the defined schema jsons.
 
-- [ ] make error boundary catch errors in JsonDocRenderer.tsx body 
+- [ ] make error boundary catch errors in JsonDocRenderer.tsx body

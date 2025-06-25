@@ -100,10 +100,15 @@ export const JsonDocRenderer = ({
   );
 
   return (
-    <div className={`jsondoc-theme-${theme}`}>
+    <div
+      className={`jsondoc-theme-${theme}`}
+      data-testid="jsondoc-renderer-root"
+    >
       <GlobalErrorBoundary onError={onError}>
         <RendererProvider value={{ devMode, resolveImageUrl }}>
-          <div className={`json-doc-renderer  ${className}`}>
+          <div
+            className={`json-doc-renderer${className ? " " + className : ""}`}
+          >
             {viewJson ? (
               <div className="flex h-screen">
                 <JsonViewPanel data={page} />

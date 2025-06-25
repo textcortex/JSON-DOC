@@ -143,7 +143,7 @@ export const DevOverlay: React.FC<DevOverlayProps> = ({
     try {
       await navigator.clipboard.writeText(JSON.stringify(block, null, 2));
     } catch (err) {
-      console.error('Failed to copy to clipboard:', err);
+      console.error("Failed to copy to clipboard:", err);
     }
   };
 
@@ -233,27 +233,27 @@ export const DevOverlay: React.FC<DevOverlayProps> = ({
               fill="currentColor"
               style={{ opacity: 0.8 }}
             >
-              <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+              <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
             </svg>
             Copy
           </button>
           <button
-          onClick={onClose}
-          onMouseDown={(e) => e.stopPropagation()} // Prevent drag when clicking close button
-          style={{
-            background: "none",
-            border: "none",
-            color: "#ffffff",
-            cursor: "pointer",
-            fontSize: "16px",
-            padding: "4px 8px",
-            borderRadius: "4px",
-          }}
-          onMouseEnter={(e) => (e.currentTarget.style.background = "#333")}
-          onMouseLeave={(e) => (e.currentTarget.style.background = "none")}
-        >
-          ×
-        </button>
+            onClick={onClose}
+            onMouseDown={(e) => e.stopPropagation()} // Prevent drag when clicking close button
+            style={{
+              background: "none",
+              border: "none",
+              color: "#ffffff",
+              cursor: "pointer",
+              fontSize: "16px",
+              padding: "4px 8px",
+              borderRadius: "4px",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.background = "#333")}
+            onMouseLeave={(e) => (e.currentTarget.style.background = "none")}
+          >
+            ×
+          </button>
         </div>
       </div>
       <pre
