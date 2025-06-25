@@ -2,9 +2,7 @@ import "./styles/index.css";
 import React, { useEffect } from "react";
 
 import { Page } from "@/models/generated";
-// import { validateAgainstSchema } from "@/validation/validator";
-
-import { loadBlock, loadPage } from "@/serialization/loader";
+import { loadPage } from "@/serialization/loader";
 
 import { BlockRenderer } from "./components/BlockRenderer";
 import { PageDelimiter } from "./components/PageDelimiter";
