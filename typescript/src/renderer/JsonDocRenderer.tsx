@@ -49,8 +49,8 @@ export const JsonDocRenderer = ({
   useEffect(() => {
     try {
       //TODO: this is not throwing for invalid page object (one that doesn't follow schema)
-      const serialized = loadPage(page);
-    } catch (error) {
+      loadPage(page);
+    } catch (_) {
       // console.log("error ", error);
     }
   }, []);
