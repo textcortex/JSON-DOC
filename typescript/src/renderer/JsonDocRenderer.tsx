@@ -1,8 +1,10 @@
 import "./styles/index.css";
-import React from "react";
+import React, { useEffect } from "react";
 
 import { Page } from "@/models/generated";
 // import { validateAgainstSchema } from "@/validation/validator";
+
+import { loadBlock, loadPage } from "@/serialization/loader";
 
 import { BlockRenderer } from "./components/BlockRenderer";
 import { PageDelimiter } from "./components/PageDelimiter";
@@ -45,6 +47,15 @@ export const JsonDocRenderer = ({
     useHighlights({
       backrefs,
     });
+
+  useEffect(() => {
+    try {
+      //TODO: this is not throwing for invalid page object (one that doesn't follow schema)
+      const serialized = loadPage(page);
+    } catch (error) {
+      // console.log("error ", error);
+    }
+  }, []);
 
   // return null;
   const renderedContent = (
