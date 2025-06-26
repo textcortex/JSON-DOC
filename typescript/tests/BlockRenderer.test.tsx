@@ -50,7 +50,7 @@ describe("JsonDocRenderer - All Block Types", () => {
     const page = createPageWithBlocks([mockBlocks.heading_1]);
     render(<JsonDocRenderer page={page} />);
 
-    screen.debug();
+    // screen.debug();
 
     expect(screen.getByText("Main Heading")).toBeInTheDocument();
   });
@@ -204,7 +204,7 @@ describe("JsonDocRenderer - All Block Types", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders text annotations correctly", () => {
+  it("renders text annotations (bold, italic, underline etc.) correctly", () => {
     const page = createPageWithBlocks([mockBlocks.paragraph]);
     const { container } = render(<JsonDocRenderer page={page} />);
 

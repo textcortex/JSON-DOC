@@ -66,7 +66,11 @@ export const JsonDocRenderer = ({
       )}
       {/* Page title */}
       {page.properties?.title && (
-        <h1 className="json-doc-page-title" data-page-id={page.id}>
+        <h1
+          className="json-doc-page-title"
+          data-page-id={page.id}
+          role="heading"
+        >
           {page.properties.title.title?.[0]?.plain_text || "Untitled"}
         </h1>
       )}

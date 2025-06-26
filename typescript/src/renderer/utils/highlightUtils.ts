@@ -17,6 +17,7 @@ export function createHighlightSpan(text: string): HTMLSpanElement {
   const highlightSpan = document.createElement("span");
   highlightSpan.className = "json-doc-highlight";
   highlightSpan.textContent = text;
+  highlightSpan.role = "note";
   return highlightSpan;
 }
 
