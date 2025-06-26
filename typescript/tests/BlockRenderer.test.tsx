@@ -275,4 +275,27 @@ describe("JsonDocRenderer - All Block Types", () => {
     expect(screen.getByText(/Page 1/)).toBeInTheDocument();
     expect(screen.getByText(/Page 2/)).toBeInTheDocument();
   });
+
+  it("should handle bad page input gracefully", () => {
+    const badBlocks = [
+      undefined,
+      {
+        ...mockBlocks.paragraph,
+        metadata: {
+          origin: {
+            file_id: "test-file",
+            page_num: 3,
+          },
+        },
+      },
+    ];
+    const badPage = createPageWithBlocks(badBlocks);
+
+    render(<JsonDocRenderer page={badPage} />);
+
+    screen.debug();
+
+    expect(screen.getByRole("alert")).toBeInTheDocument();
+    expect(screen.getByText(/failed to load/i)).toBeInTheDocument();
+  });
 });

@@ -18,6 +18,12 @@ const App = () => {
     handleFileChange,
   } = useFileLoader(AVAILABLE_FILES[0]);
 
+  console.log("test page ", testPage);
+
+  if (testPage) {
+    testPage.children = [undefined];
+  }
+
   // Get backrefs for the currently selected file
   const currentBackrefs = selectedFile?.backrefs || [];
 
