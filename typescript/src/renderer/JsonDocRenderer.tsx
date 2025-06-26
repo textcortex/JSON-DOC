@@ -22,6 +22,10 @@ interface JsonDocRendererProps {
   viewJson?: boolean;
   backrefs?: Backref[];
   onError?: (error: Error, errorInfo: React.ErrorInfo) => void;
+  pageOverride?: {
+    pageNum: number;
+    component: React.ReactNode;
+  };
 }
 
 export const JsonDocRenderer = ({
@@ -34,6 +38,7 @@ export const JsonDocRenderer = ({
   viewJson = false,
   backrefs = [],
   onError,
+  pageOverride,
 }: JsonDocRendererProps) => {
   console.log("theme: ", theme);
   return (
@@ -50,6 +55,7 @@ export const JsonDocRenderer = ({
           resolveImageUrl={resolveImageUrl}
           viewJson={viewJson}
           backrefs={backrefs}
+          pageOverride={pageOverride}
         />
       </GlobalErrorBoundary>
     </div>
