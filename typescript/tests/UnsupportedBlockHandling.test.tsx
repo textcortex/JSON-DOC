@@ -3,27 +3,7 @@ import { render, screen } from "@testing-library/react";
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { JsonDocRenderer } from "../src/renderer/JsonDocRenderer";
 import { mockBlocks } from "./fixtures/test-blocks";
-
-// Helper to create a page with specific blocks
-const createPageWithBlocks = (blocks: any[]) => ({
-  object: "page",
-  id: "test-page",
-  properties: {
-    title: {
-      type: "title",
-      title: [
-        {
-          href: null,
-          type: "text",
-          text: { link: null, content: "Test Page" },
-          annotations: {},
-          plain_text: "Test Page",
-        },
-      ],
-    },
-  },
-  children: blocks,
-});
+import { createPageWithBlocks } from "./utils/helpers";
 
 describe("Unsupported Block Handling", () => {
   // Mock console.warn to test logging behavior

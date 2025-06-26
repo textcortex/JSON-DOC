@@ -18,10 +18,7 @@ import {
   Page,
 } from "@/models/generated";
 
-// Mock data for all block types to test comprehensive rendering
-export const mockBlocks: Record<
-  string,
-  | Block
+type AllBlocks =
   | ParagraphBlock
   | Heading1Block
   | Heading2Block
@@ -36,8 +33,12 @@ export const mockBlocks: Record<
   | ToggleBlock
   | TableBlock
   | ColumnListBlock
-  | EquationBlock
-> = {
+  | EquationBlock;
+
+type BlockType = Block["type"];
+
+// Mock data for all block types to test comprehensive rendering
+export const mockBlocks: Record<BlockType, AllBlocks> = {
   paragraph: {
     object: "block",
     id: "para-1",
@@ -428,6 +429,7 @@ export const mockBlocks: Record<
             type: "paragraph",
             created_time: "2025-06-24T09:44:12.014249Z",
             has_children: false,
+            // @ts-expect-error
             paragraph: {
               rich_text: [
                 {
@@ -470,7 +472,6 @@ export const mockBlocks: Record<
     type: "ai_block" as any,
     created_time: "2025-06-24T09:44:12.014249Z",
     has_children: false,
-    // @ts-expect-error
     ai_block: {
       prompt: "Generate something amazing",
     },

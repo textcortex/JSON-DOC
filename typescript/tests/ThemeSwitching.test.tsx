@@ -5,32 +5,12 @@ import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import { JsonDocRenderer } from "../src/renderer/JsonDocRenderer";
 import { mockBlocks, mockPageWithAllBlocks } from "./fixtures/test-blocks";
-
-// Helper to create a simple page for theme testing
-const createSimplePage = () => ({
-  object: "page",
-  id: "theme-test-page",
-  properties: {
-    title: {
-      type: "title",
-      title: [
-        {
-          href: null,
-          type: "text",
-          text: { link: null, content: "Theme Test Page" },
-          annotations: {},
-          plain_text: "Theme Test Page",
-        },
-      ],
-    },
-  },
-  children: [mockBlocks.paragraph],
-});
+import { createPageWithBlocks } from "./utils/helpers";
 
 const JSON_DOC_ROOT_TEST_ID = "jsondoc-renderer-root";
 
 describe("JsonDocRenderer - Theme Switching", () => {
-  const simplePage = createSimplePage();
+  const simplePage = createPageWithBlocks([mockBlocks.paragraph]);
 
   it("renders with light theme by default", () => {
     const { container } = render(<JsonDocRenderer page={simplePage} />);
