@@ -11,3 +11,6 @@ global.IntersectionObserver = vi.fn().mockImplementation(() => ({
   unobserve: vi.fn(),
   takeRecords: vi.fn(() => []),
 }));
+
+// Mock scrollIntoView for jsdom
+Element.prototype.scrollIntoView = vi.fn();

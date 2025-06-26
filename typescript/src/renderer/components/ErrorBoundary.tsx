@@ -9,7 +9,7 @@ interface GlobalErrorBoundaryProps {
 function GlobalErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
   console.log("error ", error);
   return (
-    <div className="json-doc-error-boundary">
+    <div className="json-doc-error-boundary" role="alert">
       <div className="json-doc-error-content">
         <h2>Document Failed to Load</h2>
         <p>Something went wrong while rendering this document.</p>

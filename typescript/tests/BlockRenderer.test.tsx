@@ -6,27 +6,7 @@ import userEvent from "@testing-library/user-event";
 import { describe, it, expect } from "vitest";
 import { JsonDocRenderer } from "../src/renderer/JsonDocRenderer";
 import { mockBlocks, mockPageWithAllBlocks } from "./fixtures/test-blocks";
-
-// Helper to create a page with specific blocks
-const createPageWithBlocks = (blocks: any[]) => ({
-  object: "page",
-  id: "test-page",
-  properties: {
-    title: {
-      type: "title",
-      title: [
-        {
-          href: null,
-          type: "text",
-          text: { link: null, content: "Test Page" },
-          annotations: {},
-          plain_text: "Test Page",
-        },
-      ],
-    },
-  },
-  children: blocks,
-});
+import { createPageWithBlocks } from "./utils/helpers";
 
 describe("JsonDocRenderer - All Block Types", () => {
   it("renders page title correctly", () => {
@@ -50,7 +30,7 @@ describe("JsonDocRenderer - All Block Types", () => {
     const page = createPageWithBlocks([mockBlocks.heading_1]);
     render(<JsonDocRenderer page={page} />);
 
-    screen.debug();
+    // screen.debug();
 
     expect(screen.getByText("Main Heading")).toBeInTheDocument();
   });
@@ -204,12 +184,9 @@ describe("JsonDocRenderer - All Block Types", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders text annotations correctly", () => {
+  it("renders text annotations (bold, italic, underline etc.) correctly", () => {
     const page = createPageWithBlocks([mockBlocks.paragraph]);
     const { container } = render(<JsonDocRenderer page={page} />);
-
-    // Debug: Print the HTML structure
-    // screen.debug();
 
     // Test bold annotation
     const boldText = screen.getByText("bold text");
@@ -245,5 +222,80 @@ describe("JsonDocRenderer - All Block Types", () => {
     expect(screen.getByText("Complete this task")).toBeInTheDocument();
     expect(screen.getByText("Header 1")).toBeInTheDocument();
     expect(screen.getByText("Content in first column")).toBeInTheDocument();
+  });
+
+  it("incorrect block page number shouldn't break the rendering", () => {
+    // Test misordered page numbers (3, 1, 2)
+    const blocksWithMisorderedPages = [
+      {
+        ...mockBlocks.paragraph,
+        metadata: {
+          origin: {
+            file_id: "test-file",
+            page_num: 3,
+          },
+        },
+      },
+      {
+        ...mockBlocks.heading_1,
+        metadata: {
+          origin: {
+            file_id: "test-file",
+            page_num: 1,
+          },
+        },
+      },
+      {
+        ...mockBlocks.heading_2,
+        metadata: {
+          origin: {
+            file_id: "test-file",
+            page_num: 2,
+          },
+        },
+      },
+    ];
+
+    const pageWithMisorderedBlocks = createPageWithBlocks(
+      blocksWithMisorderedPages
+    );
+
+    // This should not throw an error or break rendering
+    expect(() => {
+      render(<JsonDocRenderer page={pageWithMisorderedBlocks} />);
+    }).not.toThrow();
+
+    // Verify that content still renders despite misordered page numbers
+    expect(screen.getByText(/This is a paragraph with/)).toBeInTheDocument();
+    expect(screen.getByText(/Main Heading/)).toBeInTheDocument();
+    expect(screen.getByText(/Subheading/)).toBeInTheDocument();
+
+    // Verify page delimiters are rendered in the order they appear
+    expect(screen.getByText(/Page 3/)).toBeInTheDocument();
+    expect(screen.getByText(/Page 1/)).toBeInTheDocument();
+    expect(screen.getByText(/Page 2/)).toBeInTheDocument();
+  });
+
+  it("should handle bad page input gracefully", () => {
+    const badBlocks = [
+      undefined,
+      {
+        ...mockBlocks.paragraph,
+        metadata: {
+          origin: {
+            file_id: "test-file",
+            page_num: 3,
+          },
+        },
+      },
+    ];
+    const badPage = createPageWithBlocks(badBlocks);
+
+    render(<JsonDocRenderer page={badPage} />);
+
+    screen.debug();
+
+    expect(screen.getByRole("alert")).toBeInTheDocument();
+    expect(screen.getByText(/failed to load/i)).toBeInTheDocument();
   });
 });
