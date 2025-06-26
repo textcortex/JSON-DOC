@@ -24,6 +24,10 @@ interface RendererContainerProps {
   resolveImageUrl?: (url: string) => Promise<string>;
   viewJson?: boolean;
   backrefs?: Backref[];
+  pageOverride?: {
+    pageNum: number;
+    component: React.ReactNode;
+  };
 }
 
 export const RendererContainer: React.FC<RendererContainerProps> = ({
@@ -34,12 +38,15 @@ export const RendererContainer: React.FC<RendererContainerProps> = ({
   resolveImageUrl,
   viewJson = false,
   backrefs = [],
+  pageOverride,
 }) => {
   // Use the modular hooks for highlight management
   const { highlightCount, currentActiveIndex, navigateToHighlight } =
     useHighlights({
       backrefs,
     });
+
+  console.log("pageOverride ", pageOverride);
 
   useEffect(() => {
     try {
@@ -77,6 +84,38 @@ export const RendererContainer: React.FC<RendererContainerProps> = ({
               index < page.children.length - 1
                 ? (page.children[index + 1]?.metadata as any)?.origin?.page_num
                 : null;
+
+            console.log("pageOverride ", pageOverride);
+            console.log("currentPageNum ", currentPageNum);
+            console.log(
+              "pageOverride && currentPageNum === pageOverride.pageNum ",
+              pageOverride && currentPageNum === pageOverride.pageNum
+            );
+            console.log("\n".repeat(5));
+
+            // Check if this page should be replaced with override component
+            if (pageOverride && currentPageNum === pageOverride.pageNum) {
+              // Skip rendering blocks for this page and show override instead
+              const isLastBlockOfPage =
+                nextPageNum !== currentPageNum ||
+                index === page.children.length - 1;
+              if (isLastBlockOfPage) {
+                return (
+                  <React.Fragment key={`page-override-${currentPageNum}`}>
+                    {pageOverride.component}
+                    {/* Still show page delimiter after override */}
+                    {!components?.page_delimiter && (
+                      <PageDelimiter pageNumber={currentPageNum} />
+                    )}
+                    {components?.page_delimiter && (
+                      <components.page_delimiter pageNumber={currentPageNum} />
+                    )}
+                  </React.Fragment>
+                );
+              }
+              // Skip other blocks of the same page
+              return null;
+            }
 
             // Show delimiter after the last block of each page
             const showPageDelimiter =
