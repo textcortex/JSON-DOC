@@ -1,6 +1,6 @@
 {
   "name": "@textcortex/jsondoc",
-  "version": "0.2.0-alpha.6",
+  "version": "0.2.0-alpha.7",
   "description": "JSON-DOC TypeScript implementation",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
