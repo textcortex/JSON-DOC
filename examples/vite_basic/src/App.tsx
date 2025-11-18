@@ -18,11 +18,10 @@ const App = () => {
     handleFileChange,
   } = useFileLoader(AVAILABLE_FILES[0]);
 
-  console.log("test page ", testPage);
-
-  if (testPage) {
-    testPage.children = [undefined];
-  }
+  // uncomment to trigger error in renderer
+  // if (testPage) {
+  //   testPage.children = [undefined];
+  // }
 
   // Get backrefs for the currently selected file
   const currentBackrefs = selectedFile?.backrefs || [];
@@ -63,8 +62,6 @@ const App = () => {
       </div>
     );
   }
-
-  console.log("showBackrefs ", currentBackrefs);
 
   return (
     <div
@@ -111,6 +108,10 @@ const App = () => {
               page_delimiter: (props) => {
                 return <PageDelimiter {...props} />;
               },
+            }}
+            pageOverride={{
+              pageNum: 1,
+              component: <p>hehe</p>,
             }}
           />
         )}
