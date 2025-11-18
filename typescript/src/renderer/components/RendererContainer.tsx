@@ -46,8 +46,6 @@ export const RendererContainer: React.FC<RendererContainerProps> = ({
       backrefs,
     });
 
-  console.log("pageOverride ", pageOverride);
-
   useEffect(() => {
     try {
       //TODO: this is not throwing for invalid page object (one that doesn't follow schema)
@@ -84,14 +82,6 @@ export const RendererContainer: React.FC<RendererContainerProps> = ({
               index < page.children.length - 1
                 ? (page.children[index + 1]?.metadata as any)?.origin?.page_num
                 : null;
-
-            console.log("pageOverride ", pageOverride);
-            console.log("currentPageNum ", currentPageNum);
-            console.log(
-              "pageOverride && currentPageNum === pageOverride.pageNum ",
-              pageOverride && currentPageNum === pageOverride.pageNum
-            );
-            console.log("\n".repeat(5));
 
             // Check if this page should be replaced with override component
             if (pageOverride && currentPageNum === pageOverride.pageNum) {

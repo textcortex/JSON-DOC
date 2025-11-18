@@ -63,8 +63,6 @@ const App = () => {
     );
   }
 
-  console.log("showBackrefs ", currentBackrefs);
-
   return (
     <div
       style={{

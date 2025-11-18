@@ -40,7 +40,6 @@ export const JsonDocRenderer = ({
   onError,
   pageOverride,
 }: JsonDocRendererProps) => {
-  console.log("theme: ", theme);
   return (
     <div
       className={`jsondoc-theme-${theme}`}
